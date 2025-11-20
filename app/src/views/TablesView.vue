@@ -1,53 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue';
-import { tables, getCaseClass, getGenderLabel } from '../data/declensionTables.js';
-import examples from '../data/examples.js';
-import ExampleModal from '../components/ExampleModal.vue';
-
-// Filter state (optional - show/hide groups)
-const showArticles = ref(true);
-const showAdjectives = ref(true);
-
-// Modal state
-const isModalOpen = ref(false);
-const modalData = ref({
-  formText: '',
-  caseType: '',
-  gender: '',
-  examples: []
-});
-
-// Handle cell click
-const handleCellClick = (form, caseType, genderIndex) => {
-  const gender = getGenderLabel(genderIndex);
-  const exampleKey = `${form}-${caseType}-${gender}`;
-
-  modalData.value = {
-    formText: form,
-    caseType: caseType,
-    gender: gender,
-    examples: examples[exampleKey] || ['No examples available']
-  };
-
-  isModalOpen.value = true;
-};
-
-// Close modal
-const closeModal = () => {
-  isModalOpen.value = false;
-};
+import { tables, getCaseClass } from '../data/declensionTables.js';
 
 // Get all table entries as array
 const tableEntries = Object.entries(tables);
-
-// Filtered tables based on checkbox filters
-const filteredTables = computed(() => {
-  return tableEntries.filter(([key]) => {
-    if (key.includes('Article')) return showArticles.value;
-    if (key.includes('adjective')) return showAdjectives.value;
-    return true;
-  });
-});
 </script>
 
 <template>
@@ -65,12 +20,11 @@ const filteredTables = computed(() => {
 
       <!-- All Tables - Vertical Stack -->
       <div class="space-y-8">
-        <TransitionGroup name="fade">
-          <div
-            v-for="([key, table], index) in filteredTables"
-            :key="key"
-            class="card table-section"
-          >
+        <div
+          v-for="([key, table], index) in tableEntries"
+          :key="key"
+          class="card table-section"
+        >
             <!-- Table Header -->
             <div class="mb-6">
               <h2 class="text-2xl font-bold text-text-primary text-center">
@@ -132,24 +86,13 @@ const filteredTables = computed(() => {
               </table>
             </div>
           </div>
-        </TransitionGroup>
       </div>
     </div>
-
-    <!-- Example Modal -->
-    <ExampleModal
-      :is-open="isModalOpen"
-      :form-text="modalData.formText"
-      :case-type="modalData.caseType"
-      :gender="modalData.gender"
-      :examples="modalData.examples"
-      @close="closeModal"
-    />
   </div>
 </template>
 
 <style scoped>
-/* Table section spacing and transitions */
+/* Table section spacing */
 .table-section {
   scroll-margin-top: 5rem;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -157,22 +100,6 @@ const filteredTables = computed(() => {
 
 .space-y-8 > * + * {
   margin-top: 2rem;
-}
-
-/* Fade transition for filtered tables */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.fade-enter-from {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
 }
 
 /* Ensure table cells are properly styled */
