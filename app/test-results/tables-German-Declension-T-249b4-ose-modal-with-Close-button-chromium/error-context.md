@@ -1,0 +1,116 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e4]:
+      - generic [ref=e6]:
+        - link "German Declension" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+          - generic [ref=e10]: German Declension
+        - generic [ref=e11]:
+          - link "Home" [ref=e12] [cursor=pointer]:
+            - /url: /
+          - link "Tables" [ref=e13] [cursor=pointer]:
+            - /url: /tables
+          - link "Flashcards" [ref=e14] [cursor=pointer]:
+            - /url: /flashcards
+    - generic [ref=e16]:
+      - banner [ref=e17]:
+        - heading "German Declension Tables" [level=1] [ref=e18]
+        - paragraph [ref=e19]: Color-coded reference for A2 learners
+      - generic [ref=e20]:
+        - heading "Select a table:" [level=2] [ref=e21]
+        - generic [ref=e22]:
+          - generic [ref=e23] [cursor=pointer]:
+            - radio "Definite Article (der/die/das) Use with specific, known nouns" [checked] [ref=e24]
+            - generic [ref=e25]:
+              - generic [ref=e26]: Definite Article (der/die/das)
+              - generic [ref=e27]: Use with specific, known nouns
+          - generic [ref=e28] [cursor=pointer]:
+            - radio "Indefinite Article (ein/eine) Use with non-specific nouns" [ref=e29]
+            - generic [ref=e30]:
+              - generic [ref=e31]: Indefinite Article (ein/eine)
+              - generic [ref=e32]: Use with non-specific nouns
+          - generic [ref=e33] [cursor=pointer]:
+            - radio "Adjective - Weak Declension After definite articles (der/die/das)" [ref=e34]
+            - generic [ref=e35]:
+              - generic [ref=e36]: Adjective - Weak Declension
+              - generic [ref=e37]: After definite articles (der/die/das)
+          - generic [ref=e38] [cursor=pointer]:
+            - radio "Adjective - Strong Declension Without any article" [ref=e39]
+            - generic [ref=e40]:
+              - generic [ref=e41]: Adjective - Strong Declension
+              - generic [ref=e42]: Without any article
+          - generic [ref=e43] [cursor=pointer]:
+            - radio "Adjective - Mixed Declension After indefinite articles (ein/eine/kein/mein)" [ref=e44]
+            - generic [ref=e45]:
+              - generic [ref=e46]: Adjective - Mixed Declension
+              - generic [ref=e47]: After indefinite articles (ein/eine/kein/mein)
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - heading "Definite Article (der/die/das)" [level=2] [ref=e50]
+          - paragraph [ref=e51]: Use with specific, known nouns
+        - table [ref=e53]:
+          - rowgroup [ref=e54]:
+            - row "Case M F N Pl" [ref=e55]:
+              - cell "Case" [ref=e56]
+              - cell "M" [ref=e57]
+              - cell "F" [ref=e58]
+              - cell "N" [ref=e59]
+              - cell "Pl" [ref=e60]
+          - rowgroup [ref=e61]:
+            - row "Nom der die das die" [ref=e62]:
+              - cell "Nom" [ref=e63]
+              - cell "der" [ref=e64] [cursor=pointer]
+              - cell "die" [ref=e65] [cursor=pointer]
+              - cell "das" [ref=e66] [cursor=pointer]
+              - cell "die" [ref=e67] [cursor=pointer]
+            - row "Akk den die das die" [ref=e68]:
+              - cell "Akk" [ref=e69]
+              - cell "den" [ref=e70] [cursor=pointer]
+              - cell "die" [ref=e71] [cursor=pointer]
+              - cell "das" [ref=e72] [cursor=pointer]
+              - cell "die" [ref=e73] [cursor=pointer]
+            - row "Dat dem der dem den" [ref=e74]:
+              - cell "Dat" [ref=e75]
+              - cell "dem" [ref=e76] [cursor=pointer]
+              - cell "der" [ref=e77] [cursor=pointer]
+              - cell "dem" [ref=e78] [cursor=pointer]
+              - cell "den" [ref=e79] [cursor=pointer]
+            - row "Gen des der des der" [ref=e80]:
+              - cell "Gen" [ref=e81]
+              - cell "des" [ref=e82] [cursor=pointer]
+              - cell "der" [ref=e83] [cursor=pointer]
+              - cell "des" [ref=e84] [cursor=pointer]
+              - cell "der" [ref=e85] [cursor=pointer]
+        - generic [ref=e86]: Click any cell to see example sentences
+      - generic [ref=e87]:
+        - heading "Case Colors:" [level=3] [ref=e88]
+        - generic [ref=e89]:
+          - generic [ref=e92]: Nominativ
+          - generic [ref=e95]: Akkusativ
+          - generic [ref=e98]: Dativ
+          - generic [ref=e101]: Genitiv
+  - generic [ref=e103]:
+    - generic [ref=e104]:
+      - generic [ref=e105]:
+        - generic [ref=e106]: der
+        - generic [ref=e107]: Nominativ, Masculine
+      - button "Close modal" [ref=e108]:
+        - img [ref=e109]
+    - generic [ref=e111]:
+      - heading "Examples:" [level=3] [ref=e112]
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - paragraph [ref=e115]: Der Mann ist groß.
+          - paragraph [ref=e116]: The man is tall
+        - generic [ref=e117]:
+          - paragraph [ref=e118]: Der Hund läuft schnell.
+          - paragraph [ref=e119]: The dog runs fast
+        - generic [ref=e120]:
+          - paragraph [ref=e121]: Der große Mann geht.
+          - paragraph [ref=e122]: The big man walks
+    - button "Close" [ref=e124]
+```

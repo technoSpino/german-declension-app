@@ -3,12 +3,12 @@ import { test, expect } from '@playwright/test';
 test.describe('Flashcard System Tests', () => {
   test.beforeEach(async ({ page }) => {
     // Clear localStorage before each test
-    await page.goto('http://localhost:5175');
+    await page.goto('/');
     await page.evaluate(() => localStorage.clear());
   });
 
   test('should load flashcards page and display study mode', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Check if header is visible
     await expect(page.locator('h1')).toContainText('German Declension Flashcards');
@@ -21,14 +21,14 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should display due cards count in study mode', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Should show cards due for review (all 55 cards initially)
     await expect(page.locator('.mode-badge')).toBeVisible();
   });
 
   test('should flip flashcard on click', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Wait for flashcard to load
     await page.waitForSelector('.flashcard-container', { timeout: 5000 });
@@ -46,7 +46,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should answer card correctly and move to next', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Wait for flashcard
     await page.waitForSelector('.flashcard-container', { timeout: 5000 });
@@ -71,7 +71,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should answer card incorrectly and move to next', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Wait for flashcard
     await page.waitForSelector('.flashcard-container', { timeout: 5000 });
@@ -89,7 +89,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should switch to browse mode and display all cards', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Click on Browse tab
     await page.locator('.mode-tab').filter({ hasText: 'Browse' }).click();
@@ -104,7 +104,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should filter cards in browse mode', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Switch to Browse mode
     await page.locator('.mode-tab').filter({ hasText: 'Browse' }).click();
@@ -123,7 +123,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should display stats in stats mode', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Click on Stats tab
     await page.locator('.mode-tab').filter({ hasText: 'Stats' }).click();
@@ -137,7 +137,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should persist progress to localStorage', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Wait for flashcard
     await page.waitForSelector('.flashcard-container', { timeout: 5000 });
@@ -161,7 +161,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should load progress from localStorage on page reload', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Wait for flashcard
     await page.waitForSelector('.flashcard-container', { timeout: 5000 });
@@ -186,7 +186,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should use keyboard shortcuts in study mode', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Wait for flashcard
     await page.waitForSelector('.flashcard-container', { timeout: 5000 });
@@ -207,7 +207,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should reset card progress in browse mode', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Switch to Browse mode
     await page.locator('.mode-tab').filter({ hasText: 'Browse' }).click();
@@ -225,7 +225,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should display Leitner box distribution in stats', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Go to Stats mode
     await page.locator('.mode-tab').filter({ hasText: 'Stats' }).click();
@@ -240,7 +240,7 @@ test.describe('Flashcard System Tests', () => {
   });
 
   test('should display accuracy by case in stats', async ({ page }) => {
-    await page.goto('http://localhost:5175/flashcards');
+    await page.goto('/flashcards');
 
     // Go to Stats mode
     await page.locator('.mode-tab').filter({ hasText: 'Stats' }).click();

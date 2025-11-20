@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('German Declension Tables Module', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:5174/tables');
+    await page.goto('/tables');
   });
 
   test('should display page title and description', async ({ page }) => {
