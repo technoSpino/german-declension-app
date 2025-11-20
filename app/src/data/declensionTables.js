@@ -2,64 +2,15 @@
 // Each table contains a grid with: [case, masculine, feminine, neuter, plural]
 
 export const tables = {
-  definiteArticle: {
-    id: 'definiteArticle',
-    name: 'Definite Article (der/die/das)',
-    description: 'Use with specific, known nouns',
+  adjectiveExamples: {
+    id: 'adjectiveExamples',
+    name: 'German Declension with Adjectives',
+    description: 'Articles + adjectives highlighted to show patterns',
     grid: [
-      // [case, masculine, feminine, neuter, plural]
-      ['Nom', 'der', 'die', 'das', 'die'],
-      ['Akk', 'den', 'die', 'das', 'die'],
-      ['Dat', 'dem', 'der', 'dem', 'den'],
-      ['Gen', 'des', 'der', 'des', 'der']
-    ]
-  },
-
-  indefiniteArticle: {
-    id: 'indefiniteArticle',
-    name: 'Indefinite Article (ein/eine)',
-    description: 'Use with non-specific nouns',
-    grid: [
-      ['Nom', 'ein', 'eine', 'ein', '—'],
-      ['Akk', 'einen', 'eine', 'ein', '—'],
-      ['Dat', 'einem', 'einer', 'einem', '—'],
-      ['Gen', 'eines', 'einer', 'eines', '—']
-    ]
-  },
-
-  adjectiveWeak: {
-    id: 'adjectiveWeak',
-    name: 'Adjective - Weak Declension',
-    description: 'After definite articles (der/die/das)',
-    grid: [
-      ['Nom', '-e', '-e', '-e', '-en'],
-      ['Akk', '-en', '-e', '-e', '-en'],
-      ['Dat', '-en', '-en', '-en', '-en'],
-      ['Gen', '-en', '-en', '-en', '-en']
-    ]
-  },
-
-  adjectiveStrong: {
-    id: 'adjectiveStrong',
-    name: 'Adjective - Strong Declension',
-    description: 'Without any article',
-    grid: [
-      ['Nom', '-er', '-e', '-es', '-e'],
-      ['Akk', '-en', '-e', '-es', '-e'],
-      ['Dat', '-em', '-er', '-em', '-en'],
-      ['Gen', '-en', '-er', '-en', '-er']
-    ]
-  },
-
-  adjectiveMixed: {
-    id: 'adjectiveMixed',
-    name: 'Adjective - Mixed Declension',
-    description: 'After indefinite articles (ein/eine/kein/mein)',
-    grid: [
-      ['Nom', '-er', '-e', '-es', '-en'],
-      ['Akk', '-en', '-e', '-es', '-en'],
-      ['Dat', '-en', '-en', '-en', '-en'],
-      ['Gen', '-en', '-en', '-en', '-en']
+      ['Nom', '<b>der</b> nett<span class="ending-e">e</span> Mann\n<b>ein</b> nett<span class="ending-er">er</span> Mann', '<b>das</b> nett<span class="ending-e">e</span> Kind\n<b>ein</b> nett<span class="ending-es">es</span> Kind', '<b>die</b> nett<span class="ending-e">e</span> Frau\n<b>eine</b> nett<span class="ending-e">e</span> Frau', '<b>die</b> nett<span class="ending-en">en</span> Leute\nnett<span class="ending-e">e</span> Leute'],
+      ['Akk', '<b>den</b> nett<span class="ending-en">en</span> Mann\n<b>einen</b> nett<span class="ending-en">en</span> Mann', '<b>das</b> nett<span class="ending-e">e</span> Kind\n<b>ein</b> nett<span class="ending-es">es</span> Kind', '<b>die</b> toll<span class="ending-e">e</span> Frau\n<b>eine</b> toll<span class="ending-e">e</span> Frau', '<b>die</b> nett<span class="ending-en">en</span> Leute\nnett<span class="ending-e">e</span> Leute'],
+      ['Dat', '<b>dem</b> nett<span class="ending-en">en</span> Mann\n<b>einem</b> nett<span class="ending-en">en</span> Mann', '<b>dem</b> nett<span class="ending-en">en</span> Kind\n<b>einem</b> nett<span class="ending-en">en</span> Kind', '<b>der</b> nett<span class="ending-en">en</span> Frau\n<b>einer</b> nett<span class="ending-en">en</span> Frau', '<b>den</b> nett<span class="ending-en">en</span> Leuten\nnett<span class="ending-en">en</span> Leuten'],
+      ['Gen', '<b>des</b> nett<span class="ending-en">en</span> Mannes\n<b>eines</b> nett<span class="ending-en">en</span> Mannes', '<b>des</b> nett<span class="ending-en">en</span> Kindes\n<b>eines</b> nett<span class="ending-en">en</span> Kindes', '<b>der</b> nett<span class="ending-en">en</span> Frau\n<b>einer</b> nett<span class="ending-en">en</span> Frau', '<b>der</b> nett<span class="ending-en">en</span> Leute\nnett<span class="ending-er">er</span> Leute']
     ]
   }
 };

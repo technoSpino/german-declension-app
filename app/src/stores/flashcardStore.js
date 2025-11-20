@@ -11,6 +11,7 @@ const LEITNER_INTERVALS = {
 };
 
 const STORAGE_KEY = 'german-declension-flashcards';
+const DATA_VERSION = 3; // Increment this when flashcard content changes
 
 export const useFlashcardStore = defineStore('flashcard', {
   state: () => ({
@@ -204,14 +205,25 @@ export const useFlashcardStore = defineStore('flashcard', {
       if (stored) {
         try {
           const data = JSON.parse(stored);
-          this.cards = data.cards || [];
 
-          // If stored cards don't match initial cards (new cards added), merge them
-          if (this.cards.length !== initialFlashcards.length) {
-            this.mergeNewCards();
+          // Check if data version matches - if not, refresh with new card content
+          if (data.version !== DATA_VERSION) {
+            console.log(`Flashcard data updated (v${data.version || 1} → v${DATA_VERSION}) - refreshing from source`);
+            // Keep user progress (box, counts, dates) but update card content
+            this.refreshCardContent(data.cards || []);
+          } else {
+            this.cards = data.cards || [];
+
+            // If stored cards don't match initial cards (new cards added), merge them
+            if (this.cards.length !== initialFlashcards.length) {
+              this.mergeNewCards();
+            }
           }
         } catch (e) {
-          console.error('Error loading flashcards from localStorage:', e);
+          console.error('Error loading flashcards from localStorage - clearing and using fresh data:', e);
+          // Clear corrupted localStorage data
+          localStorage.removeItem(STORAGE_KEY);
+          // Use fresh flashcard data
           this.cards = JSON.parse(JSON.stringify(initialFlashcards));
         }
       } else {
@@ -221,6 +233,33 @@ export const useFlashcardStore = defineStore('flashcard', {
 
       this.startSession();
       this.saveToLocalStorage();
+    },
+
+    // Refresh card content while preserving user progress
+    refreshCardContent(oldCards) {
+      // Create a map of old cards by ID to preserve progress
+      const progressMap = new Map();
+      oldCards.forEach(card => {
+        progressMap.set(card.id, {
+          box: card.box,
+          lastReviewed: card.lastReviewed,
+          nextReview: card.nextReview,
+          correctCount: card.correctCount,
+          incorrectCount: card.incorrectCount
+        });
+      });
+
+      // Use fresh card data but restore progress
+      this.cards = initialFlashcards.map(freshCard => {
+        const progress = progressMap.get(freshCard.id);
+        if (progress) {
+          return {
+            ...freshCard,
+            ...progress
+          };
+        }
+        return { ...freshCard };
+      });
     },
 
     // Merge new cards from initial data if they don't exist
@@ -237,6 +276,7 @@ export const useFlashcardStore = defineStore('flashcard', {
     saveToLocalStorage() {
       try {
         const data = {
+          version: DATA_VERSION,
           cards: this.cards,
           lastUpdated: new Date().toISOString()
         };
@@ -244,6 +284,13 @@ export const useFlashcardStore = defineStore('flashcard', {
       } catch (e) {
         console.error('Error saving to localStorage:', e);
       }
+    },
+
+    // Force refresh card content from source (button action)
+    forceRefreshCards() {
+      const oldCards = this.cards;
+      this.refreshCardContent(oldCards);
+      this.saveToLocalStorage();
     },
 
     // Calculate next review date based on Leitner box

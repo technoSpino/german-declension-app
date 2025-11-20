@@ -7,7 +7,7 @@ export const flashcards = [
   // ========== DEFINITE ARTICLES (EASY) ==========
   {
     id: 1,
-    front: "_____ Mann (der Mann, Nominativ)",
+    front: "_____ Mann (Nominativ, masculine)",
     back: "der Mann",
     explanation: "Nominativ masculine uses 'der'",
     hint: "Subject form, masculine",
@@ -21,7 +21,7 @@ export const flashcards = [
   },
   {
     id: 2,
-    front: "_____ Frau (die Frau, Nominativ)",
+    front: "_____ Frau (Nominativ, feminine)",
     back: "die Frau",
     explanation: "Nominativ feminine uses 'die'",
     hint: "Subject form, feminine",
@@ -35,7 +35,7 @@ export const flashcards = [
   },
   {
     id: 3,
-    front: "_____ Kind (das Kind, Nominativ)",
+    front: "_____ Kind (Nominativ, neuter)",
     back: "das Kind",
     explanation: "Nominativ neuter uses 'das'",
     hint: "Subject form, neuter",
@@ -49,7 +49,7 @@ export const flashcards = [
   },
   {
     id: 4,
-    front: "Ich sehe _____ Mann (Akkusativ)",
+    front: 'Ich <span class="verb">sehe</span> _____ Mann (Akkusativ)',
     back: "den Mann",
     explanation: "Akkusativ masculine uses 'den' - direct object",
     hint: "Direct object, masculine changes",
@@ -63,7 +63,7 @@ export const flashcards = [
   },
   {
     id: 5,
-    front: "Ich sehe _____ Frau (Akkusativ)",
+    front: 'Ich <span class="verb">sehe</span> _____ Frau (Akkusativ)',
     back: "die Frau",
     explanation: "Akkusativ feminine uses 'die' - same as nominativ",
     hint: "Direct object, feminine stays same",
@@ -77,7 +77,7 @@ export const flashcards = [
   },
   {
     id: 6,
-    front: "Ich gebe _____ Mann das Buch (Dativ)",
+    front: 'Ich <span class="verb">gebe</span> _____ Mann das Buch (Dativ)',
     back: "dem Mann",
     explanation: "Dativ masculine uses 'dem' - indirect object",
     hint: "Indirect object, masculine",
@@ -91,7 +91,7 @@ export const flashcards = [
   },
   {
     id: 7,
-    front: "Ich gebe _____ Frau das Buch (Dativ)",
+    front: 'Ich <span class="verb">gebe</span> _____ Frau das Buch (Dativ)',
     back: "der Frau",
     explanation: "Dativ feminine uses 'der' - indirect object",
     hint: "Indirect object, feminine",
@@ -105,7 +105,7 @@ export const flashcards = [
   },
   {
     id: 8,
-    front: "Das Auto _____ Mannes ist rot (Genitiv)",
+    front: 'Das Auto _____ Mannes ist <span class="verb">rot</span> (Genitiv)',
     back: "des Mannes",
     explanation: "Genitiv masculine uses 'des' + -es ending",
     hint: "Possession, masculine",
@@ -119,7 +119,7 @@ export const flashcards = [
   },
   {
     id: 9,
-    front: "Das Auto _____ Frau ist rot (Genitiv)",
+    front: 'Das Auto _____ Frau ist <span class="verb">rot</span> (Genitiv)',
     back: "der Frau",
     explanation: "Genitiv feminine uses 'der'",
     hint: "Possession, feminine",
@@ -133,7 +133,7 @@ export const flashcards = [
   },
   {
     id: 10,
-    front: "_____ Kinder spielen (Plural, Nominativ)",
+    front: '_____ Kinder <span class="verb">spielen</span> (Nominativ, plural)',
     back: "die Kinder",
     explanation: "Plural nominativ always uses 'die'",
     hint: "Plural subject form",
@@ -149,7 +149,7 @@ export const flashcards = [
   // ========== INDEFINITE ARTICLES (EASY-MEDIUM) ==========
   {
     id: 11,
-    front: "Das ist _____ Mann (ein, Nominativ)",
+    front: "Das ist _____ Mann (indefinite, Nominativ, masculine)",
     back: "ein Mann",
     explanation: "Indefinite article masculine nominativ is 'ein'",
     hint: "A/an, masculine subject",
@@ -163,7 +163,7 @@ export const flashcards = [
   },
   {
     id: 12,
-    front: "Das ist _____ Frau (eine, Nominativ)",
+    front: "Das ist _____ Frau (indefinite, Nominativ, feminine)",
     back: "eine Frau",
     explanation: "Indefinite article feminine nominativ is 'eine'",
     hint: "A/an, feminine subject",
@@ -177,7 +177,7 @@ export const flashcards = [
   },
   {
     id: 13,
-    front: "Ich sehe _____ Mann (einen, Akkusativ)",
+    front: 'Ich <span class="verb">sehe</span> _____ Mann (indefinite, Akkusativ, masculine)',
     back: "einen Mann",
     explanation: "Indefinite article masculine akkusativ is 'einen'",
     hint: "A/an, masculine direct object",
@@ -191,7 +191,7 @@ export const flashcards = [
   },
   {
     id: 14,
-    front: "Ich helfe _____ Mann (einem, Dativ)",
+    front: 'Ich <span class="verb">helfe</span> _____ Mann (indefinite, Dativ, masculine)',
     back: "einem Mann",
     explanation: "Indefinite article masculine dativ is 'einem'",
     hint: "A/an, masculine indirect object",
@@ -205,7 +205,7 @@ export const flashcards = [
   },
   {
     id: 15,
-    front: "Das Auto _____ Mannes (eines, Genitiv)",
+    front: "Das Auto _____ Mannes (indefinite, Genitiv, masculine)",
     back: "eines Mannes",
     explanation: "Indefinite article masculine genitiv is 'eines' + -es",
     hint: "Of a, masculine possession",
@@ -221,7 +221,7 @@ export const flashcards = [
   // ========== WEAK ADJECTIVE DECLENSION (with definite article) ==========
   {
     id: 16,
-    front: "_____ alt_____ Mann läuft (der alte, Nominativ)",
+    front: '_____ alt_____ Mann <span class="verb">läuft</span> (definite article, Nominativ, masculine)',
     back: "der alte Mann",
     explanation: "After 'der', adjectives take -e ending in nominativ",
     hint: "Definite article + weak ending",
@@ -235,7 +235,7 @@ export const flashcards = [
   },
   {
     id: 17,
-    front: "_____ schön_____ Frau singt (die schöne, Nominativ)",
+    front: '_____ schön_____ Frau <span class="verb">singt</span> (definite article, Nominativ, feminine)',
     back: "die schöne Frau",
     explanation: "After 'die', adjectives take -e ending in nominativ",
     hint: "Definite article + weak ending",
@@ -249,7 +249,7 @@ export const flashcards = [
   },
   {
     id: 18,
-    front: "_____ klein_____ Kind spielt (das kleine, Nominativ)",
+    front: '_____ klein_____ Kind <span class="verb">spielt</span> (definite article, Nominativ, neuter)',
     back: "das kleine Kind",
     explanation: "After 'das', adjectives take -e ending in nominativ",
     hint: "Definite article + weak ending",
@@ -263,7 +263,7 @@ export const flashcards = [
   },
   {
     id: 19,
-    front: "Ich sehe _____ alt_____ Mann (den alten, Akkusativ)",
+    front: 'Ich <span class="verb">sehe</span> _____ alt_____ Mann (definite article, Akkusativ, masculine)',
     back: "den alten Mann",
     explanation: "After 'den', adjectives take -en ending (weak)",
     hint: "Definite article + -en",
@@ -277,7 +277,7 @@ export const flashcards = [
   },
   {
     id: 20,
-    front: "Ich sehe _____ schön_____ Frau (die schöne, Akkusativ)",
+    front: 'Ich <span class="verb">sehe</span> _____ schön_____ Frau (definite article, Akkusativ, feminine)',
     back: "die schöne Frau",
     explanation: "After 'die' (akk), adjectives take -e ending",
     hint: "Definite article + -e",
@@ -291,7 +291,7 @@ export const flashcards = [
   },
   {
     id: 21,
-    front: "Ich helfe _____ alt_____ Mann (dem alten, Dativ)",
+    front: 'Ich <span class="verb">helfe</span> _____ alt_____ Mann (definite article, Dativ, masculine)',
     back: "dem alten Mann",
     explanation: "After 'dem', adjectives take -en ending (weak)",
     hint: "Definite article + -en",
@@ -305,7 +305,7 @@ export const flashcards = [
   },
   {
     id: 22,
-    front: "Ich helfe _____ schön_____ Frau (der schönen, Dativ)",
+    front: 'Ich <span class="verb">helfe</span> _____ schön_____ Frau (definite article, Dativ, feminine)',
     back: "der schönen Frau",
     explanation: "After 'der' (dat), adjectives take -en ending",
     hint: "Definite article + -en",
@@ -321,7 +321,7 @@ export const flashcards = [
   // ========== STRONG ADJECTIVE DECLENSION (no article) ==========
   {
     id: 23,
-    front: "_____ Mann läuft (alter, Nominativ, no article)",
+    front: '_____ Mann <span class="verb">läuft</span> (no article, Nominativ, masculine)',
     back: "alter Mann",
     explanation: "Without article, masculine nom adjective takes -er (strong)",
     hint: "No article = strong ending",
@@ -335,7 +335,7 @@ export const flashcards = [
   },
   {
     id: 24,
-    front: "_____ Frau singt (schöne, Nominativ, no article)",
+    front: '_____ Frau <span class="verb">singt</span> (no article, Nominativ, feminine)',
     back: "schöne Frau",
     explanation: "Without article, feminine nom adjective takes -e (strong)",
     hint: "No article = strong ending",
@@ -349,7 +349,7 @@ export const flashcards = [
   },
   {
     id: 25,
-    front: "_____ Kind spielt (kleines, Nominativ, no article)",
+    front: '_____ Kind <span class="verb">spielt</span> (no article, Nominativ, neuter)',
     back: "kleines Kind",
     explanation: "Without article, neuter nom adjective takes -es (strong)",
     hint: "No article = strong ending",
@@ -363,7 +363,7 @@ export const flashcards = [
   },
   {
     id: 26,
-    front: "Ich trinke _____ Wein (guten, Akkusativ, no article)",
+    front: 'Ich <span class="verb">trinke</span> _____ Wein (no article, Akkusativ, masculine)',
     back: "guten Wein",
     explanation: "Without article, masculine akk adjective takes -en (strong)",
     hint: "No article, direct object",
@@ -377,7 +377,7 @@ export const flashcards = [
   },
   {
     id: 27,
-    front: "Ich esse _____ Suppe (gute, Akkusativ, no article)",
+    front: 'Ich <span class="verb">esse</span> _____ Suppe (no article, Akkusativ, feminine)',
     back: "gute Suppe",
     explanation: "Without article, feminine akk adjective takes -e (strong)",
     hint: "No article, direct object",
@@ -391,7 +391,7 @@ export const flashcards = [
   },
   {
     id: 28,
-    front: "Mit _____ Wein (gutem, Dativ, no article)",
+    front: "Mit _____ Wein (no article, Dativ, masculine)",
     back: "gutem Wein",
     explanation: "Without article, masculine dat adjective takes -em (strong)",
     hint: "No article, indirect object",
@@ -405,7 +405,7 @@ export const flashcards = [
   },
   {
     id: 29,
-    front: "Mit _____ Milch (guter, Dativ, no article)",
+    front: "Mit _____ Milch (no article, Dativ, feminine)",
     back: "guter Milch",
     explanation: "Without article, feminine dat adjective takes -er (strong)",
     hint: "No article, indirect object",
@@ -421,7 +421,7 @@ export const flashcards = [
   // ========== MIXED ADJECTIVE DECLENSION (with ein/eine) ==========
   {
     id: 30,
-    front: "_____ alt_____ Mann (ein alter, Nominativ)",
+    front: "_____ alt_____ Mann (indefinite article, Nominativ, masculine)",
     back: "ein alter Mann",
     explanation: "After 'ein', adjective takes -er (mixed: strong ending)",
     hint: "Indefinite article + strong ending",
@@ -435,7 +435,7 @@ export const flashcards = [
   },
   {
     id: 31,
-    front: "_____ schön_____ Frau (eine schöne, Nominativ)",
+    front: "_____ schön_____ Frau (indefinite article, Nominativ, feminine)",
     back: "eine schöne Frau",
     explanation: "After 'eine', adjective takes -e (mixed: weak ending)",
     hint: "Indefinite article + weak ending",
@@ -449,7 +449,7 @@ export const flashcards = [
   },
   {
     id: 32,
-    front: "_____ klein_____ Kind (ein kleines, Nominativ)",
+    front: "_____ klein_____ Kind (indefinite article, Nominativ, neuter)",
     back: "ein kleines Kind",
     explanation: "After 'ein', adjective takes -es (mixed: strong ending)",
     hint: "Indefinite article + strong ending",
@@ -463,7 +463,7 @@ export const flashcards = [
   },
   {
     id: 33,
-    front: "Ich sehe _____ alt_____ Mann (einen alten, Akkusativ)",
+    front: 'Ich <span class="verb">sehe</span> _____ alt_____ Mann (indefinite article, Akkusativ, masculine)',
     back: "einen alten Mann",
     explanation: "After 'einen', adjective takes -en (mixed: weak ending)",
     hint: "Indefinite article + weak ending",
@@ -477,7 +477,7 @@ export const flashcards = [
   },
   {
     id: 34,
-    front: "Ich sehe _____ schön_____ Frau (eine schöne, Akkusativ)",
+    front: 'Ich <span class="verb">sehe</span> _____ schön_____ Frau (indefinite article, Akkusativ, feminine)',
     back: "eine schöne Frau",
     explanation: "After 'eine' (akk), adjective takes -e (mixed: weak ending)",
     hint: "Indefinite article + weak ending",
@@ -491,7 +491,7 @@ export const flashcards = [
   },
   {
     id: 35,
-    front: "Ich helfe _____ alt_____ Mann (einem alten, Dativ)",
+    front: 'Ich <span class="verb">helfe</span> _____ alt_____ Mann (indefinite article, Dativ, masculine)',
     back: "einem alten Mann",
     explanation: "After 'einem', adjective takes -en (mixed: weak ending)",
     hint: "Indefinite article + weak ending",
@@ -507,7 +507,7 @@ export const flashcards = [
   // ========== PLURAL FORMS ==========
   {
     id: 36,
-    front: "_____ alt_____ Männer (die alten, Nominativ Plural)",
+    front: "_____ alt_____ Männer (definite article, Nominativ, plural)",
     back: "die alten Männer",
     explanation: "Plural with definite article: adjective takes -en",
     hint: "Plural + definite article",
@@ -521,7 +521,7 @@ export const flashcards = [
   },
   {
     id: 37,
-    front: "Ich sehe _____ alt_____ Männer (die alten, Akkusativ Plural)",
+    front: 'Ich <span class="verb">sehe</span> _____ alt_____ Männer (definite article, Akkusativ, plural)',
     back: "die alten Männer",
     explanation: "Plural with definite article (akk): adjective takes -en",
     hint: "Plural + definite article",
@@ -535,7 +535,7 @@ export const flashcards = [
   },
   {
     id: 38,
-    front: "Mit _____ alt_____ Männern (den alten, Dativ Plural)",
+    front: "Mit _____ alt_____ Männern (definite article, Dativ, plural)",
     back: "den alten Männern",
     explanation: "Plural dativ: article 'den' + adjective -en + noun -n",
     hint: "Plural dativ = triple -n",
@@ -549,7 +549,7 @@ export const flashcards = [
   },
   {
     id: 39,
-    front: "_____ Männer arbeiten (alte, Nominativ Plural, no article)",
+    front: '_____ Männer <span class="verb">arbeiten</span> (no article, Nominativ, plural)',
     back: "alte Männer",
     explanation: "Plural without article: adjective takes -e (strong)",
     hint: "Plural + no article",
@@ -563,7 +563,7 @@ export const flashcards = [
   },
   {
     id: 40,
-    front: "Mit _____ Männern (alten, Dativ Plural, no article)",
+    front: "Mit _____ Männern (no article, Dativ, plural)",
     back: "alten Männern",
     explanation: "Plural dativ without article: adjective -en + noun -n",
     hint: "Plural dativ no article",
@@ -579,7 +579,7 @@ export const flashcards = [
   // ========== COMPLEX COMBINATIONS ==========
   {
     id: 41,
-    front: "Das Haus _____ reich_____ Mannes (des reichen, Genitiv)",
+    front: "Das Haus _____ reich_____ Mannes (definite article, Genitiv, masculine)",
     back: "des reichen Mannes",
     explanation: "Genitiv with definite article: des + adjective -en + noun -es",
     hint: "Possession with definite article",
@@ -593,7 +593,7 @@ export const flashcards = [
   },
   {
     id: 42,
-    front: "Das Haus _____ reich_____ Frau (der reichen, Genitiv)",
+    front: "Das Haus _____ reich_____ Frau (definite article, Genitiv, feminine)",
     back: "der reichen Frau",
     explanation: "Genitiv feminine with definite article: der + adjective -en",
     hint: "Possession feminine",
@@ -607,7 +607,7 @@ export const flashcards = [
   },
   {
     id: 43,
-    front: "Das Dach _____ alt_____ Hauses (des alten, Genitiv neuter)",
+    front: "Das Dach _____ alt_____ Hauses (definite article, Genitiv, neuter)",
     back: "des alten Hauses",
     explanation: "Genitiv neuter: des + adjective -en + noun -es",
     hint: "Possession neuter",
@@ -621,7 +621,7 @@ export const flashcards = [
   },
   {
     id: 44,
-    front: "Wegen _____ schlecht_____ Wetters (des schlechten, Genitiv)",
+    front: "Wegen _____ schlecht_____ Wetters (definite article, Genitiv, neuter)",
     back: "des schlechten Wetters",
     explanation: "Preposition 'wegen' requires genitiv: des + -en + -s",
     hint: "Wegen + genitiv",
@@ -635,7 +635,7 @@ export const flashcards = [
   },
   {
     id: 45,
-    front: "Trotz _____ stark_____ Regens (des starken, Genitiv)",
+    front: "Trotz _____ stark_____ Regens (definite article, Genitiv, masculine)",
     back: "des starken Regens",
     explanation: "Preposition 'trotz' requires genitiv: des + -en + -s",
     hint: "Trotz + genitiv",
@@ -651,7 +651,7 @@ export const flashcards = [
   // ========== SPECIAL CASES & EDGE CASES ==========
   {
     id: 46,
-    front: "Ich möchte _____ kalt_____ Bier (ein kaltes, Akkusativ neuter)",
+    front: 'Ich <span class="verb">möchte</span> _____ kalt_____ Bier (indefinite article, Akkusativ, neuter)',
     back: "ein kaltes Bier",
     explanation: "Mixed declension: ein + adjective -es (strong ending for neuter)",
     hint: "Indefinite neuter akk",
@@ -665,7 +665,7 @@ export const flashcards = [
   },
   {
     id: 47,
-    front: "Mit _____ gut_____ Freund (einem guten, Dativ)",
+    front: "Mit _____ gut_____ Freund (indefinite article, Dativ, masculine)",
     back: "einem guten Freund",
     explanation: "Mixed declension dativ: einem + adjective -en",
     hint: "Indefinite dativ",
@@ -679,7 +679,7 @@ export const flashcards = [
   },
   {
     id: 48,
-    front: "Das Auto _____ gut_____ Freundes (eines guten, Genitiv)",
+    front: "Das Auto _____ gut_____ Freundes (indefinite article, Genitiv, masculine)",
     back: "eines guten Freundes",
     explanation: "Mixed declension genitiv: eines + adjective -en + noun -es",
     hint: "Indefinite genitiv",
@@ -693,7 +693,7 @@ export const flashcards = [
   },
   {
     id: 49,
-    front: "_____ rot_____ Wein schmeckt gut (roter, Nominativ, no article)",
+    front: '_____ rot_____ Wein <span class="verb">schmeckt</span> gut (no article, Nominativ, masculine)',
     back: "roter Wein",
     explanation: "Strong declension: no article, masculine nom = -er",
     hint: "No article, subject",
@@ -707,7 +707,7 @@ export const flashcards = [
   },
   {
     id: 50,
-    front: "_____ heiß_____ Kaffee (heißer, Nominativ masculine, no article)",
+    front: "_____ heiß_____ Kaffee (no article, Nominativ, masculine)",
     back: "heißer Kaffee",
     explanation: "Strong declension nominativ masculine: adjective -er",
     hint: "No article, masculine subject",
@@ -721,7 +721,7 @@ export const flashcards = [
   },
   {
     id: 51,
-    front: "Ich trinke _____ frisch_____ Milch (frische, Akkusativ feminine, no article)",
+    front: 'Ich <span class="verb">trinke</span> _____ frisch_____ Milch (no article, Akkusativ, feminine)',
     back: "frische Milch",
     explanation: "Strong declension akkusativ feminine: adjective -e",
     hint: "No article, feminine direct object",
@@ -735,7 +735,7 @@ export const flashcards = [
   },
   {
     id: 52,
-    front: "_____ lang_____ Frauen warten (die langen, Nominativ Plural)",
+    front: '_____ lang_____ Frauen <span class="verb">warten</span> (definite article, Nominativ, plural)',
     back: "die langen Frauen",
     explanation: "Weak declension plural nominativ: die + adjective -en",
     hint: "Definite plural subject",
@@ -749,7 +749,7 @@ export const flashcards = [
   },
   {
     id: 53,
-    front: "Für _____ klein_____ Kinder (die kleinen, Akkusativ Plural)",
+    front: "Für _____ klein_____ Kinder (definite article, Akkusativ, plural)",
     back: "die kleinen Kinder",
     explanation: "Weak declension plural akkusativ: die + adjective -en",
     hint: "Für + akk plural",
@@ -763,7 +763,7 @@ export const flashcards = [
   },
   {
     id: 54,
-    front: "Mit _____ neu_____ Freunden (neuen, Dativ Plural, no article)",
+    front: "Mit _____ neu_____ Freunden (no article, Dativ, plural)",
     back: "neuen Freunden",
     explanation: "Strong declension dativ plural: adjective -en + noun -n",
     hint: "No article, dativ plural",
@@ -777,7 +777,7 @@ export const flashcards = [
   },
   {
     id: 55,
-    front: "Die Farbe _____ blau_____ Himmels (des blauen, Genitiv)",
+    front: "Die Farbe _____ blau_____ Himmels (definite article, Genitiv, masculine)",
     back: "des blauen Himmels",
     explanation: "Weak declension genitiv masculine: des + adjective -en + noun -s",
     hint: "Definite genitiv",

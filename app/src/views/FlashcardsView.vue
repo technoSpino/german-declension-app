@@ -313,11 +313,16 @@
         </div>
       </div>
 
-      <!-- Reset Button -->
+      <!-- Reset and Refresh Buttons -->
       <div class="stats-section">
-        <button @click="confirmReset" class="reset-all-button">
-          Reset All Progress
-        </button>
+        <div class="action-buttons-grid">
+          <button @click="refreshCards" class="refresh-button">
+            Refresh Card Content
+          </button>
+          <button @click="confirmReset" class="reset-all-button">
+            Reset All Progress
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -379,14 +384,28 @@ const toggleFlip = () => {
 
 const answerCorrect = () => {
   if (!currentCard.value) return;
-  store.answerCorrect(currentCard.value.id);
+  const cardId = currentCard.value.id;
+
+  // First flip the card back
   isFlipped.value = false;
+
+  // Wait for flip animation to complete (600ms) before moving to next card
+  setTimeout(() => {
+    store.answerCorrect(cardId);
+  }, 600);
 };
 
 const answerIncorrect = () => {
   if (!currentCard.value) return;
-  store.answerIncorrect(currentCard.value.id);
+  const cardId = currentCard.value.id;
+
+  // First flip the card back
   isFlipped.value = false;
+
+  // Wait for flip animation to complete (600ms) before moving to next card
+  setTimeout(() => {
+    store.answerIncorrect(cardId);
+  }, 600);
 };
 
 // Keyboard shortcuts
@@ -457,6 +476,13 @@ const getBoxColor = (box) => {
     5: '#22c55e'
   };
   return colors[box] || '#6b7280';
+};
+
+const refreshCards = () => {
+  if (confirm('Refresh flashcard content from source? This will update card text/hints while preserving your progress.')) {
+    store.forceRefreshCards();
+    alert('Flashcard content has been refreshed!');
+  }
 };
 
 const confirmReset = () => {
@@ -1033,8 +1059,30 @@ const confirmReset = () => {
   color: #475569;
 }
 
+.action-buttons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.refresh-button {
+  padding: 16px;
+  background: #f0f9ff;
+  color: #0369a1;
+  border: 2px solid #bae6fd;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.refresh-button:hover {
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+}
+
 .reset-all-button {
-  width: 100%;
   padding: 16px;
   background: #fef2f2;
   color: #dc2626;
@@ -1186,6 +1234,10 @@ const confirmReset = () => {
 
   .action-buttons {
     flex-direction: column;
+  }
+
+  .action-buttons-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

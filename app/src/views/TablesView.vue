@@ -1,11 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { tables, getCaseClass, getGenderLabel } from '../data/declensionTables.js';
 import examples from '../data/examples.js';
 import ExampleModal from '../components/ExampleModal.vue';
 
-// Selected table
-const selectedTable = ref('definiteArticle');
+// Filter state (optional - show/hide groups)
+const showArticles = ref(true);
+const showAdjectives = ref(true);
 
 // Modal state
 const isModalOpen = ref(false);
@@ -38,6 +39,15 @@ const closeModal = () => {
 
 // Get all table entries as array
 const tableEntries = Object.entries(tables);
+
+// Filtered tables based on checkbox filters
+const filteredTables = computed(() => {
+  return tableEntries.filter(([key]) => {
+    if (key.includes('Article')) return showArticles.value;
+    if (key.includes('adjective')) return showAdjectives.value;
+    return true;
+  });
+});
 </script>
 
 <template>
@@ -46,138 +56,83 @@ const tableEntries = Object.entries(tables);
       <!-- Header -->
       <header class="text-center mb-8">
         <h1 class="text-4xl font-bold text-text-primary mb-2">
-          German Declension Tables
+          German Declension with Adjectives
         </h1>
-        <p class="text-text-secondary">
-          Color-coded reference for A2 learners
+        <p class="text-text-secondary mb-4">
+          <strong>Bold</strong> shows articles and adjective endings to highlight patterns
         </p>
       </header>
 
-      <!-- Table Selection -->
-      <div class="card mb-8">
-        <h2 class="text-lg font-semibold text-text-primary mb-4">
-          Select a table:
-        </h2>
-        <div class="space-y-3">
-          <label
-            v-for="[key, table] in tableEntries"
+      <!-- All Tables - Vertical Stack -->
+      <div class="space-y-8">
+        <TransitionGroup name="fade">
+          <div
+            v-for="([key, table], index) in filteredTables"
             :key="key"
-            class="flex items-start p-4 rounded-lg border-2 transition-all cursor-pointer hover:bg-gray-50"
-            :class="[
-              selectedTable === key
-                ? 'border-katyella-violet bg-purple-50'
-                : 'border-gray-200'
-            ]"
+            class="card table-section"
           >
-            <input
-              type="radio"
-              :value="key"
-              v-model="selectedTable"
-              class="mt-1 w-5 h-5 text-katyella-violet focus:ring-katyella-violet"
-            />
-            <div class="ml-3 flex-1">
-              <div class="font-semibold text-text-primary">
+            <!-- Table Header -->
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-text-primary text-center">
                 {{ table.name }}
-              </div>
-              <div class="text-sm text-text-secondary mt-1">
+              </h2>
+              <p class="text-text-secondary text-center mt-2">
                 {{ table.description }}
-              </div>
+              </p>
             </div>
-          </label>
-        </div>
-      </div>
 
-      <!-- Tables Display -->
-      <Transition name="fade" mode="out-in">
-        <div :key="selectedTable" class="card">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-text-primary mb-2">
-              {{ tables[selectedTable].name }}
-            </h2>
-            <p class="text-text-secondary">
-              {{ tables[selectedTable].description }}
-            </p>
-          </div>
-
-          <!-- Responsive table container -->
-          <div class="overflow-x-auto -mx-6 px-6">
-            <table class="w-full min-w-[500px] border-collapse">
-              <thead>
-                <tr>
-                  <th class="p-3 text-left font-bold text-text-primary bg-gray-100 border border-gray-300">
-                    Case
-                  </th>
-                  <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
-                    M
-                  </th>
-                  <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
-                    F
-                  </th>
-                  <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
-                    N
-                  </th>
-                  <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
-                    Pl
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(row, rowIndex) in tables[selectedTable].grid"
-                  :key="rowIndex"
-                >
-                  <!-- Case label -->
-                  <td
-                    class="p-3 font-bold border border-gray-300"
-                    :class="'text-case-' + getCaseClass(row[0])"
+            <!-- Responsive table container -->
+            <div class="overflow-x-auto -mx-6 px-6">
+              <table class="w-full min-w-[500px] border-collapse">
+                <thead>
+                  <tr>
+                    <th class="p-3 text-left font-bold text-text-primary bg-gray-100 border border-gray-300">
+                      Case
+                    </th>
+                    <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
+                      M
+                    </th>
+                    <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
+                      F
+                    </th>
+                    <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
+                      N
+                    </th>
+                    <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
+                      Pl
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(row, rowIndex) in table.grid"
+                    :key="rowIndex"
                   >
-                    {{ row[0] }}
-                  </td>
-                  <!-- Gender cells -->
-                  <td
-                    v-for="(cell, cellIndex) in row.slice(1)"
-                    :key="cellIndex"
-                    class="table-cell"
-                    :class="'cell-' + getCaseClass(row[0])"
-                    @click="handleCellClick(cell, row[0], cellIndex)"
-                  >
-                    {{ cell }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    <!-- Case label -->
+                    <td
+                      class="p-3 font-bold border border-gray-300"
+                      :class="'text-case-' + getCaseClass(row[0])"
+                    >
+                      {{ row[0] }}
+                    </td>
+                    <!-- Gender cells -->
+                    <td
+                      v-for="(cell, cellIndex) in row.slice(1)"
+                      :key="cellIndex"
+                      class="table-cell"
+                      :class="'cell-' + getCaseClass(row[0])"
+                    >
+                      <div v-if="cell.includes('\n')" class="multi-line-cell">
+                        <div v-for="(line, lineIndex) in cell.split('\n')" :key="lineIndex" class="cell-line" v-html="line"></div>
+                      </div>
+                      <span v-else v-html="cell"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-
-          <!-- Click hint -->
-          <div class="mt-6 text-center text-sm text-text-muted">
-            Click any cell to see example sentences
-          </div>
-        </div>
-      </Transition>
-
-      <!-- Legend -->
-      <div class="card mt-8">
-        <h3 class="text-lg font-semibold text-text-primary mb-4">
-          Case Colors:
-        </h3>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div class="flex items-center">
-            <div class="w-4 h-4 rounded border-2 border-case-nom bg-case-nom-light mr-2"></div>
-            <span class="text-sm text-text-secondary">Nominativ</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-4 h-4 rounded border-2 border-case-akk bg-case-akk-light mr-2"></div>
-            <span class="text-sm text-text-secondary">Akkusativ</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-4 h-4 rounded border-2 border-case-dat bg-case-dat-light mr-2"></div>
-            <span class="text-sm text-text-secondary">Dativ</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-4 h-4 rounded border-2 border-case-gen bg-case-gen-light mr-2"></div>
-            <span class="text-sm text-text-secondary">Genitiv</span>
-          </div>
-        </div>
+        </TransitionGroup>
       </div>
     </div>
 
@@ -194,20 +149,101 @@ const tableEntries = Object.entries(tables);
 </template>
 
 <style scoped>
-/* Fade transition for table switching */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
+/* Table section spacing and transitions */
+.table-section {
+  scroll-margin-top: 5rem;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.fade-enter-from,
+.space-y-8 > * + * {
+  margin-top: 2rem;
+}
+
+/* Fade transition for filtered tables */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
 .fade-leave-to {
   opacity: 0;
+  transform: translateY(10px);
 }
 
 /* Ensure table cells are properly styled */
 table {
   border-spacing: 0;
+}
+
+/* Multi-line cell styling */
+.multi-line-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cell-line {
+  padding: 0.25rem 0;
+}
+
+.cell-line:first-child {
+  font-weight: 500;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.cell-line:last-child {
+  font-weight: 400;
+  opacity: 0.8;
+  font-size: 0.9em;
+}
+
+/* Highlighted text (articles and endings) */
+.table-cell :deep(b) {
+  font-weight: 700;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+/* Color-coded adjective endings */
+.table-cell :deep(.ending-e) {
+  font-weight: 700;
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.15);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+.table-cell :deep(.ending-en) {
+  font-weight: 700;
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.15);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+.table-cell :deep(.ending-er) {
+  font-weight: 700;
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.15);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+.table-cell :deep(.ending-es) {
+  font-weight: 700;
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.15);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
 }
 
 /* Mobile touch targets */
@@ -221,5 +257,11 @@ table {
 /* Smooth hover effect */
 .table-cell:active {
   transform: scale(0.98);
+}
+
+/* Add subtle shadow on hover for tables */
+.table-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
 }
 </style>

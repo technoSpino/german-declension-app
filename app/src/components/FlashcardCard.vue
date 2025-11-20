@@ -8,7 +8,7 @@
       :class="{ 'is-flipped': isFlipped }"
     >
       <!-- Front of card -->
-      <div class="flashcard-face flashcard-front">
+      <div class="flashcard-face flashcard-front" :class="getCardCaseClass()">
         <div class="card-header">
           <span class="difficulty-badge" :class="`difficulty-${card.difficulty}`">
             {{ card.difficulty }}
@@ -19,9 +19,7 @@
         </div>
 
         <div class="card-content">
-          <div class="card-text">
-            {{ card.front }}
-          </div>
+          <div class="card-text" v-html="card.front"></div>
 
           <div class="hint-section" v-if="showHint">
             <div class="hint-icon">💡</div>
@@ -47,7 +45,7 @@
       </div>
 
       <!-- Back of card -->
-      <div class="flashcard-face flashcard-back">
+      <div class="flashcard-face flashcard-back" :class="getCardCaseClass()">
         <div class="card-header">
           <span class="difficulty-badge" :class="`difficulty-${card.difficulty}`">
             {{ card.difficulty }}
@@ -132,6 +130,19 @@ const getCaseClass = (tag) => {
   if (tag === 'akkusativ') return 'tag-akk';
   if (tag === 'dativ') return 'tag-dat';
   if (tag === 'genitiv') return 'tag-gen';
+  return '';
+};
+
+const getCardCaseClass = () => {
+  // Find the case tag from the card's tags
+  const caseTag = props.card.tags.find(tag =>
+    ['nominativ', 'akkusativ', 'dativ', 'genitiv'].includes(tag)
+  );
+
+  if (caseTag === 'nominativ') return 'card-nom';
+  if (caseTag === 'akkusativ') return 'card-akk';
+  if (caseTag === 'dativ') return 'card-dat';
+  if (caseTag === 'genitiv') return 'card-gen';
   return '';
 };
 </script>
@@ -238,6 +249,30 @@ const getCaseClass = (tag) => {
   color: #0f172a;
   text-align: center;
   line-height: 1.4;
+}
+
+.card-text :deep(.verb) {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* Verb colors based on case */
+.card-nom .card-text :deep(.verb) {
+  color: #2196F3;
+}
+
+.card-akk .card-text :deep(.verb) {
+  color: #F44336;
+}
+
+.card-dat .card-text :deep(.verb) {
+  color: #4CAF50;
+}
+
+.card-gen .card-text :deep(.verb) {
+  color: #FF9800;
 }
 
 .answer-label {
