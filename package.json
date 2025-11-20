@@ -1,0 +1,45 @@
+{
+  "name": "german-declension-learning",
+  "version": "1.0.0",
+  "description": "Interactive German declension learning app with color-coded tables and flashcards",
+  "main": "app/index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000 --directory app",
+    "dev:node": "npx http-server app -p 8000 -o",
+    "deploy:netlify": "netlify deploy --prod --dir=app",
+    "deploy:gh-pages": "gh-pages -d app",
+    "minify:html": "html-minifier --collapse-whitespace --remove-comments app/index.html -o app/index.html",
+    "minify:css": "cleancss -o app/styles.min.css app/styles.css",
+    "minify:js": "uglifyjs app/app.js -o app/app.min.js -c -m",
+    "lighthouse": "lighthouse https://your-site.com --view",
+    "validate": "html-validator --file=app/index.html --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/german-declension-mvp.git"
+  },
+  "keywords": [
+    "german",
+    "language-learning",
+    "declension",
+    "flashcards",
+    "education",
+    "a2",
+    "grammar"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/german-declension-mvp/issues"
+  },
+  "homepage": "https://github.com/yourusername/german-declension-mvp#readme",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.2",
+    "gh-pages": "^6.0.0",
+    "html-minifier": "^4.0.0",
+    "http-server": "^14.1.1",
+    "lighthouse": "^11.3.0",
+    "netlify-cli": "^17.0.0",
+    "uglify-js": "^3.17.4"
+  }
+}

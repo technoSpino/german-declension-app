@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: white;
+    color: #0f172a;
+  }
+}
+
+@layer components {
+  /* Button styles */
+  .btn-primary {
+    background-color: #7c3aed;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .btn-primary:hover {
+    background-color: #6d28d9;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  }
+
+  .btn-secondary {
+    background-color: #2563eb;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background-color: #1d4ed8;
+  }
+
+  /* Card styles */
+  .card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    padding: 1.5rem;
+    transition: all 0.2s;
+  }
+
+  /* Modal styles */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgb(0 0 0 / 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    max-width: 32rem;
+    width: 100%;
+    padding: 1.5rem;
+    animation: fadeIn 0.2s ease-in;
+  }
+
+  /* Table cell styles for declension tables */
+  .table-cell {
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #e5e7eb;
+  }
+
+  .table-cell:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    z-index: 10;
+  }
+
+  /* Case-specific cell colors */
+  .cell-nom {
+    background-color: #E3F2FD;
+    border-left: 4px solid #2196F3;
+  }
+
+  .cell-akk {
+    background-color: #FFEBEE;
+    border-left: 4px solid #F44336;
+  }
+
+  .cell-dat {
+    background-color: #E8F5E9;
+    border-left: 4px solid #4CAF50;
+  }
+
+  .cell-gen {
+    background-color: #FFF3E0;
+    border-left: 4px solid #FF9800;
+  }
+
+  /* Flashcard styles */
+  .flashcard {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    padding: 2rem;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .flashcard:hover {
+    transform: scale(1.02);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
