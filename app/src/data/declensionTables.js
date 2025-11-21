@@ -1,5 +1,5 @@
 // German Declension Tables Data
-// Each table contains a grid with: [case, masculine, feminine, neuter, plural]
+// Each table contains a grid with: [case, masculine, neuter, feminine, plural]
 
 export const tables = {
   adjectiveExamples: {
