@@ -110,6 +110,17 @@ const closeMobileMenu = () => {
             Prepositions
           </router-link>
           <router-link
+            to="/werden"
+            :class="[
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
+              route.path === '/werden'
+                ? 'bg-violet-600 text-white'
+                : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+            ]"
+          >
+            Werden
+          </router-link>
+          <router-link
             to="/flashcards"
             :class="[
               'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
@@ -243,6 +254,18 @@ const closeMobileMenu = () => {
               ]"
             >
               Prepositions
+            </router-link>
+            <router-link
+              to="/werden"
+              @click="closeMobileMenu"
+              :class="[
+                'px-4 py-2 rounded-lg font-medium transition-colors',
+                route.path === '/werden'
+                  ? 'bg-violet-600 text-white'
+                  : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+              ]"
+            >
+              Werden (Future & Passive)
             </router-link>
             <router-link
               to="/flashcards"

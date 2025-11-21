@@ -1,0 +1,305 @@
+{
+  "introduction": {
+    "title": "Werden - Future Tense & Passive Voice",
+    "description": "The verb 'werden' is one of the most important verbs in German. Beyond meaning 'to become', it's essential for forming the future tense (Futur I) and the passive voice."
+  },
+  "conjugation": {
+    "present": {
+      "ich": "werde",
+      "du": "wirst",
+      "er/sie/es": "wird",
+      "wir": "werden",
+      "ihr": "werdet",
+      "sie/Sie": "werden"
+    }
+  },
+  "uses": [
+    {
+      "type": "main-verb",
+      "title": "1. Main Verb: 'to become'",
+      "description": "Werden as a standalone verb means 'to become' or 'to get'.",
+      "examples": [
+        {
+          "german": "Ich werde Arzt.",
+          "english": "I'm becoming a doctor.",
+          "note": "Profession/noun"
+        },
+        {
+          "german": "Es wird kalt.",
+          "english": "It's getting cold.",
+          "note": "Adjective"
+        },
+        {
+          "german": "Sie wird müde.",
+          "english": "She's getting tired.",
+          "note": "State change"
+        }
+      ]
+    },
+    {
+      "type": "future-tense",
+      "title": "2. Future Tense (Futur I)",
+      "description": "Werden + infinitive creates the future tense, expressing plans, predictions, or intentions.",
+      "structure": "werden (conjugated) + infinitive (at end)",
+      "examples": [
+        {
+          "german": "Ich werde morgen arbeiten.",
+          "english": "I will work tomorrow.",
+          "breakdown": "ich werde (will) + arbeiten (work)"
+        },
+        {
+          "german": "Du wirst das Buch lesen.",
+          "english": "You will read the book.",
+          "breakdown": "du wirst (will) + lesen (read)"
+        },
+        {
+          "german": "Wir werden nach Berlin fahren.",
+          "english": "We will drive to Berlin.",
+          "breakdown": "wir werden (will) + fahren (drive)"
+        },
+        {
+          "german": "Es wird regnen.",
+          "english": "It will rain.",
+          "breakdown": "es wird (will) + regnen (rain)"
+        }
+      ],
+      "note": "In spoken German, present tense + time expression is often used instead: 'Ich arbeite morgen' (I work tomorrow). Future tense emphasizes the future or shows certainty."
+    },
+    {
+      "type": "passive-voice",
+      "title": "3. Passive Voice (Passiv)",
+      "description": "Werden + past participle creates the passive voice, shifting focus from who does the action to what is done.",
+      "structure": "werden (conjugated) + past participle (at end)",
+      "examples": [
+        {
+          "german": "Das Haus wird gebaut.",
+          "english": "The house is being built.",
+          "breakdown": "wird (is) + gebaut (built)",
+          "active": "Man baut das Haus."
+        },
+        {
+          "german": "Der Brief wird geschrieben.",
+          "english": "The letter is being written.",
+          "breakdown": "wird (is) + geschrieben (written)",
+          "active": "Jemand schreibt den Brief."
+        },
+        {
+          "german": "Die Bücher werden gelesen.",
+          "english": "The books are being read.",
+          "breakdown": "werden (are) + gelesen (read)",
+          "active": "Sie lesen die Bücher."
+        },
+        {
+          "german": "Das Auto wird repariert.",
+          "english": "The car is being repaired.",
+          "breakdown": "wird (is) + repariert (repaired)",
+          "active": "Der Mechaniker repariert das Auto."
+        }
+      ],
+      "note": "The passive voice is very common in German, especially in formal writing and news."
+    }
+  ],
+  "comparison": {
+    "title": "Distinguishing the Uses",
+    "examples": [
+      {
+        "sentence": "Ich werde Lehrer.",
+        "type": "Main verb (become)",
+        "english": "I'm becoming a teacher."
+      },
+      {
+        "sentence": "Ich werde lernen.",
+        "type": "Future tense",
+        "english": "I will learn.",
+        "hint": "Infinitive at the end"
+      },
+      {
+        "sentence": "Das wird gelernt.",
+        "type": "Passive voice",
+        "english": "That is being learned.",
+        "hint": "Past participle at the end"
+      }
+    ]
+  },
+  "exercises": [
+    {
+      "id": 1,
+      "question": "Ich _____ morgen nach Berlin fahren. (Future: I will drive to Berlin tomorrow)",
+      "options": ["werde", "wird", "werden", "werdet"],
+      "correct": 0,
+      "explanation": "Future tense uses 'werden' + infinitive. First person singular (ich) = 'werde'."
+    },
+    {
+      "id": 2,
+      "question": "Complete: Ich werde morgen nach Berlin _____. (fahren)",
+      "options": ["fahre", "fährst", "fahren", "gefahren"],
+      "correct": 2,
+      "explanation": "Future tense: werden + infinitive form at the end. The infinitive is 'fahren'."
+    },
+    {
+      "id": 3,
+      "question": "Du _____ das Buch lesen. (Future: You will read the book)",
+      "options": ["werde", "wirst", "wird", "werden"],
+      "correct": 1,
+      "explanation": "Future tense with 'du' (you) uses 'wirst'."
+    },
+    {
+      "id": 4,
+      "question": "Das Haus _____ gebaut. (Passive: The house is being built)",
+      "options": ["werde", "wirst", "wird", "werden"],
+      "correct": 2,
+      "explanation": "Passive voice: werden + past participle. 'Das Haus' (the house) is third person singular, so 'wird'."
+    },
+    {
+      "id": 5,
+      "question": "Complete passive: Das Haus wird _____. (bauen → to build)",
+      "options": ["bauen", "baut", "gebaut", "gebauen"],
+      "correct": 2,
+      "explanation": "Passive voice uses past participle 'gebaut' (built) at the end."
+    },
+    {
+      "id": 6,
+      "question": "Die Bücher _____ gelesen. (Passive: The books are being read)",
+      "options": ["werde", "wirst", "wird", "werden"],
+      "correct": 3,
+      "explanation": "Passive voice with plural 'die Bücher' uses 'werden'."
+    },
+    {
+      "id": 7,
+      "question": "Es _____ regnen. (Future: It will rain)",
+      "options": ["werde", "wirst", "wird", "werden"],
+      "correct": 2,
+      "explanation": "Future tense with 'es' (it) uses 'wird'."
+    },
+    {
+      "id": 8,
+      "question": "Identify the use: 'Ich werde Arzt.'",
+      "options": ["Future tense", "Passive voice", "Main verb (to become)", "Modal verb"],
+      "correct": 2,
+      "explanation": "'Werden' + noun = main verb meaning 'to become'. No infinitive or past participle."
+    },
+    {
+      "id": 9,
+      "question": "Identify the use: 'Der Brief wird geschrieben.'",
+      "options": ["Future tense", "Passive voice", "Main verb (to become)", "Present tense"],
+      "correct": 1,
+      "explanation": "'Wird' + past participle 'geschrieben' = passive voice (is being written)."
+    },
+    {
+      "id": 10,
+      "question": "Identify the use: 'Wir werden nach Hause gehen.'",
+      "options": ["Future tense", "Passive voice", "Main verb (to become)", "Past tense"],
+      "correct": 0,
+      "explanation": "'Werden' + infinitive 'gehen' = future tense (we will go home)."
+    },
+    {
+      "id": 11,
+      "question": "Wir _____ nächste Woche umziehen. (Future: We will move next week)",
+      "options": ["werde", "wirst", "wird", "werden"],
+      "correct": 3,
+      "explanation": "Future tense with 'wir' (we) uses 'werden'."
+    },
+    {
+      "id": 12,
+      "question": "Das Auto _____ repariert. (Passive: The car is being repaired)",
+      "options": ["werde", "wirst", "wird", "werden"],
+      "correct": 2,
+      "explanation": "Passive voice: 'Das Auto' (the car) is third person singular, so 'wird'."
+    },
+    {
+      "id": 13,
+      "question": "Choose the correct sentence for 'The letter will be written.'",
+      "options": ["Der Brief wird schreiben.", "Der Brief wird geschrieben werden.", "Der Brief wird geschrieben.", "Der Brief werden geschrieben."],
+      "correct": 1,
+      "explanation": "Future passive: werden + past participle + werden. 'Wird geschrieben werden' (will be written)."
+    },
+    {
+      "id": 14,
+      "question": "Translate to German: 'She is getting tired.' (werden + adjective)",
+      "options": ["Sie wird müde.", "Sie wird müden.", "Sie werdet müde.", "Sie werden müde."],
+      "correct": 0,
+      "explanation": "Main verb use: 'Sie wird müde' (she is getting tired). Adjective after werden."
+    },
+    {
+      "id": 15,
+      "question": "What's the infinitive that completes this future sentence? 'Ich werde Deutsch _____.'",
+      "options": ["lerne", "lernst", "lernen", "gelernt"],
+      "correct": 2,
+      "explanation": "Future tense requires the infinitive form: 'lernen' (to learn)."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "ich _____ (werden - present)",
+      "back": "ich werde",
+      "explanation": "First person singular conjugation"
+    },
+    {
+      "id": 2,
+      "front": "du _____ (werden - present)",
+      "back": "du wirst",
+      "explanation": "Second person singular conjugation"
+    },
+    {
+      "id": 3,
+      "front": "er/sie/es _____ (werden - present)",
+      "back": "er/sie/es wird",
+      "explanation": "Third person singular conjugation"
+    },
+    {
+      "id": 4,
+      "front": "Future tense structure",
+      "back": "werden (conjugated) + infinitive (at end)",
+      "explanation": "Example: Ich werde arbeiten (I will work)"
+    },
+    {
+      "id": 5,
+      "front": "Passive voice structure",
+      "back": "werden (conjugated) + past participle (at end)",
+      "explanation": "Example: Das wird gemacht (That is being done)"
+    },
+    {
+      "id": 6,
+      "front": "Translate: I will learn German",
+      "back": "Ich werde Deutsch lernen",
+      "explanation": "Future tense: werde + infinitive lernen"
+    },
+    {
+      "id": 7,
+      "front": "Translate: The house is being built",
+      "back": "Das Haus wird gebaut",
+      "explanation": "Passive: wird + past participle gebaut"
+    },
+    {
+      "id": 8,
+      "front": "Translate: It's getting cold",
+      "back": "Es wird kalt",
+      "explanation": "Main verb: werden + adjective"
+    },
+    {
+      "id": 9,
+      "front": "Translate: We will drive to Berlin",
+      "back": "Wir werden nach Berlin fahren",
+      "explanation": "Future: werden + infinitive fahren"
+    },
+    {
+      "id": 10,
+      "front": "Translate: The books are being read",
+      "back": "Die Bücher werden gelesen",
+      "explanation": "Passive plural: werden + past participle gelesen"
+    },
+    {
+      "id": 11,
+      "front": "What does 'Ich werde Lehrer' mean?",
+      "back": "I'm becoming a teacher",
+      "explanation": "Main verb: werden + noun (no infinitive/participle)"
+    },
+    {
+      "id": 12,
+      "front": "What does 'Es wird regnen' mean?",
+      "back": "It will rain",
+      "explanation": "Future tense: wird + infinitive regnen"
+    }
+  ]
+}

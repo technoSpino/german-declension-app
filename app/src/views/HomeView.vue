@@ -21,7 +21,7 @@ const hasProgress = computed(() => progressStore.totalInteractions > 0)
             Complete A2-level German grammar platform with interactive exercises and smart flashcards
           </p>
           <p class="text-lg text-violet-200 mb-12 max-w-2xl mx-auto">
-            Declensions • Modal Verbs • Sentence Structure • Verb Conjugation • Past Tense • Prepositions
+            Declensions • Modal Verbs • Sentence Structure • Verb Conjugation • Past Tense • Prepositions • Werden
           </p>
 
           <!-- Primary CTAs -->
@@ -174,6 +174,14 @@ const hasProgress = computed(() => progressStore.totalInteractions > 0)
           <h3 class="text-xl font-bold text-gray-900 mb-2">Prepositions</h3>
           <p class="text-gray-600 text-sm mb-4">Akkusativ, Dativ, Two-Way, and Genitiv prepositions</p>
           <span class="text-orange-600 font-semibold text-sm">Start Learning →</span>
+        </router-link>
+
+        <!-- Werden -->
+        <router-link to="/werden" class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-pink-600 hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-4xl mb-3">🔮</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Werden</h3>
+          <p class="text-gray-600 text-sm mb-4">Future tense (Futur I) and passive voice formation</p>
+          <span class="text-pink-600 font-semibold text-sm">Start Learning →</span>
         </router-link>
 
         <!-- Flashcards -->
