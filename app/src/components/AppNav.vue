@@ -27,15 +27,15 @@ const closeMobileMenu = () => {
           <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
-          <span>German Declension</span>
+          <span>German A2 Grammar</span>
         </router-link>
 
         <!-- Desktop Navigation -->
-        <div class="hidden md:flex items-center space-x-1">
+        <div class="hidden md:flex items-center space-x-1 overflow-x-auto">
           <router-link
             to="/"
             :class="[
-              'px-4 py-2 rounded-lg font-medium transition-colors',
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
               route.path === '/'
                 ? 'bg-violet-600 text-white'
                 : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
@@ -46,18 +46,73 @@ const closeMobileMenu = () => {
           <router-link
             to="/tables"
             :class="[
-              'px-4 py-2 rounded-lg font-medium transition-colors',
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
               route.path === '/tables'
                 ? 'bg-violet-600 text-white'
                 : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
             ]"
           >
-            Tables
+            Declensions
+          </router-link>
+          <router-link
+            to="/modal-verbs"
+            :class="[
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
+              route.path === '/modal-verbs'
+                ? 'bg-violet-600 text-white'
+                : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+            ]"
+          >
+            Modal Verbs
+          </router-link>
+          <router-link
+            to="/sentence-structure"
+            :class="[
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
+              route.path === '/sentence-structure'
+                ? 'bg-violet-600 text-white'
+                : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+            ]"
+          >
+            Sentences
+          </router-link>
+          <router-link
+            to="/verb-conjugation"
+            :class="[
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
+              route.path === '/verb-conjugation'
+                ? 'bg-violet-600 text-white'
+                : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+            ]"
+          >
+            Verbs
+          </router-link>
+          <router-link
+            to="/past-tense"
+            :class="[
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
+              route.path === '/past-tense'
+                ? 'bg-violet-600 text-white'
+                : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+            ]"
+          >
+            Past Tense
+          </router-link>
+          <router-link
+            to="/prepositions"
+            :class="[
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
+              route.path === '/prepositions'
+                ? 'bg-violet-600 text-white'
+                : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+            ]"
+          >
+            Prepositions
           </router-link>
           <router-link
             to="/flashcards"
             :class="[
-              'px-4 py-2 rounded-lg font-medium transition-colors',
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
               route.path === '/flashcards'
                 ? 'bg-violet-600 text-white'
                 : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
@@ -127,7 +182,67 @@ const closeMobileMenu = () => {
                   : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
               ]"
             >
-              Tables
+              Declensions
+            </router-link>
+            <router-link
+              to="/modal-verbs"
+              @click="closeMobileMenu"
+              :class="[
+                'px-4 py-2 rounded-lg font-medium transition-colors',
+                route.path === '/modal-verbs'
+                  ? 'bg-violet-600 text-white'
+                  : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+              ]"
+            >
+              Modal Verbs
+            </router-link>
+            <router-link
+              to="/sentence-structure"
+              @click="closeMobileMenu"
+              :class="[
+                'px-4 py-2 rounded-lg font-medium transition-colors',
+                route.path === '/sentence-structure'
+                  ? 'bg-violet-600 text-white'
+                  : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+              ]"
+            >
+              Sentence Structure
+            </router-link>
+            <router-link
+              to="/verb-conjugation"
+              @click="closeMobileMenu"
+              :class="[
+                'px-4 py-2 rounded-lg font-medium transition-colors',
+                route.path === '/verb-conjugation'
+                  ? 'bg-violet-600 text-white'
+                  : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+              ]"
+            >
+              Verb Conjugation
+            </router-link>
+            <router-link
+              to="/past-tense"
+              @click="closeMobileMenu"
+              :class="[
+                'px-4 py-2 rounded-lg font-medium transition-colors',
+                route.path === '/past-tense'
+                  ? 'bg-violet-600 text-white'
+                  : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+              ]"
+            >
+              Past Tense (Perfekt)
+            </router-link>
+            <router-link
+              to="/prepositions"
+              @click="closeMobileMenu"
+              :class="[
+                'px-4 py-2 rounded-lg font-medium transition-colors',
+                route.path === '/prepositions'
+                  ? 'bg-violet-600 text-white'
+                  : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+              ]"
+            >
+              Prepositions
             </router-link>
             <router-link
               to="/flashcards"

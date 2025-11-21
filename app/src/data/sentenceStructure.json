@@ -1,0 +1,205 @@
+{
+  "hauptsatz": {
+    "name": "Hauptsatz (Main Clause)",
+    "description": "A main clause can stand alone as a complete sentence. The conjugated verb is always in position 2.",
+    "rules": [
+      {
+        "rule": "Position 1: Subject or other element (time, place, object)",
+        "examples": ["Ich gehe heute ins Kino.", "Heute gehe ich ins Kino."]
+      },
+      {
+        "rule": "Position 2: Conjugated verb (ALWAYS)",
+        "examples": ["Ich gehe heute ins Kino.", "Morgen fahre ich nach Berlin."]
+      },
+      {
+        "rule": "End: Infinitives, separable prefixes, past participles",
+        "examples": ["Ich will nach Hause gehen.", "Ich stehe um 7 Uhr auf.", "Ich habe Deutsch gelernt."]
+      }
+    ],
+    "wordOrderPatterns": [
+      {
+        "name": "Statement (Normal)",
+        "pattern": "Subject + Verb + ...",
+        "example": "Ich lerne Deutsch."
+      },
+      {
+        "name": "Statement (Inverted)",
+        "pattern": "Other element + Verb + Subject + ...",
+        "example": "Heute lerne ich Deutsch."
+      },
+      {
+        "name": "Question (Yes/No)",
+        "pattern": "Verb + Subject + ...?",
+        "example": "Lernst du Deutsch?"
+      },
+      {
+        "name": "Question (W-word)",
+        "pattern": "W-word + Verb + Subject + ...?",
+        "example": "Warum lernst du Deutsch?"
+      }
+    ]
+  },
+  "nebensatz": {
+    "name": "Nebensatz (Subordinate Clause)",
+    "description": "A subordinate clause depends on a main clause. The conjugated verb goes to the END of the clause.",
+    "conjunctions": [
+      {"word": "weil", "meaning": "because", "type": "reason"},
+      {"word": "dass", "meaning": "that", "type": "indirect speech"},
+      {"word": "wenn", "meaning": "when/if", "type": "condition/time"},
+      {"word": "ob", "meaning": "whether/if", "type": "indirect question"},
+      {"word": "obwohl", "meaning": "although", "type": "contrast"},
+      {"word": "als", "meaning": "when (past)", "type": "time"},
+      {"word": "während", "meaning": "while", "type": "time"},
+      {"word": "bevor", "meaning": "before", "type": "time"},
+      {"word": "nachdem", "meaning": "after", "type": "time"},
+      {"word": "damit", "meaning": "so that", "type": "purpose"}
+    ],
+    "rules": [
+      {
+        "rule": "Conjugated verb goes to the END",
+        "examples": [
+          "Ich lerne Deutsch, weil es wichtig ist.",
+          "Er sagt, dass er müde ist.",
+          "Ich weiß nicht, ob er kommt."
+        ]
+      },
+      {
+        "rule": "Always use a comma before the conjunction",
+        "examples": [
+          "Ich bleibe zu Hause, weil es regnet.",
+          "Er sagt, dass er krank ist."
+        ]
+      }
+    ],
+    "wordOrderPattern": {
+      "pattern": "Conjunction + Subject + ... + Verb (END)",
+      "examples": [
+        "..., weil ich Deutsch lerne.",
+        "..., dass er nach Hause geht.",
+        "..., wenn du Zeit hast."
+      ]
+    }
+  },
+  "exercises": [
+    {
+      "id": 1,
+      "question": "Choose correct word order: Ich / heute / gehe / ins Kino",
+      "options": ["Ich gehe heute ins Kino", "Ich heute gehe ins Kino", "Gehe ich heute ins Kino", "Ich ins Kino heute gehe"],
+      "correct": 0,
+      "explanation": "Normal word order: Subject (Ich) + Verb position 2 (gehe) + time (heute) + destination."
+    },
+    {
+      "id": 2,
+      "question": "Choose correct word order: Heute / ich / fahre / nach Berlin",
+      "options": ["Heute ich fahre nach Berlin", "Heute fahre ich nach Berlin", "Ich fahre heute nach Berlin", "Fahre heute ich nach Berlin"],
+      "correct": 1,
+      "explanation": "Inverted word order: Time (Heute) position 1 + Verb (fahre) position 2 + Subject (ich)."
+    },
+    {
+      "id": 3,
+      "question": "Complete: Ich bleibe zu Hause, weil es _____. (regnet)",
+      "options": ["regnet", "es regnet", "regen", "geregnet"],
+      "correct": 0,
+      "explanation": "In subordinate clause (weil), verb goes to the END. Subject (es) comes before the verb."
+    },
+    {
+      "id": 4,
+      "question": "Complete: Er sagt, dass er müde _____. (ist)",
+      "options": ["ist", "sein", "war", "bist"],
+      "correct": 0,
+      "explanation": "In subordinate clause (dass), verb 'ist' goes to the END."
+    },
+    {
+      "id": 5,
+      "question": "Question word order: du / Deutsch / lernst / ?",
+      "options": ["Lernst du Deutsch?", "Du lernst Deutsch?", "Deutsch lernst du?", "Du Deutsch lernst?"],
+      "correct": 0,
+      "explanation": "Yes/No questions: Verb (Lernst) first + Subject (du) + object."
+    },
+    {
+      "id": 6,
+      "question": "Complete: Ich weiß nicht, ob er _____. (kommt)",
+      "options": ["kommt", "er kommt", "kommen", "gekommen"],
+      "correct": 0,
+      "explanation": "In subordinate clause (ob), verb goes to the END."
+    },
+    {
+      "id": 7,
+      "question": "Separable verb: Ich _____ um 7 Uhr _____. (aufstehen)",
+      "options": ["stehe ... auf", "aufstehe", "stehe ... aufstehen", "auf ... stehe"],
+      "correct": 0,
+      "explanation": "Separable prefix 'auf' goes to the end in main clause."
+    },
+    {
+      "id": 8,
+      "question": "Modal verb: Ich _____ nach Hause _____. (will gehen)",
+      "options": ["will ... gehen", "gehen ... will", "will gehen", "gehe ... will"],
+      "correct": 0,
+      "explanation": "Modal verb in position 2, infinitive at the end."
+    },
+    {
+      "id": 9,
+      "question": "Choose: Ich gehe ins Kino, _____ der Film gut ist.",
+      "options": ["weil", "dass", "ob", "wenn"],
+      "correct": 0,
+      "explanation": "'Weil' (because) introduces a reason clause."
+    },
+    {
+      "id": 10,
+      "question": "Complete subordinate clause: ..., weil ich keine Zeit _____. (habe)",
+      "options": ["habe", "haben", "hat", "habt"],
+      "correct": 0,
+      "explanation": "Verb 'habe' goes to the end in subordinate clause with 'weil'."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "Where does the verb go in a Hauptsatz?",
+      "back": "Position 2 (always!)",
+      "explanation": "In main clauses, the conjugated verb is ALWAYS in position 2."
+    },
+    {
+      "id": 2,
+      "front": "Where does the verb go in a Nebensatz?",
+      "back": "At the END",
+      "explanation": "In subordinate clauses, the conjugated verb goes to the end."
+    },
+    {
+      "id": 3,
+      "front": "Fix: Ich heute gehe ins Kino",
+      "back": "Ich gehe heute ins Kino",
+      "explanation": "Verb must be in position 2 in main clauses."
+    },
+    {
+      "id": 4,
+      "front": "Complete: Ich bleibe zu Hause, weil es _____",
+      "back": "regnet",
+      "explanation": "Verb goes to the end after 'weil'."
+    },
+    {
+      "id": 5,
+      "front": "What does 'weil' mean?",
+      "back": "because",
+      "explanation": "Used to give a reason in subordinate clauses."
+    },
+    {
+      "id": 6,
+      "front": "What does 'dass' mean?",
+      "back": "that",
+      "explanation": "Used for indirect speech in subordinate clauses."
+    },
+    {
+      "id": 7,
+      "front": "Question: du / kommst / heute / ?",
+      "back": "Kommst du heute?",
+      "explanation": "Yes/No questions start with the verb."
+    },
+    {
+      "id": 8,
+      "front": "Separable verb: Ich _____ um 7 Uhr _____ (aufstehen)",
+      "back": "stehe ... auf",
+      "explanation": "Separable prefix goes to the end in main clauses."
+    }
+  ]
+}

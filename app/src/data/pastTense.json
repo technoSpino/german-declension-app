@@ -1,0 +1,226 @@
+{
+  "name": "Perfekt (Present Perfect)",
+  "description": "The Perfekt tense is used to talk about past events in spoken German. It's formed with haben or sein + past participle.",
+  "formation": {
+    "formula": "haben/sein (conjugated) + ... + past participle (end)",
+    "examples": [
+      "Ich habe Deutsch gelernt.",
+      "Er ist nach Berlin gefahren.",
+      "Wir haben einen Film gesehen."
+    ]
+  },
+  "auxiliaryVerbs": {
+    "haben": {
+      "usage": "Most verbs use 'haben'",
+      "rules": [
+        "Transitive verbs (with direct object)",
+        "Modal verbs",
+        "Reflexive verbs",
+        "Weather verbs"
+      ],
+      "examples": [
+        "Ich habe ein Buch gelesen.",
+        "Sie hat Kaffee getrunken.",
+        "Wir haben gearbeitet."
+      ]
+    },
+    "sein": {
+      "usage": "Motion and state-change verbs use 'sein'",
+      "rules": [
+        "Verbs of motion (gehen, fahren, kommen, etc.)",
+        "Verbs of state change (werden, sterben, wachsen)",
+        "sein, bleiben, passieren"
+      ],
+      "examples": [
+        "Ich bin nach Hause gegangen.",
+        "Er ist Auto gefahren.",
+        "Sie ist müde geworden."
+      ]
+    }
+  },
+  "pastParticiples": {
+    "regular": {
+      "pattern": "ge- + stem + -(e)t",
+      "examples": [
+        {"infinitive": "machen", "participle": "gemacht", "meaning": "made/done"},
+        {"infinitive": "lernen", "participle": "gelernt", "meaning": "learned"},
+        {"infinitive": "arbeiten", "participle": "gearbeitet", "meaning": "worked"},
+        {"infinitive": "spielen", "participle": "gespielt", "meaning": "played"}
+      ]
+    },
+    "irregular": {
+      "pattern": "ge- + changed stem + -en",
+      "examples": [
+        {"infinitive": "gehen", "participle": "gegangen", "meaning": "gone", "auxiliary": "sein"},
+        {"infinitive": "sehen", "participle": "gesehen", "meaning": "seen", "auxiliary": "haben"},
+        {"infinitive": "essen", "participle": "gegessen", "meaning": "eaten", "auxiliary": "haben"},
+        {"infinitive": "fahren", "participle": "gefahren", "meaning": "driven/gone", "auxiliary": "sein"},
+        {"infinitive": "lesen", "participle": "gelesen", "meaning": "read", "auxiliary": "haben"},
+        {"infinitive": "nehmen", "participle": "genommen", "meaning": "taken", "auxiliary": "haben"},
+        {"infinitive": "trinken", "participle": "getrunken", "meaning": "drunk", "auxiliary": "haben"},
+        {"infinitive": "schlafen", "participle": "geschlafen", "meaning": "slept", "auxiliary": "haben"},
+        {"infinitive": "kommen", "participle": "gekommen", "meaning": "come", "auxiliary": "sein"},
+        {"infinitive": "sein", "participle": "gewesen", "meaning": "been", "auxiliary": "sein"},
+        {"infinitive": "haben", "participle": "gehabt", "meaning": "had", "auxiliary": "haben"}
+      ]
+    },
+    "separable": {
+      "pattern": "prefix + ge- + stem + -(e)t/en",
+      "examples": [
+        {"infinitive": "aufstehen", "participle": "aufgestanden", "meaning": "gotten up", "auxiliary": "sein"},
+        {"infinitive": "anrufen", "participle": "angerufen", "meaning": "called", "auxiliary": "haben"},
+        {"infinitive": "einkaufen", "participle": "eingekauft", "meaning": "shopped", "auxiliary": "haben"},
+        {"infinitive": "mitkommen", "participle": "mitgekommen", "meaning": "come along", "auxiliary": "sein"}
+      ]
+    },
+    "inseparable": {
+      "pattern": "NO ge- + stem + -(e)t/en",
+      "prefixes": ["be-", "emp-", "ent-", "er-", "ge-", "miss-", "ver-", "zer-"],
+      "examples": [
+        {"infinitive": "besuchen", "participle": "besucht", "meaning": "visited", "auxiliary": "haben"},
+        {"infinitive": "verstehen", "participle": "verstanden", "meaning": "understood", "auxiliary": "haben"},
+        {"infinitive": "erzählen", "participle": "erzählt", "meaning": "told", "auxiliary": "haben"},
+        {"infinitive": "beginnen", "participle": "begonnen", "meaning": "begun", "auxiliary": "haben"}
+      ]
+    }
+  },
+  "wordOrder": {
+    "mainClause": {
+      "pattern": "Subject + haben/sein (position 2) + ... + past participle (end)",
+      "examples": [
+        "Ich habe gestern Deutsch gelernt.",
+        "Er ist nach Berlin gefahren.",
+        "Wir haben einen Film gesehen."
+      ]
+    },
+    "subordinateClause": {
+      "pattern": "Conjunction + Subject + ... + past participle + haben/sein (end)",
+      "examples": [
+        "..., weil ich gestern Deutsch gelernt habe.",
+        "..., dass er nach Berlin gefahren ist."
+      ]
+    }
+  },
+  "exercises": [
+    {
+      "id": 1,
+      "question": "Ich _____ gestern Deutsch _____. (lernen)",
+      "options": ["habe ... gelernt", "bin ... gelernt", "habe ... lernen", "bin ... gefahren"],
+      "correct": 0,
+      "explanation": "Regular verb uses 'haben' + past participle 'gelernt'."
+    },
+    {
+      "id": 2,
+      "question": "Er _____ nach Berlin _____. (fahren)",
+      "options": ["hat ... gefahren", "ist ... gefahren", "hat ... fahren", "ist ... fahren"],
+      "correct": 1,
+      "explanation": "Motion verb uses 'sein' + irregular past participle 'gefahren'."
+    },
+    {
+      "id": 3,
+      "question": "Wir _____ einen Film _____. (sehen)",
+      "options": ["haben ... gesehen", "sind ... gesehen", "haben ... sehen", "sind ... sehen"],
+      "correct": 0,
+      "explanation": "Irregular verb uses 'haben' + past participle 'gesehen'."
+    },
+    {
+      "id": 4,
+      "question": "Sie _____ Pizza _____. (essen)",
+      "options": ["hat ... gegessen", "ist ... gegessen", "hat ... geessen", "ist ... geessen"],
+      "correct": 0,
+      "explanation": "Irregular verb uses 'haben' + past participle 'gegessen'."
+    },
+    {
+      "id": 5,
+      "question": "Ich _____ um 7 Uhr _____. (aufstehen)",
+      "options": ["habe ... aufgestanden", "bin ... aufgestanden", "habe ... aufstehen", "bin ... aufstehen"],
+      "correct": 1,
+      "explanation": "Separable motion verb uses 'sein' + past participle 'aufgestanden'."
+    },
+    {
+      "id": 6,
+      "question": "Er _____ seine Freundin _____. (anrufen)",
+      "options": ["hat ... angerufen", "ist ... angerufen", "hat ... anrufen", "ist ... anrufen"],
+      "correct": 0,
+      "explanation": "Separable verb uses 'haben' + past participle 'angerufen'."
+    },
+    {
+      "id": 7,
+      "question": "Wir _____ das Museum _____. (besuchen)",
+      "options": ["haben ... besucht", "sind ... besucht", "haben ... gebesucht", "sind ... gebesucht"],
+      "correct": 0,
+      "explanation": "Inseparable verb (be-) has NO 'ge-': besucht (not gebesucht)."
+    },
+    {
+      "id": 8,
+      "question": "Ich _____ das nicht _____. (verstehen)",
+      "options": ["habe ... verstanden", "bin ... verstanden", "habe ... geverstanden", "bin ... geverstanden"],
+      "correct": 0,
+      "explanation": "Inseparable verb (ver-) has NO 'ge-': verstanden (not geverstanden)."
+    },
+    {
+      "id": 9,
+      "question": "Sie _____ nach Hause _____. (gehen)",
+      "options": ["hat ... gegangen", "ist ... gegangen", "hat ... gehen", "ist ... gehen"],
+      "correct": 1,
+      "explanation": "Motion verb uses 'sein' + irregular past participle 'gegangen'."
+    },
+    {
+      "id": 10,
+      "question": "Du _____ viel Wasser _____. (trinken)",
+      "options": ["hast ... getrunken", "bist ... getrunken", "hast ... trinken", "bist ... trinken"],
+      "correct": 0,
+      "explanation": "Irregular verb uses 'haben' + past participle 'getrunken'."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "Past participle: machen",
+      "back": "gemacht",
+      "explanation": "Regular: ge + stem + t"
+    },
+    {
+      "id": 2,
+      "front": "Past participle: lernen",
+      "back": "gelernt",
+      "explanation": "Regular: ge + stem + t"
+    },
+    {
+      "id": 3,
+      "front": "Past participle: gehen",
+      "back": "gegangen",
+      "explanation": "Irregular: ge + changed stem + en"
+    },
+    {
+      "id": 4,
+      "front": "Past participle: essen",
+      "back": "gegessen",
+      "explanation": "Irregular: ge + changed stem + en"
+    },
+    {
+      "id": 5,
+      "front": "Which auxiliary: Ich ___ nach Berlin gefahren.",
+      "back": "bin",
+      "explanation": "Motion verbs use 'sein'"
+    },
+    {
+      "id": 6,
+      "front": "Which auxiliary: Ich ___ ein Buch gelesen.",
+      "back": "habe",
+      "explanation": "Most verbs use 'haben'"
+    },
+    {
+      "id": 7,
+      "front": "Past participle: aufstehen",
+      "back": "aufgestanden",
+      "explanation": "Separable: prefix + ge + stem + en"
+    },
+    {
+      "id": 8,
+      "front": "Past participle: besuchen",
+      "back": "besucht",
+      "explanation": "Inseparable (be-): NO ge-"
+    }
+  ]
+}

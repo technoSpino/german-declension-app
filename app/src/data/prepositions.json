@@ -1,0 +1,285 @@
+{
+  "akkusativ": {
+    "name": "Akkusativ Prepositions",
+    "description": "These prepositions ALWAYS require the accusative case.",
+    "mnemonic": "Remember 'FUDGEBOW': für, um, durch, gegen, entlang, bis, ohne, wider",
+    "prepositions": [
+      {
+        "word": "für",
+        "meaning": "for",
+        "examples": ["Das Geschenk ist für dich.", "Ich arbeite für eine Firma."]
+      },
+      {
+        "word": "um",
+        "meaning": "around, at (time)",
+        "examples": ["Wir gehen um den Park.", "Ich komme um 8 Uhr."]
+      },
+      {
+        "word": "durch",
+        "meaning": "through",
+        "examples": ["Wir gehen durch die Stadt.", "Durch den Wald."]
+      },
+      {
+        "word": "gegen",
+        "meaning": "against, around (time)",
+        "examples": ["Er ist gegen den Plan.", "Gegen 5 Uhr."]
+      },
+      {
+        "word": "ohne",
+        "meaning": "without",
+        "examples": ["Ohne dich.", "Ich gehe ohne meinen Bruder."]
+      },
+      {
+        "word": "bis",
+        "meaning": "until, by",
+        "examples": ["Bis morgen!", "Bis nächste Woche."]
+      }
+    ]
+  },
+  "dativ": {
+    "name": "Dativ Prepositions",
+    "description": "These prepositions ALWAYS require the dative case.",
+    "mnemonic": "Remember 'Von Aus Bei Mit Nach Seit Von Zu': aus, bei, mit, nach, seit, von, zu",
+    "prepositions": [
+      {
+        "word": "aus",
+        "meaning": "from, out of",
+        "examples": ["Ich komme aus der Schweiz.", "Er kommt aus dem Haus."]
+      },
+      {
+        "word": "bei",
+        "meaning": "at, near, with (at someone's place)",
+        "examples": ["Ich wohne bei meinen Eltern.", "Bei der Arbeit."]
+      },
+      {
+        "word": "mit",
+        "meaning": "with",
+        "examples": ["Ich gehe mit dir.", "Mit dem Bus fahren."]
+      },
+      {
+        "word": "nach",
+        "meaning": "to (cities/countries), after",
+        "examples": ["Ich fahre nach Berlin.", "Nach dem Essen."]
+      },
+      {
+        "word": "seit",
+        "meaning": "since, for (time)",
+        "examples": ["Seit einem Jahr.", "Seit gestern."]
+      },
+      {
+        "word": "von",
+        "meaning": "from, of, by",
+        "examples": ["Von München nach Berlin.", "Ein Freund von mir."]
+      },
+      {
+        "word": "zu",
+        "meaning": "to (people/places)",
+        "examples": ["Ich gehe zu meiner Freundin.", "Zu Hause."]
+      }
+    ]
+  },
+  "wechselprapositionen": {
+    "name": "Two-Way Prepositions (Wechselpräpositionen)",
+    "description": "These prepositions can take either accusative (motion/destination) or dative (location/static).",
+    "rule": "Accusative for MOTION (wohin? - where to?), Dative for LOCATION (wo? - where?)",
+    "prepositions": [
+      {
+        "word": "an",
+        "meaning": "at, on (vertical surface)",
+        "akkusativExample": "Ich hänge das Bild an die Wand. (motion → where to?)",
+        "dativExample": "Das Bild hängt an der Wand. (location → where?)"
+      },
+      {
+        "word": "auf",
+        "meaning": "on (horizontal surface)",
+        "akkusativExample": "Ich lege das Buch auf den Tisch. (motion)",
+        "dativExample": "Das Buch liegt auf dem Tisch. (location)"
+      },
+      {
+        "word": "hinter",
+        "meaning": "behind",
+        "akkusativExample": "Er geht hinter das Haus. (motion)",
+        "dativExample": "Er steht hinter dem Haus. (location)"
+      },
+      {
+        "word": "in",
+        "meaning": "in, into",
+        "akkusativExample": "Ich gehe in die Stadt. (motion)",
+        "dativExample": "Ich bin in der Stadt. (location)"
+      },
+      {
+        "word": "neben",
+        "meaning": "next to, beside",
+        "akkusativExample": "Ich setze mich neben dich. (motion)",
+        "dativExample": "Ich sitze neben dir. (location)"
+      },
+      {
+        "word": "über",
+        "meaning": "over, above, about",
+        "akkusativExample": "Der Vogel fliegt über das Haus. (motion)",
+        "dativExample": "Der Vogel fliegt über dem Haus. (location)"
+      },
+      {
+        "word": "unter",
+        "meaning": "under, below, among",
+        "akkusativExample": "Die Katze geht unter den Tisch. (motion)",
+        "dativExample": "Die Katze ist unter dem Tisch. (location)"
+      },
+      {
+        "word": "vor",
+        "meaning": "in front of, before",
+        "akkusativExample": "Ich stelle das Auto vor das Haus. (motion)",
+        "dativExample": "Das Auto steht vor dem Haus. (location)"
+      },
+      {
+        "word": "zwischen",
+        "meaning": "between",
+        "akkusativExample": "Ich stelle den Stuhl zwischen die Tische. (motion)",
+        "dativExample": "Der Stuhl steht zwischen den Tischen. (location)"
+      }
+    ]
+  },
+  "genitiv": {
+    "name": "Genitiv Prepositions",
+    "description": "These prepositions require the genitive case (less common in spoken German).",
+    "prepositions": [
+      {
+        "word": "wegen",
+        "meaning": "because of",
+        "examples": ["Wegen des Wetters bleibe ich zu Hause."]
+      },
+      {
+        "word": "trotz",
+        "meaning": "despite, in spite of",
+        "examples": ["Trotz des Regens gehe ich spazieren."]
+      },
+      {
+        "word": "während",
+        "meaning": "during",
+        "examples": ["Während des Essens."]
+      }
+    ]
+  },
+  "exercises": [
+    {
+      "id": 1,
+      "question": "Das Geschenk ist _____ dich. (for you)",
+      "options": ["für", "von", "zu", "mit"],
+      "correct": 0,
+      "explanation": "'Für' (for) is an accusative preposition."
+    },
+    {
+      "id": 2,
+      "question": "Ich komme _____ der Schweiz. (from Switzerland)",
+      "options": ["von", "aus", "nach", "zu"],
+      "correct": 1,
+      "explanation": "'Aus' (from/out of) is used for countries and requires dative."
+    },
+    {
+      "id": 3,
+      "question": "Ich gehe _____ dem Bus. (with the bus)",
+      "options": ["für", "mit", "ohne", "durch"],
+      "correct": 1,
+      "explanation": "'Mit' (with) is a dative preposition."
+    },
+    {
+      "id": 4,
+      "question": "Wir fahren _____ Berlin. (to Berlin)",
+      "options": ["zu", "nach", "in", "an"],
+      "correct": 1,
+      "explanation": "'Nach' is used for cities and countries (without article)."
+    },
+    {
+      "id": 5,
+      "question": "Ich gehe _____ _____ Stadt. (into the city - motion)",
+      "options": ["in die", "in der", "in den", "in dem"],
+      "correct": 0,
+      "explanation": "Motion (wohin?) uses accusative: in + die Stadt (feminine)."
+    },
+    {
+      "id": 6,
+      "question": "Ich bin _____ _____ Stadt. (in the city - location)",
+      "options": ["in die", "in der", "in den", "in das"],
+      "correct": 1,
+      "explanation": "Location (wo?) uses dative: in + der Stadt (feminine dative)."
+    },
+    {
+      "id": 7,
+      "question": "Das Buch liegt _____ _____ Tisch. (on the table - location)",
+      "options": ["auf den", "auf dem", "auf die", "auf der"],
+      "correct": 1,
+      "explanation": "Location (wo?) uses dative: auf + dem Tisch (masculine dative)."
+    },
+    {
+      "id": 8,
+      "question": "Ich lege das Buch _____ _____ Tisch. (onto the table - motion)",
+      "options": ["auf den", "auf dem", "auf die", "auf der"],
+      "correct": 0,
+      "explanation": "Motion (wohin?) uses accusative: auf + den Tisch (masculine accusative)."
+    },
+    {
+      "id": 9,
+      "question": "Ich gehe ohne _____ Bruder. (without my brother)",
+      "options": ["meinen", "meinem", "mein", "meiner"],
+      "correct": 0,
+      "explanation": "'Ohne' requires accusative: meinen Bruder (masculine accusative)."
+    },
+    {
+      "id": 10,
+      "question": "Wegen _____ Wetters... (because of the weather)",
+      "options": ["des", "dem", "den", "der"],
+      "correct": 0,
+      "explanation": "'Wegen' requires genitive: des Wetters (neuter genitive)."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "Which case does 'für' take?",
+      "back": "Akkusativ",
+      "explanation": "für is always accusative"
+    },
+    {
+      "id": 2,
+      "front": "Which case does 'mit' take?",
+      "back": "Dativ",
+      "explanation": "mit is always dative"
+    },
+    {
+      "id": 3,
+      "front": "Ich gehe ___ die Stadt (motion)",
+      "back": "in",
+      "explanation": "Two-way preposition + accusative for motion"
+    },
+    {
+      "id": 4,
+      "front": "Ich bin ___ der Stadt (location)",
+      "back": "in",
+      "explanation": "Two-way preposition + dative for location"
+    },
+    {
+      "id": 5,
+      "front": "Translate: with my brother",
+      "back": "mit meinem Bruder",
+      "explanation": "'mit' takes dative"
+    },
+    {
+      "id": 6,
+      "front": "Translate: for my sister",
+      "back": "für meine Schwester",
+      "explanation": "'für' takes accusative"
+    },
+    {
+      "id": 7,
+      "front": "Two-way prepositions use ___ for motion",
+      "back": "Akkusativ",
+      "explanation": "wohin? → accusative"
+    },
+    {
+      "id": 8,
+      "front": "Two-way prepositions use ___ for location",
+      "back": "Dativ",
+      "explanation": "wo? → dative"
+    }
+  ]
+}

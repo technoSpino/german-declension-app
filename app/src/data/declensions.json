@@ -1,0 +1,58 @@
+{
+  "tables": {
+    "adjectiveExamples": {
+      "id": "adjectiveExamples",
+      "name": "German Declension with Adjectives",
+      "description": "Articles + adjectives highlighted to show patterns",
+      "grid": [
+        ["Nom", "<b>der</b> nett<span class=\"ending-e\">e</span> Mann\n<b>ein</b> nett<span class=\"ending-er\">er</span> Mann", "<b>das</b> nett<span class=\"ending-e\">e</span> Kind\n<b>ein</b> nett<span class=\"ending-es\">es</span> Kind", "<b>die</b> nett<span class=\"ending-e\">e</span> Frau\n<b>eine</b> nett<span class=\"ending-e\">e</span> Frau", "<b>die</b> nett<span class=\"ending-en\">en</span> Leute\nnett<span class=\"ending-e\">e</span> Leute"],
+        ["Akk", "<b>den</b> nett<span class=\"ending-en\">en</span> Mann\n<b>einen</b> nett<span class=\"ending-en\">en</span> Mann", "<b>das</b> nett<span class=\"ending-e\">e</span> Kind\n<b>ein</b> nett<span class=\"ending-es\">es</span> Kind", "<b>die</b> toll<span class=\"ending-e\">e</span> Frau\n<b>eine</b> toll<span class=\"ending-e\">e</span> Frau", "<b>die</b> nett<span class=\"ending-en\">en</span> Leute\nnett<span class=\"ending-e\">e</span> Leute"],
+        ["Dat", "<b>dem</b> nett<span class=\"ending-en\">en</span> Mann\n<b>einem</b> nett<span class=\"ending-en\">en</span> Mann", "<b>dem</b> nett<span class=\"ending-en\">en</span> Kind\n<b>einem</b> nett<span class=\"ending-en\">en</span> Kind", "<b>der</b> nett<span class=\"ending-en\">en</span> Frau\n<b>einer</b> nett<span class=\"ending-en\">en</span> Frau", "<b>den</b> nett<span class=\"ending-en\">en</span> Leuten\nnett<span class=\"ending-en\">en</span> Leuten"],
+        ["Gen", "<b>des</b> nett<span class=\"ending-en\">en</span> Mannes\n<b>eines</b> nett<span class=\"ending-en\">en</span> Mannes", "<b>des</b> nett<span class=\"ending-en\">en</span> Kindes\n<b>eines</b> nett<span class=\"ending-en\">en</span> Kindes", "<b>der</b> nett<span class=\"ending-en\">en</span> Frau\n<b>einer</b> nett<span class=\"ending-en\">en</span> Frau", "<b>der</b> nett<span class=\"ending-en\">en</span> Leute\nnett<span class=\"ending-er\">er</span> Leute"]
+      ]
+    }
+  },
+  "exercises": [
+    {
+      "id": 1,
+      "question": "Complete: Ich sehe _____ großen Hund. (Akkusativ, masculine)",
+      "options": ["der", "den", "dem", "des"],
+      "correct": 1,
+      "explanation": "Akkusativ masculine uses 'den' for the definite article."
+    },
+    {
+      "id": 2,
+      "question": "Complete: Das ist _____ nette Frau. (Nominativ, feminine)",
+      "options": ["der", "die", "das", "den"],
+      "correct": 1,
+      "explanation": "Nominativ feminine uses 'die' as the definite article."
+    },
+    {
+      "id": 3,
+      "question": "Complete: Ich gebe _____ alten Mann das Buch. (Dativ, masculine)",
+      "options": ["der", "den", "dem", "des"],
+      "correct": 2,
+      "explanation": "Dativ masculine uses 'dem' for the definite article."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "Der alt___ Mann (weak declension)",
+      "back": "Der alte Mann",
+      "explanation": "After definite article 'der', adjectives take -e ending in nominativ."
+    },
+    {
+      "id": 2,
+      "front": "Ein alt___ Mann (mixed declension)",
+      "back": "Ein alter Mann",
+      "explanation": "After indefinite article 'ein', adjectives take -er ending in nominativ masculine."
+    },
+    {
+      "id": 3,
+      "front": "Ich sehe den alt___ Mann (weak declension, Akkusativ)",
+      "back": "Ich sehe den alten Mann",
+      "explanation": "After 'den' (Akkusativ), weak adjectives take -en ending."
+    }
+  ]
+}

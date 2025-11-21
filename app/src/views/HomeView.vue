@@ -15,13 +15,13 @@ const hasProgress = computed(() => progressStore.totalInteractions > 0)
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
         <div class="text-center">
           <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6">
-            Master German Declensions
+            Master German Grammar
           </h1>
           <p class="text-xl sm:text-2xl text-violet-100 mb-4 max-w-3xl mx-auto">
-            Learn and practice German noun declensions with color-coded tables and smart flashcards
+            Complete A2-level German grammar platform with interactive exercises and smart flashcards
           </p>
           <p class="text-lg text-violet-200 mb-12 max-w-2xl mx-auto">
-            Build confidence in der, die, das and master all cases with our interactive learning tools
+            Declensions • Modal Verbs • Sentence Structure • Verb Conjugation • Past Tense • Prepositions
           </p>
 
           <!-- Primary CTAs -->
@@ -123,58 +123,68 @@ const hasProgress = computed(() => progressStore.totalInteractions > 0)
       </div>
     </div>
 
-    <!-- Features Section -->
+    <!-- Topics Grid Section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-      <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Why Learn With Us?</h2>
+      <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Explore All Topics</h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Color-Coded Tables Feature -->
-        <div class="bg-white rounded-xl shadow-lg p-8 border-t-4 border-violet-600">
-          <div class="flex items-center mb-4">
-            <div class="bg-violet-100 rounded-lg p-3 mr-4">
-              <svg class="w-8 h-8 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900">Color-Coded Tables</h3>
-          </div>
-          <p class="text-gray-600">
-            Visual learning made easy. Our color-coded declension tables help you recognize patterns and memorize endings faster. Each gender and case has its own color for instant recognition.
-          </p>
-          <router-link
-            to="/tables"
-            class="inline-flex items-center mt-4 text-violet-600 font-semibold hover:text-violet-700"
-          >
-            View Tables
-            <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </router-link>
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Declensions -->
+        <router-link to="/tables" class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-violet-600 hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-4xl mb-3">📊</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Declensions</h3>
+          <p class="text-gray-600 text-sm mb-4">Master articles and adjective endings with color-coded tables</p>
+          <span class="text-violet-600 font-semibold text-sm">Start Learning →</span>
+        </router-link>
 
-        <!-- Smart Flashcards Feature -->
-        <div class="bg-white rounded-xl shadow-lg p-8 border-t-4 border-blue-600">
-          <div class="flex items-center mb-4">
-            <div class="bg-blue-100 rounded-lg p-3 mr-4">
-              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900">Smart Flashcards</h3>
+        <!-- Modal Verbs -->
+        <router-link to="/modal-verbs" class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-600 hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-4xl mb-3">🔧</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Modal Verbs</h3>
+          <p class="text-gray-600 text-sm mb-4">können, müssen, wollen, möchten, dürfen, sollen</p>
+          <span class="text-blue-600 font-semibold text-sm">Start Learning →</span>
+        </router-link>
+
+        <!-- Sentence Structure -->
+        <router-link to="/sentence-structure" class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-red-600 hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-4xl mb-3">🏗️</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Sentence Structure</h3>
+          <p class="text-gray-600 text-sm mb-4">Master Hauptsatz and Nebensatz word order</p>
+          <span class="text-red-600 font-semibold text-sm">Start Learning →</span>
+        </router-link>
+
+        <!-- Verb Conjugation -->
+        <router-link to="/verb-conjugation" class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-green-600 hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-4xl mb-3">🔄</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Verb Conjugation</h3>
+          <p class="text-gray-600 text-sm mb-4">Regular, irregular, stem-changing, and separable verbs</p>
+          <span class="text-green-600 font-semibold text-sm">Start Learning →</span>
+        </router-link>
+
+        <!-- Past Tense -->
+        <router-link to="/past-tense" class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-purple-600 hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-4xl mb-3">⏮️</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Past Tense (Perfekt)</h3>
+          <p class="text-gray-600 text-sm mb-4">Learn haben/sein + past participles</p>
+          <span class="text-purple-600 font-semibold text-sm">Start Learning →</span>
+        </router-link>
+
+        <!-- Prepositions -->
+        <router-link to="/prepositions" class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-orange-600 hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-4xl mb-3">📍</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Prepositions</h3>
+          <p class="text-gray-600 text-sm mb-4">Akkusativ, Dativ, Two-Way, and Genitiv prepositions</p>
+          <span class="text-orange-600 font-semibold text-sm">Start Learning →</span>
+        </router-link>
+
+        <!-- Flashcards -->
+        <router-link to="/flashcards" class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-indigo-600 hover:shadow-xl transition-all transform hover:scale-105 md:col-span-2 lg:col-span-3">
+          <div class="text-center">
+            <div class="text-4xl mb-3">🎴</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Practice Flashcards</h3>
+            <p class="text-gray-600 text-sm mb-4">Spaced repetition system with 55+ cards covering all topics</p>
+            <span class="text-indigo-600 font-semibold text-sm">Start Practicing →</span>
           </div>
-          <p class="text-gray-600">
-            Practice makes perfect. Our intelligent flashcard system adapts to your progress, focusing on the cases you need to review most. Track your mastery and build confidence.
-          </p>
-          <router-link
-            to="/flashcards"
-            class="inline-flex items-center mt-4 text-blue-600 font-semibold hover:text-blue-700"
-          >
-            Start Practicing
-            <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </router-link>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>

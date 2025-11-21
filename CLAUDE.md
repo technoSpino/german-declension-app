@@ -4,251 +4,332 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a German declension learning app MVP built as a **static site** using vanilla HTML/CSS/JavaScript. The project uses a three-agent architecture where each agent builds a self-contained module that can be developed independently.
+This is a **German A2 Grammar Learning Platform** built with Vue 3, Vue Router, Tailwind CSS, and Vite. The application provides comprehensive interactive lessons, exercises, and flashcards for learning German grammar at the A2 level.
 
-**Core Value Proposition:** Color-coded declension tables + basic flashcards to help A2 German learners master declension patterns.
+**Core Value Proposition:** Complete A2-level German grammar platform with color-coded visual learning, multiple choice exercises, embedded flashcards, and spaced repetition practice.
 
 ## Architecture
 
-### Three-Agent System
+### Technology Stack
 
-The codebase is designed around three independent modules that integrate into a final app:
+- **Vue 3** - Progressive JavaScript framework with Composition API
+- **Vue Router** - Client-side routing for SPA navigation
+- **Tailwind CSS** - Utility-first CSS framework
+- **Vite** - Next generation frontend build tool
+- **Pinia** - State management for flashcards and progress
+- **JSON** - All grammar data stored in JSON files for easy maintenance
 
-1. **Agent 1 - Table Module** (`app/table.html`)
-   - Interactive declension tables with color-coded cells (blue=Nominativ, red=Akkusativ, green=Dativ, orange=Genitiv)
-   - Covers 5 table types: definite articles, indefinite articles, weak/strong/mixed adjective declensions
-   - Clicking cells shows modal with example sentences
-   - Self-contained HTML file with embedded CSS and JavaScript
+### Application Structure
 
-2. **Agent 2 - Flashcard Module** (`app/flashcards.html`)
-   - Leitner box spaced repetition system (5 boxes with intervals: 0, 1, 3, 7, 14 days)
-   - Minimum 50 flashcards covering articles and adjective declensions
-   - LocalStorage persistence for progress tracking
-   - Self-contained HTML file with embedded CSS and JavaScript
+The application consists of 7 main topic sections plus a comprehensive flashcard system:
 
-3. **Agent 3 - Integration** (`app/index.html`)
-   - Landing page with navigation between modules
-   - Shared styles and cross-module progress tracking
-   - Final deployment configuration
+1. **Declensions** (`/tables`) - Color-coded declension tables with adjective endings
+2. **Modal Verbs** (`/modal-verbs`) - können, müssen, wollen, möchten, dürfen, sollen
+3. **Sentence Structure** (`/sentence-structure`) - Hauptsatz and Nebensatz word order
+4. **Verb Conjugation** (`/verb-conjugation`) - Regular, irregular, stem-changing, separable verbs
+5. **Past Tense** (`/past-tense`) - Perfekt tense with haben/sein + past participles
+6. **Prepositions** (`/prepositions`) - Akkusativ, Dativ, Two-Way, and Genitiv prepositions
+7. **Flashcards** (`/flashcards`) - Leitner spaced repetition system with 55+ cards
+8. **Home** (`/`) - Landing page with progress tracking and topic navigation
 
 ### Key Design Principles
 
-- **Self-contained modules:** Each HTML file includes all CSS and JavaScript inline (no external dependencies)
-- **No build step:** Files should work by opening directly in a browser
-- **LocalStorage for state:** All user data persists client-side (no backend)
-- **Mobile-first responsive:** Must work at 320px width minimum
-- **Target bundle size:** <100KB gzipped for entire app
+- **JSON-based content:** All grammar data, exercises, and flashcards stored in JSON for maintainability
+- **Reusable components:** MultipleChoiceExercise and EmbeddedFlashcards used across all topics
+- **Embedded exercises:** Each topic includes both multiple choice quizzes and quick flashcards
+- **LocalStorage persistence:** Progress tracking and flashcard state persisted client-side
+- **Mobile-first responsive:** Optimized for all screen sizes (320px minimum)
+- **Color-coded learning:** Consistent color scheme for cases (Nominativ=blue, Akkusativ=red, Dativ=green, Genitiv=orange)
 
 ## Development Commands
 
 ### Local Development
 
 ```bash
-# Start development server (Python)
+cd app
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# Or: python -m http.server 8000 --directory app
+# Opens at http://localhost:5173
 
-# Start development server (Node.js)
-npm run dev:node
-# Or: npx http-server app -p 8000 -o
+# Build for production
+npm run build
 
-# Then visit http://localhost:8000
+# Preview production build
+npm run preview
 ```
 
 ### Testing
 
 ```bash
-# Validate HTML
-npm run validate
+# Run unit tests
+npm run test
 
-# Run Lighthouse audit
-npm run lighthouse
-```
+# Run end-to-end tests
+npm run test:e2e
 
-### Deployment
-
-```bash
-# Deploy to Netlify (recommended)
-npm run deploy:netlify
-
-# Deploy to GitHub Pages
-npm run deploy:gh-pages
-```
-
-### Minification (optional)
-
-```bash
-npm run minify:html
-npm run minify:css
-npm run minify:js
+# Run tests in watch mode
+npm run test:watch
 ```
 
 ## Code Structure
 
 ```
 app/
-├── index.html          # Landing page (Agent 3)
-├── table.html          # Declension tables (Agent 1)
-├── flashcards.html     # Flashcard system (Agent 2)
-├── styles.css          # Shared styles (Agent 3)
-└── data/               # Any shared data files
+├── src/
+│   ├── components/
+│   │   ├── AppNav.vue                  # Main navigation bar with all topics
+│   │   ├── FlashcardCard.vue           # Individual flashcard display component
+│   │   ├── MultipleChoiceExercise.vue  # Reusable quiz component
+│   │   └── EmbeddedFlashcards.vue      # Embedded flashcard practice component
+│   ├── views/
+│   │   ├── HomeView.vue                # Landing page with topic cards
+│   │   ├── TablesView.vue              # Declension tables view
+│   │   ├── ModalVerbsView.vue          # Modal verbs lessons and exercises
+│   │   ├── SentenceStructureView.vue   # Sentence structure lessons
+│   │   ├── VerbConjugationView.vue     # Verb conjugation lessons
+│   │   ├── PastTenseView.vue           # Past tense lessons
+│   │   ├── PrepositionsView.vue        # Prepositions lessons
+│   │   └── FlashcardsView.vue          # Main flashcard system
+│   ├── data/                           # JSON data files
+│   │   ├── declensions.json
+│   │   ├── modalVerbs.json
+│   │   ├── sentenceStructure.json
+│   │   ├── verbConjugations.json
+│   │   ├── pastTense.json
+│   │   ├── prepositions.json
+│   │   └── flashcards.json
+│   ├── stores/
+│   │   ├── flashcardStore.js           # Pinia store for flashcard state
+│   │   └── progressStore.js            # Pinia store for progress tracking
+│   ├── router/
+│   │   └── index.js                    # Route definitions for all pages
+│   ├── App.vue                         # Root component
+│   └── main.js                         # Application entry point
+├── index.html
+├── package.json
+├── tailwind.config.js
+└── vite.config.js
 ```
 
-## Working with Agents
+## Working with Different Parts of the Application
 
-### When Working on Agent 1 (Tables)
+### Adding a New Grammar Topic
 
-- Read specification in `agents/AGENT_1_TABLE.md`
-- Output must be a single `app/table.html` file
-- Use the exact color scheme: Nominativ=#E3F2FD/border #2196F3, Akkusativ=#FFEBEE/#F44336, Dativ=#E8F5E9/#4CAF50, Genitiv=#FFF3E0/#FF9800
-- Include examples for all cells (der/die/das/die × 4 cases × 5 table types)
-- Modal should close on ESC key, X button, or outside click
+1. **Create JSON data file** in `app/src/data/your-topic.json`:
+```json
+{
+  "exercises": [
+    {
+      "id": 1,
+      "question": "Your question here",
+      "options": ["option1", "option2", "option3", "option4"],
+      "correct": 0,
+      "explanation": "Why this is correct"
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "Question",
+      "back": "Answer",
+      "explanation": "Additional context"
+    }
+  ]
+}
+```
 
-### When Working on Agent 2 (Flashcards)
+2. **Create a View component** in `app/src/views/YourTopicView.vue`:
+```vue
+<script setup>
+import { ref } from 'vue'
+import MultipleChoiceExercise from '../components/MultipleChoiceExercise.vue'
+import EmbeddedFlashcards from '../components/EmbeddedFlashcards.vue'
+import topicData from '../data/your-topic.json'
 
-- Read specification in `agents/AGENT_2_FLASHCARD.md`
-- Output must be a single `app/flashcards.html` file
-- Implement Leitner box intervals exactly: box 1=0 days, box 2=1 day, box 3=3 days, box 4=7 days, box 5=14 days
-- Correct answer moves card to next box (max 5), incorrect moves to box 1
-- Persist state to localStorage using keys: `flashcards`, `progress`
-- Generate minimum 50 cards covering definite/indefinite articles and adjective declensions
+const showExercises = ref(false)
+const showFlashcards = ref(false)
+</script>
 
-### When Working on Agent 3 (Integration)
+<template>
+  <!-- Your content here -->
+  <EmbeddedFlashcards :flashcards="topicData.flashcards" title="Your Topic Practice" />
+  <MultipleChoiceExercise :exercises="topicData.exercises" title="Your Topic Exercises" />
+</template>
+```
 
-- Read specification in `agents/AGENT_3_INTEGRATION.md` (if exists) or `EXECUTION_PLAN.md`
-- Create landing page with clear navigation to table.html and flashcards.html
-- Extract shared styles into styles.css
-- Ensure progress tracking works across modules
-- Configure deployment (netlify.toml or GitHub Actions)
+3. **Add route** to `app/src/router/index.js`:
+```javascript
+import YourTopicView from '../views/YourTopicView.vue'
 
-## Testing Checklist
+const routes = [
+  // ...existing routes
+  {
+    path: '/your-topic',
+    name: 'YourTopic',
+    component: YourTopicView,
+    meta: { title: 'Your Topic' }
+  }
+]
+```
 
-Before considering any agent complete:
+4. **Update navbar** in `app/src/components/AppNav.vue` - Add links in both desktop and mobile menus
 
-- [ ] No JavaScript console errors
-- [ ] Works on mobile (test at 320px width)
-- [ ] LocalStorage persists correctly (for flashcard module)
-- [ ] All interactive elements have hover/focus states
-- [ ] Keyboard navigation works (Tab, Enter, Escape)
-- [ ] Validate HTML at https://validator.w3.org/
-- [ ] Lighthouse accessibility score >90
-- [ ] Page loads in <2 seconds on throttled connection
-- [ ] Works in Chrome, Firefox, Safari
+5. **Add to home page** in `app/src/views/HomeView.vue` - Add a topic card in the topics grid
 
-## Important Constraints
+### Working with Reusable Components
 
-- **No frameworks:** Pure vanilla JavaScript only (no React, Vue, jQuery)
-- **No external CDNs:** All code must be inline (except optional analytics)
-- **Single file per module:** Each agent outputs one complete HTML file
-- **Browser support:** Modern browsers only (Chrome, Firefox, Safari, Edge - latest versions)
-- **File size:** Each module should be <50KB, total app <100KB gzipped
+#### MultipleChoiceExercise Component
+
+Props:
+- `exercises` (Array, required) - Array of exercise objects
+- `title` (String, default: 'Practice Exercises') - Section title
+
+Features:
+- Progress tracking with score display
+- Immediate feedback on answers
+- Explanations for each question
+- Navigation between questions
+- Final score summary
+
+#### EmbeddedFlashcards Component
+
+Props:
+- `flashcards` (Array, required) - Array of flashcard objects
+- `title` (String, default: 'Quick Practice') - Section title
+
+Features:
+- Flip animation
+- Keyboard navigation (Space, Arrow keys)
+- Progress counter
+- Explanations on back of cards
 
 ## Color Scheme Reference
 
-Cases use consistent color coding across all modules:
+Cases use consistent color coding across all topics:
 
-- **Nominativ:** Background #E3F2FD, Border/Text #2196F3 (light blue)
-- **Akkusativ:** Background #FFEBEE, Border/Text #F44336 (light red)
-- **Dativ:** Background #E8F5E9, Border/Text #4CAF50 (light green)
-- **Genitiv:** Background #FFF3E0, Border/Text #FF9800 (light orange)
+- **Nominativ:** Blue (#2196F3) - Background #E3F2FD
+- **Akkusativ:** Red (#F44336) - Background #FFEBEE
+- **Dativ:** Green (#4CAF50) - Background #E8F5E9
+- **Genitiv:** Orange (#FF9800) - Background #FFF3E0
+
+Additional colors:
+- **Primary:** Violet (#7c3aed) - Used for buttons and highlights
+- **Text:** Gray (#1f2937, #374151, #6b7280) - Various text levels
 
 Ensure WCAG AA contrast ratios (4.5:1 minimum).
 
 ## LocalStorage Schema
 
 ```javascript
-// Flashcard data
-localStorage.setItem('flashcards', JSON.stringify([{
-  id: 1,
-  front: "Ich sehe ___ Mann",
-  back: "den",
-  explanation: "Akkusativ, masculine",
-  hint: "(accusative, masculine)",
-  tags: ["akkusativ", "masculine", "article"],
-  box: 1,              // 1-5
-  nextReview: null,    // timestamp or null
-  correctCount: 0,
-  incorrectCount: 0,
-  lastReviewed: null,
-  created: 1234567890
-}]));
+// Flashcard progress (Pinia store)
+localStorage.setItem('flashcardProgress', JSON.stringify({
+  cards: [{
+    id: 1,
+    box: 1,              // Leitner box 1-5
+    nextReview: null,    // timestamp or null
+    correctCount: 0,
+    incorrectCount: 0,
+    lastReviewed: null
+  }],
+  sessionStats: {
+    cardsReviewed: 0,
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  }
+}))
 
-// Progress tracking
+// Progress tracking (Pinia store)
 localStorage.setItem('progress', JSON.stringify({
   cardsStudied: 10,
-  cardsCorrect: 8,
+  cardsMastered: 5,
+  tableInteractions: 20,
   currentStreak: 3,
   lastStudy: 1234567890
-}));
+}))
 ```
+
+## Testing Checklist
+
+Before considering a feature complete:
+
+- [ ] No JavaScript console errors
+- [ ] Works on mobile (test at 320px width)
+- [ ] LocalStorage persists correctly
+- [ ] All interactive elements have hover/focus states
+- [ ] Keyboard navigation works (Tab, Enter, Escape, Space, Arrows)
+- [ ] Color contrast meets WCAG AA standards
+- [ ] Loading states handle gracefully
+- [ ] Error states are user-friendly
+- [ ] Responsive across all breakpoints
+- [ ] Works in Chrome, Firefox, Safari, Edge
 
 ## Common Pitfalls to Avoid
 
-1. **Don't create separate CSS/JS files** - Each agent module must be self-contained
-2. **Don't use relative paths for cross-module links** - Use `./table.html` not `/table.html`
-3. **Don't forget mobile testing** - 320px is the minimum supported width
-4. **Don't skip localStorage error handling** - Private browsing mode disables it
-5. **Don't add build complexity** - No webpack, no bundlers, keep it simple
-6. **Don't over-engineer** - This is an MVP; resist adding features beyond the spec
-
-## Deployment Notes
-
-- **Recommended platform:** Netlify (easier than GitHub Pages)
-- **Publish directory:** `app/`
-- **Build command:** None (static site)
-- **Environment variables:** None needed
-- SSL is automatic on both Netlify and GitHub Pages
-
-See `DEPLOY.md` for detailed deployment instructions.
+1. **JSON syntax errors** - Always validate JSON files before committing
+2. **Missing router imports** - Import new view components in router/index.js
+3. **Navbar path mismatches** - Ensure navbar links match router paths exactly
+4. **Mobile responsiveness** - Test on small screens, use Tailwind responsive classes
+5. **LocalStorage errors** - Handle private browsing mode gracefully
+6. **Component prop types** - Ensure correct prop types are passed to components
+7. **Hard-coded data** - Keep all content in JSON files, not in Vue components
 
 ## Git Workflow
 
-When implementing agents sequentially:
+When adding new features:
 
 ```bash
-# After Agent 1 complete
-git add app/table.html
-git commit -m "feat: Add table module (Agent 1)"
+# Create feature branch
+git checkout -b feature/new-grammar-topic
 
-# After Agent 2 complete
-git add app/flashcards.html
-git commit -m "feat: Add flashcard module (Agent 2)"
+# Make changes and test
+npm run dev
+npm run test
 
-# After Agent 3 complete
-git add app/index.html app/styles.css
-git commit -m "feat: Add integration and landing page (Agent 3)"
+# Commit changes
+git add .
+git commit -m "feat: Add new grammar topic with exercises"
 
-# Tag MVP release
-git tag -a v1.0.0-mvp -m "MVP Release"
+# Push to remote
+git push origin feature/new-grammar-topic
+
+# Create pull request for review
 ```
 
 ## Code Style
 
-Follow the standards in `CONTRIBUTING.md`:
+Follow these conventions:
 
-- Use `const` and `let` (never `var`)
-- Meaningful variable names (`scheduleNextReview` not `snr`)
-- Comment complex logic
-- Semantic HTML (`<section>`, `<nav>`, `<article>`)
-- CSS variables for colors and spacing
-- Handle errors gracefully (especially localStorage failures)
+- **Vue:** Composition API with `<script setup>`
+- **JavaScript:** Use `const` and `let` (never `var`)
+- **Naming:** camelCase for variables, PascalCase for components
+- **Comments:** Explain complex logic, not obvious code
+- **Tailwind:** Use utility classes, avoid custom CSS when possible
+- **JSON:** Consistent indentation, meaningful keys
+- **File organization:** Group related code, use descriptive file names
 
 ## Success Criteria
 
-The MVP is complete when:
+The platform is successful when:
 
-- ✅ All 5 declension tables display correctly with color coding
-- ✅ 50+ flashcards work with Leitner system
-- ✅ Progress saves to localStorage
-- ✅ Deployed to Netlify or GitHub Pages
-- ✅ Mobile responsive (320px+)
-- ✅ No console errors
-- ✅ Lighthouse score >80 overall, >90 accessibility
-- ✅ Loads in <2 seconds on throttled 3G
+- ✅ All 6 grammar topics are complete with exercises and flashcards
+- ✅ 10+ exercises per topic working correctly
+- ✅ Multiple choice exercises provide immediate feedback
+- ✅ Embedded flashcards work in each section
+- ✅ Main flashcard system uses Leitner spaced repetition
+- ✅ Progress tracking persists across sessions
+- ✅ Mobile responsive on all devices (320px+)
+- ✅ No console errors or warnings
+- ✅ Fast loading (<2 seconds)
+- ✅ Intuitive navigation and user experience
 
 ## Resources
 
-- Agent specifications: `agents/AGENT_1_TABLE.md`, `agents/AGENT_2_FLASHCARD.md`
-- Execution plan: `EXECUTION_PLAN.md`
-- Deployment guide: `DEPLOY.md`
-- Contributing guidelines: `CONTRIBUTING.md`
+- **Vue 3 docs:** https://vuejs.org/
+- **Vue Router docs:** https://router.vuejs.org/
+- **Tailwind CSS docs:** https://tailwindcss.com/
+- **Pinia docs:** https://pinia.vuejs.org/
+- **Vite docs:** https://vitejs.dev/

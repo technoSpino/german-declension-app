@@ -1,0 +1,342 @@
+{
+  "regularVerbs": [
+    {
+      "infinitive": "machen",
+      "meaning": "to make, to do",
+      "conjugations": {
+        "ich": "mache",
+        "du": "machst",
+        "er/sie/es": "macht",
+        "wir": "machen",
+        "ihr": "macht",
+        "sie/Sie": "machen"
+      },
+      "examples": ["Ich mache meine Hausaufgaben.", "Was machst du heute?"]
+    },
+    {
+      "infinitive": "lernen",
+      "meaning": "to learn",
+      "conjugations": {
+        "ich": "lerne",
+        "du": "lernst",
+        "er/sie/es": "lernt",
+        "wir": "lernen",
+        "ihr": "lernt",
+        "sie/Sie": "lernen"
+      },
+      "examples": ["Ich lerne Deutsch.", "Sie lernen zusammen."]
+    },
+    {
+      "infinitive": "arbeiten",
+      "meaning": "to work",
+      "conjugations": {
+        "ich": "arbeite",
+        "du": "arbeitest",
+        "er/sie/es": "arbeitet",
+        "wir": "arbeiten",
+        "ihr": "arbeitet",
+        "sie/Sie": "arbeiten"
+      },
+      "examples": ["Ich arbeite bei BMW.", "Er arbeitet hart."],
+      "note": "Add -e before -st/-t for easier pronunciation (stem ends in -t)"
+    },
+    {
+      "infinitive": "wohnen",
+      "meaning": "to live, to reside",
+      "conjugations": {
+        "ich": "wohne",
+        "du": "wohnst",
+        "er/sie/es": "wohnt",
+        "wir": "wohnen",
+        "ihr": "wohnt",
+        "sie/Sie": "wohnen"
+      },
+      "examples": ["Ich wohne in Berlin.", "Wo wohnst du?"]
+    }
+  ],
+  "irregularVerbs": [
+    {
+      "infinitive": "sein",
+      "meaning": "to be",
+      "conjugations": {
+        "ich": "bin",
+        "du": "bist",
+        "er/sie/es": "ist",
+        "wir": "sind",
+        "ihr": "seid",
+        "sie/Sie": "sind"
+      },
+      "examples": ["Ich bin müde.", "Du bist nett.", "Wir sind Studenten."],
+      "type": "irregular"
+    },
+    {
+      "infinitive": "haben",
+      "meaning": "to have",
+      "conjugations": {
+        "ich": "habe",
+        "du": "hast",
+        "er/sie/es": "hat",
+        "wir": "haben",
+        "ihr": "habt",
+        "sie/Sie": "haben"
+      },
+      "examples": ["Ich habe Hunger.", "Er hat ein Auto.", "Wir haben Zeit."],
+      "type": "irregular"
+    },
+    {
+      "infinitive": "werden",
+      "meaning": "to become",
+      "conjugations": {
+        "ich": "werde",
+        "du": "wirst",
+        "er/sie/es": "wird",
+        "wir": "werden",
+        "ihr": "werdet",
+        "sie/Sie": "werden"
+      },
+      "examples": ["Ich werde Arzt.", "Es wird kalt."],
+      "type": "irregular"
+    }
+  ],
+  "stemChangingVerbs": [
+    {
+      "infinitive": "fahren",
+      "meaning": "to drive, to go",
+      "conjugations": {
+        "ich": "fahre",
+        "du": "fährst",
+        "er/sie/es": "fährt",
+        "wir": "fahren",
+        "ihr": "fahrt",
+        "sie/Sie": "fahren"
+      },
+      "stemChange": "a → ä (du, er/sie/es)",
+      "examples": ["Ich fahre Auto.", "Er fährt nach Berlin."]
+    },
+    {
+      "infinitive": "essen",
+      "meaning": "to eat",
+      "conjugations": {
+        "ich": "esse",
+        "du": "isst",
+        "er/sie/es": "isst",
+        "wir": "essen",
+        "ihr": "esst",
+        "sie/Sie": "essen"
+      },
+      "stemChange": "e → i (du, er/sie/es)",
+      "examples": ["Ich esse Pizza.", "Was isst du gern?"]
+    },
+    {
+      "infinitive": "lesen",
+      "meaning": "to read",
+      "conjugations": {
+        "ich": "lese",
+        "du": "liest",
+        "er/sie/es": "liest",
+        "wir": "lesen",
+        "ihr": "lest",
+        "sie/Sie": "lesen"
+      },
+      "stemChange": "e → ie (du, er/sie/es)",
+      "examples": ["Ich lese ein Buch.", "Er liest die Zeitung."]
+    },
+    {
+      "infinitive": "nehmen",
+      "meaning": "to take",
+      "conjugations": {
+        "ich": "nehme",
+        "du": "nimmst",
+        "er/sie/es": "nimmt",
+        "wir": "nehmen",
+        "ihr": "nehmt",
+        "sie/Sie": "nehmen"
+      },
+      "stemChange": "e → i (du, er/sie/es)",
+      "examples": ["Ich nehme den Bus.", "Er nimmt ein Taxi."]
+    },
+    {
+      "infinitive": "schlafen",
+      "meaning": "to sleep",
+      "conjugations": {
+        "ich": "schlafe",
+        "du": "schläfst",
+        "er/sie/es": "schläft",
+        "wir": "schlafen",
+        "ihr": "schlaft",
+        "sie/Sie": "schlafen"
+      },
+      "stemChange": "a → ä (du, er/sie/es)",
+      "examples": ["Ich schlafe gut.", "Das Baby schläft."]
+    }
+  ],
+  "separableVerbs": [
+    {
+      "infinitive": "aufstehen",
+      "meaning": "to get up, to stand up",
+      "prefix": "auf",
+      "conjugations": {
+        "ich": "stehe ... auf",
+        "du": "stehst ... auf",
+        "er/sie/es": "steht ... auf",
+        "wir": "stehen ... auf",
+        "ihr": "steht ... auf",
+        "sie/Sie": "stehen ... auf"
+      },
+      "examples": ["Ich stehe um 7 Uhr auf.", "Wann stehst du auf?"],
+      "note": "Prefix 'auf' separates and goes to the end in main clauses"
+    },
+    {
+      "infinitive": "anrufen",
+      "meaning": "to call (phone)",
+      "prefix": "an",
+      "conjugations": {
+        "ich": "rufe ... an",
+        "du": "rufst ... an",
+        "er/sie/es": "ruft ... an",
+        "wir": "rufen ... an",
+        "ihr": "ruft ... an",
+        "sie/Sie": "rufen ... an"
+      },
+      "examples": ["Ich rufe dich später an.", "Er ruft seine Mutter an."],
+      "note": "Prefix 'an' separates and goes to the end"
+    },
+    {
+      "infinitive": "einkaufen",
+      "meaning": "to shop, to buy",
+      "prefix": "ein",
+      "conjugations": {
+        "ich": "kaufe ... ein",
+        "du": "kaufst ... ein",
+        "er/sie/es": "kauft ... ein",
+        "wir": "kaufen ... ein",
+        "ihr": "kauft ... ein",
+        "sie/Sie": "kaufen ... ein"
+      },
+      "examples": ["Ich kaufe im Supermarkt ein.", "Wir kaufen jeden Samstag ein."],
+      "note": "Prefix 'ein' separates and goes to the end"
+    }
+  ],
+  "exercises": [
+    {
+      "id": 1,
+      "question": "Ich _____ Deutsch. (lernen)",
+      "options": ["lerne", "lernst", "lernt", "lernen"],
+      "correct": 0,
+      "explanation": "First person singular (ich) adds -e to the stem: lern + e = lerne."
+    },
+    {
+      "id": 2,
+      "question": "Du _____ in Berlin. (wohnen)",
+      "options": ["wohne", "wohnst", "wohnt", "wohnen"],
+      "correct": 1,
+      "explanation": "Second person singular (du) adds -st to the stem: wohn + st = wohnst."
+    },
+    {
+      "id": 3,
+      "question": "Er _____ bei BMW. (arbeiten)",
+      "options": ["arbeite", "arbeitest", "arbeitet", "arbeiten"],
+      "correct": 2,
+      "explanation": "Third person singular (er) adds -et (not just -t) because stem ends in -t."
+    },
+    {
+      "id": 4,
+      "question": "Ich _____ müde. (sein)",
+      "options": ["bin", "bist", "ist", "sind"],
+      "correct": 0,
+      "explanation": "First person singular of irregular verb 'sein' is 'bin'."
+    },
+    {
+      "id": 5,
+      "question": "Du _____ Hunger. (haben)",
+      "options": ["habe", "hast", "hat", "haben"],
+      "correct": 1,
+      "explanation": "Second person singular of irregular verb 'haben' is 'hast'."
+    },
+    {
+      "id": 6,
+      "question": "Er _____ nach Berlin. (fahren)",
+      "options": ["fahre", "fahrst", "fährt", "fahren"],
+      "correct": 2,
+      "explanation": "Stem-changing verb: a → ä for du/er/sie/es. Third person is 'fährt'."
+    },
+    {
+      "id": 7,
+      "question": "Was _____ du? (essen)",
+      "options": ["esse", "isst", "esst", "essen"],
+      "correct": 1,
+      "explanation": "Stem-changing verb: e → i for du/er/sie/es. Second person is 'isst'."
+    },
+    {
+      "id": 8,
+      "question": "Ich _____ ein Buch. (lesen)",
+      "options": ["lese", "liest", "lest", "lesen"],
+      "correct": 0,
+      "explanation": "First person singular of 'lesen' is 'lese' (no stem change for ich)."
+    },
+    {
+      "id": 9,
+      "question": "Ich _____ um 7 Uhr _____. (aufstehen)",
+      "options": ["stehe ... auf", "aufstehe", "stehen ... auf", "auf ... stehe"],
+      "correct": 0,
+      "explanation": "Separable verb: conjugated part 'stehe' in position 2, prefix 'auf' at the end."
+    },
+    {
+      "id": 10,
+      "question": "Er _____ seine Mutter _____. (anrufen)",
+      "options": ["rufe ... an", "rufst ... an", "ruft ... an", "anruft"],
+      "correct": 2,
+      "explanation": "Separable verb: third person 'ruft' in position 2, prefix 'an' at the end."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "ich _____ (machen)",
+      "back": "ich mache",
+      "explanation": "Regular verb: stem + -e"
+    },
+    {
+      "id": 2,
+      "front": "du _____ (lernen)",
+      "back": "du lernst",
+      "explanation": "Regular verb: stem + -st"
+    },
+    {
+      "id": 3,
+      "front": "er _____ (arbeiten)",
+      "back": "er arbeitet",
+      "explanation": "Regular verb ending in -t: stem + -et"
+    },
+    {
+      "id": 4,
+      "front": "ich _____ (sein)",
+      "back": "ich bin",
+      "explanation": "Irregular verb"
+    },
+    {
+      "id": 5,
+      "front": "du _____ (haben)",
+      "back": "du hast",
+      "explanation": "Irregular verb"
+    },
+    {
+      "id": 6,
+      "front": "er _____ (fahren)",
+      "back": "er fährt",
+      "explanation": "Stem-changing: a → ä"
+    },
+    {
+      "id": 7,
+      "front": "du _____ (essen)",
+      "back": "du isst",
+      "explanation": "Stem-changing: e → i"
+    },
+    {
+      "id": 8,
+      "front": "Separable verb: Ich _____ um 7 Uhr _____ (aufstehen)",
+      "back": "stehe ... auf",
+      "explanation": "Prefix separates and goes to the end"
+    }
+  ]
+}
