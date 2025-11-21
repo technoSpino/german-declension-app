@@ -7,6 +7,7 @@ import SentenceStructureView from '../views/SentenceStructureView.vue'
 import VerbConjugationView from '../views/VerbConjugationView.vue'
 import PastTenseView from '../views/PastTenseView.vue'
 import PrepositionsView from '../views/PrepositionsView.vue'
+import WerdenView from '../views/WerdenView.vue'
 
 const routes = [
   {
@@ -50,6 +51,12 @@ const routes = [
     name: 'Prepositions',
     component: PrepositionsView,
     meta: { title: 'Prepositions' }
+  },
+  {
+    path: '/werden',
+    name: 'Werden',
+    component: WerdenView,
+    meta: { title: 'Werden - Future Tense & Passive Voice' }
   },
   {
     path: '/flashcards',
