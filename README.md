@@ -1,168 +1,204 @@
-# German Declension Learning App - MVP
+# German A2 Grammar Learning Platform
 
-## CTO Review Summary
+A comprehensive, interactive web application for learning German grammar at the A2 level. Features multiple choice exercises, embedded flashcards, and structured lessons across 6 major grammar topics.
 
-**Original Spec Assessment:** Overengineered for MVP. The full spec was a 6-8 week, 4-person project.
+## 🎯 Features
 
-**MVP Thesis:** Prove that color-coded declension tables + basic flashcards can help A2 learners. 
+### Grammar Topics Covered
 
-### Scope Decisions
+1. **Declensions** - Articles and adjective endings with color-coded tables
+2. **Modal Verbs** - können, müssen, wollen, möchten, dürfen, sollen
+3. **Sentence Structure** - Hauptsatz and Nebensatz word order
+4. **Verb Conjugation** - Regular, irregular, stem-changing, and separable verbs
+5. **Past Tense (Perfekt)** - haben/sein + past participles
+6. **Prepositions** - Akkusativ, Dativ, Two-Way, and Genitiv
 
-#### ✅ Keep for MVP
-1. **Interactive Declension Table** - Core value, relatively simple
-2. **Basic Flashcard System** - Essential for practice, proven pedagogy
-3. **Simple Progress Tracking** - Motivation, low complexity
+### Learning Tools
 
-#### ❌ Defer to V2
-1. **3D Room Module** - High complexity (Three.js), unproven learning value
-2. **Advanced Analytics** - Nice-to-have, not core
-3. **Full SRS Algorithm** - Start with simple Leitner system, iterate later
-4. **Gamification** - Polish, not essential
-5. **Multi-language UI** - English only for MVP
-6. **Cloud Sync** - LocalStorage sufficient for MVP
+- **📊 Interactive Tables** - Color-coded visual learning aids
+- **✅ Multiple Choice Exercises** - 10+ exercises per topic with instant feedback
+- **🎴 Embedded Flashcards** - Quick practice cards in each section
+- **📚 Comprehensive Flashcard System** - Leitner spaced repetition with 55+ cards
+- **📱 Mobile Responsive** - Works perfectly on all devices
+- **💾 Progress Tracking** - LocalStorage-based progress persistence
 
----
+## 🚀 Getting Started
 
-## Tech Stack (Optimized for Simple Deploy)
+### Prerequisites
 
-- **Framework**: Vanilla JS or lightweight setup (Vite if needed)
-- **Styling**: Tailwind CSS (utility-first)
-- **State**: LocalStorage (no Redux/Zustand)
-- **Deployment**: GitHub Pages or Netlify (static site)
-- **No backend**: Pure client-side
-- **Bundle Size Target**: <100KB gzipped
+- Node.js 18+ and npm
 
----
+### Installation
 
-## Project Structure
-
-```
-german-declension-mvp/
-  ├── README.md                    (this file)
-  ├── EXECUTION_PLAN.md            (how to build this)
-  ├── DEPLOY.md                    (deployment instructions)
-  │
-  ├── agents/
-  │   ├── AGENT_1_TABLE.md         (Table module spec)
-  │   ├── AGENT_2_FLASHCARD.md     (Flashcard module spec)
-  │   └── AGENT_3_INTEGRATION.md   (Integration & deploy spec)
-  │
-  └── app/                         (output directory for final app)
-      ├── index.html               (to be created by Agent 3)
-      ├── table.html               (to be created by Agent 1)
-      ├── flashcards.html          (to be created by Agent 2)
-      ├── styles.css               (to be created by Agent 3)
-      └── data/                    (to be created)
-```
-
----
-
-## Three-Agent Architecture
-
-Each agent is completely independent and can be executed in parallel or sequentially.
-
-### Agent 1: Table Module
-- **Input**: Declension rules, color scheme
-- **Output**: Single HTML page with interactive tables
-- **Complexity**: Low-Medium
-- **Files**: 1 HTML file
-
-### Agent 2: Flashcard Module
-- **Input**: Card generation rules, Leitner system
-- **Output**: Single HTML page with flashcard study interface
-- **Complexity**: Medium
-- **Files**: 1 HTML file
-
-### Agent 3: Integration & Deployment
-- **Input**: Outputs from Agent 1 & 2
-- **Output**: Integrated app with navigation, deployed site
-- **Complexity**: Low
-- **Files**: Landing page, shared styles, config files
-
----
-
-## Execution Sequence
-
-### Option A: Sequential (Recommended)
 ```bash
-Week 1: Execute Agent 1 → Test table module
-Week 2: Execute Agent 2 → Test flashcard module
-Week 3: Execute Agent 3 → Integrate and deploy
+# Clone the repository
+git clone https://github.com/technoSpino/german-declension-app.git
+cd german-declension-app/app
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
 
-### Option B: Parallel (If using multiple developers)
+The app will be available at `http://localhost:5173`
+
+### Building for Production
+
 ```bash
-Developer 1: Agent 1
-Developer 2: Agent 2
-Developer 3: Agent 3 (starts after 1 & 2 complete)
+# Build the app
+npm run build
+
+# Preview the production build
+npm run preview
 ```
 
+## 🏗️ Architecture
+
+### Technology Stack
+
+- **Vue 3** - Progressive JavaScript framework
+- **Vue Router** - Client-side routing
+- **Tailwind CSS** - Utility-first CSS framework
+- **Vite** - Next generation frontend tooling
+- **Pinia** - State management
+
+### Project Structure
+
+```
+app/
+├── src/
+│   ├── components/
+│   │   ├── AppNav.vue                  # Navigation bar
+│   │   ├── FlashcardCard.vue           # Flashcard component
+│   │   ├── MultipleChoiceExercise.vue  # Reusable quiz component
+│   │   └── EmbeddedFlashcards.vue      # Embedded flashcard component
+│   ├── views/
+│   │   ├── HomeView.vue                # Landing page
+│   │   ├── TablesView.vue              # Declensions
+│   │   ├── ModalVerbsView.vue          # Modal verbs
+│   │   ├── SentenceStructureView.vue   # Sentence structure
+│   │   ├── VerbConjugationView.vue     # Verb conjugation
+│   │   ├── PastTenseView.vue           # Past tense
+│   │   ├── PrepositionsView.vue        # Prepositions
+│   │   └── FlashcardsView.vue          # Main flashcard system
+│   ├── data/
+│   │   ├── declensions.json            # Declension data
+│   │   ├── modalVerbs.json             # Modal verb data
+│   │   ├── sentenceStructure.json      # Sentence structure data
+│   │   ├── verbConjugations.json       # Verb conjugation data
+│   │   ├── pastTense.json              # Past tense data
+│   │   ├── prepositions.json           # Preposition data
+│   │   └── flashcards.json             # Flashcard data
+│   ├── stores/
+│   │   ├── flashcardStore.js           # Flashcard state management
+│   │   └── progressStore.js            # Progress tracking
+│   ├── router/
+│   │   └── index.js                    # Route definitions
+│   └── App.vue                         # Root component
+├── index.html
+└── package.json
+```
+
+## 📖 Usage
+
+### For Learners
+
+1. **Start with Tables** - Understand declension patterns with visual aids
+2. **Practice Modal Verbs** - Learn conjugations and usage
+3. **Master Sentence Structure** - Understand German word order
+4. **Study Verb Conjugation** - Practice all verb types
+5. **Learn Past Tense** - Master the Perfekt tense
+6. **Review Prepositions** - Understand case requirements
+7. **Use Flashcards** - Reinforce learning with spaced repetition
+
+### Exercise System
+
+Each topic includes:
+- **Multiple choice quizzes** - Test your knowledge
+- **Embedded flashcards** - Quick practice within each section
+- **Immediate feedback** - Learn from mistakes instantly
+- **Progress tracking** - See your improvement over time
+
+## 🎨 Design Principles
+
+- **Visual Learning** - Color-coded grammar concepts
+- **Progressive Disclosure** - Information revealed as needed
+- **Immediate Feedback** - Learn from mistakes right away
+- **Spaced Repetition** - Scientifically-proven learning method
+- **Mobile-First** - Optimized for learning on the go
+
+## 🧪 Testing
+
+```bash
+# Run unit tests
+npm run test
+
+# Run end-to-end tests
+npm run test:e2e
+```
+
+## 📝 Data Format
+
+All grammar data is stored in JSON format for easy maintenance and extension:
+
+```json
+{
+  "exercises": [
+    {
+      "id": 1,
+      "question": "Complete: Ich _____ Deutsch sprechen. (can)",
+      "options": ["kann", "kannst", "können", "könnt"],
+      "correct": 0,
+      "explanation": "First person singular (ich) of 'können' is 'kann'."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "ich _____ (können)",
+      "back": "ich kann",
+      "explanation": "First person singular of 'können'"
+    }
+  ]
+}
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Adding New Content
+
+To add new grammar topics or exercises:
+
+1. Create a new JSON file in `app/src/data/`
+2. Create a corresponding view component in `app/src/views/`
+3. Add the route to `app/src/router/index.js`
+4. Update the navbar in `app/src/components/AppNav.vue`
+5. Add a card to the home page in `app/src/views/HomeView.vue`
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- Grammar content based on A2 level German standards
+- Color scheme inspired by effective visual learning research
+- Spaced repetition algorithm based on the Leitner system
+
+## 📧 Contact
+
+Project Link: [https://github.com/technoSpino/german-declension-app](https://github.com/technoSpino/german-declension-app)
+
 ---
 
-## Getting Started
-
-1. Read `EXECUTION_PLAN.md` for detailed build instructions
-2. Review each agent spec in `agents/` folder
-3. Execute agents using Claude Code or your preferred method
-4. Follow `DEPLOY.md` for deployment instructions
-
----
-
-## MVP Success Criteria
-
-### Must Have (Week 3)
-- ✅ All 5 declension tables display correctly
-- ✅ 50 flashcards with working Leitner system
-- ✅ Progress saves to localStorage
-- ✅ Deployed to GitHub Pages or Netlify
-- ✅ Mobile responsive
-- ✅ No major bugs
-
-### Nice to Have (Can defer)
-- Table pattern highlighting
-- Flashcard swipe gestures
-- Dark mode
-- Export progress to CSV
-
-### Post-MVP (V2)
-- 3D room module
-- Advanced analytics
-- Cloud sync
-- Community features
-
----
-
-## Timeline
-
-- **Week 1**: Agent 1 complete, tested
-- **Week 2**: Agent 2 complete, tested
-- **Week 3**: Integration, deploy, initial user testing
-- **Week 4**: Bug fixes, polish based on feedback
-
----
-
-## Technology Decisions
-
-### Why Vanilla JS?
-- No build complexity
-- Easier for Claude Code to generate
-- Faster iteration
-- Simpler deployment
-
-### Why LocalStorage?
-- No backend needed
-- Works offline
-- Perfect for MVP
-- Easy to migrate to cloud sync later
-
-### Why Netlify?
-- Easier than GitHub Pages (no branch management)
-- Instant previews for testing
-- Better for iteration
-- Free tier sufficient
-
----
-
-## Questions?
-
-Read the detailed agent specifications in the `agents/` folder. Each agent spec is self-contained and can be handed directly to Claude Code for execution.
+**Happy Learning! Viel Erfolg! 🇩🇪**

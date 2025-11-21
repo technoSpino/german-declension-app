@@ -1,0 +1,247 @@
+{
+  "verbs": [
+    {
+      "infinitive": "können",
+      "meaning": "can, to be able to",
+      "conjugations": {
+        "ich": "kann",
+        "du": "kannst",
+        "er/sie/es": "kann",
+        "wir": "können",
+        "ihr": "könnt",
+        "sie/Sie": "können"
+      },
+      "examples": [
+        "Ich kann Deutsch sprechen.",
+        "Kannst du schwimmen?",
+        "Wir können morgen kommen."
+      ],
+      "usage": "Ability or possibility"
+    },
+    {
+      "infinitive": "müssen",
+      "meaning": "must, to have to",
+      "conjugations": {
+        "ich": "muss",
+        "du": "musst",
+        "er/sie/es": "muss",
+        "wir": "müssen",
+        "ihr": "müsst",
+        "sie/Sie": "müssen"
+      },
+      "examples": [
+        "Ich muss heute arbeiten.",
+        "Du musst pünktlich sein.",
+        "Wir müssen das lernen."
+      ],
+      "usage": "Necessity or obligation"
+    },
+    {
+      "infinitive": "wollen",
+      "meaning": "to want to",
+      "conjugations": {
+        "ich": "will",
+        "du": "willst",
+        "er/sie/es": "will",
+        "wir": "wollen",
+        "ihr": "wollt",
+        "sie/Sie": "wollen"
+      },
+      "examples": [
+        "Ich will nach Hause gehen.",
+        "Was willst du essen?",
+        "Sie wollen Deutsch lernen."
+      ],
+      "usage": "Desire or intention"
+    },
+    {
+      "infinitive": "möchten",
+      "meaning": "would like to",
+      "conjugations": {
+        "ich": "möchte",
+        "du": "möchtest",
+        "er/sie/es": "möchte",
+        "wir": "möchten",
+        "ihr": "möchtet",
+        "sie/Sie": "möchten"
+      },
+      "examples": [
+        "Ich möchte ein Bier trinken.",
+        "Möchtest du Kaffee?",
+        "Wir möchten nach Berlin fahren."
+      ],
+      "usage": "Polite desire (subjunctive of mögen)"
+    },
+    {
+      "infinitive": "dürfen",
+      "meaning": "may, to be allowed to",
+      "conjugations": {
+        "ich": "darf",
+        "du": "darfst",
+        "er/sie/es": "darf",
+        "wir": "dürfen",
+        "ihr": "dürft",
+        "sie/Sie": "dürfen"
+      },
+      "examples": [
+        "Ich darf hier parken.",
+        "Darfst du das machen?",
+        "Man darf hier nicht rauchen."
+      ],
+      "usage": "Permission"
+    },
+    {
+      "infinitive": "sollen",
+      "meaning": "should, to be supposed to",
+      "conjugations": {
+        "ich": "soll",
+        "du": "sollst",
+        "er/sie/es": "soll",
+        "wir": "sollen",
+        "ihr": "sollt",
+        "sie/Sie": "sollen"
+      },
+      "examples": [
+        "Ich soll den Arzt anrufen.",
+        "Du sollst mehr schlafen.",
+        "Wir sollen um 8 Uhr da sein."
+      ],
+      "usage": "Recommendation or indirect obligation"
+    }
+  ],
+  "wordOrder": {
+    "rule": "Modal verb is conjugated and goes in position 2. The main verb stays in infinitive form and goes to the end.",
+    "examples": [
+      {
+        "sentence": "Ich kann Deutsch sprechen.",
+        "breakdown": ["Ich", "kann (modal, conjugated)", "Deutsch", "sprechen (infinitive, end)"]
+      },
+      {
+        "sentence": "Wir müssen heute arbeiten.",
+        "breakdown": ["Wir", "müssen (modal, conjugated)", "heute", "arbeiten (infinitive, end)"]
+      }
+    ]
+  },
+  "exercises": [
+    {
+      "id": 1,
+      "question": "Ich _____ Deutsch sprechen. (can)",
+      "options": ["kann", "kannst", "können", "könnt"],
+      "correct": 0,
+      "explanation": "First person singular (ich) of 'können' is 'kann'."
+    },
+    {
+      "id": 2,
+      "question": "Du _____ heute arbeiten. (must)",
+      "options": ["muss", "musst", "müssen", "müsst"],
+      "correct": 1,
+      "explanation": "Second person singular (du) of 'müssen' is 'musst'."
+    },
+    {
+      "id": 3,
+      "question": "Wir _____ nach Berlin fahren. (would like to)",
+      "options": ["möchte", "möchtest", "möchten", "möchtet"],
+      "correct": 2,
+      "explanation": "First person plural (wir) of 'möchten' is 'möchten'."
+    },
+    {
+      "id": 4,
+      "question": "Er _____ hier nicht rauchen. (may not)",
+      "options": ["darf", "darfst", "dürfen", "dürft"],
+      "correct": 0,
+      "explanation": "Third person singular (er) of 'dürfen' is 'darf'."
+    },
+    {
+      "id": 5,
+      "question": "Ihr _____ mehr lernen. (should)",
+      "options": ["soll", "sollst", "sollen", "sollt"],
+      "correct": 3,
+      "explanation": "Second person plural (ihr) of 'sollen' is 'sollt'."
+    },
+    {
+      "id": 6,
+      "question": "Sie _____ ins Kino gehen. (want to)",
+      "options": ["will", "willst", "wollen", "wollt"],
+      "correct": 2,
+      "explanation": "Third person plural (sie) of 'wollen' is 'wollen'."
+    },
+    {
+      "id": 7,
+      "question": "Word order: Ich / sprechen / kann / Deutsch",
+      "options": ["Ich sprechen kann Deutsch", "Ich kann sprechen Deutsch", "Ich kann Deutsch sprechen", "Ich Deutsch sprechen kann"],
+      "correct": 2,
+      "explanation": "Modal verb (kann) goes in position 2, infinitive (sprechen) goes to the end."
+    },
+    {
+      "id": 8,
+      "question": "Translate: I must work today.",
+      "options": ["Ich muss heute arbeiten.", "Ich heute muss arbeiten.", "Ich arbeiten heute muss.", "Ich muss arbeiten heute."],
+      "correct": 0,
+      "explanation": "Correct word order: subject + modal verb + time + infinitive at end."
+    },
+    {
+      "id": 9,
+      "question": "Choose the polite form: _____ Sie mir helfen?",
+      "options": ["Wollen", "Möchten", "Können", "Müssen"],
+      "correct": 1,
+      "explanation": "'Möchten' is the most polite way to make a request."
+    },
+    {
+      "id": 10,
+      "question": "Wir _____ pünktlich sein. (have to)",
+      "options": ["muss", "musst", "müssen", "müsst"],
+      "correct": 2,
+      "explanation": "First person plural (wir) of 'müssen' is 'müssen'."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "ich _____ (können)",
+      "back": "ich kann",
+      "explanation": "First person singular of 'können'"
+    },
+    {
+      "id": 2,
+      "front": "du _____ (müssen)",
+      "back": "du musst",
+      "explanation": "Second person singular of 'müssen'"
+    },
+    {
+      "id": 3,
+      "front": "er _____ (wollen)",
+      "back": "er will",
+      "explanation": "Third person singular of 'wollen'"
+    },
+    {
+      "id": 4,
+      "front": "wir _____ (möchten)",
+      "back": "wir möchten",
+      "explanation": "First person plural of 'möchten'"
+    },
+    {
+      "id": 5,
+      "front": "ihr _____ (dürfen)",
+      "back": "ihr dürft",
+      "explanation": "Second person plural of 'dürfen'"
+    },
+    {
+      "id": 6,
+      "front": "sie _____ (sollen)",
+      "back": "sie sollen",
+      "explanation": "Third person plural of 'sollen'"
+    },
+    {
+      "id": 7,
+      "front": "Translate: I can swim",
+      "back": "Ich kann schwimmen",
+      "explanation": "Modal 'kann' in position 2, infinitive 'schwimmen' at end"
+    },
+    {
+      "id": 8,
+      "front": "Translate: We must learn",
+      "back": "Wir müssen lernen",
+      "explanation": "Modal 'müssen' in position 2, infinitive 'lernen' at end"
+    }
+  ]
+}
