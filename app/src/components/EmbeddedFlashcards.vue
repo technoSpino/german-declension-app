@@ -141,37 +141,38 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .flashcards-title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: #1f2937;
   margin: 0;
 }
 
 .card-counter {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: #7c3aed;
-  padding: 6px 12px;
+  padding: 5px 10px;
   background: #f5f3ff;
-  border-radius: 8px;
+  border-radius: 6px;
+  border: 1px solid #e9d5ff;
 }
 
 .progress-bar {
-  height: 6px;
+  height: 4px;
   background: #e5e7eb;
-  border-radius: 3px;
+  border-radius: 2px;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #7c3aed 0%, #8b5cf6 100%);
-  transition: width 0.3s ease;
+  background: #7c3aed;
+  transition: width 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .flashcard-wrapper {
@@ -184,7 +185,7 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   min-height: 300px;
-  transition: transform 0.6s;
+  transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
   transform-style: preserve-3d;
 }
 
@@ -197,23 +198,24 @@ onUnmounted(() => {
   width: 100%;
   min-height: 300px;
   backface-visibility: hidden;
-  border-radius: 16px;
-  padding: 32px;
+  border-radius: 12px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.04);
 }
 
 .flashcard-front {
-  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
-  border: 2px solid #e5e7eb;
+  background: white;
+  border: 1px solid #e5e7eb;
 }
 
 .flashcard-back {
-  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
-  color: white;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
   transform: rotateY(180deg);
 }
 
@@ -224,41 +226,30 @@ onUnmounted(() => {
 
 .card-label {
   display: block;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 16px;
-  opacity: 0.7;
-}
-
-.flashcard-front .card-label {
+  margin-bottom: 12px;
   color: #7c3aed;
 }
 
 .flashcard-back .card-label {
-  color: white;
-  opacity: 0.9;
+  color: #16a34a;
 }
 
 .card-text {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.4;
-  margin-bottom: 16px;
-}
-
-.flashcard-front .card-text {
+  margin-bottom: 12px;
   color: #1f2937;
 }
 
-.flashcard-back .card-text {
-  color: white;
-}
-
 .answer-text {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
+  color: #16a34a;
 }
 
 .flip-hint {
@@ -270,14 +261,15 @@ onUnmounted(() => {
 }
 
 .card-explanation {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.6;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  margin-top: 16px;
-  opacity: 0.95;
+  padding: 12px 14px;
+  background: #f0fdf4;
+  border-radius: 8px;
+  margin-top: 12px;
+  color: #475569;
   text-align: center;
+  border-left: 3px solid #16a34a;
 }
 
 .navigation-controls {
@@ -288,23 +280,27 @@ onUnmounted(() => {
 }
 
 .nav-btn {
-  padding: 12px 20px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 10px;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
   background: white;
   color: #374151;
-  border: 2px solid #e5e7eb;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.05);
 }
 
 .nav-btn:hover {
   border-color: #7c3aed;
   color: #7c3aed;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.08);
+}
+
+.nav-btn:active {
+  transform: translateY(0);
 }
 
 .flip-btn {

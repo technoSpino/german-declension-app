@@ -155,13 +155,22 @@ const getCardCaseClass = () => {
   height: 400px;
   cursor: pointer;
   user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.flashcard-container:hover {
+  transform: translateY(-2px);
+}
+
+.flashcard-container:active {
+  transform: translateY(0);
 }
 
 .flashcard {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.6s;
+  transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
   transform-style: preserve-3d;
 }
 
@@ -174,21 +183,21 @@ const getCardCaseClass = () => {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 16px;
+  border-radius: 12px;
   background: white;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.04);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 2px solid #e5e7eb;
+  border: 1px solid #e5e7eb;
 }
 
 .flashcard-front {
-  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  background: white;
 }
 
 .flashcard-back {
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
   transform: rotateY(180deg);
 }
 
@@ -196,18 +205,18 @@ const getCardCaseClass = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
-  background: rgba(124, 58, 237, 0.05);
-  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 16px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .difficulty-badge {
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
 .difficulty-easy {
@@ -226,9 +235,9 @@ const getCardCaseClass = () => {
 }
 
 .box-badge {
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10px;
   font-weight: 600;
   background: #7c3aed;
   color: white;
@@ -239,14 +248,14 @@ const getCardCaseClass = () => {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 32px 24px;
-  gap: 24px;
+  padding: 28px 20px;
+  gap: 20px;
 }
 
 .card-text {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
-  color: #0f172a;
+  color: #1f2937;
   text-align: center;
   line-height: 1.4;
 }
@@ -292,42 +301,43 @@ const getCardCaseClass = () => {
 
 .hint-section {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: rgba(124, 58, 237, 0.1);
-  border-radius: 12px;
-  border-left: 4px solid #7c3aed;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #f5f3ff;
+  border-radius: 8px;
+  border-left: 3px solid #7c3aed;
 }
 
 .hint-icon {
-  font-size: 20px;
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
 .hint-text {
-  font-size: 14px;
-  color: #475569;
-  font-style: italic;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
 }
 
 .explanation-section {
-  padding: 16px;
-  background: rgba(22, 163, 74, 0.1);
-  border-radius: 12px;
-  border-left: 4px solid #16a34a;
+  padding: 12px 14px;
+  background: #f0fdf4;
+  border-radius: 8px;
+  border-left: 3px solid #16a34a;
 }
 
 .explanation-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: #16a34a;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
 }
 
 .explanation-text {
-  font-size: 14px;
+  font-size: 13px;
   color: #475569;
   line-height: 1.5;
 }
@@ -355,9 +365,9 @@ const getCardCaseClass = () => {
 }
 
 .card-footer {
-  padding: 16px 20px;
-  background: rgba(0, 0, 0, 0.02);
-  border-top: 1px solid #e5e7eb;
+  padding: 12px 16px;
+  background: #fafafa;
+  border-top: 1px solid #f0f0f0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -365,17 +375,17 @@ const getCardCaseClass = () => {
 
 .tags {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .tag {
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10px;
   font-weight: 600;
   background: #f1f5f9;
-  color: #475569;
+  color: #64748b;
   text-transform: lowercase;
 }
 
