@@ -47,10 +47,10 @@ const tableEntries = Object.entries(tables);
                       M
                     </th>
                     <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
-                      F
+                      N
                     </th>
                     <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
-                      N
+                      F
                     </th>
                     <th class="p-3 text-center font-bold text-text-primary bg-gray-100 border border-gray-300">
                       Pl
