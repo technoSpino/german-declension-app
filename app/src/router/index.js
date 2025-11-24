@@ -8,6 +8,7 @@ import VerbConjugationView from '../views/VerbConjugationView.vue'
 import PastTenseView from '../views/PastTenseView.vue'
 import PrepositionsView from '../views/PrepositionsView.vue'
 import WerdenView from '../views/WerdenView.vue'
+import ImperativesView from '../views/ImperativesView.vue'
 
 const routes = [
   {
@@ -57,6 +58,12 @@ const routes = [
     name: 'Werden',
     component: WerdenView,
     meta: { title: 'Werden - Future Tense & Passive Voice' }
+  },
+  {
+    path: '/imperatives',
+    name: 'Imperatives',
+    component: ImperativesView,
+    meta: { title: 'Imperatives (Commands)' }
   },
   {
     path: '/flashcards',

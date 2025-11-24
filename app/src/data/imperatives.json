@@ -1,0 +1,536 @@
+{
+  "introduction": {
+    "title": "Der Imperativ (The Imperative)",
+    "description": "The imperative mood is used to give commands, instructions, requests, or advice in German. There are three main forms: du (informal singular), ihr (informal plural), and Sie (formal).",
+    "keyRules": [
+      "The du-form drops the -st ending from the present tense conjugation",
+      "The ihr-form is identical to the present tense ihr conjugation",
+      "The Sie-form uses the infinitive + Sie (inverted word order)",
+      "Stem-changing verbs with e→i or e→ie keep the vowel change in du-form",
+      "Stem-changing verbs with a→ä do NOT keep the umlaut in imperative"
+    ]
+  },
+  "regularVerbs": [
+    {
+      "infinitive": "machen",
+      "meaning": "to make, to do",
+      "imperatives": {
+        "du": "Mach!",
+        "ihr": "Macht!",
+        "Sie": "Machen Sie!"
+      },
+      "examples": [
+        "Mach deine Hausaufgaben! (Do your homework!)",
+        "Macht das Fenster zu! (Close the window!)",
+        "Machen Sie bitte die Tür auf! (Please open the door!)"
+      ]
+    },
+    {
+      "infinitive": "kommen",
+      "meaning": "to come",
+      "imperatives": {
+        "du": "Komm!",
+        "ihr": "Kommt!",
+        "Sie": "Kommen Sie!"
+      },
+      "examples": [
+        "Komm her! (Come here!)",
+        "Kommt schnell! (Come quickly!)",
+        "Kommen Sie bitte herein! (Please come in!)"
+      ]
+    },
+    {
+      "infinitive": "warten",
+      "meaning": "to wait",
+      "imperatives": {
+        "du": "Warte!",
+        "ihr": "Wartet!",
+        "Sie": "Warten Sie!"
+      },
+      "examples": [
+        "Warte auf mich! (Wait for me!)",
+        "Wartet einen Moment! (Wait a moment!)",
+        "Warten Sie bitte! (Please wait!)"
+      ],
+      "note": "Verbs with stems ending in -t or -d add -e in du-form for easier pronunciation"
+    },
+    {
+      "infinitive": "öffnen",
+      "meaning": "to open",
+      "imperatives": {
+        "du": "Öffne!",
+        "ihr": "Öffnet!",
+        "Sie": "Öffnen Sie!"
+      },
+      "examples": [
+        "Öffne das Buch! (Open the book!)",
+        "Öffnet eure Hefte! (Open your notebooks!)",
+        "Öffnen Sie bitte das Fenster! (Please open the window!)"
+      ],
+      "note": "Verbs with stems ending in -n or -m (after consonant) add -e in du-form"
+    },
+    {
+      "infinitive": "lernen",
+      "meaning": "to learn",
+      "imperatives": {
+        "du": "Lern!",
+        "ihr": "Lernt!",
+        "Sie": "Lernen Sie!"
+      },
+      "examples": [
+        "Lern die Vokabeln! (Learn the vocabulary!)",
+        "Lernt für die Prüfung! (Study for the exam!)",
+        "Lernen Sie Deutsch! (Learn German!)"
+      ]
+    },
+    {
+      "infinitive": "hören",
+      "meaning": "to hear, to listen",
+      "imperatives": {
+        "du": "Hör!",
+        "ihr": "Hört!",
+        "Sie": "Hören Sie!"
+      },
+      "examples": [
+        "Hör zu! (Listen!)",
+        "Hört gut zu! (Listen carefully!)",
+        "Hören Sie mir zu! (Listen to me!)"
+      ]
+    }
+  ],
+  "stemChangingVerbs": [
+    {
+      "infinitive": "lesen",
+      "meaning": "to read",
+      "stemChange": "e → ie (keeps change in du-form)",
+      "imperatives": {
+        "du": "Lies!",
+        "ihr": "Lest!",
+        "Sie": "Lesen Sie!"
+      },
+      "examples": [
+        "Lies das Buch! (Read the book!)",
+        "Lest den Text! (Read the text!)",
+        "Lesen Sie bitte die Anweisungen! (Please read the instructions!)"
+      ],
+      "note": "The e→ie change is kept in the du-form imperative"
+    },
+    {
+      "infinitive": "sprechen",
+      "meaning": "to speak",
+      "stemChange": "e → i (keeps change in du-form)",
+      "imperatives": {
+        "du": "Sprich!",
+        "ihr": "Sprecht!",
+        "Sie": "Sprechen Sie!"
+      },
+      "examples": [
+        "Sprich lauter! (Speak louder!)",
+        "Sprecht Deutsch! (Speak German!)",
+        "Sprechen Sie bitte langsamer! (Please speak more slowly!)"
+      ]
+    },
+    {
+      "infinitive": "geben",
+      "meaning": "to give",
+      "stemChange": "e → i (keeps change in du-form)",
+      "imperatives": {
+        "du": "Gib!",
+        "ihr": "Gebt!",
+        "Sie": "Geben Sie!"
+      },
+      "examples": [
+        "Gib mir das Buch! (Give me the book!)",
+        "Gebt mir eure Hausaufgaben! (Give me your homework!)",
+        "Geben Sie mir bitte Ihre Telefonnummer! (Please give me your phone number!)"
+      ]
+    },
+    {
+      "infinitive": "nehmen",
+      "meaning": "to take",
+      "stemChange": "e → i (keeps change in du-form)",
+      "imperatives": {
+        "du": "Nimm!",
+        "ihr": "Nehmt!",
+        "Sie": "Nehmen Sie!"
+      },
+      "examples": [
+        "Nimm einen Apfel! (Take an apple!)",
+        "Nehmt eure Bücher! (Take your books!)",
+        "Nehmen Sie bitte Platz! (Please take a seat!)"
+      ]
+    },
+    {
+      "infinitive": "sehen",
+      "meaning": "to see",
+      "stemChange": "e → ie (keeps change in du-form)",
+      "imperatives": {
+        "du": "Sieh!",
+        "ihr": "Seht!",
+        "Sie": "Sehen Sie!"
+      },
+      "examples": [
+        "Sieh mal! (Look!)",
+        "Seht euch das an! (Look at that!)",
+        "Sehen Sie sich das Bild an! (Look at the picture!)"
+      ]
+    },
+    {
+      "infinitive": "essen",
+      "meaning": "to eat",
+      "stemChange": "e → i (keeps change in du-form)",
+      "imperatives": {
+        "du": "Iss!",
+        "ihr": "Esst!",
+        "Sie": "Essen Sie!"
+      },
+      "examples": [
+        "Iss dein Gemüse! (Eat your vegetables!)",
+        "Esst langsam! (Eat slowly!)",
+        "Essen Sie! (Eat!)"
+      ]
+    },
+    {
+      "infinitive": "fahren",
+      "meaning": "to drive, to go",
+      "stemChange": "a → ä (NO change in imperative!)",
+      "imperatives": {
+        "du": "Fahr!",
+        "ihr": "Fahrt!",
+        "Sie": "Fahren Sie!"
+      },
+      "examples": [
+        "Fahr vorsichtig! (Drive carefully!)",
+        "Fahrt langsam! (Drive slowly!)",
+        "Fahren Sie geradeaus! (Go straight ahead!)"
+      ],
+      "note": "Unlike e→i/ie changes, the a→ä change is NOT kept in the imperative"
+    },
+    {
+      "infinitive": "schlafen",
+      "meaning": "to sleep",
+      "stemChange": "a → ä (NO change in imperative!)",
+      "imperatives": {
+        "du": "Schlaf!",
+        "ihr": "Schlaft!",
+        "Sie": "Schlafen Sie!"
+      },
+      "examples": [
+        "Schlaf gut! (Sleep well!)",
+        "Schlaft nicht zu lange! (Don't sleep too long!)",
+        "Schlafen Sie sich aus! (Get a good night's sleep!)"
+      ]
+    }
+  ],
+  "irregularVerbs": [
+    {
+      "infinitive": "sein",
+      "meaning": "to be",
+      "imperatives": {
+        "du": "Sei!",
+        "ihr": "Seid!",
+        "Sie": "Seien Sie!"
+      },
+      "examples": [
+        "Sei ruhig! (Be quiet!)",
+        "Seid vorsichtig! (Be careful!)",
+        "Seien Sie geduldig! (Be patient!)"
+      ],
+      "note": "Completely irregular - must be memorized"
+    },
+    {
+      "infinitive": "haben",
+      "meaning": "to have",
+      "imperatives": {
+        "du": "Hab!",
+        "ihr": "Habt!",
+        "Sie": "Haben Sie!"
+      },
+      "examples": [
+        "Hab keine Angst! (Don't be afraid!)",
+        "Habt Geduld! (Have patience!)",
+        "Haben Sie Verständnis! (Have understanding!)"
+      ]
+    },
+    {
+      "infinitive": "werden",
+      "meaning": "to become",
+      "imperatives": {
+        "du": "Werde!",
+        "ihr": "Werdet!",
+        "Sie": "Werden Sie!"
+      },
+      "examples": [
+        "Werde nicht böse! (Don't get angry!)",
+        "Werdet nicht ungeduldig! (Don't become impatient!)",
+        "Werden Sie nicht nervös! (Don't get nervous!)"
+      ]
+    }
+  ],
+  "separableVerbs": [
+    {
+      "infinitive": "aufstehen",
+      "meaning": "to get up, to stand up",
+      "imperatives": {
+        "du": "Steh auf!",
+        "ihr": "Steht auf!",
+        "Sie": "Stehen Sie auf!"
+      },
+      "examples": [
+        "Steh auf! Es ist spät! (Get up! It's late!)",
+        "Steht bitte auf! (Please stand up!)",
+        "Stehen Sie bitte auf! (Please stand up!)"
+      ],
+      "note": "Separable prefix goes to the end of the sentence"
+    },
+    {
+      "infinitive": "aufräumen",
+      "meaning": "to clean up, to tidy",
+      "imperatives": {
+        "du": "Räum auf!",
+        "ihr": "Räumt auf!",
+        "Sie": "Räumen Sie auf!"
+      },
+      "examples": [
+        "Räum dein Zimmer auf! (Clean up your room!)",
+        "Räumt eure Sachen auf! (Tidy up your things!)",
+        "Räumen Sie bitte auf! (Please clean up!)"
+      ]
+    },
+    {
+      "infinitive": "anfangen",
+      "meaning": "to begin, to start",
+      "imperatives": {
+        "du": "Fang an!",
+        "ihr": "Fangt an!",
+        "Sie": "Fangen Sie an!"
+      },
+      "examples": [
+        "Fang jetzt an! (Start now!)",
+        "Fangt mit der Arbeit an! (Start the work!)",
+        "Fangen Sie bitte an! (Please begin!)"
+      ],
+      "note": "Even though fangen has a→ä change, the imperative uses 'fang' (no umlaut)"
+    },
+    {
+      "infinitive": "zuhören",
+      "meaning": "to listen",
+      "imperatives": {
+        "du": "Hör zu!",
+        "ihr": "Hört zu!",
+        "Sie": "Hören Sie zu!"
+      },
+      "examples": [
+        "Hör mir zu! (Listen to me!)",
+        "Hört genau zu! (Listen carefully!)",
+        "Hören Sie bitte zu! (Please listen!)"
+      ]
+    },
+    {
+      "infinitive": "mitkommen",
+      "meaning": "to come along",
+      "imperatives": {
+        "du": "Komm mit!",
+        "ihr": "Kommt mit!",
+        "Sie": "Kommen Sie mit!"
+      },
+      "examples": [
+        "Komm mit! (Come along!)",
+        "Kommt alle mit! (Everyone come along!)",
+        "Kommen Sie bitte mit! (Please come along!)"
+      ]
+    },
+    {
+      "infinitive": "anrufen",
+      "meaning": "to call (phone)",
+      "imperatives": {
+        "du": "Ruf an!",
+        "ihr": "Ruft an!",
+        "Sie": "Rufen Sie an!"
+      },
+      "examples": [
+        "Ruf mich später an! (Call me later!)",
+        "Ruft eure Eltern an! (Call your parents!)",
+        "Rufen Sie mich morgen an! (Call me tomorrow!)"
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "id": 1,
+      "question": "What is the du-form imperative of \"machen\" (to make)?",
+      "options": ["Machst!", "Mach!", "Mache!", "Macht!"],
+      "correct": 1,
+      "explanation": "For regular verbs, the du-form imperative drops the -st ending. 'Mach!' is the correct form."
+    },
+    {
+      "id": 2,
+      "question": "Complete: \"_____ leise!\" (Be quiet! - du-form)",
+      "options": ["Bist", "Sei", "Sein", "Seid"],
+      "correct": 1,
+      "explanation": "'Sein' is irregular. The du-form imperative is 'Sei!' - this must be memorized."
+    },
+    {
+      "id": 3,
+      "question": "What is the Sie-form imperative of \"kommen\" (to come)?",
+      "options": ["Kommen!", "Komm Sie!", "Kommen Sie!", "Sie kommen!"],
+      "correct": 2,
+      "explanation": "The Sie-form uses infinitive + Sie with inverted word order: 'Kommen Sie!'"
+    },
+    {
+      "id": 4,
+      "question": "\"Lesen\" changes e→ie in present tense. What is the du-form imperative?",
+      "options": ["Les!", "Lese!", "Lies!", "Liest!"],
+      "correct": 2,
+      "explanation": "Verbs with e→ie stem change KEEP the change in du-form imperative: 'Lies!'"
+    },
+    {
+      "id": 5,
+      "question": "\"Fahren\" changes a→ä in present tense. What is the du-form imperative?",
+      "options": ["Fähr!", "Fahr!", "Fahre!", "Fahrst!"],
+      "correct": 1,
+      "explanation": "Unlike e→i/ie changes, a→ä changes are NOT kept in imperative. The form is 'Fahr!' (no umlaut)."
+    },
+    {
+      "id": 6,
+      "question": "What is the ihr-form imperative of \"sprechen\" (to speak)?",
+      "options": ["Sprich!", "Sprecht!", "Spricht!", "Sprechen!"],
+      "correct": 1,
+      "explanation": "The ihr-form imperative is identical to the present tense ihr conjugation: 'Sprecht!'"
+    },
+    {
+      "id": 7,
+      "question": "Complete the separable verb command: \"_____ auf!\" (Get up! - du-form of aufstehen)",
+      "options": ["Aufsteh", "Stehst", "Steh", "Steht"],
+      "correct": 2,
+      "explanation": "For separable verbs, the prefix goes to the end. 'Steh auf!' - the verb stem comes first."
+    },
+    {
+      "id": 8,
+      "question": "What is the du-form imperative of \"geben\" (to give)?",
+      "options": ["Geb!", "Gebe!", "Gib!", "Gibst!"],
+      "correct": 2,
+      "explanation": "'Geben' has e→i stem change which is kept in imperative: 'Gib!'"
+    },
+    {
+      "id": 9,
+      "question": "\"Warten\" ends in -t. What is the du-form imperative?",
+      "options": ["Wart!", "Warte!", "Wartest!", "Wartet!"],
+      "correct": 1,
+      "explanation": "Verbs with stems ending in -t or -d add -e in du-form for easier pronunciation: 'Warte!'"
+    },
+    {
+      "id": 10,
+      "question": "What is the formal (Sie) imperative of \"sein\" (to be)?",
+      "options": ["Sein Sie!", "Sind Sie!", "Seien Sie!", "Sie seien!"],
+      "correct": 2,
+      "explanation": "'Sein' is completely irregular. The Sie-form is 'Seien Sie!' - this must be memorized."
+    },
+    {
+      "id": 11,
+      "question": "Which imperative form is correct for asking multiple friends to listen?",
+      "options": ["Hör zu!", "Hört zu!", "Hören Sie zu!", "Hören zu!"],
+      "correct": 1,
+      "explanation": "For multiple friends (informal plural), use ihr-form: 'Hört zu!' The prefix 'zu' goes to the end."
+    },
+    {
+      "id": 12,
+      "question": "Complete: \"_____ das Buch!\" (Read the book! - du-form)",
+      "options": ["Les", "Lese", "Lies", "Liest"],
+      "correct": 2,
+      "explanation": "'Lesen' has e→ie change which is kept in du-form imperative: 'Lies das Buch!'"
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "machen (du-form imperative)",
+      "back": "Mach!",
+      "explanation": "Regular verb: drop -st from du-form conjugation"
+    },
+    {
+      "id": 2,
+      "front": "sein (du-form imperative)",
+      "back": "Sei!",
+      "explanation": "Irregular - must be memorized"
+    },
+    {
+      "id": 3,
+      "front": "sein (Sie-form imperative)",
+      "back": "Seien Sie!",
+      "explanation": "Completely irregular formal form"
+    },
+    {
+      "id": 4,
+      "front": "lesen (du-form imperative)",
+      "back": "Lies!",
+      "explanation": "e→ie change is KEPT in imperative"
+    },
+    {
+      "id": 5,
+      "front": "fahren (du-form imperative)",
+      "back": "Fahr!",
+      "explanation": "a→ä change is NOT kept in imperative"
+    },
+    {
+      "id": 6,
+      "front": "geben (du-form imperative)",
+      "back": "Gib!",
+      "explanation": "e→i change is KEPT in imperative"
+    },
+    {
+      "id": 7,
+      "front": "sprechen (du-form imperative)",
+      "back": "Sprich!",
+      "explanation": "e→i change is KEPT in imperative"
+    },
+    {
+      "id": 8,
+      "front": "aufstehen (du-form imperative)",
+      "back": "Steh auf!",
+      "explanation": "Separable prefix goes to the end"
+    },
+    {
+      "id": 9,
+      "front": "warten (du-form imperative)",
+      "back": "Warte!",
+      "explanation": "Stems ending in -t/-d add -e for pronunciation"
+    },
+    {
+      "id": 10,
+      "front": "nehmen (du-form imperative)",
+      "back": "Nimm!",
+      "explanation": "e→i change is KEPT in imperative"
+    },
+    {
+      "id": 11,
+      "front": "kommen (Sie-form imperative)",
+      "back": "Kommen Sie!",
+      "explanation": "Sie-form: infinitive + Sie (inverted)"
+    },
+    {
+      "id": 12,
+      "front": "zuhören (ihr-form imperative)",
+      "back": "Hört zu!",
+      "explanation": "ihr-form + separable prefix at end"
+    },
+    {
+      "id": 13,
+      "front": "essen (du-form imperative)",
+      "back": "Iss!",
+      "explanation": "e→i change is KEPT in imperative"
+    },
+    {
+      "id": 14,
+      "front": "sehen (du-form imperative)",
+      "back": "Sieh!",
+      "explanation": "e→ie change is KEPT in imperative"
+    },
+    {
+      "id": 15,
+      "front": "haben (du-form imperative)",
+      "back": "Hab!",
+      "explanation": "Drop -st from 'hast' → 'Hab!'"
+    }
+  ]
+}

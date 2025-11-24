@@ -121,6 +121,17 @@ const closeMobileMenu = () => {
             Werden
           </router-link>
           <router-link
+            to="/imperatives"
+            :class="[
+              'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
+              route.path === '/imperatives'
+                ? 'bg-violet-600 text-white'
+                : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+            ]"
+          >
+            Imperatives
+          </router-link>
+          <router-link
             to="/flashcards"
             :class="[
               'px-3 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm',
@@ -266,6 +277,18 @@ const closeMobileMenu = () => {
               ]"
             >
               Werden (Future & Passive)
+            </router-link>
+            <router-link
+              to="/imperatives"
+              @click="closeMobileMenu"
+              :class="[
+                'px-4 py-2 rounded-lg font-medium transition-colors',
+                route.path === '/imperatives'
+                  ? 'bg-violet-600 text-white'
+                  : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+              ]"
+            >
+              Imperatives (Commands)
             </router-link>
             <router-link
               to="/flashcards"
