@@ -191,6 +191,18 @@ const hasProgress = computed(() => progressStore.totalInteractions > 0)
           </div>
         </router-link>
 
+        <!-- Imperatives -->
+        <router-link to="/imperatives" class="group bg-white rounded-lg shadow-sm hover:shadow-md p-5 border border-gray-200 hover:border-teal-300 transition-all">
+          <div class="flex items-start gap-3">
+            <div class="text-3xl">📢</div>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-gray-900 mb-1 group-hover:text-teal-700 transition-colors">Imperatives</h3>
+              <p class="text-gray-600 text-sm mb-2">Commands for du, ihr, and Sie forms</p>
+              <span class="text-teal-600 font-semibold text-xs">Learn more →</span>
+            </div>
+          </div>
+        </router-link>
+
         <!-- Flashcards -->
         <router-link to="/flashcards" class="group bg-gradient-to-br from-violet-50 to-violet-100 rounded-lg shadow-sm hover:shadow-md p-5 border border-violet-200 hover:border-violet-400 transition-all md:col-span-2 lg:col-span-3">
           <div class="text-center">
