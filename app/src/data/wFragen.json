@@ -1,0 +1,363 @@
+{
+  "introduction": {
+    "title": "W-Fragen (Question Words)",
+    "description": "Master German question words: wo, wohin, woher, wann, warum, was, wer, wie, and more"
+  },
+  "locationQuestions": {
+    "name": "Location Questions (Wo? Wohin? Woher?)",
+    "description": "These three question words ask about location, direction, and origin. They are closely connected to case usage.",
+    "rule": "Wo? = location (Dativ), Wohin? = direction/motion (Akkusativ), Woher? = origin (Dativ with 'aus/von')",
+    "questions": [
+      {
+        "word": "wo",
+        "meaning": "where (location)",
+        "case": "Dativ",
+        "usage": "Asking about a static location - where something IS",
+        "examples": [
+          { "question": "Wo wohnst du?", "answer": "Ich wohne in Berlin.", "translation": "Where do you live? - I live in Berlin." },
+          { "question": "Wo ist die Schule?", "answer": "Die Schule ist in der Stadt.", "translation": "Where is the school? - The school is in the city." },
+          { "question": "Wo arbeitest du?", "answer": "Ich arbeite bei Siemens.", "translation": "Where do you work? - I work at Siemens." }
+        ]
+      },
+      {
+        "word": "wohin",
+        "meaning": "where to (direction/destination)",
+        "case": "Akkusativ",
+        "usage": "Asking about motion or destination - where something is GOING",
+        "examples": [
+          { "question": "Wohin gehst du?", "answer": "Ich gehe ins Kino.", "translation": "Where are you going? - I'm going to the cinema." },
+          { "question": "Wohin fährst du?", "answer": "Ich fahre in die Stadt.", "translation": "Where are you driving? - I'm driving to the city." },
+          { "question": "Wohin legst du das Buch?", "answer": "Ich lege es auf den Tisch.", "translation": "Where are you putting the book? - I'm putting it on the table." }
+        ]
+      },
+      {
+        "word": "woher",
+        "meaning": "where from (origin/source)",
+        "case": "Dativ (with aus/von)",
+        "usage": "Asking about origin or source - where something COMES FROM",
+        "examples": [
+          { "question": "Woher kommst du?", "answer": "Ich komme aus Spanien.", "translation": "Where are you from? - I'm from Spain." },
+          { "question": "Woher weißt du das?", "answer": "Ich habe es von meinem Freund gehört.", "translation": "How do you know that? - I heard it from my friend." },
+          { "question": "Woher hast du das Buch?", "answer": "Ich habe es aus der Bibliothek.", "translation": "Where did you get the book from? - I got it from the library." }
+        ]
+      }
+    ]
+  },
+  "basicQuestions": {
+    "name": "Basic W-Questions",
+    "description": "These fundamental question words are used in everyday conversation.",
+    "questions": [
+      {
+        "word": "was",
+        "meaning": "what",
+        "usage": "Asking about things, actions, or ideas",
+        "examples": [
+          { "question": "Was machst du?", "answer": "Ich lese ein Buch.", "translation": "What are you doing? - I'm reading a book." },
+          { "question": "Was ist das?", "answer": "Das ist mein Handy.", "translation": "What is that? - That's my phone." }
+        ]
+      },
+      {
+        "word": "wer",
+        "meaning": "who (Nominativ)",
+        "case": "Nominativ",
+        "usage": "Asking about the subject of a sentence",
+        "examples": [
+          { "question": "Wer ist das?", "answer": "Das ist mein Bruder.", "translation": "Who is that? - That's my brother." },
+          { "question": "Wer kommt zur Party?", "answer": "Maria kommt.", "translation": "Who is coming to the party? - Maria is coming." }
+        ]
+      },
+      {
+        "word": "wen",
+        "meaning": "whom (Akkusativ)",
+        "case": "Akkusativ",
+        "usage": "Asking about the direct object of a sentence",
+        "examples": [
+          { "question": "Wen siehst du?", "answer": "Ich sehe meinen Freund.", "translation": "Whom do you see? - I see my friend." },
+          { "question": "Wen rufst du an?", "answer": "Ich rufe meine Mutter an.", "translation": "Whom are you calling? - I'm calling my mother." }
+        ]
+      },
+      {
+        "word": "wem",
+        "meaning": "to whom (Dativ)",
+        "case": "Dativ",
+        "usage": "Asking about the indirect object of a sentence",
+        "examples": [
+          { "question": "Wem gibst du das Buch?", "answer": "Ich gebe es meinem Bruder.", "translation": "To whom are you giving the book? - I'm giving it to my brother." },
+          { "question": "Wem gehört das Auto?", "answer": "Es gehört meiner Schwester.", "translation": "To whom does the car belong? - It belongs to my sister." }
+        ]
+      },
+      {
+        "word": "wessen",
+        "meaning": "whose (Genitiv)",
+        "case": "Genitiv",
+        "usage": "Asking about possession",
+        "examples": [
+          { "question": "Wessen Buch ist das?", "answer": "Das ist das Buch meines Vaters.", "translation": "Whose book is that? - That's my father's book." }
+        ]
+      }
+    ]
+  },
+  "timeQuestions": {
+    "name": "Time and Manner Questions",
+    "description": "Questions about time, manner, and reason.",
+    "questions": [
+      {
+        "word": "wann",
+        "meaning": "when",
+        "usage": "Asking about time",
+        "examples": [
+          { "question": "Wann kommst du?", "answer": "Ich komme um 8 Uhr.", "translation": "When are you coming? - I'm coming at 8 o'clock." },
+          { "question": "Wann beginnt der Film?", "answer": "Der Film beginnt um 20:00.", "translation": "When does the movie start? - The movie starts at 8 PM." }
+        ]
+      },
+      {
+        "word": "wie",
+        "meaning": "how",
+        "usage": "Asking about manner or condition",
+        "examples": [
+          { "question": "Wie geht es dir?", "answer": "Es geht mir gut.", "translation": "How are you? - I'm doing well." },
+          { "question": "Wie heißt du?", "answer": "Ich heiße Max.", "translation": "What's your name? - My name is Max." },
+          { "question": "Wie kommst du zur Arbeit?", "answer": "Ich fahre mit dem Bus.", "translation": "How do you get to work? - I take the bus." }
+        ]
+      },
+      {
+        "word": "warum / wieso / weshalb",
+        "meaning": "why",
+        "usage": "Asking about reason or cause",
+        "examples": [
+          { "question": "Warum lernst du Deutsch?", "answer": "Weil ich in Deutschland arbeiten möchte.", "translation": "Why are you learning German? - Because I want to work in Germany." },
+          { "question": "Wieso bist du müde?", "answer": "Weil ich nicht gut geschlafen habe.", "translation": "Why are you tired? - Because I didn't sleep well." }
+        ]
+      },
+      {
+        "word": "wie lange",
+        "meaning": "how long",
+        "usage": "Asking about duration",
+        "examples": [
+          { "question": "Wie lange dauert der Film?", "answer": "Der Film dauert zwei Stunden.", "translation": "How long is the movie? - The movie is two hours long." },
+          { "question": "Wie lange wohnst du hier?", "answer": "Ich wohne hier seit drei Jahren.", "translation": "How long have you lived here? - I've lived here for three years." }
+        ]
+      },
+      {
+        "word": "wie oft",
+        "meaning": "how often",
+        "usage": "Asking about frequency",
+        "examples": [
+          { "question": "Wie oft gehst du ins Fitnessstudio?", "answer": "Ich gehe dreimal pro Woche.", "translation": "How often do you go to the gym? - I go three times a week." }
+        ]
+      },
+      {
+        "word": "wie viel / wie viele",
+        "meaning": "how much / how many",
+        "usage": "Asking about quantity",
+        "examples": [
+          { "question": "Wie viel kostet das?", "answer": "Das kostet 10 Euro.", "translation": "How much does that cost? - That costs 10 euros." },
+          { "question": "Wie viele Kinder hast du?", "answer": "Ich habe zwei Kinder.", "translation": "How many children do you have? - I have two children." }
+        ]
+      }
+    ]
+  },
+  "woCompounds": {
+    "name": "Wo-Compounds (Wo + Preposition)",
+    "description": "German combines 'wo' with prepositions to ask about things. Use 'wor-' before vowels.",
+    "rule": "wo + preposition = asking about things. Use 'wor-' before vowels (worauf, worüber, woran).",
+    "questions": [
+      {
+        "word": "womit",
+        "meaning": "with what",
+        "preposition": "mit",
+        "examples": [
+          { "question": "Womit schreibst du?", "answer": "Ich schreibe mit einem Kugelschreiber.", "translation": "What are you writing with? - I'm writing with a pen." }
+        ]
+      },
+      {
+        "word": "worauf",
+        "meaning": "on what / for what",
+        "preposition": "auf",
+        "examples": [
+          { "question": "Worauf wartest du?", "answer": "Ich warte auf den Bus.", "translation": "What are you waiting for? - I'm waiting for the bus." }
+        ]
+      },
+      {
+        "word": "wofür",
+        "meaning": "for what / what for",
+        "preposition": "für",
+        "examples": [
+          { "question": "Wofür interessierst du dich?", "answer": "Ich interessiere mich für Musik.", "translation": "What are you interested in? - I'm interested in music." }
+        ]
+      },
+      {
+        "word": "worüber",
+        "meaning": "about what",
+        "preposition": "über",
+        "examples": [
+          { "question": "Worüber sprecht ihr?", "answer": "Wir sprechen über das Wetter.", "translation": "What are you talking about? - We're talking about the weather." }
+        ]
+      },
+      {
+        "word": "woran",
+        "meaning": "at/on what",
+        "preposition": "an",
+        "examples": [
+          { "question": "Woran denkst du?", "answer": "Ich denke an meinen Urlaub.", "translation": "What are you thinking about? - I'm thinking about my vacation." }
+        ]
+      },
+      {
+        "word": "wovon",
+        "meaning": "from/about what",
+        "preposition": "von",
+        "examples": [
+          { "question": "Wovon träumst du?", "answer": "Ich träume von einer Weltreise.", "translation": "What do you dream about? - I dream about traveling the world." }
+        ]
+      }
+    ]
+  },
+  "exercises": [
+    {
+      "id": 1,
+      "question": "_____ wohnst du? (asking about location)",
+      "options": ["Wohin", "Wo", "Woher", "Wann"],
+      "correct": 1,
+      "explanation": "'Wo' asks about a static location. The answer is 'Ich wohne in...' (location, not movement)."
+    },
+    {
+      "id": 2,
+      "question": "_____ gehst du? (asking about destination)",
+      "options": ["Wo", "Wohin", "Woher", "Warum"],
+      "correct": 1,
+      "explanation": "'Wohin' asks about direction/destination. 'Gehen' implies movement, so we use 'wohin'."
+    },
+    {
+      "id": 3,
+      "question": "_____ kommst du? – Ich komme aus Deutschland.",
+      "options": ["Wo", "Wohin", "Woher", "Wann"],
+      "correct": 2,
+      "explanation": "'Woher' asks about origin. The answer 'aus Deutschland' confirms we're asking about where someone comes from."
+    },
+    {
+      "id": 4,
+      "question": "_____ heißt du?",
+      "options": ["Was", "Wer", "Wie", "Wann"],
+      "correct": 2,
+      "explanation": "'Wie heißt du?' is the standard way to ask someone's name. 'Wie' here asks about the manner/way."
+    },
+    {
+      "id": 5,
+      "question": "_____ ist das? – Das ist mein Bruder.",
+      "options": ["Was", "Wer", "Wen", "Wem"],
+      "correct": 1,
+      "explanation": "'Wer' (who, Nominativ) asks about a person as the subject of the sentence."
+    },
+    {
+      "id": 6,
+      "question": "_____ gibst du das Geschenk?",
+      "options": ["Wer", "Wen", "Wem", "Wessen"],
+      "correct": 2,
+      "explanation": "'Wem' (to whom, Dativ) is used because 'geben' requires a dative object (the recipient)."
+    },
+    {
+      "id": 7,
+      "question": "_____ rufst du an?",
+      "options": ["Wer", "Wen", "Wem", "Was"],
+      "correct": 1,
+      "explanation": "'Wen' (whom, Akkusativ) is used because 'anrufen' takes an accusative object."
+    },
+    {
+      "id": 8,
+      "question": "_____ wartest du? – Ich warte auf den Bus.",
+      "options": ["Womit", "Worauf", "Wofür", "Wovon"],
+      "correct": 1,
+      "explanation": "'Worauf' (for what) is used with 'warten auf' (to wait for). 'Wor-' is used before vowels."
+    },
+    {
+      "id": 9,
+      "question": "_____ interessierst du dich?",
+      "options": ["Worauf", "Wofür", "Womit", "Woran"],
+      "correct": 1,
+      "explanation": "'Wofür' goes with 'sich interessieren für' (to be interested in)."
+    },
+    {
+      "id": 10,
+      "question": "_____ legst du das Buch? – Auf den Tisch.",
+      "options": ["Wo", "Wohin", "Woher", "Was"],
+      "correct": 1,
+      "explanation": "'Wohin' asks about destination. 'Legen' indicates putting something somewhere (motion)."
+    },
+    {
+      "id": 11,
+      "question": "_____ liegt das Buch? – Auf dem Tisch.",
+      "options": ["Wo", "Wohin", "Woher", "Was"],
+      "correct": 0,
+      "explanation": "'Wo' asks about location. 'Liegen' indicates where something is (static position)."
+    },
+    {
+      "id": 12,
+      "question": "_____ lange dauert die Reise?",
+      "options": ["Was", "Wie", "Wann", "Warum"],
+      "correct": 1,
+      "explanation": "'Wie lange' (how long) asks about duration."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "What's the difference between wo, wohin, and woher?",
+      "back": "wo = location (where), wohin = direction (where to), woher = origin (where from)",
+      "explanation": "Wo wohnst du? Wohin gehst du? Woher kommst du?"
+    },
+    {
+      "id": 2,
+      "front": "Which case does 'wo' typically require?",
+      "back": "Dativ (for static location)",
+      "explanation": "Wo bist du? - Ich bin in der Stadt. (der → in der = Dativ)"
+    },
+    {
+      "id": 3,
+      "front": "Which case does 'wohin' typically require?",
+      "back": "Akkusativ (for movement/direction)",
+      "explanation": "Wohin gehst du? - Ich gehe in die Stadt. (die → in die = Akkusativ)"
+    },
+    {
+      "id": 4,
+      "front": "Wer vs Wen vs Wem?",
+      "back": "Wer = who (Nom), Wen = whom (Akk), Wem = to whom (Dat)",
+      "explanation": "Wer ist das? Wen siehst du? Wem gibst du das?"
+    },
+    {
+      "id": 5,
+      "front": "How do you ask 'what are you waiting for?'",
+      "back": "Worauf wartest du?",
+      "explanation": "warten + auf → worauf (wo + r + auf because 'auf' starts with a vowel)"
+    },
+    {
+      "id": 6,
+      "front": "How do you ask 'what are you interested in?'",
+      "back": "Wofür interessierst du dich?",
+      "explanation": "sich interessieren + für → wofür"
+    },
+    {
+      "id": 7,
+      "front": "When do you use 'wor-' instead of 'wo-'?",
+      "back": "Before prepositions starting with a vowel",
+      "explanation": "worauf, worüber, woran (not: woauf, woüber, woan)"
+    },
+    {
+      "id": 8,
+      "front": "Translate: Where are you going?",
+      "back": "Wohin gehst du?",
+      "explanation": "Movement/direction requires 'wohin'"
+    },
+    {
+      "id": 9,
+      "front": "Translate: Where are you from?",
+      "back": "Woher kommst du?",
+      "explanation": "Origin requires 'woher'"
+    },
+    {
+      "id": 10,
+      "front": "Translate: Whose book is this?",
+      "back": "Wessen Buch ist das?",
+      "explanation": "'Wessen' is the genitive form of 'wer'"
+    }
+  ]
+}
