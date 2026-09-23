@@ -78,10 +78,12 @@
         <div class="action-buttons" v-if="currentCard">
           <button
             v-if="!isFlipped"
-            class="action-button show-answer"
+            class="action-button show-answer-button"
             @click="toggleFlip"
           >
-            Show Answer
+            <span class="show-answer-icon">👁️</span>
+            <span class="show-answer-label">Show Answer</span>
+            <span class="show-answer-hint">Press Space</span>
           </button>
 
           <template v-else>
@@ -89,27 +91,50 @@
               class="action-button again-button"
               @click="answerIncorrect"
             >
-              <span class="button-icon">🔄</span>
-              <span class="button-label">Again</span>
-              <span class="button-hint">Back to Box 1</span>
+              <span class="button-icon">❌</span>
+              <div class="button-content">
+                <span class="button-label">Again</span>
+                <span class="button-hint">Back to Box 1</span>
+              </div>
+              <span class="button-key">1</span>
             </button>
 
             <button
               class="action-button good-button"
               @click="answerCorrect"
             >
-              <span class="button-icon">✓</span>
-              <span class="button-label">Good</span>
-              <span class="button-hint">Move to Box {{ Math.min(currentCard.box + 1, 5) }}</span>
+              <span class="button-icon">✅</span>
+              <div class="button-content">
+                <span class="button-label">Good</span>
+                <span class="button-hint">Next box ({{ Math.min(currentCard.box + 1, 5) }})</span>
+              </div>
+              <span class="button-key">2</span>
             </button>
           </template>
         </div>
 
+        <!-- Feedback Animation -->
+        <transition name="feedback">
+          <div v-if="showFeedback" class="feedback-overlay" :class="`feedback-${feedbackType}`">
+            <div class="feedback-icon">{{ feedbackType === 'correct' ? '✅' : '❌' }}</div>
+            <div class="feedback-text">{{ feedbackType === 'correct' ? 'Correct!' : 'Try Again!' }}</div>
+          </div>
+        </transition>
+
         <!-- Keyboard Shortcuts Hint -->
         <div class="keyboard-hints">
-          <span class="keyboard-hint">Space: Flip card</span>
-          <span class="keyboard-hint" v-if="isFlipped">1: Again</span>
-          <span class="keyboard-hint" v-if="isFlipped">2: Good</span>
+          <div class="keyboard-hint-item">
+            <kbd>Space</kbd>
+            <span>Flip card</span>
+          </div>
+          <div class="keyboard-hint-item" v-if="isFlipped">
+            <kbd>1</kbd>
+            <span>Again</span>
+          </div>
+          <div class="keyboard-hint-item" v-if="isFlipped">
+            <kbd>2</kbd>
+            <span>Good</span>
+          </div>
         </div>
       </div>
     </div>
@@ -336,6 +361,8 @@ import FlashcardCard from '../components/FlashcardCard.vue';
 const store = useFlashcardStore();
 const currentMode = ref('study');
 const isFlipped = ref(false);
+const showFeedback = ref(false);
+const feedbackType = ref('correct'); // 'correct' or 'incorrect'
 
 // Initialize store
 onMounted(() => {
@@ -386,7 +413,16 @@ const answerCorrect = () => {
   if (!currentCard.value) return;
   const cardId = currentCard.value.id;
 
-  // First flip the card back
+  // Show correct feedback
+  feedbackType.value = 'correct';
+  showFeedback.value = true;
+
+  // Hide feedback after 500ms
+  setTimeout(() => {
+    showFeedback.value = false;
+  }, 500);
+
+  // Flip the card back
   isFlipped.value = false;
 
   // Wait for flip animation to complete (600ms) before moving to next card
@@ -399,7 +435,16 @@ const answerIncorrect = () => {
   if (!currentCard.value) return;
   const cardId = currentCard.value.id;
 
-  // First flip the card back
+  // Show incorrect feedback
+  feedbackType.value = 'incorrect';
+  showFeedback.value = true;
+
+  // Hide feedback after 500ms
+  setTimeout(() => {
+    showFeedback.value = false;
+  }, 500);
+
+  // Flip the card back
   isFlipped.value = false;
 
   // Wait for flip animation to complete (600ms) before moving to next card
@@ -610,66 +655,89 @@ const confirmReset = () => {
 .study-progress {
   width: 100%;
   max-width: 600px;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  margin-bottom: 24px;
+  border: 1px solid #e5e7eb;
 }
 
 .progress-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .progress-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #475569;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .progress-count {
-  font-size: 14px;
+  font-size: 16px;
   color: #7c3aed;
-  font-weight: 600;
+  font-weight: 700;
+  background: rgba(124, 58, 237, 0.1);
+  padding: 4px 12px;
+  border-radius: 8px;
 }
 
 .progress-bar {
-  height: 8px;
+  height: 12px;
   background: #e5e7eb;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.06);
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #7c3aed 0%, #8b5cf6 100%);
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, #7c3aed 0%, #8b5cf6 50%, #a78bfa 100%);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgb(124 58 237 / 0.4);
 }
 
 .session-stats {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   justify-content: center;
 }
 
 .session-stat {
-  font-size: 13px;
-  font-weight: 600;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition: all 0.2s;
 }
 
 .session-stat.correct {
   color: #16a34a;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 2px solid #86efac;
 }
 
 .session-stat.incorrect {
   color: #dc2626;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border: 2px solid #fca5a5;
 }
 
 .session-stat.accuracy {
   color: #7c3aed;
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+  border: 2px solid #c4b5fd;
 }
 
 .flashcard-wrapper {
@@ -680,89 +748,230 @@ const confirmReset = () => {
 
 .action-buttons {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
+  margin-top: 32px;
 }
 
 .action-button {
   flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 20px;
+  justify-content: center;
+  gap: 16px;
+  padding: 28px 32px;
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+  position: relative;
+  min-height: 90px;
 }
 
 .action-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgb(0 0 0 / 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
 }
 
 .action-button:active {
-  transform: translateY(0);
+  transform: translateY(-2px);
+  transition: all 0.1s;
 }
 
-.show-answer {
-  background: #7c3aed;
+/* Show Answer Button */
+.show-answer-button {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
   color: white;
-  font-size: 18px;
+  font-size: 20px;
+  flex-direction: column;
+  gap: 8px;
 }
 
+.show-answer-button:hover {
+  background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%);
+}
+
+.show-answer-icon {
+  font-size: 36px;
+}
+
+.show-answer-label {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.show-answer-hint {
+  font-size: 13px;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+/* Answer Buttons - Again */
 .again-button {
-  background: #fef2f2;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
   color: #dc2626;
-  border: 2px solid #fecaca;
+  border: 3px solid #fca5a5;
 }
 
 .again-button:hover {
-  background: #fee2e2;
-  border-color: #fca5a5;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border-color: #f87171;
 }
 
+/* Answer Buttons - Good */
 .good-button {
-  background: #f0fdf4;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
   color: #16a34a;
-  border: 2px solid #bbf7d0;
+  border: 3px solid #86efac;
 }
 
 .good-button:hover {
-  background: #dcfce7;
-  border-color: #86efac;
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  border-color: #4ade80;
 }
 
 .button-icon {
-  font-size: 24px;
+  font-size: 32px;
+}
+
+.button-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  flex: 1;
 }
 
 .button-label {
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .button-hint {
-  font-size: 11px;
-  opacity: 0.7;
+  font-size: 12px;
+  opacity: 0.75;
+  font-weight: 500;
 }
 
+.button-key {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.1);
+  color: currentColor;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 6px;
+  min-width: 32px;
+  text-align: center;
+}
+
+/* Feedback Overlay */
+.feedback-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: white;
+  padding: 40px 60px;
+  border-radius: 24px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.feedback-overlay.feedback-correct {
+  border: 4px solid #22c55e;
+}
+
+.feedback-overlay.feedback-incorrect {
+  border: 4px solid #ef4444;
+}
+
+.feedback-icon {
+  font-size: 64px;
+}
+
+.feedback-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.feedback-enter-active {
+  animation: feedback-in 0.3s ease-out;
+}
+
+.feedback-leave-active {
+  animation: feedback-out 0.2s ease-in;
+}
+
+@keyframes feedback-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes feedback-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+/* Keyboard Hints */
 .keyboard-hints {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   justify-content: center;
-  font-size: 12px;
-  color: #9ca3af;
+  margin-top: 24px;
+  flex-wrap: wrap;
 }
 
-.keyboard-hint {
-  padding: 4px 8px;
+.keyboard-hint-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
   background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+  font-size: 14px;
+  color: #64748b;
+}
+
+.keyboard-hint-item kbd {
+  padding: 4px 8px;
+  background: #f1f5f9;
+  border: 2px solid #e2e8f0;
   border-radius: 6px;
-  border: 1px solid #e5e7eb;
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  min-width: 28px;
+  text-align: center;
+  box-shadow: 0 2px 0 #cbd5e1;
+}
+
+.keyboard-hint-item span {
+  font-weight: 500;
 }
 
 /* Browse Mode */
@@ -1234,10 +1443,142 @@ const confirmReset = () => {
 
   .action-buttons {
     flex-direction: column;
+    gap: 12px;
   }
 
   .action-buttons-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Mobile-specific flashcard improvements */
+  .action-button {
+    min-height: 70px;
+    padding: 20px 24px;
+    font-size: 16px;
+  }
+
+  .show-answer-button {
+    font-size: 18px;
+    min-height: 80px;
+  }
+
+  .show-answer-icon {
+    font-size: 32px;
+  }
+
+  .show-answer-label {
+    font-size: 18px;
+  }
+
+  .show-answer-hint {
+    font-size: 12px;
+  }
+
+  .button-icon {
+    font-size: 28px;
+  }
+
+  .button-label {
+    font-size: 16px;
+  }
+
+  .button-hint {
+    font-size: 12px;
+  }
+
+  .button-key {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  /* Hide keyboard hints on mobile - most users won't have keyboards */
+  .keyboard-hints {
+    display: none;
+  }
+
+  /* Adjust feedback overlay for mobile */
+  .feedback-overlay {
+    padding: 32px 48px;
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .feedback-icon {
+    font-size: 56px;
+  }
+
+  .feedback-text {
+    font-size: 22px;
+  }
+
+  /* Better touch targets for mode tabs */
+  .mode-tab {
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Improve card stats layout on mobile */
+  .card-stats {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .stat-item {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .action-button {
+    min-height: 64px;
+    padding: 18px 20px;
+  }
+
+  .show-answer-button {
+    min-height: 72px;
+  }
+
+  .show-answer-icon {
+    font-size: 28px;
+  }
+
+  .show-answer-label {
+    font-size: 16px;
+  }
+
+  .button-icon {
+    font-size: 24px;
+  }
+
+  .button-label {
+    font-size: 15px;
+  }
+
+  .button-hint {
+    font-size: 11px;
+  }
+
+  .feedback-overlay {
+    padding: 28px 40px;
+    width: 85%;
+  }
+
+  .feedback-icon {
+    font-size: 48px;
+  }
+
+  .feedback-text {
+    font-size: 20px;
+  }
+
+  .mode-content {
+    padding: 12px;
   }
 }
 </style>

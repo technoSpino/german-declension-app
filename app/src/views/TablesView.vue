@@ -95,40 +95,75 @@ const tableEntries = Object.entries(tables);
 /* Table section spacing */
 .table-section {
   scroll-margin-top: 5rem;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 32px;
+  background: white;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
 }
 
 .space-y-8 > * + * {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+}
+
+/* Header styling improvements */
+.table-section h2 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.table-section p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* Ensure table cells are properly styled */
 table {
   border-spacing: 0;
+  font-size: 15px;
+}
+
+table th {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px !important;
+}
+
+table td {
+  padding: 18px !important;
+  line-height: 1.6;
 }
 
 /* Multi-line cell styling */
 .multi-line-cell {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .cell-line {
-  padding: 0.25rem 0;
+  padding: 0.375rem 0;
 }
 
 .cell-line:first-child {
-  font-weight: 500;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.25rem;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 0.625rem;
+  margin-bottom: 0.375rem;
+  font-size: 1.05em;
 }
 
 .cell-line:last-child {
   font-weight: 400;
-  opacity: 0.8;
-  font-size: 0.9em;
+  opacity: 0.85;
+  font-size: 0.95em;
 }
 
 /* Highlighted text (articles and endings) */
@@ -174,10 +209,82 @@ table {
 }
 
 /* Mobile touch targets */
+@media (max-width: 768px) {
+  .table-section {
+    padding: 24px 20px;
+  }
+
+  .table-section h2 {
+    font-size: 24px;
+  }
+
+  .table-section p {
+    font-size: 15px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  table th {
+    font-size: 12px;
+    padding: 12px !important;
+  }
+
+  table td {
+    padding: 14px !important;
+  }
+
+  .cell-line:first-child {
+    font-size: 1em;
+  }
+
+  .cell-line:last-child {
+    font-size: 0.9em;
+  }
+}
+
 @media (max-width: 480px) {
+  .table-section {
+    padding: 20px 16px;
+  }
+
+  .table-section h2 {
+    font-size: 22px;
+  }
+
+  .table-section p {
+    font-size: 14px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  table th {
+    font-size: 11px;
+    padding: 10px !important;
+  }
+
+  table td {
+    padding: 12px !important;
+  }
+
   .table-cell {
     min-height: 44px;
     min-width: 44px;
+  }
+
+  .multi-line-cell {
+    gap: 0.5rem;
+  }
+
+  .cell-line:first-child {
+    font-size: 0.95em;
+  }
+
+  .cell-line:last-child {
+    font-size: 0.85em;
   }
 }
 
