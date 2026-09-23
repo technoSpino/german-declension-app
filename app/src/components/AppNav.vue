@@ -131,6 +131,17 @@ const closeMobileMenu = () => {
           >
             Flashcards
           </router-link>
+          <router-link
+            to="/exercises"
+            :class="[
+              'px-4 py-2 rounded-lg font-medium transition-colors',
+              route.path === '/exercises'
+                ? 'bg-violet-600 text-white'
+                : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+            ]"
+          >
+            Exercises
+          </router-link>
         </div>
 
         <!-- Mobile Hamburger Button -->
@@ -278,6 +289,18 @@ const closeMobileMenu = () => {
               ]"
             >
               Flashcards
+            </router-link>
+            <router-link
+              to="/exercises"
+              @click="closeMobileMenu"
+              :class="[
+                'px-4 py-2 rounded-lg font-medium transition-colors',
+                route.path === '/exercises'
+                  ? 'bg-violet-600 text-white'
+                  : 'text-gray-700 hover:bg-violet-50 hover:text-violet-600'
+              ]"
+            >
+              Exercises
             </router-link>
           </div>
         </div>

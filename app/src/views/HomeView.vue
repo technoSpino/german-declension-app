@@ -51,7 +51,7 @@ const hasProgress = computed(() => progressStore.totalInteractions > 0)
 
         <div class="space-y-6">
           <!-- Main stats grid -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
             <!-- Cards Studied -->
             <div class="bg-violet-50 rounded-lg p-4 text-center border border-violet-100">
               <div class="text-3xl font-bold text-violet-700 mb-1">
@@ -74,6 +74,14 @@ const hasProgress = computed(() => progressStore.totalInteractions > 0)
                 {{ progressStore.tableInteractions }}
               </div>
               <div class="text-xs font-medium text-blue-600">Table Clicks</div>
+            </div>
+
+            <!-- Exercises -->
+            <div class="bg-emerald-50 rounded-lg p-4 text-center border border-emerald-100">
+              <div class="text-3xl font-bold text-emerald-700 mb-1">
+                {{ progressStore.exercisesAnswered }}
+              </div>
+              <div class="text-xs font-medium text-emerald-600">Exercises Done</div>
             </div>
 
             <!-- Streak -->
@@ -187,6 +195,18 @@ const hasProgress = computed(() => progressStore.totalInteractions > 0)
               <h3 class="text-lg font-bold text-gray-900 mb-1 group-hover:text-pink-700 transition-colors">Werden</h3>
               <p class="text-gray-600 text-sm mb-2">Future tense and passive voice</p>
               <span class="text-pink-600 font-semibold text-xs">Learn more →</span>
+            </div>
+          </div>
+        </router-link>
+
+        <!-- Skill Builder -->
+        <router-link to="/exercises" class="group bg-white rounded-lg shadow-sm hover:shadow-md p-5 border border-gray-200 hover:border-emerald-300 transition-all">
+          <div class="flex items-start gap-3">
+            <div class="text-3xl">⚡</div>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-gray-900 mb-1 group-hover:text-emerald-700 transition-colors">Skill Builder</h3>
+              <p class="text-gray-600 text-sm mb-2">Type-in drills, sentence builder and Blitz mode: Wo/Wohin, prepositions, Nebensätze, zu + Infinitiv</p>
+              <span class="text-emerald-600 font-semibold text-xs">Build skills →</span>
             </div>
           </div>
         </router-link>

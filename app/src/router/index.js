@@ -8,6 +8,7 @@ import VerbConjugationView from '../views/VerbConjugationView.vue'
 import PastTenseView from '../views/PastTenseView.vue'
 import PrepositionsView from '../views/PrepositionsView.vue'
 import WerdenView from '../views/WerdenView.vue'
+import ExercisesView from '../views/ExercisesView.vue'
 
 const routes = [
   {
@@ -63,6 +64,12 @@ const routes = [
     name: 'Flashcards',
     component: FlashcardsView,
     meta: { title: 'Practice Flashcards' }
+  },
+  {
+    path: '/exercises',
+    name: 'Exercises',
+    component: ExercisesView,
+    meta: { title: 'Skill Builder: Wo/Wohin, Prepositions, Nebensätze' }
   }
 ]
 

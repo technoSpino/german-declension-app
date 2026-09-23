@@ -6,12 +6,13 @@ export const useProgressStore = defineStore('progress', () => {
   const cardsStudied = ref(0)
   const cardsMastered = ref(0)
   const tableInteractions = ref(0)
+  const exercisesAnswered = ref(0)
   const currentStreak = ref(0)
   const lastStudyDate = ref(null)
   const studyHistory = ref([]) // Array of { date: string, count: number }
 
   // Computed
-  const totalInteractions = computed(() => cardsStudied.value + tableInteractions.value)
+  const totalInteractions = computed(() => cardsStudied.value + tableInteractions.value + exercisesAnswered.value)
   const masteryPercentage = computed(() => {
     if (cardsStudied.value === 0) return 0
     return Math.round((cardsMastered.value / cardsStudied.value) * 100)
@@ -32,6 +33,7 @@ export const useProgressStore = defineStore('progress', () => {
         cardsStudied.value = data.cardsStudied || 0
         cardsMastered.value = data.cardsMastered || 0
         tableInteractions.value = data.tableInteractions || 0
+        exercisesAnswered.value = data.exercisesAnswered || 0
         currentStreak.value = data.currentStreak || 0
         lastStudyDate.value = data.lastStudyDate || null
         studyHistory.value = data.studyHistory || []
@@ -50,6 +52,7 @@ export const useProgressStore = defineStore('progress', () => {
         cardsStudied: cardsStudied.value,
         cardsMastered: cardsMastered.value,
         tableInteractions: tableInteractions.value,
+        exercisesAnswered: exercisesAnswered.value,
         currentStreak: currentStreak.value,
         lastStudyDate: lastStudyDate.value,
         studyHistory: studyHistory.value
@@ -131,10 +134,16 @@ export const useProgressStore = defineStore('progress', () => {
     recordStudySession()
   }
 
+  function incrementExercisesAnswered() {
+    exercisesAnswered.value++
+    recordStudySession()
+  }
+
   function resetProgress() {
     cardsStudied.value = 0
     cardsMastered.value = 0
     tableInteractions.value = 0
+    exercisesAnswered.value = 0
     currentStreak.value = 0
     lastStudyDate.value = null
     studyHistory.value = []
@@ -149,6 +158,7 @@ export const useProgressStore = defineStore('progress', () => {
     cardsStudied,
     cardsMastered,
     tableInteractions,
+    exercisesAnswered,
     currentStreak,
     lastStudyDate,
     studyHistory,
@@ -163,6 +173,7 @@ export const useProgressStore = defineStore('progress', () => {
     incrementCardsMastered,
     decrementCardsMastered,
     incrementTableInteractions,
+    incrementExercisesAnswered,
     recordStudySession,
     resetProgress,
     loadFromLocalStorage,
