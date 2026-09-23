@@ -60,11 +60,10 @@ test.describe('Flashcard System Tests', () => {
 
     // Click "Good" button
     await page.locator('.good-button').click();
-    await page.waitForTimeout(300);
 
-    // Should show next card (different text)
-    const secondCardText = await page.locator('.flashcard-front .card-text').textContent();
-    expect(firstCardText).not.toBe(secondCardText);
+    // The view waits for the flip animation (600ms) before advancing, so auto-wait
+    // for the next card rather than sleeping a fixed amount.
+    await expect(page.locator('.flashcard-front .card-text')).not.toHaveText(firstCardText);
 
     // Session stats should update
     await expect(page.locator('.session-stat.correct')).toContainText('1');
