@@ -22,6 +22,12 @@ const routes = [
     component: () => import('../views/kaskade/WortschatzView.vue'),
     meta: { title: 'Wortschatz-Test' }
   },
+  {
+    path: '/satz-check',
+    name: 'SatzCheck',
+    component: () => import('../views/kaskade/SatzCheckView.vue'),
+    meta: { title: 'Satz-Check' }
+  },
   // Nachschlagen (the original grammar pages)
   {
     path: '/nachschlagen',
