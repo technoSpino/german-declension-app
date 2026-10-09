@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from . import config, db
-from .routes import media, satzcheck, vocab
+from .routes import media, placement, satzcheck, vocab
 
 
 @asynccontextmanager
@@ -18,6 +18,7 @@ app = FastAPI(title="Kaskade API", lifespan=lifespan)
 app.include_router(vocab.router)
 app.include_router(media.router)
 app.include_router(satzcheck.router)
+app.include_router(placement.router)
 
 
 @app.get("/api/status")

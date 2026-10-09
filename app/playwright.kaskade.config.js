@@ -13,7 +13,10 @@ export default defineConfig({
   timeout: 60_000,
   use: {
     baseURL: 'http://127.0.0.1:5174',
-    trace: 'retain-on-failure'
+    trace: 'retain-on-failure',
+    // Fake microphone for the Sprechen recordings.
+    permissions: ['microphone'],
+    launchOptions: { args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] }
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: [

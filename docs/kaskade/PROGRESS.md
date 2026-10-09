@@ -7,7 +7,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M0 Setup
 - [x] M1 Wortschatz-Test → http://100.64.43.3:5173/wortschatz
 - [x] M2 Satz-Check → http://100.64.43.3:5173/satz-check
-- [ ] M3 Einstufung
+- [x] M3 Einstufung → http://100.64.43.3:5173/einstufung
 - [ ] M4 Kernwortschatz + Karten
 - [ ] M5 Heute + Wochen 1–4
 - [ ] M6 Extras
@@ -57,3 +57,12 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - Ergebnis: Abdeckung (verstanden + mit Hilfe), Balken mit Tor-Linie, Urteil nach Refolds Toren (einfach ≥ 75 % → Phase 1 geschafft; Erwachsene ≥ 80 % + ≈ 2.000 Wörter → 2B; 60–79 % → 2A), mit Datum gespeichert, Verlauf auf der Seite.
 - Entscheidung: „≈ 2.000 Wörter“ = Schätzung aus dem letzten Wortschatz-Test ≥ 1.900. Untertiteldateien von YouTube werden nach dem Einlesen gelöscht (nur Sätze in der DB).
 - Tests: Frontend 65 ✅ · Backend 53 ✅ (Unit 26, API 21, Content 6) · E2E 3 ✅ (echter Chromium spielt Clip und pausiert am Satzende).
+
+### M3 Einstufung ✅
+- 5 Schritte: Wortschatz → Lesen (2 eigene Texte: B1 „Mitfahrbank“, B2 „Nachverdichtung“, je 5 Fragen, Tasten A/B/C + Enter) → Satz-Check → Schreiben (E-Mail an Jana, ~80 Wörter) → Sprechen (3 Fragen, Mikrofon-Aufnahme in `~/kaskade-data/recordings`).
+- Pausierbar: jeder Klick wird gespeichert; „Pause — später weitermachen“ und beim nächsten Öffnen geht es am selben Punkt weiter.
+- Satz-Check, Schreiben, Sprechen sind überspringbar (z. B. ohne Clip oder Mikrofon) — Ergebnis vermerkt das.
+- Ergebnis: Phase (aus Satz-Check, sonst aus Wortschatz), Wörter + Kern-2.000, grobe Stufen (Lesen aus den Texten, Hören aus dem Satz-Check), Startstunden für die B2-Prognose. Setzt die Phase im Header.
+- Schreiben wird nur mit `ANTHROPIC_API_KEY` bewertet (claude-opus-5-5, 4 Kriterien + Korrekturen); ohne Schlüssel: gespeichert, „nicht bewertet“.
+- Entscheidung: Hören-Stufe ist aus dem Satz-Check abgeleitet (mit Untertiteln → eher zu optimistisch); ein echter Hörtest kommt mit M11.
+- Tests: Frontend 70 ✅ · Backend 89 ✅ (Unit 47, API 34, Content 8) · E2E 4 ✅ (Einstufung komplett inkl. Pause/Fortsetzen und 3 Aufnahmen).

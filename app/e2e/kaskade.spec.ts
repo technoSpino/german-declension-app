@@ -70,6 +70,51 @@ test('Wortschatz-Test can be answered and shows a result', async ({ page }) => {
   expect(errors).toEqual([])
 })
 
+test('Einstufung runs end to end (with pause and resume) and shows a result', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/einstufung')
+  await page.getByTestId('pl-start').click()
+
+  // 1 Wortschatz
+  await page.getByTestId('vt-start').click()
+  for (let i = 0; i < 400; i++) {
+    if (await page.getByTestId('reading-test').isVisible()) break
+    await page.keyboard.press(i % 3 ? 'j' : 'n')
+  }
+  // Pause and come back: the step is restored.
+  await page.goto('/')
+  await page.goto('/einstufung')
+  await expect(page.getByTestId('reading-test')).toBeVisible()
+
+  // 2 Lesen: always answer A, Enter = weiter
+  for (let i = 0; i < 10; i++) {
+    await page.keyboard.press('a')
+    await page.keyboard.press('Enter')
+  }
+  // 3 Satz-Check skipped
+  await page.getByTestId('sc-skip').click()
+  // 4 Schreiben
+  await page.getByTestId('wt-text').fill('Liebe Jana, ich bin vor zwei Wochen umgezogen. Die Wohnung ist hell und ruhig. Komm mich doch bald besuchen! Viele Grüße')
+  await page.getByTestId('wt-submit').click()
+  await page.getByTestId('pl-next').click()
+  // 5 Sprechen: three short recordings with the fake microphone
+  for (let i = 0; i < 3; i++) {
+    await page.getByTestId('sp-record').click()
+    await page.waitForTimeout(700)
+    await page.getByTestId('sp-stop').click()
+    await expect(page.getByText(`${i + 1} ✓`)).toBeVisible()
+  }
+  await page.getByTestId('sp-done').click()
+  await page.getByTestId('pl-finish').click()
+
+  const result = page.getByTestId('placement-result')
+  await expect(result).toBeVisible()
+  await expect(result).toContainText('Deine Phase')
+  await expect(result).toContainText('3 Aufnahmen gespeichert')
+  await expect(page.getByTestId('phase')).toBeVisible()
+  expect(errors).toEqual([])
+})
+
 test('Satz-Check accepts an SRT + clip, pauses per cue and records ratings', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/satz-check')

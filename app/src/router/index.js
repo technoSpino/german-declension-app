@@ -28,6 +28,12 @@ const routes = [
     component: () => import('../views/kaskade/SatzCheckView.vue'),
     meta: { title: 'Satz-Check' }
   },
+  {
+    path: '/einstufung',
+    name: 'Einstufung',
+    component: () => import('../views/kaskade/EinstufungView.vue'),
+    meta: { title: 'Einstufung' }
+  },
   // Nachschlagen (the original grammar pages)
   {
     path: '/nachschlagen',
