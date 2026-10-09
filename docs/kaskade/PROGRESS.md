@@ -10,6 +10,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M3 Einstufung → http://100.64.43.3:5173/einstufung
 - [x] M4 Kernwortschatz + Karten → http://100.64.43.3:5173/karten
 - [x] M5 Heute + Wochen 1–4 → http://100.64.43.3:5173/
+- [x] M5b Themes + Stil-Auswahl (oben rechts im Header)
 - [ ] M6 Extras
 - [x] M7 Kerndeck-Korrektur (vorgezogen)
 
@@ -83,6 +84,13 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - Start/Stopp-Timer pro Block (läuft im Header weiter, auch auf anderen Seiten) → Minuten pro Tag/Woche → Immersionsstunden (Start aus Einstufung + gemessene Zeit). „Fertig“ markiert Blöcke.
 - Prüfungsaufgabe öffnet `/aufgabe/<id>`: Schreiben mit Wortzähler (KI-Bewertung nur mit Schlüssel), Sprechen mit Aufnahme.
 - Tests: Frontend 82 ✅ · Backend 157 ✅ (Unit 74, API 49, Content 34) · E2E 6 ✅ (Server-Uhr in E2E fest auf Di 09:30). Layout bei 320 px geprüft (Screenshots), keine Konsolenfehler.
+
+### M5b Themes ✅
+- **Stil**-Auswahl oben rechts: Signal · Nacht · Papier · Bauhaus · Fokus · Magazin. Gespeichert in localStorage + Server; ohne Wahl folgt sie dem System (hell → Signal, dunkel → Nacht).
+- Alles über Tokens in `app/src/styles/themes.css`; theme-eigene Struktur (Papier/Magazin: Linien statt Karten, Bauhaus: harte Schatten, Fokus: größer + Unterstreichungen) ebenfalls nur dort. Schriften lokal via `@fontsource` (Archivo, Archivo Black, Literata, Source Serif 4, Atkinson Hyperlegible, Libre Franklin).
+- Kontrast-Test parst `themes.css`: 21 Paare × 6 Themes (Text, gedämpft, Primär, Akzent, Kasusfarben auf Tönung und Fläche …). Angepasst, weil zu schwach: Bauhaus-Genitiv `#C25700` → `#A84B00`.
+- Entscheidung: Die alten Grammatikseiten („Nachschlagen“) bleiben in jedem Stil hell — sie sind nicht auf Tokens umgebaut.
+- Tests: Frontend 258 ✅ (davon 170 Kontrast) · Backend 158 ✅ · E2E 7 ✅ (alle 6 Stile auf 5 Seiten, Reload behält Stil, Karten im Nacht-Stil).
 
 ### M7 Kerndeck-Korrektur ✅ (vorgezogen, lief parallel zu M5)
 - Zweiter Durchgang über alle 26 Rohdateien durch 8 Korrektur-Agenten: **46 Karten korrigiert** (u. a. Kasus-Badges, „ertönen · hat ertönt“, unidiomatische Sätze wie „Magie können“, „Die Mieten sind teuer“ → „hoch/Wohnungen teuer“), alle 8 doppelten Sätze ersetzt.

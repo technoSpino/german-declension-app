@@ -12,5 +12,12 @@ def test_status_reports_saved_phase(client):
     assert client.get("/api/status").json()["phase"] == "2A"
 
 
+def test_theme_setting(client):
+    assert client.get("/api/status").json()["theme"] is None
+    assert client.put("/api/settings/theme", json={"theme": "papier"}).json() == {"theme": "papier"}
+    assert client.get("/api/status").json()["theme"] == "papier"
+    assert client.put("/api/settings/theme", json={"theme": "neon"}).status_code == 422
+
+
 def test_unknown_api_route_is_404(client):
     assert client.get("/api/nope").status_code == 404

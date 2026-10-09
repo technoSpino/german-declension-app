@@ -1,7 +1,8 @@
 """Kaskade API. Run: uvicorn kaskade.main:app --host 127.0.0.1 --port 8000"""
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 from . import config, db
 from .routes import cards, media, placement, satzcheck, today, vocab
@@ -32,7 +33,23 @@ def status():
         "phase": db.get_setting("phase"),
         "name": db.get_setting("name", "Matt"),
         "running": {"block": running["block"], "startedAt": running["started_at"]} if running else None,
+        "theme": db.get_setting("theme"),
     }
+
+
+THEMES = {"signal", "nacht", "papier", "bauhaus", "fokus", "magazin"}
+
+
+class ThemeIn(BaseModel):
+    theme: str
+
+
+@app.put("/api/settings/theme")
+def set_theme(body: ThemeIn):
+    if body.theme not in THEMES:
+        raise HTTPException(422, "Unbekannter Stil")
+    db.set_setting("theme", body.theme)
+    return {"theme": body.theme}
 
 
 @app.get("/api/health")

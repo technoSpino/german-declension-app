@@ -212,7 +212,7 @@ const buttons = [
 .kc-sentence { margin: 0; font-size: clamp(24px, 4vw, 32px); line-height: 1.5; }
 .kc-audio {
   display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px;
-  border-radius: 999px; border: var(--border-width) solid var(--border-strong);
+  border-radius: var(--radius-pill); border: var(--border-width) solid var(--border-strong);
   background: var(--surface); color: var(--text); font: inherit; font-weight: 700; font-size: 14px; cursor: pointer;
 }
 .kc-audio:disabled { opacity: 0.5; cursor: default; }

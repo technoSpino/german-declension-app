@@ -146,7 +146,7 @@
   font-size: 13px;
   font-weight: 700;
   padding: 5px 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
 }
 .k-chip-accent { background: var(--accent); color: var(--accent-text); }
 .k-chip-success { background: var(--success-bg); color: var(--success); }

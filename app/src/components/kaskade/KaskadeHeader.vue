@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { useStatusStore } from '../../stores/statusStore'
 import { BLOCK_LABELS, useNow } from '../../lib/useNow'
 import { formatClock } from '../../lib/format'
+import { THEMES } from '../../lib/theme'
 
 const route = useRoute()
 const status = useStatusStore()
@@ -39,6 +40,7 @@ const refActive = () => reference.some((r) => route.path === r.to)
 
 watch(() => route.path, () => { refOpen.value = false })
 status.load()
+status.followSystem()
 </script>
 
 <template>
@@ -73,6 +75,16 @@ status.load()
       </nav>
       <div class="k-header-right">
         <slot name="right" />
+        <label class="k-stil">
+          <span>Stil</span>
+          <select
+            :value="status.theme"
+            data-testid="theme-select"
+            @change="status.setTheme($event.target.value)"
+          >
+            <option v-for="t in THEMES" :key="t.id" :value="t.id">{{ t.label }}</option>
+          </select>
+        </label>
         <button
           v-if="status.running"
           type="button"
@@ -88,7 +100,19 @@ status.load()
 </template>
 
 <style scoped>
-.k-header { background: var(--nav-bg); color: var(--nav-text); }
+.k-header { background: var(--nav-bg); color: var(--nav-text); border-bottom: var(--nav-border); }
+.k-stil { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--nav-muted); }
+.k-stil select {
+  min-height: 36px;
+  padding: 0 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--nav-muted);
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
 .k-header-in {
   max-width: 1200px;
   margin: 0 auto;
@@ -155,7 +179,7 @@ status.load()
 .k-timer {
   min-height: 36px;
   padding: 0 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--nav-muted);
   background: transparent;
   color: var(--nav-text);

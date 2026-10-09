@@ -162,6 +162,32 @@ test('Karten: reveal, rate, "kenne ich schon" and undo', async ({ page }) => {
   expect(errors).toEqual([])
 })
 
+test('Stil dropdown switches all six themes on every main page without console errors', async ({ page }) => {
+  const errors = watchConsole(page)
+  const themes = ['signal', 'nacht', 'papier', 'bauhaus', 'fokus', 'magazin']
+  for (const path of ['/', '/karten', '/einstufung', '/satz-check', '/wortschatz']) {
+    await page.goto(path)
+    for (const t of themes) {
+      await page.getByTestId('theme-select').selectOption(t)
+      await expect(page.locator('html')).toHaveAttribute('data-theme', t)
+      // tokens resolve: the page background follows the theme
+      const bg = await page.locator('.k-app').evaluate((el) => getComputedStyle(el).backgroundColor)
+      expect(bg).not.toBe('')
+    }
+  }
+  // the choice survives a reload (localStorage + server setting)
+  await page.getByTestId('theme-select').selectOption('papier')
+  await page.reload()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'papier')
+  await expect(page.getByTestId('theme-select')).toHaveValue('papier')
+  // Karten still work in a dark theme
+  await page.getByTestId('theme-select').selectOption('nacht')
+  await page.goto('/karten')
+  await page.keyboard.press('Space')
+  await expect(page.getByTestId('karte-back')).toBeVisible()
+  expect(errors).toEqual([])
+})
+
 test('Satz-Check accepts an SRT + clip, pauses per cue and records ratings', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/satz-check')

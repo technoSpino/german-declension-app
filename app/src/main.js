@@ -6,11 +6,24 @@ import '@fontsource/archivo/500.css'
 import '@fontsource/archivo/600.css'
 import '@fontsource/archivo/700.css'
 import '@fontsource/archivo/800.css'
+import '@fontsource/archivo-black/400.css'
 import '@fontsource/literata/400.css'
 import '@fontsource/literata/500.css'
 import '@fontsource/literata/600.css'
+import '@fontsource/source-serif-4/400.css'
+import '@fontsource/source-serif-4/600.css'
+import '@fontsource/source-serif-4/700.css'
+import '@fontsource/atkinson-hyperlegible/400.css'
+import '@fontsource/atkinson-hyperlegible/700.css'
+import '@fontsource/libre-franklin/400.css'
+import '@fontsource/libre-franklin/600.css'
+import '@fontsource/libre-franklin/700.css'
 import './style.css'
 import App from './App.vue'
+import { applyTheme, resolveTheme, storedTheme, systemTheme } from './lib/theme'
+
+// Apply the theme before the first paint (the server setting may refine it later).
+applyTheme(resolveTheme({ local: storedTheme(), server: null, system: systemTheme() }))
 
 const app = createApp(App)
 const pinia = createPinia()
