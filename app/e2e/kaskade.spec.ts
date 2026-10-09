@@ -115,6 +115,32 @@ test('Einstufung runs end to end (with pause and resume) and shows a result', as
   expect(errors).toEqual([])
 })
 
+test('Karten: reveal, rate, "kenne ich schon" and undo', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/karten')
+  const satz = page.getByTestId('karte-satz')
+  await expect(satz).toBeVisible()
+  const first = await satz.textContent()
+
+  await page.keyboard.press('Space')
+  await expect(page.getByTestId('karte-back')).toBeVisible()
+  await expect(page.getByTestId('rate-3')).toContainText('Gut')
+  await page.keyboard.press('3')
+  await expect(satz).not.toHaveText(first!)
+
+  const second = await satz.textContent()
+  await page.keyboard.press('k')
+  await expect(page.getByText('kenne ich schon. Kommt nicht wieder.')).toBeVisible()
+  await expect(satz).not.toHaveText(second!)
+
+  await page.keyboard.press('z')
+  await expect(satz).toHaveText(second!)
+  // the known card does not come back after "kenne ich" (without undo)
+  await page.getByTestId('karte-known').click()
+  await expect(satz).not.toHaveText(second!)
+  expect(errors).toEqual([])
+})
+
 test('Satz-Check accepts an SRT + clip, pauses per cue and records ratings', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/satz-check')

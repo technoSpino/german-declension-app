@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from . import config, db
-from .routes import media, placement, satzcheck, vocab
+from .routes import cards, media, placement, satzcheck, vocab
 
 
 @asynccontextmanager
@@ -19,6 +19,7 @@ app.include_router(vocab.router)
 app.include_router(media.router)
 app.include_router(satzcheck.router)
 app.include_router(placement.router)
+app.include_router(cards.router)
 
 
 @app.get("/api/status")

@@ -1,0 +1,207 @@
+"""Core-deck spaced repetition with FSRS. All scheduling lives here; state in SQLite."""
+import json
+from datetime import datetime, timedelta, timezone
+from functools import lru_cache
+from zoneinfo import ZoneInfo
+
+from fsrs import Card, Rating, Scheduler, State
+
+from . import config, db
+
+TZ = ZoneInfo("Europe/Berlin")
+NEW_PER_DAY = 20
+LEECH_AGAIN = 4          # "Nochmal" this often → card is suspended
+LEARN_AHEAD = timedelta(minutes=20)
+
+scheduler = Scheduler(desired_retention=0.9)
+
+
+@lru_cache(maxsize=1)
+def deck() -> list[dict]:
+    cards = []
+    for f in sorted((config.CONTENT_DIR / "core-deck").glob("[0-9][0-9][0-9][0-9].json")):
+        cards.extend(json.loads(f.read_text(encoding="utf-8")))
+    return cards
+
+
+@lru_cache(maxsize=1)
+def deck_index() -> dict[str, dict]:
+    return {c["id"]: c for c in deck()}
+
+
+def now_utc() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+def local_date(at: datetime) -> str:
+    return at.astimezone(TZ).date().isoformat()
+
+
+def human_interval(delta: timedelta) -> str:
+    s = max(0, delta.total_seconds())
+    if s < 3600:
+        return f"{max(1, round(s / 60))} Min"
+    if s < 86400:
+        return f"{round(s / 3600)} Std"
+    days = round(s / 86400)
+    if days < 60:
+        return "1 Tag" if days == 1 else f"{days} Tage"
+    months = round(days / 30)
+    return f"{months} Mon."
+
+
+def new_per_day() -> int:
+    return int(db.get_setting("newPerDay", NEW_PER_DAY))
+
+
+def _row(conn, card_id):
+    return conn.execute("SELECT * FROM cards WHERE id = ?", (card_id,)).fetchone()
+
+
+def _fsrs(row) -> Card:
+    return Card.from_dict(json.loads(row["fsrs"])) if row and row["fsrs"] else Card()
+
+
+def previews(card: Card, at: datetime, sched: Scheduler = scheduler) -> dict[int, str]:
+    out = {}
+    for r in Rating:
+        nxt, _ = sched.review_card(Card.from_dict(card.to_dict()), r, at)
+        out[int(r)] = human_interval(nxt.due - at)
+    return out
+
+
+def counts(conn, at: datetime) -> dict:
+    today = local_date(at)
+    due = conn.execute(
+        "SELECT COUNT(*) FROM cards WHERE status = 'learning' AND due <= ?", (at.isoformat(),)
+    ).fetchone()[0]
+    introduced = conn.execute("SELECT COUNT(*) FROM cards WHERE introduced_on = ?", (today,)).fetchone()[0]
+    done = conn.execute(
+        "SELECT COUNT(*) FROM review_log WHERE local_date = ? AND rating > 0", (today,)
+    ).fetchone()[0]
+    seen = conn.execute("SELECT COUNT(*) FROM cards").fetchone()[0]
+    new_left = min(max(0, new_per_day() - introduced), max(0, len(deck()) - seen))
+    return {"due": due, "new": new_left, "doneToday": done}
+
+
+def next_card(at: datetime | None = None, sched: Scheduler = scheduler) -> dict:
+    """Next card for today: due reviews first, then new cards, then learning cards due soon."""
+    at = at or now_utc()
+    with db.tx() as conn:
+        c = counts(conn, at)
+        row = conn.execute(
+            "SELECT * FROM cards WHERE status = 'learning' AND due <= ? ORDER BY due LIMIT 1", (at.isoformat(),)
+        ).fetchone()
+        card_id = row["id"] if row else None
+        if card_id is None and c["new"] > 0:
+            seen = {r[0] for r in conn.execute("SELECT id FROM cards")}
+            card_id = next((d["id"] for d in deck() if d["id"] not in seen), None)
+        if card_id is None:
+            row = conn.execute(
+                "SELECT * FROM cards WHERE status = 'learning' AND due <= ? ORDER BY due LIMIT 1",
+                ((at + LEARN_AHEAD).isoformat(),),
+            ).fetchone()
+            card_id = row["id"] if row else None
+        if card_id is None:
+            return {"card": None, "counts": c}
+        row = _row(conn, card_id)
+    content = deck_index()[card_id]
+    return {
+        "card": {**content, "isNew": row is None},
+        "intervals": previews(_fsrs(row), at, sched),
+        "counts": c,
+    }
+
+
+def _snapshot(row) -> str | None:
+    return json.dumps(dict(row)) if row else None
+
+
+def review(card_id: str, rating: int, at: datetime | None = None, sched: Scheduler = scheduler) -> dict:
+    if card_id not in deck_index():
+        raise KeyError(card_id)
+    if rating not in (1, 2, 3, 4):
+        raise ValueError("rating must be 1–4")
+    at = at or now_utc()
+    with db.tx() as conn:
+        row = _row(conn, card_id)
+        if row and row["status"] in ("known", "suspended"):
+            raise ValueError("card is not active")
+        card, _ = sched.review_card(_fsrs(row), Rating(rating), at)
+        lapses = (row["lapses"] if row else 0) + (rating == 1)
+        status = "suspended" if lapses >= LEECH_AGAIN else "learning"
+        introduced = row["introduced_on"] if row else local_date(at)
+        conn.execute(
+            "INSERT INTO cards(id, status, fsrs, due, introduced_on, lapses, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+            " ON CONFLICT(id) DO UPDATE SET status = excluded.status, fsrs = excluded.fsrs, due = excluded.due,"
+            " lapses = excluded.lapses, updated_at = excluded.updated_at",
+            (card_id, status, json.dumps(card.to_dict()), card.due.isoformat(), introduced, lapses, at.isoformat()),
+        )
+        conn.execute(
+            "INSERT INTO review_log(card_id, rating, reviewed_at, local_date, prev) VALUES (?, ?, ?, ?, ?)",
+            (card_id, rating, at.isoformat(), local_date(at), _snapshot(row)),
+        )
+    return {"id": card_id, "status": status, "due": card.due.isoformat(), "interval": human_interval(card.due - at)}
+
+
+def mark_known(card_id: str, at: datetime | None = None) -> dict:
+    """'Kenne ich schon': bury permanently. Does not use up the daily new-card quota."""
+    if card_id not in deck_index():
+        raise KeyError(card_id)
+    at = at or now_utc()
+    with db.tx() as conn:
+        row = _row(conn, card_id)
+        conn.execute(
+            "INSERT INTO cards(id, status, fsrs, due, introduced_on, lapses, updated_at) VALUES (?, 'known', NULL, NULL, NULL, 0, ?)"
+            " ON CONFLICT(id) DO UPDATE SET status = 'known', updated_at = excluded.updated_at",
+            (card_id, at.isoformat()),
+        )
+        conn.execute(
+            "INSERT INTO review_log(card_id, rating, reviewed_at, local_date, prev) VALUES (?, 0, ?, ?, ?)",
+            (card_id, at.isoformat(), local_date(at), _snapshot(row)),
+        )
+    return {"id": card_id, "status": "known"}
+
+
+def undo() -> dict | None:
+    """Revert the most recent review or 'kenne ich'."""
+    with db.tx() as conn:
+        log = conn.execute("SELECT * FROM review_log ORDER BY id DESC LIMIT 1").fetchone()
+        if not log:
+            return None
+        if log["prev"]:
+            p = json.loads(log["prev"])
+            conn.execute(
+                "UPDATE cards SET status = ?, fsrs = ?, due = ?, introduced_on = ?, lapses = ?, updated_at = ? WHERE id = ?",
+                (p["status"], p["fsrs"], p["due"], p["introduced_on"], p["lapses"], p["updated_at"], log["card_id"]),
+            )
+        else:
+            conn.execute("DELETE FROM cards WHERE id = ?", (log["card_id"],))
+        conn.execute("DELETE FROM review_log WHERE id = ?", (log["id"],))
+    return {"id": log["card_id"]}
+
+
+def stats(at: datetime | None = None) -> dict:
+    at = at or now_utc()
+    with db.tx() as conn:
+        by_status = dict(conn.execute("SELECT status, COUNT(*) FROM cards GROUP BY status").fetchall())
+        mature = 0
+        for (f,) in conn.execute("SELECT fsrs FROM cards WHERE status = 'learning' AND fsrs IS NOT NULL"):
+            st = json.loads(f).get("stability") or 0
+            mature += st >= 21
+        since = (at - timedelta(days=30)).isoformat()
+        rows = conn.execute(
+            "SELECT rating FROM review_log l WHERE rating > 0 AND reviewed_at >= ? AND prev IS NOT NULL", (since,)
+        ).fetchall()
+        c = counts(conn, at)
+    recall = sum(r[0] > 1 for r in rows) / len(rows) if rows else None
+    return {
+        "deckSize": len(deck()),
+        "known": by_status.get("known", 0),
+        "learning": by_status.get("learning", 0),
+        "suspended": by_status.get("suspended", 0),
+        "mature": mature,
+        "unseen": len(deck()) - sum(by_status.values()),
+        "retention30": round(recall, 3) if recall is not None else None,
+        **c,
+    }

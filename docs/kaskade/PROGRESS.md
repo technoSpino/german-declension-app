@@ -8,7 +8,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M1 Wortschatz-Test → http://100.64.43.3:5173/wortschatz
 - [x] M2 Satz-Check → http://100.64.43.3:5173/satz-check
 - [x] M3 Einstufung → http://100.64.43.3:5173/einstufung
-- [ ] M4 Kernwortschatz + Karten
+- [x] M4 Kernwortschatz + Karten → http://100.64.43.3:5173/karten
 - [ ] M5 Heute + Wochen 1–4
 - [ ] M6 Extras
 
@@ -66,3 +66,11 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - Schreiben wird nur mit `ANTHROPIC_API_KEY` bewertet (claude-opus-5-5, 4 Kriterien + Korrekturen); ohne Schlüssel: gespeichert, „nicht bewertet“.
 - Entscheidung: Hören-Stufe ist aus dem Satz-Check abgeleitet (mit Untertiteln → eher zu optimistisch); ein echter Hörtest kommt mit M11.
 - Tests: Frontend 70 ✅ · Backend 89 ✅ (Unit 47, API 34, Content 8) · E2E 4 ✅ (Einstufung komplett inkl. Pause/Fortsetzen und 3 Aufnahmen).
+
+### M4 Kernwortschatz + Karten ✅
+- **Deck komplett: 2.185 Satzkarten** (Ränge 1–2.600 der Frequenzliste; 415 Einträge aussortiert: Namen, Englisch, Füllwörter, Beugungsformen). 22 Dateien `data/core-deck/0001–0022.json`, je 100 Karten. Jede Karte: eigener Beispielsatz (A2–B1, Alltag), Zielwort markiert, englische Bedeutung + Übersetzung, kurze deutsche Notiz (Artikel + Plural, Perfekt/Präteritum, Kasus nach Präpositionen mit N/A/D/G-Badge).
+- Geschrieben in 26 Rohdateien (`data/core-deck/raw/`) von 8 parallelen Autoren-Agenten, validiert mit `server/scripts/merge_deck.py`, Stichprobe von mir gegengelesen. Zweiter Korrekturdurchgang = M7.
+- Karten: Leertaste aufdecken · 1–4 bewerten (mit Intervall-Vorschau) · **K = kenne ich schon** (für immer weg, zählt nicht zu den 20 neuen/Tag) · Z rückgängig · A Audio (vorerst Browser-Stimme, Piper in M6).
+- FSRS (Python `fsrs` 6.3, Ziel 90 % behalten) komplett auf dem Server, Zustand in SQLite. Tag wechselt um Mitternacht Berliner Zeit. Nach 4× „Nochmal“ wird eine Karte pausiert.
+- Tests: Frontend 74 ✅ · Backend 121 ✅ (Unit 60, API 38, Content 23) · E2E 5 ✅.
+- Bekannt: 8 doppelte Beispielsätze und ein paar wichtige Nomen, die wegen eines (behobenen) Skriptfehlers fehlen (der Arm, die Rede, die Suche) → M7.

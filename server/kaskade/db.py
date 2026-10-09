@@ -73,7 +73,8 @@ CREATE TABLE IF NOT EXISTS review_log (
   card_id TEXT NOT NULL,
   rating INTEGER NOT NULL,       -- 1..4, 0 = kenne ich schon
   reviewed_at TEXT NOT NULL,
-  local_date TEXT NOT NULL
+  local_date TEXT NOT NULL,
+  prev TEXT                      -- card row before this review (for undo)
 );
 CREATE TABLE IF NOT EXISTS activity (
   id INTEGER PRIMARY KEY,
@@ -104,9 +105,19 @@ def connect() -> sqlite3.Connection:
     return conn
 
 
+MIGRATIONS = [
+    "ALTER TABLE review_log ADD COLUMN prev TEXT",
+]
+
+
 def init() -> None:
     with connect() as conn:
         conn.executescript(SCHEMA)
+        for sql in MIGRATIONS:
+            try:
+                conn.execute(sql)
+            except sqlite3.OperationalError:
+                pass  # already applied
 
 
 @contextmanager

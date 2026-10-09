@@ -1,0 +1,236 @@
+<script setup>
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { api } from '../../lib/api'
+import { splitTarget } from '../../lib/cards'
+import { speak, canSpeak } from '../../lib/speech'
+
+const data = ref(null)
+const stats = ref(null)
+const revealed = ref(false)
+const busy = ref(false)
+const error = ref(null)
+const sessionDone = ref(0)
+const flash = ref(null)
+
+const card = computed(() => data.value?.card)
+const parts = computed(() => (card.value ? splitTarget(card.value.sentence, card.value.target) : null))
+const total = computed(() => sessionDone.value + (data.value ? data.value.counts.due + data.value.counts.new : 0))
+const pct = computed(() => (total.value ? Math.round((sessionDone.value / total.value) * 100) : 100))
+
+async function load() {
+  error.value = null
+  try {
+    data.value = await api.get('/cards/next')
+    revealed.value = false
+  } catch (e) {
+    error.value = e.message
+  }
+}
+
+async function loadStats() {
+  try {
+    stats.value = await api.get('/cards/stats')
+  } catch {
+    stats.value = null
+  }
+}
+
+onMounted(async () => {
+  await Promise.all([load(), loadStats()])
+  window.addEventListener('keydown', onKey)
+})
+onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
+
+async function act(fn, message) {
+  if (busy.value || !card.value) return
+  busy.value = true
+  try {
+    await fn()
+    sessionDone.value++
+    flash.value = message
+    await load()
+    loadStats()
+  } catch (e) {
+    error.value = e.message
+  } finally {
+    busy.value = false
+  }
+}
+
+const rate = (r) => revealed.value && act(() => api.post(`/cards/${card.value.id}/review`, { rating: r }), null)
+const known = () => act(() => api.post(`/cards/${card.value.id}/known`), `„${card.value.lemma}“ — kenne ich schon. Kommt nicht wieder.`)
+
+async function undo() {
+  if (busy.value) return
+  busy.value = true
+  try {
+    await api.post('/cards/undo')
+    sessionDone.value = Math.max(0, sessionDone.value - 1)
+    flash.value = 'Rückgängig gemacht.'
+    await load()
+    loadStats()
+  } catch (e) {
+    flash.value = e.message
+  } finally {
+    busy.value = false
+  }
+}
+
+function playAudio() {
+  if (card.value) speak(card.value.sentence)
+}
+
+function onKey(e) {
+  if (e.ctrlKey || e.metaKey || e.altKey) return
+  if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(e.target?.tagName) && e.key === ' ') return
+  const k = e.key.toLowerCase()
+  if (k === ' ' || k === 'enter') {
+    e.preventDefault()
+    if (card.value && !revealed.value) revealed.value = true
+  } else if (['1', '2', '3', '4'].includes(k)) {
+    rate(Number(k))
+  } else if (k === 'k') {
+    known()
+  } else if (k === 'z') {
+    undo()
+  } else if (k === 'a') {
+    playAudio()
+  }
+}
+
+const buttons = [
+  { r: 1, label: 'Nochmal' },
+  { r: 2, label: 'Schwer' },
+  { r: 3, label: 'Gut', primary: true },
+  { r: 4, label: 'Leicht' }
+]
+</script>
+
+<template>
+  <main class="k-main k-karten">
+    <div class="flex flex-wrap gap-6 items-start">
+      <div class="flex flex-col gap-4 min-w-0" style="flex: 999 1 560px">
+        <div class="flex flex-wrap items-baseline justify-between gap-2">
+          <h1 class="k-h1" style="font-size: 32px">Karten</h1>
+          <p class="m-0 k-small"><strong style="color: var(--text)">{{ sessionDone }} / {{ total }}</strong> heute · 09:00–09:30 im Block</p>
+        </div>
+        <div class="k-progress"><div :style="{ width: pct + '%' }"></div></div>
+
+        <p v-if="error" class="k-error m-0" role="alert">{{ error }}</p>
+
+        <article v-if="card" class="k-card kc-card" data-testid="karte">
+          <div class="flex items-center justify-between gap-3">
+            <span class="k-eyebrow">{{ card.isNew ? 'Neu' : 'Wiederholung' }} · Kernwort {{ card.n }}</span>
+            <button type="button" class="kc-audio" :disabled="!canSpeak()" aria-label="Satz vorlesen (Taste A)" @click="playAudio">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /></svg>
+              Audio <kbd class="k-kbd">A</kbd>
+            </button>
+          </div>
+          <p class="k-read kc-sentence" data-testid="karte-satz">{{ parts.pre }}<mark class="k-mark">{{ parts.target }}</mark>{{ parts.post }}</p>
+          <p v-if="!revealed" class="k-small m-0 mt-auto">Verstehst du den ganzen Satz? Einmal laut mitsprechen, dann aufdecken.</p>
+          <div v-else class="kc-back" data-testid="karte-back">
+            <div class="flex flex-col gap-1.5">
+              <p class="m-0" style="font-size: 24px; font-weight: 800">{{ card.display }}</p>
+              <p class="m-0 k-read" style="font-size: 18px; color: var(--text-2)">„{{ card.gloss }}“</p>
+              <p class="m-0 mt-2" style="font-size: 15px; color: var(--muted)">{{ card.en }}</p>
+            </div>
+            <div v-if="card.note" class="kc-note">
+              <span v-if="card.case" :class="['k-case', `k-case-${card.case}`]" :aria-label="`Kasus ${card.case}`">{{ card.case }}</span>
+              <p class="m-0" style="font-size: 15px; line-height: 1.5">{{ card.note }}</p>
+            </div>
+          </div>
+        </article>
+
+        <section v-else-if="data" class="k-card flex flex-col gap-3" data-testid="karten-fertig">
+          <h2 class="k-h2">Fertig für heute 🎉</h2>
+          <p class="k-small m-0">{{ sessionDone ? `${sessionDone} Karten in dieser Sitzung.` : 'Heute ist nichts mehr fällig.' }} Morgen kommen neue Kernwörter.</p>
+          <div><router-link to="/" class="k-btn">Zurück zu Heute</router-link></div>
+        </section>
+
+        <template v-if="card">
+          <button v-if="!revealed" class="k-btn kc-reveal" data-testid="karte-reveal" @click="revealed = true">
+            Antwort zeigen <kbd class="k-kbd">Leertaste</kbd>
+          </button>
+          <div v-else class="kc-rates">
+            <button
+              v-for="b in buttons"
+              :key="b.r"
+              type="button"
+              :class="['kc-rate', { 'kc-rate-primary': b.primary }]"
+              :data-testid="`rate-${b.r}`"
+              :disabled="busy"
+              @click="rate(b.r)"
+            >
+              <span><kbd class="k-kbd">{{ b.r }}</kbd> {{ b.label }}</span>
+              <span class="kc-ivl">{{ data.intervals[b.r] }}</span>
+            </button>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <button class="k-btn k-btn-ghost k-btn-sm" :disabled="busy" data-testid="karte-known" @click="known">Kenne ich schon <kbd class="k-kbd">K</kbd></button>
+            <button class="k-btn k-btn-ghost k-btn-sm" :disabled="busy" @click="undo">Rückgängig <kbd class="k-kbd">Z</kbd></button>
+          </div>
+        </template>
+        <p v-if="flash" class="k-hint m-0" aria-live="polite">{{ flash }}</p>
+        <p class="k-hint m-0">Tastatur: Leertaste aufdecken · 1–4 bewerten · K kenne ich schon (kommt nie wieder) · A Audio · Z rückgängig</p>
+      </div>
+
+      <aside aria-label="Sitzung" class="flex flex-col gap-4 min-w-0" style="flex: 1 1 320px">
+        <section v-if="data" class="k-card" aria-labelledby="today-h">
+          <h2 id="today-h" class="k-h2" style="font-size: 17px">Heute fällig</h2>
+          <div class="grid grid-cols-2 gap-3 mt-3">
+            <div><p class="m-0" style="font-size: 28px; font-weight: 800" data-testid="due-count">{{ data.counts.due }}</p><p class="k-small m-0">Wiederholungen</p></div>
+            <div><p class="m-0" style="font-size: 28px; font-weight: 800">{{ data.counts.new }}</p><p class="k-small m-0">neue Sätze</p></div>
+          </div>
+          <p class="k-small m-0 mt-3.5 pt-3" style="border-top: 1px solid var(--surface-2)">
+            FSRS-Ziel: <strong style="color: var(--text)">90 % behalten</strong><template v-if="stats?.retention30 != null"> · letzte 30 Tage: {{ Math.round(stats.retention30 * 100) }} %</template>
+          </p>
+        </section>
+        <section v-if="stats" class="k-card" aria-labelledby="deck-h">
+          <h2 id="deck-h" class="k-h2" style="font-size: 17px">Kernwortschatz</h2>
+          <ul class="list-none m-0 mt-2.5 p-0 flex flex-col gap-2 text-sm">
+            <li class="flex justify-between"><span>Kenne ich schon</span><strong>{{ stats.known }}</strong></li>
+            <li class="flex justify-between"><span>Am Lernen</span><strong>{{ stats.learning }}</strong></li>
+            <li class="flex justify-between"><span>Davon sicher (≥ 21 Tage)</span><strong>{{ stats.mature }}</strong></li>
+            <li class="flex justify-between"><span>Noch nicht gesehen</span><strong>{{ stats.unseen }}</strong></li>
+          </ul>
+        </section>
+        <section class="k-callout" aria-labelledby="k-h">
+          <h2 id="k-h" class="m-0" style="font-size: 15px; font-weight: 800; color: var(--text)">Erst sortieren, dann lernen</h2>
+          <p class="m-0 mt-1.5">Du kennst schon viele Kernwörter. Drück <strong>K</strong>, wenn du den Satz sofort verstehst — die Karte ist dann für immer weg und zählt nicht zu den 20 neuen pro Tag.</p>
+        </section>
+        <section class="k-card" aria-labelledby="leech-h">
+          <h2 id="leech-h" class="k-h2" style="font-size: 15px">Immer wieder vergessen?</h2>
+          <p class="k-small m-0 mt-1.5">Nach 4× „Nochmal“ wird die Karte pausiert, damit sie dich nicht aufhält.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+</template>
+
+<style scoped>
+.kc-card { padding: 32px 40px; min-height: 380px; display: flex; flex-direction: column; gap: 22px; border-radius: calc(var(--radius-lg) + 4px); }
+.kc-sentence { margin: 0; font-size: clamp(24px, 4vw, 32px); line-height: 1.5; }
+.kc-audio {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px;
+  border-radius: 999px; border: var(--border-width) solid var(--border-strong);
+  background: var(--surface); color: var(--text); font: inherit; font-weight: 700; font-size: 14px; cursor: pointer;
+}
+.kc-audio:disabled { opacity: 0.5; cursor: default; }
+.kc-back { border-top: 1px solid var(--surface-2); padding-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.kc-note { display: flex; gap: 12px; align-items: flex-start; background: var(--bg); border-radius: 12px; padding: 14px; }
+.kc-reveal { min-height: 60px; font-size: 18px; font-weight: 800; border-radius: var(--radius-lg); }
+.kc-rates { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.kc-rate {
+  min-height: 64px; border: var(--border-width) solid var(--border-strong); border-radius: 12px;
+  background: var(--surface); color: var(--text); font: inherit; font-weight: 800; font-size: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer;
+}
+.kc-rate:hover { background: var(--surface-2); }
+.kc-rate-primary { background: var(--primary); color: var(--primary-text); border-color: var(--primary); }
+.kc-rate-primary:hover { background: var(--primary-hover); }
+.kc-ivl { font-size: 13px; font-weight: 500; opacity: 0.8; }
+@media (max-width: 480px) {
+  .kc-card { padding: 20px 16px; min-height: 300px; }
+  .kc-rates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+</style>
