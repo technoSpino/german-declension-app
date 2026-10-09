@@ -97,6 +97,17 @@ CREATE TABLE IF NOT EXISTS mined (
   kasus TEXT,                    -- N | A | D | G | NULL
   source TEXT
 );
+CREATE TABLE IF NOT EXISTS practice_attempts (
+  id INTEGER PRIMARY KEY,
+  created_at TEXT NOT NULL,
+  module TEXT NOT NULL,          -- lesen | hoeren | schreiben
+  item_id TEXT NOT NULL,
+  points INTEGER NOT NULL,
+  total INTEGER NOT NULL,
+  timed INTEGER NOT NULL DEFAULT 0,
+  seconds INTEGER,
+  detail TEXT
+);
 CREATE TABLE IF NOT EXISTS text_reads (
   id INTEGER PRIMARY KEY,
   text_id TEXT NOT NULL,

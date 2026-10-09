@@ -70,6 +70,18 @@ const routes = [
     component: () => import('../views/kaskade/ReaderView.vue'),
     meta: { title: 'Lesen' }
   },
+  {
+    path: '/pruefung',
+    name: 'Pruefung',
+    component: () => import('../views/kaskade/PruefungView.vue'),
+    meta: { title: 'Prüfungstraining' }
+  },
+  {
+    path: '/pruefung/:module(lesen|hoeren|schreiben)/:id',
+    name: 'PruefungItem',
+    component: () => import('../views/kaskade/PruefungItemView.vue'),
+    meta: { title: 'Prüfungstraining' }
+  },
   // Nachschlagen (the original grammar pages)
   {
     path: '/nachschlagen',

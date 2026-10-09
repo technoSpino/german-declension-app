@@ -33,6 +33,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M8 Lesebibliothek → http://100.64.43.3:5173/lesen
 - [x] M9 Leser mit Kasus-Linse + Satz minen
 - [x] M10 Audio + Wiederhören-Feed → `http://100.64.43.3:5173/api/feed.xml`
+- [x] M11 B1-Übungsbank → http://100.64.43.3:5173/pruefung
 
 ## Betrieb
 
@@ -146,3 +147,9 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - Heute zeigt unter dem Block „Nach dem Block · Passiv“ mit dem Feed-Link (wie im Entwurf).
 - Entscheidung: nur eine Stimme (Thorsten) — für Dialoge mit zwei Stimmen (M11) gibt es keine zweite freie deutsche Stimme mit klarer Lizenz in Piper-Qualität „medium“; Dialoge werden mit Sprecherangabe vorgelesen.
 - Tests: Backend 243 ✅ (Feed: Folgenauswahl, gültiges RSS, Längen/Dauer, Audio, ohne TTS leer) · Frontend 271 ✅ · E2E 11 ✅.
+
+### M11 B1-Übungsbank ✅
+- `/pruefung` (neu im Menü „Prüfung“): **Lesen** 4 eigene Aufgaben (Blog richtig/falsch, Zeitungsartikel Multiple Choice, Zuordnung Personen ↔ Anzeigen mit „0“, Sperrmüll-Info richtig/falsch) · **Hören** 4 eigene Skripte (Durchsage, Anrufbeantworter, Gespräch, Radiointerview) mit Piper — **zweite Stimme** durch Tonhöhen-Verschiebung, damit Dialoge unterscheidbar sind; Abspielen nur 1× bzw. 2× wie in der Prüfung, Transkript erst nach Abgabe · **Schreiben** die 8 Schreibaufgaben aus dem Plan mit Wortzähler + Selbstcheck (Aufgabe erfüllt? Anrede/Gruß? Konnektoren? Verbstellung?).
+- **Auf Zeit** (Countdown, gibt automatisch ab) oder ohne Zeit. Ergebnis pro Aufgabe; Stand pro Modul = Schnitt der letzten 3 Versuche gegen die **60-%-Grenze**.
+- Alles original, keine echten Prüfungsaufgaben; Antworten und Deutsch von mir gegengelesen.
+- Tests: Backend 270 ✅ (Bewertung aller Aufgabentypen, 60 %-Grenze, Bereitschaft, Inhalte, TTS-Tauglichkeit der Skripte) · Frontend 277 ✅ · E2E 12 ✅.

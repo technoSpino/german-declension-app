@@ -20,6 +20,7 @@ const links = [
   { to: '/satz-check', label: 'Satz-Check' },
   { to: '/karten', label: 'Karten' },
   { to: '/lesen', label: 'Lesen' },
+  { to: '/pruefung', label: 'Prüfung' },
   { to: '/fahrplan', label: 'Fahrplan' }
 ]
 

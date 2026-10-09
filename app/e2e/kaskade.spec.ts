@@ -205,6 +205,36 @@ test('Satz minen from a pasted text → card comes first in Karten', async ({ pa
   expect(errors).toEqual([])
 })
 
+test('Prüfungstraining: timed reading task, listening task and writing self-check', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/pruefung')
+  await expect(page.getByTestId('ready-lesen')).toContainText('noch nicht geübt')
+  await page.getByTestId('item-l4').click()
+  await page.getByTestId('start-timed').click()
+  await expect(page.getByTestId('countdown')).toBeVisible()
+  for (let i = 1; i <= 5; i++) await page.getByTestId(`l4-${i}-r`).click()
+  await page.getByTestId('practice-submit').click()
+  await expect(page.getByTestId('practice-result')).toContainText('%')
+
+  await page.goto('/pruefung/hoeren/h1')
+  await page.getByTestId('start-free').click()
+  for (let i = 1; i <= 4; i++) await page.getByTestId(`h1-${i}-f`).click()
+  await page.getByTestId('practice-submit').click()
+  await expect(page.getByText('Transkript anzeigen')).toBeVisible()
+
+  await page.goto('/pruefung/schreiben/s01')
+  await page.getByTestId('start-free').click()
+  await page.getByTestId('practice-text').fill('Liebe Lea, wir haben jetzt einen Garten im Hof. Komm doch vorbei! Viele Grüße')
+  await page.getByTestId('check-aufgabe').check()
+  await page.getByTestId('check-anrede').check()
+  await page.getByTestId('practice-submit').click()
+  await expect(page.getByTestId('practice-result')).toContainText('2 / 4')
+
+  await page.goto('/pruefung')
+  await expect(page.getByTestId('ready-lesen')).toContainText('1 Versuche')
+  expect(errors.filter((e) => !e.includes('404'))).toEqual([])
+})
+
 test('Fahrplan shows forecast, phases and checks', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/fahrplan')
