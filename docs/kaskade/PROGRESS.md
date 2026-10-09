@@ -9,7 +9,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M2 Satz-Check → http://100.64.43.3:5173/satz-check
 - [x] M3 Einstufung → http://100.64.43.3:5173/einstufung
 - [x] M4 Kernwortschatz + Karten → http://100.64.43.3:5173/karten
-- [ ] M5 Heute + Wochen 1–4
+- [x] M5 Heute + Wochen 1–4 → http://100.64.43.3:5173/
 - [ ] M6 Extras
 - [x] M7 Kerndeck-Korrektur (vorgezogen)
 
@@ -75,6 +75,14 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - FSRS (Python `fsrs` 6.3, Ziel 90 % behalten) komplett auf dem Server, Zustand in SQLite. Tag wechselt um Mitternacht Berliner Zeit. Nach 4× „Nochmal“ wird eine Karte pausiert.
 - Tests: Frontend 74 ✅ · Backend 121 ✅ (Unit 60, API 38, Content 23) · E2E 5 ✅.
 - Bekannt: 8 doppelte Beispielsätze und ein paar wichtige Nomen, die wegen eines (behobenen) Skriptfehlers fehlen (der Arm, die Rede, die Suche) → M7.
+
+### M5 Heute + Wochen 1–4 ✅
+- **Plan startet Montag, 12. Oktober** (Woche 1). Bis dahin zeigt Heute eine Vorschau auf Montag. Regel: Erstbesuch Mo–Mi → diese Woche, Do–So → nächster Montag. Ändern: `PUT /api/plan/start`.
+- Block 09:00 Karten 30 · 09:30 Schauen/Lesen 55 · 10:25 Pause 10 · 10:35 freies Lesen 30 · 11:05 B1-Prüfungsteil 25. Zeitleiste mit „jetzt“-Marker (Berliner Zeit).
+- `data/plan/weeks-1-4.json`: 4 Wochenthemen (Wohnen · Arbeit · Gesundheit/Behörden · Freizeit/Reisen/Medien), Tagesfokus, 16 eigene Aufgaben (Mo/Mi Schreiben, Di/Do Sprechen, Fr Wochenrückblick). Woche 5 wiederholt, Woche 6 = Platzhalter Probeprüfung.
+- Start/Stopp-Timer pro Block (läuft im Header weiter, auch auf anderen Seiten) → Minuten pro Tag/Woche → Immersionsstunden (Start aus Einstufung + gemessene Zeit). „Fertig“ markiert Blöcke.
+- Prüfungsaufgabe öffnet `/aufgabe/<id>`: Schreiben mit Wortzähler (KI-Bewertung nur mit Schlüssel), Sprechen mit Aufnahme.
+- Tests: Frontend 82 ✅ · Backend 157 ✅ (Unit 74, API 49, Content 34) · E2E 6 ✅ (Server-Uhr in E2E fest auf Di 09:30). Layout bei 320 px geprüft (Screenshots), keine Konsolenfehler.
 
 ### M7 Kerndeck-Korrektur ✅ (vorgezogen, lief parallel zu M5)
 - Zweiter Durchgang über alle 26 Rohdateien durch 8 Korrektur-Agenten: **46 Karten korrigiert** (u. a. Kasus-Badges, „ertönen · hat ertönt“, unidiomatische Sätze wie „Magie können“, „Die Mieten sind teuer“ → „hoch/Wohnungen teuer“), alle 8 doppelten Sätze ersetzt.

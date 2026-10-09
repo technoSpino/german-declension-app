@@ -21,7 +21,8 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: [
     {
-      command: `rm -rf ${DATA} && KASKADE_DATA_DIR=$PWD/${DATA} ../server/.venv/bin/uvicorn kaskade.main:app --app-dir ../server --host 127.0.0.1 --port 8001`,
+      // Server clock pinned to Tuesday of plan week 1, 09:30 Berlin.
+      command: `rm -rf ${DATA} && KASKADE_NOW=2026-10-13T07:30:00+00:00 KASKADE_DATA_DIR=$PWD/${DATA} ../server/.venv/bin/uvicorn kaskade.main:app --app-dir ../server --host 127.0.0.1 --port 8001`,
       url: 'http://127.0.0.1:8001/api/health',
       reuseExistingServer: false
     },

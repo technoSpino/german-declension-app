@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from . import config, db
-from .routes import cards, media, placement, satzcheck, vocab
+from .routes import cards, media, placement, satzcheck, today, vocab
 
 
 @asynccontextmanager
@@ -20,12 +20,19 @@ app.include_router(media.router)
 app.include_router(satzcheck.router)
 app.include_router(placement.router)
 app.include_router(cards.router)
+app.include_router(today.router)
 
 
 @app.get("/api/status")
 def status():
     """Learner status for the header and Heute (phase from the last Einstufung)."""
-    return {"phase": db.get_setting("phase"), "name": db.get_setting("name", "Matt")}
+    with db.tx() as conn:
+        running = conn.execute("SELECT block, started_at FROM activity WHERE ended_at IS NULL").fetchone()
+    return {
+        "phase": db.get_setting("phase"),
+        "name": db.get_setting("name", "Matt"),
+        "running": {"block": running["block"], "startedAt": running["started_at"]} if running else None,
+    }
 
 
 @app.get("/api/health")

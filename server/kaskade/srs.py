@@ -1,5 +1,6 @@
 """Core-deck spaced repetition with FSRS. All scheduling lives here; state in SQLite."""
 import json
+import os
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
 from zoneinfo import ZoneInfo
@@ -30,7 +31,9 @@ def deck_index() -> dict[str, dict]:
 
 
 def now_utc() -> datetime:
-    return datetime.now(timezone.utc)
+    # KASKADE_NOW pins the clock for the E2E test instance (never set in production).
+    fixed = os.environ.get("KASKADE_NOW")
+    return datetime.fromisoformat(fixed) if fixed else datetime.now(timezone.utc)
 
 
 def local_date(at: datetime) -> str:

@@ -1,0 +1,518 @@
+{
+  "about": "Kaskade 4-week plan for Phase 2A, original prompts modelled on common B1 task types.",
+  "phase": "2A",
+  "block": [
+    { "id": "karten",   "start": "09:00", "minutes": 30, "title": "Karten",                        "kind": "karten" },
+    { "id": "input",    "start": "09:30", "minutes": 55, "title": "Interaktiv schauen oder lesen", "kind": "input" },
+    { "id": "pause",    "start": "10:25", "minutes": 10, "title": "Pause",                         "kind": "pause" },
+    { "id": "lesen",    "start": "10:35", "minutes": 30, "title": "Freies Lesen",                  "kind": "lesen" },
+    { "id": "pruefung", "start": "11:05", "minutes": 25, "title": "B1-Prüfungsteil",               "kind": "pruefung" }
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "theme": "Wohnen und Nachbarn",
+      "goal": "Diese Woche geht es um dein Zuhause, dein Haus und deine Nachbarn.",
+      "days": [
+        {
+          "day": "Mo",
+          "focus": "Einstieg: Falls noch nicht erledigt, zuerst die Einstufung abschließen.",
+          "karten": "15 neue Kernwörter. Bekannte Wörter mit K („kenne ich schon“) schnell aussortieren.",
+          "input": "Eine Folge einer Alltagsserie mit deutschen Untertiteln. Unbekannte Wörter nachschlagen, gute Sätze speichern.",
+          "lesen": "Einen kurzen Text in einfacher Sprache über Wohnen lesen. Nichts nachschlagen, einfach weiterlesen.",
+          "exam": "s01"
+        },
+        {
+          "day": "Di",
+          "focus": "Wörter rund um Haus, Hof und Nachbarschaft.",
+          "karten": "20 neue Kernwörter + Wiederholungen. Weiter mit K sortieren: Was du sicher kennst, kommt sofort weg.",
+          "input": "Ein Video über eine Wohnungstour in Deutschland. Oft pausieren, Wörter nachschlagen, Sätze speichern.",
+          "lesen": "Ein Kinderbuch oder einen Comic auf Deutsch lesen, ohne Wörterbuch.",
+          "exam": "p01"
+        },
+        {
+          "day": "Mi",
+          "focus": "Ein Problem in der Wohnung höflich beschreiben.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Eine Kinderserie ohne Untertitel schauen. Danach eine schwierige Stelle mit Untertiteln wiederholen.",
+          "lesen": "Im Kinderbuch oder Comic von Dienstag weiterlesen.",
+          "exam": "s02"
+        },
+        {
+          "day": "Do",
+          "focus": "Über eigene Erfahrungen sprechen: Wie wohnst du?",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Ein Vlog aus dem Alltag in Deutschland mit deutschen Untertiteln. Mindestens drei gute Sätze speichern.",
+          "lesen": "Nachrichten in einfacher Sprache: zwei oder drei kurze Artikel lesen.",
+          "exam": "p02"
+        },
+        {
+          "day": "Fr",
+          "focus": "Wochenrückblick: Lieblingssätze der Woche wiederholen.",
+          "karten": "Keine neuen Karten, nur Wiederholungen. Danach die gespeicherten Sätze der Woche durchgehen.",
+          "input": "Die Folge von Montag noch einmal schauen. Heute verstehst du schon mehr.",
+          "lesen": "Frei wählen: Lies, was dir Spaß macht, ohne Wörterbuch.",
+          "exam": null
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "theme": "Arbeit und Termine",
+      "goal": "Diese Woche übst du Wörter und Sätze rund um Arbeit, Kollegen und Termine.",
+      "days": [
+        {
+          "day": "Mo",
+          "focus": "Wörter rund um Arbeit, Kollegen und Arbeitszeiten.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Eine Serie, die im Büro oder in einer Firma spielt, mit deutschen Untertiteln. Sätze aus Gesprächen unter Kollegen speichern.",
+          "lesen": "Stellenanzeigen online lesen, ohne nachzuschlagen: Was wird gesucht?",
+          "exam": "s03"
+        },
+        {
+          "day": "Di",
+          "focus": "Termine vereinbaren, verschieben und absagen.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Ein Video über den Berufsalltag einer Person, z. B. in der Pflege, im Handwerk oder im Büro. Pausieren und nachschlagen.",
+          "lesen": "Ein leichtes Jugendbuch beginnen und das erste Kapitel lesen.",
+          "exam": "p03"
+        },
+        {
+          "day": "Mi",
+          "focus": "Von der Arbeit erzählen, im Perfekt.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Einen Podcast für Deutschlernende zum Thema Arbeit hören und das Transkript mitlesen.",
+          "lesen": "Im Jugendbuch weiterlesen: ein Kapitel ohne Wörterbuch.",
+          "exam": "s04"
+        },
+        {
+          "day": "Do",
+          "focus": "Die eigene Meinung sagen und nachfragen.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Ein Interview oder eine Gesprächsrunde zum Thema Arbeit mit Untertiteln. Nützliche Redemittel speichern.",
+          "lesen": "Nachrichten in einfacher Sprache: alle Artikel über Arbeit und Wirtschaft lesen.",
+          "exam": "p04"
+        },
+        {
+          "day": "Fr",
+          "focus": "Wochenrückblick: Lieblingssätze der Woche wiederholen und laut vorlesen.",
+          "karten": "Keine neuen Karten, nur Wiederholungen. Schwierige Wörter der Woche noch einmal ansehen.",
+          "input": "Frei wählen: eine Folge deiner Lieblingsserie mit deutschen Untertiteln.",
+          "lesen": "Im Jugendbuch weiterlesen.",
+          "exam": null
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "theme": "Gesundheit und Behörden",
+      "goal": "Diese Woche geht es um Arzt, Apotheke und Ämter.",
+      "days": [
+        {
+          "day": "Mo",
+          "focus": "Behörden: Briefe und Formulare verstehen.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Ein Erklärvideo über Behörden in Deutschland, z. B. zur Anmeldung der Wohnung. Pausieren, nachschlagen, Sätze speichern.",
+          "lesen": "Im Jugendbuch weiterlesen oder einen neuen Text in einfacher Sprache beginnen.",
+          "exam": "s05"
+        },
+        {
+          "day": "Di",
+          "focus": "Gesundheit: Was machst du, wenn du krank bist?",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Eine Arzt- oder Krankenhausserie mit deutschen Untertiteln. Sätze aus Gesprächen in der Praxis speichern.",
+          "lesen": "Gesundheitstexte in einfacher Sprache lesen, z. B. über Erkältung oder Schlaf.",
+          "exam": "p05"
+        },
+        {
+          "day": "Mi",
+          "focus": "Die eigene Meinung schriftlich begründen.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Ein Wissensvideo über Schlaf oder Bewegung mit deutschen Untertiteln.",
+          "lesen": "Ein Kapitel im Buch lesen. Unbekannte Wörter einfach überspringen.",
+          "exam": "s06"
+        },
+        {
+          "day": "Do",
+          "focus": "Aufgaben verteilen und Hilfe anbieten.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Einen Podcast für Deutschlernende zum Thema Gesundheit hören und das Transkript mitlesen.",
+          "lesen": "Nachrichten in einfacher Sprache: zwei oder drei kurze Artikel lesen.",
+          "exam": "p06"
+        },
+        {
+          "day": "Fr",
+          "focus": "Wochenrückblick: Lieblingssätze der Woche wiederholen.",
+          "karten": "Keine neuen Karten, nur Wiederholungen. Danach die gespeicherten Sätze der Woche durchgehen.",
+          "input": "Ein Video der Woche noch einmal schauen, heute ohne Untertitel.",
+          "lesen": "Frei wählen: Lies, was dir Spaß macht, ohne Wörterbuch.",
+          "exam": null
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "theme": "Freizeit, Reisen und Medien",
+      "goal": "Diese Woche geht es um freie Zeit, Ausflüge, Reisen und Medien.",
+      "days": [
+        {
+          "day": "Mo",
+          "focus": "Von Freizeit und Ausflügen erzählen.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Ein Reise-Vlog aus Deutschland mit deutschen Untertiteln. Ausdrücke für unterwegs speichern.",
+          "lesen": "Einen Reisebericht in einem Blog lesen, ohne Wörterbuch.",
+          "exam": "s07"
+        },
+        {
+          "day": "Di",
+          "focus": "Reisen: Zug oder Flugzeug?",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Eine Doku-Folge über eine Zugreise mit deutschen Untertiteln. Pausieren, nachschlagen, Sätze speichern.",
+          "lesen": "Ein neues Buch beginnen oder im Jugendbuch weiterlesen.",
+          "exam": "p07"
+        },
+        {
+          "day": "Mi",
+          "focus": "Medien und Deutschlernen: deine Meinung.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Eine Folge einer Serie mit deutschen Untertiteln. Danach eine Szene ohne Untertitel noch einmal schauen.",
+          "lesen": "Ein Kapitel im Buch lesen. Nicht stoppen, wenn ein Wort fehlt.",
+          "exam": "s08"
+        },
+        {
+          "day": "Do",
+          "focus": "Eine Präsentation frei halten.",
+          "karten": "20 neue Kernwörter + alle Wiederholungen.",
+          "input": "Nachrichten für Kinder oder in einfacher Sprache als Video schauen. Wörter nachschlagen, Sätze speichern.",
+          "lesen": "Nachrichten in einfacher Sprache: Artikel über Freizeit, Kultur oder Medien lesen.",
+          "exam": "p08"
+        },
+        {
+          "day": "Fr",
+          "focus": "Wochen- und Monatsrückblick: Lieblingssätze wiederholen und den eigenen Fortschritt ansehen.",
+          "karten": "Keine neuen Karten, nur Wiederholungen. Danach kurz prüfen: Wie viele Kernwörter kennst du jetzt?",
+          "input": "Die Folge vom ersten Montag noch einmal schauen. Wie viel mehr verstehst du jetzt?",
+          "lesen": "Frei wählen: Lies, was dir Spaß macht, ohne Wörterbuch.",
+          "exam": null
+        }
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "id": "s01",
+      "skill": "schreiben",
+      "type": "E-Mail an Freunde (informell)",
+      "title": "Ein Beet im Hof",
+      "situation": "In deinem Haus gibt es seit Kurzem einen Gemeinschaftsgarten im Hof. Du hast dort ein kleines Beet bekommen. Schreib deiner Freundin Lea eine E-Mail.",
+      "points": [
+        "Beschreib den Garten und dein Beet.",
+        "Erzähl, wie du dabei Nachbarn kennengelernt hast.",
+        "Lade Lea für Samstagnachmittag in den Garten ein."
+      ],
+      "words": 80,
+      "minutes": 20,
+      "tips": [
+        "Anrede und Gruß nicht vergessen: Liebe Lea, … / Viele Grüße",
+        "Zu jedem Punkt zwei bis drei Sätze schreiben.",
+        "Konnektoren benutzen: weil, deshalb, außerdem."
+      ]
+    },
+    {
+      "id": "p01",
+      "skill": "sprechen",
+      "type": "Gemeinsam etwas planen",
+      "title": "Ein Hoffest für das Haus",
+      "situation": "Du und deine Nachbarin wollt im Juni ein kleines Fest im Hof organisieren. Alle Leute aus dem Haus sollen kommen. Plant das Fest zusammen. Übe beide Rollen allein oder später mit der KI.",
+      "points": [
+        "Wann soll das Fest stattfinden?",
+        "Wie ladet ihr die Nachbarn ein?",
+        "Wer bringt Essen und Getränke mit?",
+        "Was macht ihr, wenn es regnet?",
+        "Wer räumt am Ende auf?"
+      ],
+      "minutes": 15,
+      "tips": [
+        "Vorschläge machen: Was hältst du davon, wenn …? / Ich schlage vor, dass …",
+        "Auf den Partner reagieren: Gute Idee! / Das finde ich schwierig, weil …",
+        "Am Ende kurz zusammenfassen, wer was macht."
+      ]
+    },
+    {
+      "id": "s02",
+      "skill": "schreiben",
+      "type": "Formelle E-Mail",
+      "title": "Kein Licht im Fahrradkeller",
+      "situation": "Im Fahrradkeller deines Hauses funktioniert das Licht seit zwei Wochen nicht. Abends ist es dort ganz dunkel. Schreib eine kurze E-Mail an die Hausverwaltung.",
+      "points": [
+        "Beschreib das Problem genau.",
+        "Erklär, warum das gefährlich ist.",
+        "Bitte um eine schnelle Reparatur und eine Antwort."
+      ],
+      "words": 50,
+      "minutes": 15,
+      "tips": [
+        "In der E-Mail die Sie-Form benutzen: Sehr geehrte Damen und Herren, … / Mit freundlichen Grüßen",
+        "Höflich bitten: Könnten Sie bitte …? / Ich wäre Ihnen dankbar, wenn …",
+        "Kurz bleiben: 40 bis 60 Wörter reichen."
+      ]
+    },
+    {
+      "id": "p02",
+      "skill": "sprechen",
+      "type": "Ein Thema präsentieren",
+      "title": "Dinge mit Nachbarn teilen",
+      "situation": "Du hältst eine kurze Präsentation (3–4 Minuten) zum Thema „Werkzeug und andere Dinge mit Nachbarn teilen“. Gliedere sie in fünf Folien.",
+      "points": [
+        "Folie 1: Das Thema vorstellen.",
+        "Folie 2: Eigene Erfahrung: Was hast du schon einmal geliehen oder verliehen?",
+        "Folie 3: Wie ist das in deinem Heimatland?",
+        "Folie 4: Vor- und Nachteile nennen und deine Meinung sagen.",
+        "Folie 5: Abschluss und Dank fürs Zuhören."
+      ],
+      "minutes": 15,
+      "tips": [
+        "Überleitungen benutzen: Ich komme jetzt zu … / Zum Schluss möchte ich …",
+        "Nur Stichwörter auf die Folien schreiben und frei sprechen.",
+        "Laut üben und die Zeit stoppen."
+      ]
+    },
+    {
+      "id": "s03",
+      "skill": "schreiben",
+      "type": "Forumsbeitrag: Meinung zu einer Aussage",
+      "title": "Duzen im Job?",
+      "situation": "In einem Online-Forum geht es um die Frage „Du oder Sie bei der Arbeit?“. Jemand schreibt: „In einer Firma sollten sich alle duzen, auch die Chefin.“ Schreib einen Beitrag mit deiner Meinung.",
+      "points": [
+        "Sag, ob du zustimmst, und begründe deine Meinung.",
+        "Erzähl von einer eigenen Erfahrung.",
+        "Nenn ein Argument der anderen Seite."
+      ],
+      "words": 80,
+      "minutes": 20,
+      "tips": [
+        "Meinung einleiten: Ich finde, dass … / Meiner Meinung nach …",
+        "Mit aber oder trotzdem auch die andere Seite zeigen.",
+        "Ein kurzer Einstieg wie „Hallo zusammen“ reicht."
+      ]
+    },
+    {
+      "id": "p03",
+      "skill": "sprechen",
+      "type": "Gemeinsam etwas planen",
+      "title": "Der erste Tag für neue Kolleginnen",
+      "situation": "Nächsten Montag fangen zwei neue Kolleginnen in deiner Firma an. Du und ein Kollege sollt ihren ersten Arbeitstag vorbereiten. Plant den Tag zusammen.",
+      "points": [
+        "Wann und wo begrüßt ihr die beiden?",
+        "Wer zeigt ihnen das Gebäude?",
+        "Wo esst ihr zusammen zu Mittag?",
+        "Was brauchen sie am ersten Tag, z. B. Schlüssel oder Laptop?",
+        "Wer ist in der ersten Woche ihre Ansprechperson?"
+      ],
+      "minutes": 15,
+      "tips": [
+        "Zeitangaben üben: um halb zehn, nach der Mittagspause, am Nachmittag.",
+        "Höflich ablehnen: Das passt leider nicht so gut, weil …",
+        "Gegenvorschlag machen: Wie wäre es stattdessen mit …?"
+      ]
+    },
+    {
+      "id": "s04",
+      "skill": "schreiben",
+      "type": "E-Mail an Freunde (informell)",
+      "title": "Neuer Job im Café",
+      "situation": "Du arbeitest seit einer Woche in einem Café. Das Café sucht noch eine Aushilfe. Dein Freund Jonas sucht gerade einen Job. Schreib ihm eine E-Mail.",
+      "points": [
+        "Erzähl, wie deine erste Woche war.",
+        "Beschreib, wen das Café sucht und wann man arbeiten muss.",
+        "Schlag Jonas vor, wann er vorbeikommen kann."
+      ],
+      "words": 80,
+      "minutes": 20,
+      "tips": [
+        "Anrede und Gruß: Lieber Jonas, … / Bis bald!",
+        "Über die erste Woche im Perfekt schreiben: Ich habe … gelernt.",
+        "Vorschläge machen: Hast du Lust, …? / Wie wäre es mit …?"
+      ]
+    },
+    {
+      "id": "p04",
+      "skill": "sprechen",
+      "type": "Über ein Thema sprechen",
+      "title": "Pünktlichkeit im Job",
+      "situation": "Stell dir vor: Deine Partnerin hat eine Präsentation zum Thema „Wie wichtig ist Pünktlichkeit bei der Arbeit?“ gehalten. Reagiere darauf und sprich mit ihr über das Thema.",
+      "points": [
+        "Bedank dich und sag, was dir gefallen hat.",
+        "Stell eine Frage zur Präsentation.",
+        "Erzähl kurz, wie das in deinem Job oder Kurs ist.",
+        "Sag, ob es in deinem Heimatland anders ist.",
+        "Beantworte eine Rückfrage deiner Partnerin."
+      ],
+      "minutes": 15,
+      "tips": [
+        "Feedback geben: Mir hat besonders gefallen, dass … / Interessant fand ich …",
+        "Nachfragen: Was meinst du genau mit …? / Wie ist das bei dir?",
+        "Bei einer Rückfrage Zeit gewinnen: Gute Frage! Ich denke, …"
+      ]
+    },
+    {
+      "id": "s05",
+      "skill": "schreiben",
+      "type": "Formelle E-Mail",
+      "title": "Fehler in der Meldebescheinigung",
+      "situation": "Du hast vom Bürgeramt deine Meldebescheinigung bekommen. Dein Nachname ist dort falsch geschrieben. Du brauchst das Dokument bald für deinen Arbeitgeber. Schreib eine E-Mail an das Bürgeramt.",
+      "points": [
+        "Erklär, welches Dokument du bekommen hast.",
+        "Beschreib den Fehler.",
+        "Frag, wie du schnell eine korrigierte Bescheinigung bekommst."
+      ],
+      "words": 60,
+      "minutes": 15,
+      "tips": [
+        "In der E-Mail die Sie-Form benutzen: Sehr geehrte Damen und Herren, … / Mit freundlichen Grüßen",
+        "Wichtige Daten nennen: Name, Geburtsdatum, Adresse.",
+        "Höflich fragen: Könnten Sie mir bitte mitteilen, …?"
+      ]
+    },
+    {
+      "id": "p05",
+      "skill": "sprechen",
+      "type": "Ein Thema präsentieren",
+      "title": "Gleich zum Arzt oder abwarten?",
+      "situation": "Du hältst eine kurze Präsentation (3–4 Minuten) zum Thema „Bei einer Erkältung sofort zum Arzt gehen oder erst abwarten?“. Gliedere sie in fünf Folien.",
+      "points": [
+        "Folie 1: Das Thema vorstellen.",
+        "Folie 2: Eigene Erfahrung: Was machst du, wenn du erkältet bist?",
+        "Folie 3: Wie macht man das in deinem Heimatland?",
+        "Folie 4: Vor- und Nachteile beider Wege nennen und deine Meinung sagen.",
+        "Folie 5: Abschluss und Dank fürs Zuhören."
+      ],
+      "minutes": 15,
+      "tips": [
+        "Den Aufbau ankündigen: Zuerst erzähle ich …, danach …",
+        "Vor- und Nachteile verbinden: Einerseits …, andererseits …",
+        "Laut üben und die Zeit stoppen."
+      ]
+    },
+    {
+      "id": "s06",
+      "skill": "schreiben",
+      "type": "Forumsbeitrag: Meinung zu einer Aussage",
+      "title": "Gesund leben mit dem Handy?",
+      "situation": "In einem Forum zum Thema Gesundheit liest du diese Aussage: „Wer seine Schritte und seinen Schlaf mit dem Handy misst, lebt gesünder.“ Schreib einen Beitrag mit deiner Meinung.",
+      "points": [
+        "Sag deine Meinung zu der Aussage.",
+        "Erzähl, wie du selbst auf deine Gesundheit achtest.",
+        "Nenn einen möglichen Nachteil solcher Apps."
+      ],
+      "words": 80,
+      "minutes": 20,
+      "tips": [
+        "Meinung begründen: Ich stimme zu, weil … / Ich sehe das anders, denn …",
+        "Beispiele einleiten: zum Beispiel, bei mir ist es so, dass …",
+        "Am Ende einen Satz als Fazit schreiben: Insgesamt finde ich …"
+      ]
+    },
+    {
+      "id": "p06",
+      "skill": "sprechen",
+      "type": "Gemeinsam etwas planen",
+      "title": "Hilfe für einen kranken Freund",
+      "situation": "Euer Freund Malte hat sich das Bein gebrochen und muss zwei Wochen zu Hause bleiben. Du und eine Freundin wollt ihm helfen. Plant zusammen, wer was macht.",
+      "points": [
+        "Wer kauft wann für ihn ein?",
+        "Wer begleitet ihn zur Kontrolle beim Arzt?",
+        "Wer holt seine Medikamente aus der Apotheke?",
+        "Wann besucht ihr ihn, und was bringt ihr mit?"
+      ],
+      "minutes": 15,
+      "tips": [
+        "Aufgaben verteilen: Kannst du … übernehmen? / Ich kümmere mich um …",
+        "Termine absprechen: Passt dir Dienstag? / Am Mittwoch kann ich leider nicht.",
+        "Am Ende kurz zusammenfassen, wer was macht."
+      ]
+    },
+    {
+      "id": "s07",
+      "skill": "schreiben",
+      "type": "E-Mail an Freunde (informell)",
+      "title": "Kanutour am Wochenende",
+      "situation": "Du hast am Wochenende mit ein paar Kolleginnen eine Kanutour auf einem Fluss gemacht. Deine Freundin Samira möchte beim nächsten Mal mitkommen. Schreib ihr eine E-Mail.",
+      "points": [
+        "Erzähl, wie die Tour war.",
+        "Beschreib, was nicht so gut geklappt hat.",
+        "Schlag einen Termin für eine gemeinsame Tour vor."
+      ],
+      "words": 80,
+      "minutes": 20,
+      "tips": [
+        "Gefühle zeigen: Es hat mir total gut gefallen. / Leider …",
+        "Die Reihenfolge zeigen: zuerst, danach, am Ende.",
+        "Gruß am Ende nicht vergessen: Liebe Grüße"
+      ]
+    },
+    {
+      "id": "p07",
+      "skill": "sprechen",
+      "type": "Über ein Thema sprechen",
+      "title": "Mit dem Zug in den Urlaub",
+      "situation": "Stell dir vor: Dein Partner hat eine Präsentation zum Thema „Urlaub mit dem Zug statt mit dem Flugzeug“ gehalten. Reagiere darauf und sprich mit ihm über das Thema.",
+      "points": [
+        "Bedank dich und sag, was du interessant fandest.",
+        "Stell eine Frage zur Präsentation.",
+        "Erzähl von einer eigenen Reise mit dem Zug oder dem Flugzeug.",
+        "Sag, was dir im Urlaub wichtig ist.",
+        "Beantworte eine Rückfrage deines Partners."
+      ],
+      "minutes": 15,
+      "tips": [
+        "Feedback geben: Danke für die Präsentation. Besonders interessant fand ich …",
+        "Nachfragen: Wie lange dauert …? / Was kostet das ungefähr?",
+        "Zustimmen oder widersprechen: Da hast du recht. / Das sehe ich etwas anders."
+      ]
+    },
+    {
+      "id": "s08",
+      "skill": "schreiben",
+      "type": "Forumsbeitrag: Meinung zu einer Aussage",
+      "title": "Deutsch lernen mit Serien?",
+      "situation": "In einem Forum für Deutschlernende schreibt jemand: „Mit Serien lernt man keine Sprache. Man muss vor allem Grammatik lernen.“ Schreib einen Beitrag mit deiner Meinung.",
+      "points": [
+        "Sag, was du von der Aussage hältst.",
+        "Erzähl, wie du selbst Deutsch lernst.",
+        "Gib anderen Lernenden einen konkreten Tipp."
+      ],
+      "words": 80,
+      "minutes": 20,
+      "tips": [
+        "Meinung einleiten: Ich bin der Meinung, dass … / Ich sehe das so: …",
+        "Konnektoren benutzen: deshalb, trotzdem, außerdem.",
+        "Den Tipp als Vorschlag formulieren: Probiert doch mal …"
+      ]
+    },
+    {
+      "id": "p08",
+      "skill": "sprechen",
+      "type": "Ein Thema präsentieren",
+      "title": "Wie informierst du dich?",
+      "situation": "Du hältst eine kurze Präsentation (3–4 Minuten) zum Thema „Nachrichten: Zeitung, App oder soziale Medien?“. Gliedere sie in fünf Folien.",
+      "points": [
+        "Folie 1: Das Thema vorstellen.",
+        "Folie 2: Eigene Erfahrung: Wie liest oder hörst du Nachrichten?",
+        "Folie 3: Wie informieren sich die Menschen in deinem Heimatland?",
+        "Folie 4: Vor- und Nachteile nennen und deine Meinung sagen.",
+        "Folie 5: Abschluss und Dank fürs Zuhören."
+      ],
+      "minutes": 15,
+      "tips": [
+        "Überleitungen benutzen: Ich komme jetzt zu … / Zum Schluss möchte ich …",
+        "Vergleichen: Im Vergleich zu … / Bei uns ist es eher so, dass …",
+        "Zum Abschluss: Vielen Dank fürs Zuhören! Gibt es noch Fragen?"
+      ]
+    }
+  ],
+  "week6": {
+    "title": "Erste Probeprüfung",
+    "note": "In Woche 6 machst du eine komplette Probeprüfung: Lesen, Hören, Schreiben und Sprechen, mit den Zeiten einer echten Prüfung. Die Inhalte folgen später."
+  }
+}

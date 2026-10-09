@@ -237,7 +237,7 @@ const words = computed(() => state.value.vocab?.result?.estimate ?? null)
       <aside v-if="!done" class="flex flex-wrap gap-4">
         <section class="k-card" style="flex: 1 1 320px">
           <h2 class="k-h2" style="font-size: 17px">Was das Ergebnis einstellt</h2>
-          <ul class="mt-2.5 mb-0 pl-5 k-small" style="line-height: 1.6">
+          <ul class="mt-2.5 mb-0 list-disc pl-5 k-small" style="line-height: 1.6">
             <li><strong>Deine Refold-Phase</strong> (aus dem Satz-Check)</li>
             <li><strong>Bekannte Wörter</strong> — und welche Kernwörter du schon kennst</li>
             <li><strong>Startstunden</strong> für die B2-Prognose</li>

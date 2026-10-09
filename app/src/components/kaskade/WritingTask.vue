@@ -7,7 +7,8 @@ const props = defineProps({
   task: { type: Object, required: true },
   context: { type: String, required: true },
   ai: { type: Boolean, default: false },
-  state: { type: Object, default: null }
+  state: { type: Object, default: null },
+  showTitle: { type: Boolean, default: true }
 })
 const emit = defineEmits(['progress', 'done'])
 
@@ -42,11 +43,11 @@ const criteria = { erfuellung: 'Erfüllung', kohaerenz: 'Kohärenz', wortschatz:
 
 <template>
   <div class="flex flex-wrap gap-6 items-start" data-testid="writing-task">
-    <section class="k-card flex flex-col gap-3" style="flex: 1 1 340px" aria-labelledby="wt-h">
+    <section class="k-card flex flex-col gap-3" style="flex: 1 1 340px" :aria-label="task.title">
       <p class="k-eyebrow">{{ task.type }} · {{ task.minutes }} min</p>
-      <h2 id="wt-h" class="k-h2">{{ task.title }}</h2>
+      <h2 v-if="showTitle" id="wt-h" class="k-h2">{{ task.title }}</h2>
       <p class="k-read m-0" style="font-size: 18px; line-height: 1.6">{{ task.situation }}</p>
-      <ul class="m-0 pl-5 flex flex-col gap-1.5">
+      <ul class="m-0 list-disc pl-5 flex flex-col gap-1.5">
         <li v-for="p in task.points" :key="p">{{ p }}</li>
       </ul>
       <p class="k-hint m-0">Schreib etwa {{ task.words }} Wörter. Denk an Anrede und Gruß.</p>

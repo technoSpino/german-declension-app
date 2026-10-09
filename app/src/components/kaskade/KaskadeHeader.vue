@@ -1,11 +1,17 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStatusStore } from '../../stores/statusStore'
+import { BLOCK_LABELS, useNow } from '../../lib/useNow'
+import { formatClock } from '../../lib/format'
 
 const route = useRoute()
 const status = useStatusStore()
 const refOpen = ref(false)
+const now = useNow()
+const elapsed = computed(() =>
+  status.running ? formatClock((now.value - new Date(status.running.startedAt)) / 1000) : ''
+)
 
 const links = [
   { to: '/', label: 'Heute' },
@@ -67,6 +73,14 @@ status.load()
       </nav>
       <div class="k-header-right">
         <slot name="right" />
+        <button
+          v-if="status.running"
+          type="button"
+          class="k-timer"
+          data-testid="header-timer"
+          :aria-label="`Zeit läuft: ${BLOCK_LABELS[status.running.block]} — stoppen`"
+          @click="status.stopTimer()"
+        >● {{ BLOCK_LABELS[status.running.block] }} {{ elapsed }} <span aria-hidden="true">■</span></button>
         <span v-if="status.phase" class="k-chip k-chip-accent" data-testid="phase">Phase {{ status.phase }}</span>
       </div>
     </div>
@@ -138,6 +152,20 @@ status.load()
 .k-ref-menu a { color: var(--text) !important; padding: 10px 12px; }
 .k-ref-menu a:hover { background: var(--surface-2); color: var(--text) !important; }
 .k-header-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.k-timer {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--nav-muted);
+  background: transparent;
+  color: var(--nav-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+.k-timer:hover { background: var(--nav-hover); }
 @media (max-width: 640px) {
   .k-header-in { padding: 6px 12px; gap: 4px 12px; }
   .k-nav a, .k-ref > button { padding: 10px 8px; }

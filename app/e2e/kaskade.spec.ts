@@ -46,11 +46,32 @@ function watchConsole(page: Page) {
   return errors
 }
 
-test('Heute loads', async ({ page }) => {
+test('Heute loads with the day plan, block timer and done toggle', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/')
   await expect(page.getByTestId('heute')).toBeVisible()
   await expect(page.getByRole('navigation', { name: 'Hauptnavigation' })).toBeVisible()
+  // Server clock: Tuesday, week 1 → speaking task p01
+  await expect(page.getByText('Woche 1 · Wohnen und Nachbarn')).toBeVisible()
+  await expect(page.getByTestId('block-pruefung')).toContainText('Ein Hoffest für das Haus')
+
+  await page.getByTestId('start-lesen').click()
+  await expect(page.getByTestId('header-timer')).toContainText('Freies Lesen')
+  await page.getByTestId('stop-lesen').click()
+  await expect(page.getByTestId('header-timer')).toHaveCount(0)
+
+  await page.getByTestId('done-input').click()
+  await expect(page.getByTestId('done-input')).toContainText('Erledigt')
+  expect(errors).toEqual([])
+})
+
+test('Aufgabe: plan writing task can be submitted', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/aufgabe/s01')
+  await expect(page.getByRole('heading', { name: 'Ein Beet im Hof' })).toBeVisible()
+  await page.getByTestId('wt-text').fill('Liebe Lea, stell dir vor, wir haben jetzt einen Garten im Hof! Mein Beet ist klein, aber schön. Komm doch am Samstag vorbei! Viele Grüße')
+  await page.getByTestId('wt-submit').click()
+  await expect(page.getByText('✓ Gespeichert')).toBeVisible()
   expect(errors).toEqual([])
 })
 
