@@ -12,6 +12,9 @@ const status = useStatusStore()
 const now = useNow(15000)
 const t = ref(null)
 const error = ref(null)
+const feed = ref(null)
+const copied = ref(false)
+const feedUrl = `${window.location.origin}/api/feed.xml`
 
 async function load() {
   try {
@@ -21,7 +24,23 @@ async function load() {
     error.value = e.message
   }
 }
-onMounted(load)
+onMounted(async () => {
+  await load()
+  try {
+    feed.value = await api.get('/feed/info')
+  } catch {
+    feed.value = null
+  }
+})
+
+async function copyFeed() {
+  try {
+    await navigator.clipboard.writeText(feedUrl)
+    copied.value = true
+  } catch {
+    copied.value = false
+  }
+}
 
 const minutes = computed(() => berlinMinutes(now.value))
 const day = computed(() => t.value?.day ?? t.value?.preview?.day ?? null)
@@ -180,6 +199,15 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
             <router-link v-else-if="isPreview && b.kind === 'pruefung' && planInfo?.exam" :to="`/aufgabe/${planInfo.exam.id}`" class="hb-actions k-btn k-btn-ghost k-btn-sm">Ansehen</router-link>
           </li>
         </ol>
+        <div class="hb-after" data-testid="feed-row">
+          <div class="hb-after-label">Nach dem Block</div>
+          <div class="min-w-0">
+            <p class="hb-kind" style="color: var(--text-2)"><span class="hb-dot" style="background: var(--chart-passive)"></span>Passiv · optional</p>
+            <p class="hb-title" style="font-size: 16px">Wiederhören-Feed · {{ feed ? feed.episodes.length : 0 }} {{ feed && feed.episodes.length === 1 ? 'Folge' : 'Folgen' }}</p>
+            <p class="k-small m-0 mt-0.5">Audio von allem, was du diese Woche gelesen und gelernt hast — als Podcast fürs Handy (im Tailnet): <code class="hb-url">{{ feedUrl }}</code></p>
+          </div>
+          <button class="k-btn k-btn-ghost k-btn-sm" @click="copyFeed">{{ copied ? '✓ Kopiert' : 'Link kopieren' }}</button>
+        </div>
       </section>
 
       <div class="flex flex-col gap-6 min-w-0" style="flex: 1 1 340px">
@@ -277,6 +305,18 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
 .hb-title { margin: 3px 0 0; font-size: 17px; font-weight: 700; }
 .hb-strike { text-decoration: line-through; color: var(--muted); }
 .hb-chipbtn { border: 0; cursor: pointer; font: inherit; font-size: 13px; font-weight: 700; }
+.hb-after {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  margin: 8px 0 16px;
+  padding: 16px;
+  background: var(--callout);
+  border-radius: var(--radius-sm);
+}
+.hb-after-label { font-size: 13px; font-weight: 800; color: var(--text-2); }
+.hb-url { font-size: 13px; word-break: break-all; }
 .hb-target {
   position: absolute;
   top: -5px;
@@ -289,6 +329,7 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
 }
 @media (max-width: 480px) {
   .hb-row { grid-template-columns: 52px minmax(0, 1fr); }
+  .hb-after { grid-template-columns: minmax(0, 1fr); }
   .hb-actions { grid-column: 1 / -1; flex-direction: row !important; justify-content: flex-start; }
   .hb-hide-sm { display: none; }
 }

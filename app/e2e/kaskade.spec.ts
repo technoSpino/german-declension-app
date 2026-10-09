@@ -64,6 +64,7 @@ test('Heute loads with the day plan, block timer and done toggle', async ({ page
   await expect(page.getByTestId('header-timer')).toHaveCount(0)
 
   await page.goto('/')
+  await expect(page.getByTestId('feed-row')).toContainText('/api/feed.xml')
   await page.getByTestId('done-input').click()
   await expect(page.getByTestId('done-input')).toContainText('Erledigt')
   expect(errors).toEqual([])

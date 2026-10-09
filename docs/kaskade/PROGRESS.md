@@ -32,6 +32,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M7 Kerndeck-Korrektur (vorgezogen)
 - [x] M8 Lesebibliothek → http://100.64.43.3:5173/lesen
 - [x] M9 Leser mit Kasus-Linse + Satz minen
+- [x] M10 Audio + Wiederhören-Feed → `http://100.64.43.3:5173/api/feed.xml`
 
 ## Betrieb
 
@@ -138,3 +139,10 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - **Wörterbuch:** Wiktionary (kaikki.org, CC BY-SA) als kompaktes Glossar in `~/kaskade-data/dict/` (86.000 Wörter + 248.000 Formen), nicht im Git. Quellen: `docs/kaskade/SOURCES.md`.
 - **Satz minen** → neue Satzkarte (mit Kasus-Badge und Quelle), kommt in Karten vor den neuen Kernwörtern.
 - Tests: Frontend 271 ✅ · Backend 238 ✅ · E2E 11 ✅ (Leser mit Linse, eigener Text → minen → erscheint in Karten).
+
+### M10 Audio + Wiederhören-Feed ✅
+- Piper-Audio für alle Kernsätze (Karten, Taste A) und alle Bibliothekstexte (Leser, „Vorlesen“) — vorab erzeugt, sonst beim ersten Abspielen.
+- **Privater Podcast:** `http://100.64.43.3:5173/api/feed.xml` (nur im Tailnet). Folgen: jeder in den letzten 14 Tagen gelesene Text + „Kernsätze der Woche“ (jeder in Karten wiederholte Satz, zweimal gesprochen). MP3, damit jede Podcast-App es abspielt. **Am Handy:** Tailscale an, in der Podcast-App „Feed per URL hinzufügen“.
+- Heute zeigt unter dem Block „Nach dem Block · Passiv“ mit dem Feed-Link (wie im Entwurf).
+- Entscheidung: nur eine Stimme (Thorsten) — für Dialoge mit zwei Stimmen (M11) gibt es keine zweite freie deutsche Stimme mit klarer Lizenz in Piper-Qualität „medium“; Dialoge werden mit Sprecherangabe vorgelesen.
+- Tests: Backend 243 ✅ (Feed: Folgenauswahl, gültiges RSS, Längen/Dauer, Audio, ohne TTS leer) · Frontend 271 ✅ · E2E 11 ✅.

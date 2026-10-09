@@ -35,9 +35,12 @@ def available() -> bool:
     return voice_path().exists() and shutil.which("ffmpeg") is not None
 
 
-def cache_path(text: str) -> Path:
+CODECS = {"ogg": ["-c:a", "libopus", "-b:a", "32k"], "mp3": ["-c:a", "libmp3lame", "-b:a", "64k"]}
+
+
+def cache_path(text: str, fmt: str = "ogg") -> Path:
     key = hashlib.sha1(f"{VOICE}\n{text.strip()}".encode("utf-8")).hexdigest()
-    return audio_dir() / f"{key}.ogg"
+    return audio_dir() / f"{key}.{fmt}"
 
 
 @lru_cache(maxsize=1)
@@ -53,17 +56,18 @@ def _synthesize(text: str, out: Path) -> None:
         with _lock, wave.open(str(wav), "wb") as wf:
             _voice().synthesize_wav(text, wf)
         out.parent.mkdir(parents=True, exist_ok=True)
-        part = out.with_suffix(".part.ogg")
+        fmt = out.suffix.lstrip(".")
+        part = out.with_suffix(f".part.{fmt}")
         subprocess.run(
-            ["ffmpeg", "-loglevel", "error", "-y", "-i", str(wav), "-c:a", "libopus", "-b:a", "32k", "-ac", "1", str(part)],
+            ["ffmpeg", "-loglevel", "error", "-y", "-i", str(wav), *CODECS[fmt], "-ac", "1", str(part)],
             check=True,
         )
         part.replace(out)
 
 
-def audio_for(text: str, synthesize=_synthesize) -> Path | None:
+def audio_for(text: str, synthesize=_synthesize, fmt: str = "ogg") -> Path | None:
     """Cached audio file for `text`, generating it if needed. None if TTS is unavailable."""
-    path = cache_path(text)
+    path = cache_path(text, fmt)
     if path.exists():
         return path
     if synthesize is _synthesize and not available():
