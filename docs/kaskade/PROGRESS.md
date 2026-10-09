@@ -30,6 +30,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M5b Themes + Stil-Auswahl (oben rechts im Header)
 - [x] M6 Extras (Piper-Audio, Fahrplan → http://100.64.43.3:5173/fahrplan, 320 px)
 - [x] M7 Kerndeck-Korrektur (vorgezogen)
+- [x] M8 Lesebibliothek → http://100.64.43.3:5173/lesen
 
 ## Betrieb
 
@@ -120,3 +121,11 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - **16 fehlende Wörter ergänzt:** der Arm, die Rede, der Ruf, die Suche, die Wette, der Schlag, der Brauch, der Griff, das Leck, rein (pur), meiste, der Roboter, der Teller, das Medikament, das Geräusch, heilen. Deck jetzt **2.201 Karten**.
 - Karten-IDs hängen jetzt am Frequenzrang (`core:r00211`) statt an der Position → neue Karten verschieben nie den Lernstand.
 - Neue Tests: keine doppelten Sätze, IDs = Rang.
+- **Nachtrag (Fehler gefunden):** Meine Englisch-Filterliste beim Bau der Frequenzliste enthielt auch deutsche Wörter — **„man“** fehlte im Deck, ebenso Job, Baby, Party, Team, Show, Boss, Date, Fan. Ergänzt über `raw/supplement.json` an ihrer echten Frequenzposition („man“ = Karte 69). Deck: **2.210 Karten**, alle mit Piper-Audio.
+
+### M8 Lesebibliothek ✅
+- **20 eigene Texte** (`data/texts/t01–t20.json`, 228–278 Wörter): Wohnen, Nachbarn, Einkaufen, Arbeit, Gehalt, Sportverein, Arzt, Bürgeramt, Amtsbrief, Apotheke, Bahn, Ostsee, Kochabend, Woche ohne Handy, Omas Geburtstag. 10× A2+, 10× B1; 8 für 09:30 (mit Hilfen), 12 für 10:35 (freies Lesen).
+- i+1 geprüft: jeder Text **≥ 95 % Kernwörter** (spaCy-Prüfer `server/kaskade/textcov.py`, Werte 95,8–98,3 %); jedes Wort außerhalb steht im Glossar. Stichproben von mir gegengelesen.
+- `/lesen`: Bibliothek mit Filter; Leser mit markierten neuen Wörtern (antippen → Bedeutung), „Hilfen ausblenden“ fürs freie Lesen, Vorlesen (Piper), 3 Verständnisfragen, „Fertig gelesen“.
+- Heute schlägt für 09:30 und 10:35 automatisch den nächsten ungelesenen Text vor; „Starten“ öffnet ihn und startet den Timer.
+- Tests: Frontend 267 ✅ · Backend 227 ✅ · E2E 10 ✅. Gefixt beim Testen: Glossar wurde in der API von einer Zahl überschrieben.

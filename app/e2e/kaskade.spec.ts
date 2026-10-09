@@ -55,11 +55,15 @@ test('Heute loads with the day plan, block timer and done toggle', async ({ page
   await expect(page.getByText('Woche 1 · Wohnen und Nachbarn')).toBeVisible()
   await expect(page.getByTestId('block-pruefung')).toContainText('Ein Hoffest für das Haus')
 
+  await expect(page.getByTestId('block-lesen')).toContainText('Vorschlag aus der Bibliothek')
+  // Starting the free-reading block opens the suggested text; the timer keeps running in the header.
   await page.getByTestId('start-lesen').click()
+  await expect(page).toHaveURL(/\/lesen\/t\d+/)
   await expect(page.getByTestId('header-timer')).toContainText('Freies Lesen')
-  await page.getByTestId('stop-lesen').click()
+  await page.getByTestId('header-timer').click()
   await expect(page.getByTestId('header-timer')).toHaveCount(0)
 
+  await page.goto('/')
   await page.getByTestId('done-input').click()
   await expect(page.getByTestId('done-input')).toContainText('Erledigt')
   expect(errors).toEqual([])
@@ -162,12 +166,28 @@ test('Karten: reveal, rate, "kenne ich schon" and undo', async ({ page }) => {
   expect(errors).toEqual([])
 })
 
+test('Lesen: library → reader with glossary, questions and "gelesen"', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/lesen')
+  await page.getByTestId('text-t01').click()
+  await expect(page.getByTestId('reader')).toContainText('Ärger mit der Heizung')
+  await page.locator('.rd-word', { hasText: 'Heizung' }).first().click()
+  await expect(page.getByText('„heating“')).toBeVisible()
+  await page.getByTestId('reader-help').click()
+  await expect(page.locator('.rd-word')).toHaveCount(0)
+  await page.getByTestId('reader-done').click()
+  await expect(page.getByText('✓ gelesen').first()).toBeVisible()
+  await page.goto('/lesen')
+  await expect(page.getByTestId('text-t01')).toContainText('gelesen')
+  expect(errors).toEqual([])
+})
+
 test('Fahrplan shows forecast, phases and checks', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/fahrplan')
   await expect(page.getByText('Prognose B2')).toBeVisible()
   await expect(page.getByText('Stunden bis B2')).toBeVisible()
-  await expect(page.getByTestId('phase-2')).toContainText('Jetzt')
+  await expect(page.locator('[data-testid^="phase-"]', { hasText: 'Jetzt' })).toHaveCount(1)
   await expect(page.getByText('Nächster Satz-Check')).toBeVisible()
   expect(errors).toEqual([])
 })

@@ -4,7 +4,8 @@ from datetime import date, datetime, timedelta
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from .. import db, plan, srs
+from .. import db, plan, srs, texts
+from .texts import read_ids
 
 router = APIRouter(prefix="/api")
 
@@ -74,6 +75,7 @@ def today():
         "satzcheck": {"createdAt": last_sc["created_at"], **json.loads(last_sc["result"])} if last_sc else None,
         "vocab": json.loads(vocab["result"]) if vocab else None,
         "cards": srs.stats(now),
+        "texts": {slot: texts.next_unread(slot, set(read_ids())) for slot in ("input", "lesen")},
     }
 
 

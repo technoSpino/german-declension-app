@@ -52,6 +52,18 @@ const routes = [
     component: () => import('../views/kaskade/FahrplanView.vue'),
     meta: { title: 'Fahrplan' }
   },
+  {
+    path: '/lesen',
+    name: 'Lesen',
+    component: () => import('../views/kaskade/LesenView.vue'),
+    meta: { title: 'Lesen' }
+  },
+  {
+    path: '/lesen/:id',
+    name: 'Reader',
+    component: () => import('../views/kaskade/ReaderView.vue'),
+    meta: { title: 'Lesen' }
+  },
   // Nachschlagen (the original grammar pages)
   {
     path: '/nachschlagen',

@@ -22,11 +22,15 @@ WORD_RE = re.compile(r"^[a-zäöüß]+(-[a-zäöüß]+)?$")
 DROP_POS = {"PROPN", "INTJ", "X", "NUM", "PUNCT", "SYM", "SPACE"}
 
 # Frequent in subtitles but English (or not words a learner should be tested on).
+# NOTE: the committed lemmas.tsv was built with an older list that also removed
+# German words (man, Job, Baby, Party, Team, Show, Boss, Date, Fan); the core deck
+# adds them via data/core-deck/raw/supplement.json. Rebuilding lemmas.tsv shifts
+# ranks — the raw deck files and vocab-test pools are keyed on the current ranks.
 ENGLISH = set("""
-the you yeah hey okay ok oh baby sorry mr mrs ms sir yes no what is it and to of a i
-me my we he she they that this are be do don't go come on hi bye wow god man guys
-fuck shit damn cool please thanks thank love sweetie honey boss team show party
-job jobs date dates fan fans stop sexy happy end one two three all right
+the you yeah hey okay ok oh sorry mr mrs ms sir yes no what is it and to of a i
+me my we he she they that this are be do don't go come on hi bye wow god guys
+fuck shit damn cool please thanks thank love sweetie honey sexy happy one two three
+all right
 """.split())
 
 # Forms whose lemma spaCy gets wrong in isolation.

@@ -45,14 +45,19 @@ const nextSatzcheck = computed(() => {
   return d
 })
 
+function textHint(b) {
+  const text = t.value?.texts?.[b.kind]
+  return text ? ` Vorschlag aus der Bibliothek: „${text.title}“ (${text.level}).` : ''
+}
+
 function describe(b) {
   const d = day.value
   if (!d) return ''
   switch (b.kind) {
     case 'karten': return `${d.karten}${t.value?.cards ? ` · heute ${t.value.cards.due} fällig + ${t.value.cards.new} neu` : ''}`
-    case 'input': return d.input
+    case 'input': return d.input + textHint(b)
     case 'pause': return 'Aufstehen, Wasser trinken, kurz ans Fenster oder raus.'
-    case 'lesen': return d.lesen
+    case 'lesen': return d.lesen + textHint(b)
     case 'pruefung': {
       const exam = planInfo.value?.exam
       if (planInfo.value?.mockExam) return planInfo.value.mockExam.note
@@ -71,6 +76,7 @@ async function start(b) {
   try {
     await status.startTimer(b.id)
     if (b.kind === 'karten') return router.push('/karten')
+    if ((b.kind === 'input' || b.kind === 'lesen') && t.value?.texts?.[b.kind]) return router.push(`/lesen/${t.value.texts[b.kind].id}`)
     if (b.kind === 'pruefung' && planInfo.value?.exam) return router.push(`/aufgabe/${planInfo.value.exam.id}`)
     await load()
   } catch (e) {

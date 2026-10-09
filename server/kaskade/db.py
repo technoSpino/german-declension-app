@@ -84,6 +84,11 @@ CREATE TABLE IF NOT EXISTS activity (
   ended_at TEXT,
   seconds INTEGER NOT NULL DEFAULT 0
 );
+CREATE TABLE IF NOT EXISTS text_reads (
+  id INTEGER PRIMARY KEY,
+  text_id TEXT NOT NULL,
+  read_at TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS plan_done (
   local_date TEXT NOT NULL,
   block TEXT NOT NULL,

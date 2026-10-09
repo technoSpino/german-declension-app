@@ -19,6 +19,7 @@ const links = [
   { to: '/einstufung', label: 'Einstufung' },
   { to: '/satz-check', label: 'Satz-Check' },
   { to: '/karten', label: 'Karten' },
+  { to: '/lesen', label: 'Lesen' },
   { to: '/fahrplan', label: 'Fahrplan' }
 ]
 
