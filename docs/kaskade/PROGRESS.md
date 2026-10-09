@@ -2,7 +2,24 @@
 
 _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.md)._
 
+## Heute früh ☕
+
 **URL (nur im Tailnet):** http://100.64.43.3:5173/
+
+1. [ ] **URL öffnen** → Heute. Plan-Woche 1 startet **Mo, 12. Oktober**; bis dahin siehst du eine Vorschau.
+2. [ ] **Einstufung** (~55 min, pausierbar): Wortschatz → Lesen → Satz-Check → Schreiben → Sprechen. Für den Satz-Check: ein 3-Minuten-Clip aus einer Serie für Erwachsene + deutsche `.srt`/`.vtt` hochladen (oder YouTube-Link probieren). Ohne Clip: überspringen und später unter „Satz-Check“ nachholen.
+3. [ ] **Erste Karten-Sitzung**: erst mit **K** alles wegsortieren, was du sofort verstehst, dann 20 neue Karten lernen. Taste **A** liest den Satz vor.
+4. [ ] Oben rechts **Stil** ausprobieren (6 Designs).
+5. [ ] Optional: `deploy/ci/kaskade-ci.yml` nach `.github/workflows/` verschieben und selbst pushen (mein Token darf das nicht).
+
+**Bekannte Punkte**
+- CI-Workflow liegt (noch) nicht unter `.github/workflows/` — siehe Punkt 5.
+- Ohne `ANTHROPIC_API_KEY` wird Schreiben nur gespeichert, nicht bewertet. Sprechen wird nur aufgenommen.
+- Hören-Stufe in der Einstufung kommt aus dem Satz-Check (mit Untertiteln → eher optimistisch).
+- Alte Grammatikseiten („Nachschlagen“) bleiben in jedem Stil hell.
+- Immersion zählt nur die Block-Timer; passives Hören/externe Zeit kommt mit M12.
+
+## Stand
 
 - [x] M0 Setup
 - [x] M1 Wortschatz-Test → http://100.64.43.3:5173/wortschatz
@@ -11,7 +28,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M4 Kernwortschatz + Karten → http://100.64.43.3:5173/karten
 - [x] M5 Heute + Wochen 1–4 → http://100.64.43.3:5173/
 - [x] M5b Themes + Stil-Auswahl (oben rechts im Header)
-- [ ] M6 Extras
+- [x] M6 Extras (Piper-Audio, Fahrplan → http://100.64.43.3:5173/fahrplan, 320 px)
 - [x] M7 Kerndeck-Korrektur (vorgezogen)
 
 ## Betrieb
@@ -91,6 +108,12 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - Kontrast-Test parst `themes.css`: 21 Paare × 6 Themes (Text, gedämpft, Primär, Akzent, Kasusfarben auf Tönung und Fläche …). Angepasst, weil zu schwach: Bauhaus-Genitiv `#C25700` → `#A84B00`.
 - Entscheidung: Die alten Grammatikseiten („Nachschlagen“) bleiben in jedem Stil hell — sie sind nicht auf Tokens umgebaut.
 - Tests: Frontend 258 ✅ (davon 170 Kontrast) · Backend 158 ✅ · E2E 7 ✅ (alle 6 Stile auf 5 Seiten, Reload behält Stil, Karten im Nacht-Stil).
+
+### M6 Extras ✅
+- **Audio:** Piper (`piper-tts` 1.8, GPL-3.0, nur als Werkzeug) mit der Stimme **de_DE-thorsten-medium** (Datensatz Thorsten-Voice, **CC0**; das Modell ist von Pipers englischer „lessac“-Stimme feinjustiert — für private Nutzung unbedenklich). Stimme + Audio in `~/kaskade-data/tts/`, nichts im Git. Alle 2.201 Kernsätze werden vorab erzeugt (`server/scripts/tts_deck.py`, ~12 KB/Satz als Opus); fehlende entstehen beim ersten Abspielen. Ohne Piper: Browser-Stimme als Ersatz.
+- **Fahrplan** mit echten Daten: Stunden bis B2 (Start aus Einstufung + gemessene Blockzeit), Prognose „nur Block“ (11,7 h/Woche) und „+ 48 min passiv“, ab 2 h Daten auch nach deinem echten Tempo; aktuelle Phase markiert; Satz-Check-Verlauf + nächster Termin (+ 4 Wochen).
+- **320 px:** alle Kaskade-Seiten in mehreren Stilen per Screenshot geprüft — kein horizontales Scrollen, keine Konsolenfehler. Behoben: Block-Liste auf Heute (Knöpfe unter dem Text), Achsenbeschriftung, fehlende Aufzählungspunkte.
+- Tests: Frontend 260 ✅ · Backend 173 ✅ (Unit 83, API 56, Content 34) · E2E 9 ✅.
 
 ### M7 Kerndeck-Korrektur ✅ (vorgezogen, lief parallel zu M5)
 - Zweiter Durchgang über alle 26 Rohdateien durch 8 Korrektur-Agenten: **46 Karten korrigiert** (u. a. Kasus-Badges, „ertönen · hat ertönt“, unidiomatische Sätze wie „Magie können“, „Die Mieten sind teuer“ → „hoch/Wohnungen teuer“), alle 8 doppelten Sätze ersetzt.

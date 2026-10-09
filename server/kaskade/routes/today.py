@@ -77,6 +77,43 @@ def today():
     }
 
 
+@router.get("/fahrplan")
+def fahrplan():
+    now = srs.now_utc()
+    d = _today()
+    with db.tx() as conn:
+        rows = _activity_rows(conn)
+        placements = conn.execute(
+            "SELECT id, updated_at, result FROM placements WHERE status = 'done' ORDER BY id DESC").fetchall()
+        checks = conn.execute(
+            "SELECT created_at, content_type, result FROM satzcheck_runs ORDER BY id DESC LIMIT 12").fetchall()
+    by_day = plan.totals_by_day(rows, now)
+    total = sum(by_day.values())
+    hours = plan.immersion(db.get_setting("startHours", 150), total)["hours"]
+    # measured pace over the last 28 days (only once there is some data)
+    since = (d - timedelta(days=28)).isoformat()
+    recent = sum(s for day, s in by_day.items() if day >= since) / 3600
+    measured = recent / 4 if recent >= 2 else None
+    last_check = checks[0]["created_at"][:10] if checks else None
+    return {
+        "hours": hours,
+        "target": plan.HOURS_TO_B2,
+        "phase": db.get_setting("phase"),
+        "hoursPhase": plan.phase_for_hours(hours),
+        "phases": [{"name": n, "from": lo, "to": hi} for n, lo, hi in plan.PHASES],
+        "forecast": {
+            "block": plan.forecast(hours, plan.BLOCK_HOURS_PER_WEEK, d).isoformat(),
+            "blockPassive": plan.forecast(hours, plan.BLOCK_HOURS_PER_WEEK + plan.PASSIVE_HOURS_PER_WEEK, d).isoformat(),
+            "measured": plan.forecast(hours, measured, d).isoformat() if measured else None,
+            "measuredPerWeek": round(measured, 1) if measured else None,
+            "blockPerWeek": round(plan.BLOCK_HOURS_PER_WEEK, 1),
+        },
+        "placements": [{"id": r["id"], "date": r["updated_at"], **json.loads(r["result"])} for r in placements],
+        "satzchecks": [{"date": r["created_at"], "contentType": r["content_type"], **json.loads(r["result"])} for r in checks],
+        "nextCheck": (date.fromisoformat(last_check) + timedelta(days=28)).isoformat() if last_check else None,
+    }
+
+
 class BlockIn(BaseModel):
     block: str
 

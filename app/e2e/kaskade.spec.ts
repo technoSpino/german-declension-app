@@ -162,10 +162,29 @@ test('Karten: reveal, rate, "kenne ich schon" and undo', async ({ page }) => {
   expect(errors).toEqual([])
 })
 
+test('Fahrplan shows forecast, phases and checks', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/fahrplan')
+  await expect(page.getByText('Prognose B2')).toBeVisible()
+  await expect(page.getByText('Stunden bis B2')).toBeVisible()
+  await expect(page.getByTestId('phase-2')).toContainText('Jetzt')
+  await expect(page.getByText('Nächster Satz-Check')).toBeVisible()
+  expect(errors).toEqual([])
+})
+
+test('Karten audio button plays (server audio or browser fallback) without errors', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/karten')
+  await page.getByTestId('karte-audio').click()
+  await page.keyboard.press('a')
+  await page.waitForTimeout(300)
+  expect(errors.filter((e) => !e.includes('404'))).toEqual([])
+})
+
 test('Stil dropdown switches all six themes on every main page without console errors', async ({ page }) => {
   const errors = watchConsole(page)
   const themes = ['signal', 'nacht', 'papier', 'bauhaus', 'fokus', 'magazin']
-  for (const path of ['/', '/karten', '/einstufung', '/satz-check', '/wortschatz']) {
+  for (const path of ['/', '/karten', '/einstufung', '/satz-check', '/wortschatz', '/fahrplan']) {
     await page.goto(path)
     for (const t of themes) {
       await page.getByTestId('theme-select').selectOption(t)
@@ -183,6 +202,7 @@ test('Stil dropdown switches all six themes on every main page without console e
   // Karten still work in a dark theme
   await page.getByTestId('theme-select').selectOption('nacht')
   await page.goto('/karten')
+  await expect(page.getByTestId('karte-satz')).toBeVisible()
   await page.keyboard.press('Space')
   await expect(page.getByTestId('karte-back')).toBeVisible()
   expect(errors).toEqual([])

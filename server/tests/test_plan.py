@@ -75,6 +75,24 @@ def test_week_days_start_monday():
     assert days[0] == "2026-10-12" and days[-1] == "2026-10-18"
 
 
+def test_forecast():
+    assert plan.forecast(1150, 10, MON) == MON
+    assert plan.forecast(1050, 10, MON) == MON + timedelta(weeks=10)
+    faster = plan.forecast(420, 15.7, MON)
+    slower = plan.forecast(420, 11.7, MON)
+    assert faster < slower
+    assert plan.forecast(0, 0, MON) is None
+
+
+@pytest.mark.parametrize("hours, phase", [(0, "1"), (74.9, "1"), (75, "2"), (449, "2"), (450, "3"), (800, "4"), (1000, "5"), (5000, "5")])
+def test_phase_for_hours(hours, phase):
+    assert plan.phase_for_hours(hours) == phase
+
+
+def test_block_hours_per_week():
+    assert round(plan.BLOCK_HOURS_PER_WEEK, 1) == 11.7
+
+
 def test_immersion_totals():
     i = plan.immersion(300, 3600 * 15)
     assert i["hours"] == 315 and i["target"] == 1150

@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
 import { splitTarget } from '../../lib/cards'
-import { speak, canSpeak } from '../../lib/speech'
+import { speak } from '../../lib/speech'
 
 const data = ref(null)
 const stats = ref(null)
@@ -77,7 +77,7 @@ async function undo() {
 }
 
 function playAudio() {
-  if (card.value) speak(card.value.sentence)
+  if (card.value) speak(card.value.sentence, { url: `/api/cards/${card.value.id}/audio` })
 }
 
 function onKey(e) {
@@ -121,7 +121,7 @@ const buttons = [
         <article v-if="card" class="k-card kc-card" data-testid="karte">
           <div class="flex items-center justify-between gap-3">
             <span class="k-eyebrow">{{ card.isNew ? 'Neu' : 'Wiederholung' }} · Kernwort {{ card.n }}</span>
-            <button type="button" class="kc-audio" :disabled="!canSpeak()" aria-label="Satz vorlesen (Taste A)" @click="playAudio">
+            <button type="button" class="kc-audio" data-testid="karte-audio" aria-label="Satz vorlesen (Taste A)" @click="playAudio">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /></svg>
               Audio <kbd class="k-kbd">A</kbd>
             </button>

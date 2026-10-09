@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from .. import db, srs
+from .. import db, srs, tts
 
 router = APIRouter(prefix="/api/cards")
 
@@ -43,6 +44,17 @@ def undo():
     if r is None:
         raise HTTPException(409, "Nichts zum Rückgängigmachen")
     return r
+
+
+@router.get("/{card_id}/audio")
+def audio(card_id: str):
+    card = srs.deck_index().get(card_id)
+    if card is None:
+        raise HTTPException(404, "Karte nicht gefunden")
+    path = tts.audio_for(card["sentence"])
+    if path is None:
+        raise HTTPException(404, "Keine Sprachausgabe auf dem Server (Piper fehlt)")
+    return FileResponse(path, media_type="audio/ogg", headers={"Cache-Control": "max-age=31536000"})
 
 
 @router.get("/stats")

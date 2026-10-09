@@ -65,6 +65,26 @@ def week_days(today: date) -> list[str]:
     return [(monday + timedelta(days=i)).isoformat() for i in range(7)]
 
 
+BLOCK_HOURS_PER_WEEK = 5 * 140 / 60          # 2 h 20 min active, Mo–Fr = 11.7 h
+PASSIVE_HOURS_PER_WEEK = 5 * 48 / 60         # + 48 min passive listening, Mo–Fr
+PHASES = [("1", 0, 75), ("2", 75, 450), ("3", 450, 750), ("4", 750, 900), ("5", 900, HOURS_TO_B2)]
+
+
+def forecast(hours: float, per_week: float, today: date) -> date | None:
+    """Date when `hours` reaches the B2 estimate at `per_week` hours per week."""
+    if per_week <= 0:
+        return None
+    left = max(0.0, HOURS_TO_B2 - hours)
+    return today + timedelta(weeks=left / per_week)
+
+
+def phase_for_hours(hours: float) -> str:
+    for name, lo, hi in PHASES:
+        if lo <= hours < hi:
+            return name
+    return "5"
+
+
 def immersion(start_hours: float, logged_seconds: int) -> dict:
     hours = start_hours + logged_seconds / 3600
     return {"hours": round(hours, 1), "target": HOURS_TO_B2, "share": round(min(1.0, hours / HOURS_TO_B2), 3)}

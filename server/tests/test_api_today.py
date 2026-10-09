@@ -69,6 +69,19 @@ def test_mark_done_and_undo(client, monkeypatch):
     assert client.get("/api/today").json()["done"] == []
 
 
+def test_fahrplan(client, monkeypatch):
+    at(monkeypatch, FIXED)
+    f = client.get("/api/fahrplan").json()
+    assert f["hours"] == 150 and f["target"] == 1150 and f["hoursPhase"] == "2"
+    assert f["forecast"]["blockPassive"] < f["forecast"]["block"]
+    assert f["forecast"]["measured"] is None  # no data yet
+    assert f["placements"] == [] and f["nextCheck"] is None
+    ratings = [{"cue": i, "text": "x", "rating": "v"} for i in range(5)]
+    client.post("/api/satzcheck", json={"contentType": "adult", "windowStart": 0, "windowEnd": 180, "ratings": ratings})
+    f = client.get("/api/fahrplan").json()
+    assert f["satzchecks"][0]["coverage"] == 100 and f["nextCheck"]
+
+
 def test_plan_and_prompt(client):
     p = client.get("/api/plan").json()
     assert len(p["weeks"]) == 4 and len(p["prompts"]) == 16

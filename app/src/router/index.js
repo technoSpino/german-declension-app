@@ -46,6 +46,12 @@ const routes = [
     component: () => import('../views/kaskade/AufgabeView.vue'),
     meta: { title: 'Prüfungsteil' }
   },
+  {
+    path: '/fahrplan',
+    name: 'Fahrplan',
+    component: () => import('../views/kaskade/FahrplanView.vue'),
+    meta: { title: 'Fahrplan' }
+  },
   // Nachschlagen (the original grammar pages)
   {
     path: '/nachschlagen',
