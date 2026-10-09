@@ -2,6 +2,14 @@
 
 _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.md)._
 
+## Guten Morgen, Matt — Zusammenfassung der Nacht
+
+**Alles aus TASK.md ist fertig: M0–M6, M5b und der ganze Backlog M7–M13.** 15 Commits auf `kaskade`, alle Tests grün:
+**Frontend 287 · Backend 278 (Unit, API, Content) · E2E 14 (Kaskade) + 31 (alte Grammatik-App).**
+
+- **Heute** mit Lernblock, Timern, Textvorschlägen, Prüfungsaufgabe des Tages, Immersion · **Einstufung** (5 Teile, pausierbar) · **Satz-Check** (Upload oder YouTube) · **Karten** mit 2.210 eigenen Satzkarten, FSRS, „K = kenne ich“, Piper-Audio · **Lesen**: 20 eigene i+1-Texte + eigene Texte, Kasus-Linse, Satz minen · **Prüfung**: B1-Übungen Lesen/Hören/Schreiben gegen 60 % · **Fahrplan** mit B2-Prognose · **Wiederhören-Podcast** · **6 Stile**.
+- Inhalte (Deck, Texte, Aufgaben) von parallelen Autoren-Agenten geschrieben, von Korrektur-Agenten und mir gegengelesen, automatisch validiert. Alles original; Quellen/Lizenzen: [SOURCES.md](SOURCES.md). Betrieb: [RUNBOOK.md](RUNBOOK.md).
+
 ## Heute früh ☕
 
 **URL (nur im Tailnet):** http://100.64.43.3:5173/
@@ -9,15 +17,19 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 1. [ ] **URL öffnen** → Heute. Plan-Woche 1 startet **Mo, 12. Oktober**; bis dahin siehst du eine Vorschau.
 2. [ ] **Einstufung** (~55 min, pausierbar): Wortschatz → Lesen → Satz-Check → Schreiben → Sprechen. Für den Satz-Check: ein 3-Minuten-Clip aus einer Serie für Erwachsene + deutsche `.srt`/`.vtt` hochladen (oder YouTube-Link probieren). Ohne Clip: überspringen und später unter „Satz-Check“ nachholen.
 3. [ ] **Erste Karten-Sitzung**: erst mit **K** alles wegsortieren, was du sofort verstehst, dann 20 neue Karten lernen. Taste **A** liest den Satz vor.
-4. [ ] Oben rechts **Stil** ausprobieren (6 Designs).
-5. [ ] Optional: `deploy/ci/kaskade-ci.yml` nach `.github/workflows/` verschieben und selbst pushen (mein Token darf das nicht).
+4. [ ] Einen Text unter **Lesen** öffnen (Kasus-Linse, Wort antippen, „Satz minen“).
+5. [ ] Oben rechts **Stil** ausprobieren (6 Designs).
+6. [ ] Am Handy (Tailscale an) den Podcast `http://100.64.43.3:5173/api/feed.xml` in der Podcast-App abonnieren — füllt sich, sobald du liest und Karten lernst.
+7. [ ] **Für dich zu tun:** `git mv deploy/ci/kaskade-ci.yml .github/workflows/` und selbst pushen (mein Token hat keinen `workflow`-Scope). Optional `ANTHROPIC_API_KEY=…` in `~/kaskade-data/.env` → Schreiben wird bewertet.
 
 **Bekannte Punkte**
-- CI-Workflow liegt (noch) nicht unter `.github/workflows/` — siehe Punkt 5.
+- CI-Workflow liegt (noch) nicht unter `.github/workflows/` — siehe Punkt 7.
 - Ohne `ANTHROPIC_API_KEY` wird Schreiben nur gespeichert, nicht bewertet. Sprechen wird nur aufgenommen.
 - Hören-Stufe in der Einstufung kommt aus dem Satz-Check (mit Untertiteln → eher optimistisch).
+- Kasus-Linse nutzt ein kleines spaCy-Modell — meist richtig, aber nicht immer (steht auch so in der App).
+- Die Frequenzliste stammt aus Film-Untertiteln: einige Alltagswörter (Bahnhof, Dorf, Miete) sind dort selten und daher nicht im Kern-2.000-Deck; die Lesetexte erklären sie im Glossar.
 - Alte Grammatikseiten („Nachschlagen“) bleiben in jedem Stil hell.
-- Immersion zählt nur die Block-Timer; passives Hören/externe Zeit kommt mit M12.
+- Server-Zeit ist UTC; alles Tägliche (Kartentag, Plan, Timer) rechnet bewusst in Berliner Zeit. Backup läuft 12:00 UTC.
 
 ## Stand
 
