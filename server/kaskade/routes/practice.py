@@ -26,7 +26,11 @@ def _store(module, item_id, points, total, timed, seconds, detail) -> None:
 
 
 def _writing_prompts() -> list[dict]:
-    return [p for p in plan.plan()["prompts"] if p["skill"] == "schreiben"]
+    try:
+        prompts = plan.plan()["prompts"]
+    except FileNotFoundError:  # plan content missing: practice still works without writing tasks
+        return []
+    return [p for p in prompts if p["skill"] == "schreiben"]
 
 
 @router.get("")

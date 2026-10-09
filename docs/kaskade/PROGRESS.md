@@ -35,6 +35,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M10 Audio + Wiederhören-Feed → `http://100.64.43.3:5173/api/feed.xml`
 - [x] M11 B1-Übungsbank → http://100.64.43.3:5173/pruefung
 - [x] M12 Immersions-Log + Fahrplan → http://100.64.43.3:5173/immersion
+- [x] M13 Härtung (Fehlerzustände, Backups, Runbook, 320 px)
 
 ## Betrieb
 
@@ -161,3 +162,12 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - Gesamtstunden = Start aus Einstufung + Block-Timer + eigene Einträge (aktiv und passiv zählen beide voll — Entscheidung, wie im Entwurf). Fließt in die Prognose („nach deinem Tempo“, ab 2 h Daten) und die Phase nach Stunden.
 - Fahrplan: neue Grafik **Stunden pro Woche (8 Wochen)** mit 11,7-h-Ziellinie; echte Phase, Tore, Satz-Check-Verlauf waren schon da (M6).
 - Tests: Backend 274 ✅ · Frontend 281 ✅ · E2E 13 ✅.
+
+### M13 Härtung ✅
+- **Server weg:** gelbes Banner „Server nicht erreichbar … Deine Daten sind sicher“ mit „Erneut versuchen“, statt kaputter Seiten; API-Fehler (auch HTML-Fehlerseiten des Proxys) werden verständlich angezeigt.
+- **Leeres Deck / fehlende Inhalte:** Karten sagt „Kein Kerndeck gefunden“; Bibliothek/Übungen laufen ohne Dateien weiter (Test fand dabei einen echten Absturz: Übungsübersicht ohne Plan-Datei → behoben).
+- **Fehlgeschlagene Downloads:** YouTube, Piper, Wörterbuch, spaCy — überall gibt es einen Ersatzweg (hochladen, Browser-Stimme, Leser ohne Glossar/Linse).
+- **Backups:** täglich 12:00 UTC (`kaskade-backup.timer`) nach `~/kaskade-backups/` (DB-Schnappschuss + Clips + Aufnahmen, die neuesten 14). Erstes Backup ist schon da.
+- **320 px:** alle 15 Seiten in mehreren Stilen geprüft — kein horizontales Scrollen, keine Konsolenfehler.
+- **`docs/kaskade/RUNBOOK.md`:** Dienste neu starten, Backup/Restore, Neu-Erzeugen von Audio/Wörterbuch, Abhängigkeiten aktualisieren, Fehlersuche.
+- Tests: Backend 278 ✅ · Frontend 287 ✅ · E2E 14 ✅ (Theme-Wechsel jetzt auf 11 Seiten, Server-down-Banner).

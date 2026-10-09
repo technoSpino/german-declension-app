@@ -249,6 +249,17 @@ test('Immersion: manual entry shows up on Heute and in the list', async ({ page 
   expect(errors).toEqual([])
 })
 
+test('Server down: friendly banner instead of a broken page', async ({ page }) => {
+  await page.route('**/api/**', (route) => route.fulfill({ status: 502, contentType: 'text/html', body: '<html>Bad Gateway</html>' }))
+  await page.goto('/')
+  await expect(page.getByTestId('server-banner')).toContainText('kaskade-api')
+  await page.goto('/karten')
+  await expect(page.getByRole('alert').first()).toBeVisible()
+  await page.unroute('**/api/**')
+  await page.getByTestId('server-banner').getByRole('button').click()
+  await expect(page.getByTestId('server-banner')).toHaveCount(0)
+})
+
 test('Fahrplan shows forecast, phases and checks', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/fahrplan')
@@ -271,7 +282,7 @@ test('Karten audio button plays (server audio or browser fallback) without error
 test('Stil dropdown switches all six themes on every main page without console errors', async ({ page }) => {
   const errors = watchConsole(page)
   const themes = ['signal', 'nacht', 'papier', 'bauhaus', 'fokus', 'magazin']
-  for (const path of ['/', '/karten', '/einstufung', '/satz-check', '/wortschatz', '/fahrplan']) {
+  for (const path of ['/', '/karten', '/einstufung', '/satz-check', '/wortschatz', '/fahrplan', '/lesen', '/lesen/t02', '/pruefung', '/pruefung/lesen/l3', '/immersion']) {
     await page.goto(path)
     for (const t of themes) {
       await page.getByTestId('theme-select').selectOption(t)

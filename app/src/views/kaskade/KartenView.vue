@@ -142,8 +142,14 @@ const buttons = [
         </article>
 
         <section v-else-if="data" class="k-card flex flex-col gap-3" data-testid="karten-fertig">
-          <h2 class="k-h2">Fertig für heute 🎉</h2>
-          <p class="k-small m-0">{{ sessionDone ? `${sessionDone} Karten in dieser Sitzung.` : 'Heute ist nichts mehr fällig.' }} Morgen kommen neue Kernwörter.</p>
+          <template v-if="stats && stats.deckSize === 0">
+            <h2 class="k-h2">Kein Kerndeck gefunden</h2>
+            <p class="k-small m-0">Der Server findet keine Dateien in <code>data/core-deck/</code>. Im Repo prüfen und <code>systemctl --user restart kaskade-api</code>.</p>
+          </template>
+          <template v-else>
+            <h2 class="k-h2">Fertig für heute 🎉</h2>
+            <p class="k-small m-0">{{ sessionDone ? `${sessionDone} Karten in dieser Sitzung.` : 'Heute ist nichts mehr fällig.' }} Morgen kommen neue Kernwörter.</p>
+          </template>
           <div><router-link to="/" class="k-btn">Zurück zu Heute</router-link></div>
         </section>
 

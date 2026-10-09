@@ -22,10 +22,18 @@ async function request(method, path, body) {
     throw new ApiError('Server nicht erreichbar. Läuft der Dienst kaskade-api?', 0)
   }
   const text = await res.text()
-  const data = text ? JSON.parse(text) : null
+  let data = null
+  try {
+    data = text ? JSON.parse(text) : null
+  } catch {
+    // e.g. the proxy's HTML error page when kaskade-api is down
+    if (res.ok) throw new ApiError('Unerwartete Antwort vom Server.', res.status)
+  }
   if (!res.ok) {
     const detail = data && data.detail
-    const msg = typeof detail === 'string' ? detail : `Fehler ${res.status}`
+    const msg = typeof detail === 'string'
+      ? detail
+      : res.status >= 500 ? 'Server nicht erreichbar. Läuft der Dienst kaskade-api?' : `Fehler ${res.status}`
     throw new ApiError(msg, res.status)
   }
   return data
