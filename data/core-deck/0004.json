@@ -1,6 +1,6 @@
 [
  {
-  "id": "core:0301",
+  "id": "core:r00303",
   "n": 301,
   "rank": 303,
   "lemma": "draußen",
@@ -14,7 +14,7 @@
   "case": null
  },
  {
-  "id": "core:0302",
+  "id": "core:r00304",
   "n": 302,
   "rank": 304,
   "lemma": "eigen",
@@ -28,7 +28,7 @@
   "case": null
  },
  {
-  "id": "core:0303",
+  "id": "core:r00305",
   "n": 303,
   "rank": 305,
   "lemma": "fast",
@@ -42,7 +42,7 @@
   "case": null
  },
  {
-  "id": "core:0304",
+  "id": "core:r00306",
   "n": 304,
   "rank": 306,
   "lemma": "runter",
@@ -56,7 +56,7 @@
   "case": null
  },
  {
-  "id": "core:0305",
+  "id": "core:r00307",
   "n": 305,
   "rank": 307,
   "lemma": "führen",
@@ -70,7 +70,7 @@
   "case": null
  },
  {
-  "id": "core:0306",
+  "id": "core:r00308",
   "n": 306,
   "rank": 308,
   "lemma": "Tod",
@@ -84,7 +84,7 @@
   "case": null
  },
  {
-  "id": "core:0307",
+  "id": "core:r00309",
   "n": 307,
   "rank": 309,
   "lemma": "bestimmen",
@@ -98,7 +98,7 @@
   "case": null
  },
  {
-  "id": "core:0308",
+  "id": "core:r00310",
   "n": 308,
   "rank": 310,
   "lemma": "vorbei",
@@ -112,7 +112,7 @@
   "case": null
  },
  {
-  "id": "core:0309",
+  "id": "core:r00311",
   "n": 309,
   "rank": 311,
   "lemma": "gerne",
@@ -126,7 +126,7 @@
   "case": null
  },
  {
-  "id": "core:0310",
+  "id": "core:r00312",
   "n": 310,
   "rank": 312,
   "lemma": "kümmern",
@@ -140,7 +140,7 @@
   "case": "A"
  },
  {
-  "id": "core:0311",
+  "id": "core:r00313",
   "n": 311,
   "rank": 313,
   "lemma": "dran",
@@ -154,7 +154,7 @@
   "case": null
  },
  {
-  "id": "core:0312",
+  "id": "core:r00314",
   "n": 312,
   "rank": 314,
   "lemma": "ruhig",
@@ -168,7 +168,7 @@
   "case": null
  },
  {
-  "id": "core:0313",
+  "id": "core:r00315",
   "n": 313,
   "rank": 315,
   "lemma": "kaufen",
@@ -182,7 +182,7 @@
   "case": null
  },
  {
-  "id": "core:0314",
+  "id": "core:r00316",
   "n": 314,
   "rank": 316,
   "lemma": "verrückt",
@@ -196,7 +196,7 @@
   "case": null
  },
  {
-  "id": "core:0315",
+  "id": "core:r00317",
   "n": 315,
   "rank": 317,
   "lemma": "lernen",
@@ -210,7 +210,7 @@
   "case": null
  },
  {
-  "id": "core:0316",
+  "id": "core:r00318",
   "n": 316,
   "rank": 318,
   "lemma": "ziemlich",
@@ -224,7 +224,7 @@
   "case": null
  },
  {
-  "id": "core:0317",
+  "id": "core:r00319",
   "n": 317,
   "rank": 319,
   "lemma": "tragen",
@@ -238,7 +238,7 @@
   "case": null
  },
  {
-  "id": "core:0318",
+  "id": "core:r00320",
   "n": 318,
   "rank": 320,
   "lemma": "verschwinden",
@@ -252,7 +252,7 @@
   "case": null
  },
  {
-  "id": "core:0319",
+  "id": "core:r00321",
   "n": 319,
   "rank": 321,
   "lemma": "darum",
@@ -266,7 +266,7 @@
   "case": null
  },
  {
-  "id": "core:0320",
+  "id": "core:r00322",
   "n": 320,
   "rank": 322,
   "lemma": "Tochter",
@@ -280,7 +280,7 @@
   "case": null
  },
  {
-  "id": "core:0321",
+  "id": "core:r00323",
   "n": 321,
   "rank": 323,
   "lemma": "scheinen",
@@ -294,7 +294,7 @@
   "case": null
  },
  {
-  "id": "core:0322",
+  "id": "core:r00324",
   "n": 322,
   "rank": 324,
   "lemma": "Land",
@@ -308,7 +308,7 @@
   "case": null
  },
  {
-  "id": "core:0323",
+  "id": "core:r00325",
   "n": 323,
   "rank": 325,
   "lemma": "Schwester",
@@ -322,7 +322,7 @@
   "case": null
  },
  {
-  "id": "core:0324",
+  "id": "core:r00326",
   "n": 324,
   "rank": 326,
   "lemma": "drin",
@@ -336,7 +336,7 @@
   "case": null
  },
  {
-  "id": "core:0325",
+  "id": "core:r00327",
   "n": 325,
   "rank": 327,
   "lemma": "sitzen",
@@ -350,7 +350,7 @@
   "case": "D"
  },
  {
-  "id": "core:0326",
+  "id": "core:r00328",
   "n": 326,
   "rank": 328,
   "lemma": "sogar",
@@ -364,7 +364,7 @@
   "case": null
  },
  {
-  "id": "core:0327",
+  "id": "core:r00329",
   "n": 327,
   "rank": 329,
   "lemma": "verlassen",
@@ -378,7 +378,7 @@
   "case": "A"
  },
  {
-  "id": "core:0328",
+  "id": "core:r00330",
   "n": 328,
   "rank": 330,
   "lemma": "reichen",
@@ -392,7 +392,7 @@
   "case": null
  },
  {
-  "id": "core:0329",
+  "id": "core:r00331",
   "n": 329,
   "rank": 331,
   "lemma": "je",
@@ -406,7 +406,7 @@
   "case": null
  },
  {
-  "id": "core:0330",
+  "id": "core:r00332",
   "n": 330,
   "rank": 332,
   "lemma": "anrufen",
@@ -420,7 +420,7 @@
   "case": "A"
  },
  {
-  "id": "core:0331",
+  "id": "core:r00333",
   "n": 331,
   "rank": 333,
   "lemma": "nett",
@@ -434,7 +434,7 @@
   "case": null
  },
  {
-  "id": "core:0332",
+  "id": "core:r00334",
   "n": 332,
   "rank": 334,
   "lemma": "woher",
@@ -448,7 +448,7 @@
   "case": null
  },
  {
-  "id": "core:0333",
+  "id": "core:r00335",
   "n": 333,
   "rank": 335,
   "lemma": "Art",
@@ -462,7 +462,7 @@
   "case": null
  },
  {
-  "id": "core:0334",
+  "id": "core:r00336",
   "n": 334,
   "rank": 336,
   "lemma": "entschuldigen",
@@ -476,7 +476,7 @@
   "case": "A"
  },
  {
-  "id": "core:0335",
+  "id": "core:r00337",
   "n": 335,
   "rank": 337,
   "lemma": "überhaupt",
@@ -490,7 +490,7 @@
   "case": null
  },
  {
-  "id": "core:0336",
+  "id": "core:r00338",
   "n": 336,
   "rank": 338,
   "lemma": "Seite",
@@ -504,7 +504,7 @@
   "case": null
  },
  {
-  "id": "core:0337",
+  "id": "core:r00339",
   "n": 337,
   "rank": 339,
   "lemma": "Teufel",
@@ -518,7 +518,7 @@
   "case": null
  },
  {
-  "id": "core:0338",
+  "id": "core:r00340",
   "n": 338,
   "rank": 340,
   "lemma": "Grund",
@@ -532,7 +532,7 @@
   "case": null
  },
  {
-  "id": "core:0339",
+  "id": "core:r00341",
   "n": 339,
   "rank": 341,
   "lemma": "Mama",
@@ -546,7 +546,7 @@
   "case": null
  },
  {
-  "id": "core:0340",
+  "id": "core:r00342",
   "n": 340,
   "rank": 342,
   "lemma": "lesen",
@@ -560,7 +560,7 @@
   "case": null
  },
  {
-  "id": "core:0341",
+  "id": "core:r00343",
   "n": 341,
   "rank": 343,
   "lemma": "schlagen",
@@ -574,7 +574,7 @@
   "case": null
  },
  {
-  "id": "core:0342",
+  "id": "core:r00344",
   "n": 342,
   "rank": 344,
   "lemma": "Ruhe",
@@ -588,7 +588,7 @@
   "case": null
  },
  {
-  "id": "core:0343",
+  "id": "core:r00345",
   "n": 343,
   "rank": 345,
   "lemma": "gewinnen",
@@ -602,7 +602,7 @@
   "case": null
  },
  {
-  "id": "core:0344",
+  "id": "core:r00346",
   "n": 344,
   "rank": 346,
   "lemma": "oben",
@@ -616,7 +616,7 @@
   "case": null
  },
  {
-  "id": "core:0345",
+  "id": "core:r00347",
   "n": 345,
   "rank": 347,
   "lemma": "gestern",
@@ -630,7 +630,7 @@
   "case": null
  },
  {
-  "id": "core:0346",
+  "id": "core:r00348",
   "n": 346,
   "rank": 348,
   "lemma": "Schatz",
@@ -644,7 +644,7 @@
   "case": null
  },
  {
-  "id": "core:0347",
+  "id": "core:r00349",
   "n": 347,
   "rank": 349,
   "lemma": "endlich",
@@ -658,7 +658,7 @@
   "case": null
  },
  {
-  "id": "core:0348",
+  "id": "core:r00350",
   "n": 348,
   "rank": 350,
   "lemma": "wagen",
@@ -672,7 +672,7 @@
   "case": null
  },
  {
-  "id": "core:0349",
+  "id": "core:r00351",
   "n": 349,
   "rank": 351,
   "lemma": "etwa",
@@ -686,7 +686,7 @@
   "case": null
  },
  {
-  "id": "core:0350",
+  "id": "core:r00352",
   "n": 350,
   "rank": 352,
   "lemma": "lachen",
@@ -700,7 +700,7 @@
   "case": "A"
  },
  {
-  "id": "core:0351",
+  "id": "core:r00353",
   "n": 351,
   "rank": 353,
   "lemma": "schlimm",
@@ -714,7 +714,7 @@
   "case": null
  },
  {
-  "id": "core:0352",
+  "id": "core:r00354",
   "n": 352,
   "rank": 354,
   "lemma": "anders",
@@ -728,7 +728,7 @@
   "case": null
  },
  {
-  "id": "core:0353",
+  "id": "core:r00355",
   "n": 353,
   "rank": 355,
   "lemma": "Chance",
@@ -742,7 +742,7 @@
   "case": null
  },
  {
-  "id": "core:0354",
+  "id": "core:r00356",
   "n": 354,
   "rank": 356,
   "lemma": "frei",
@@ -756,7 +756,7 @@
   "case": null
  },
  {
-  "id": "core:0355",
+  "id": "core:r00357",
   "n": 355,
   "rank": 357,
   "lemma": "Wasser",
@@ -770,7 +770,7 @@
   "case": null
  },
  {
-  "id": "core:0356",
+  "id": "core:r00358",
   "n": 356,
   "rank": 358,
   "lemma": "klingen",
@@ -784,7 +784,7 @@
   "case": null
  },
  {
-  "id": "core:0357",
+  "id": "core:r00359",
   "n": 357,
   "rank": 359,
   "lemma": "Geschichte",
@@ -798,7 +798,7 @@
   "case": null
  },
  {
-  "id": "core:0358",
+  "id": "core:r00360",
   "n": 358,
   "rank": 360,
   "lemma": "wenig",
@@ -812,7 +812,7 @@
   "case": null
  },
  {
-  "id": "core:0359",
+  "id": "core:r00361",
   "n": 359,
   "rank": 361,
   "lemma": "Wahrheit",
@@ -826,7 +826,7 @@
   "case": null
  },
  {
-  "id": "core:0360",
+  "id": "core:r00362",
   "n": 360,
   "rank": 362,
   "lemma": "deshalb",
@@ -840,7 +840,7 @@
   "case": null
  },
  {
-  "id": "core:0361",
+  "id": "core:r00363",
   "n": 361,
   "rank": 363,
   "lemma": "bezahlen",
@@ -854,7 +854,7 @@
   "case": null
  },
  {
-  "id": "core:0362",
+  "id": "core:r00364",
   "n": 362,
   "rank": 364,
   "lemma": "Zimmer",
@@ -868,7 +868,7 @@
   "case": null
  },
  {
-  "id": "core:0363",
+  "id": "core:r00365",
   "n": 363,
   "rank": 365,
   "lemma": "erwarten",
@@ -882,7 +882,7 @@
   "case": null
  },
  {
-  "id": "core:0364",
+  "id": "core:r00366",
   "n": 364,
   "rank": 366,
   "lemma": "umbringen",
@@ -896,7 +896,7 @@
   "case": null
  },
  {
-  "id": "core:0365",
+  "id": "core:r00367",
   "n": 365,
   "rank": 367,
   "lemma": "Teil",
@@ -910,7 +910,7 @@
   "case": null
  },
  {
-  "id": "core:0366",
+  "id": "core:r00368",
   "n": 366,
   "rank": 368,
   "lemma": "bitten",
@@ -924,7 +924,7 @@
   "case": "A"
  },
  {
-  "id": "core:0367",
+  "id": "core:r00369",
   "n": 367,
   "rank": 369,
   "lemma": "Spaß",
@@ -938,7 +938,7 @@
   "case": null
  },
  {
-  "id": "core:0368",
+  "id": "core:r00370",
   "n": 368,
   "rank": 370,
   "lemma": "niemals",
@@ -952,7 +952,7 @@
   "case": null
  },
  {
-  "id": "core:0369",
+  "id": "core:r00371",
   "n": 369,
   "rank": 371,
   "lemma": "ändern",
@@ -966,7 +966,7 @@
   "case": null
  },
  {
-  "id": "core:0370",
+  "id": "core:r00372",
   "n": 370,
   "rank": 372,
   "lemma": "schuld",
@@ -980,7 +980,7 @@
   "case": "D"
  },
  {
-  "id": "core:0371",
+  "id": "core:r00373",
   "n": 371,
   "rank": 373,
   "lemma": "heiraten",
@@ -994,7 +994,7 @@
   "case": "A"
  },
  {
-  "id": "core:0372",
+  "id": "core:r00374",
   "n": 372,
   "rank": 374,
   "lemma": "glücklich",
@@ -1008,7 +1008,7 @@
   "case": null
  },
  {
-  "id": "core:0373",
+  "id": "core:r00375",
   "n": 373,
   "rank": 375,
   "lemma": "ernst",
@@ -1022,7 +1022,7 @@
   "case": null
  },
  {
-  "id": "core:0374",
+  "id": "core:r00376",
   "n": 374,
   "rank": 376,
   "lemma": "Ort",
@@ -1036,7 +1036,7 @@
   "case": null
  },
  {
-  "id": "core:0375",
+  "id": "core:r00377",
   "n": 375,
   "rank": 377,
   "lemma": "manchmal",
@@ -1050,7 +1050,7 @@
   "case": null
  },
  {
-  "id": "core:0376",
+  "id": "core:r00378",
   "n": 376,
   "rank": 378,
   "lemma": "Plan",
@@ -1064,7 +1064,7 @@
   "case": null
  },
  {
-  "id": "core:0377",
+  "id": "core:r00379",
   "n": 377,
   "rank": 379,
   "lemma": "möglich",
@@ -1078,7 +1078,7 @@
   "case": null
  },
  {
-  "id": "core:0378",
+  "id": "core:r00380",
   "n": 378,
   "rank": 380,
   "lemma": "zwischen",
@@ -1092,7 +1092,7 @@
   "case": "D"
  },
  {
-  "id": "core:0379",
+  "id": "core:r00381",
   "n": 379,
   "rank": 381,
   "lemma": "eben",
@@ -1106,7 +1106,7 @@
   "case": null
  },
  {
-  "id": "core:0380",
+  "id": "core:r00382",
   "n": 380,
   "rank": 382,
   "lemma": "während",
@@ -1120,7 +1120,7 @@
   "case": null
  },
  {
-  "id": "core:0381",
+  "id": "core:r00383",
   "n": 381,
   "rank": 383,
   "lemma": "stark",
@@ -1134,7 +1134,7 @@
   "case": null
  },
  {
-  "id": "core:0382",
+  "id": "core:r00384",
   "n": 382,
   "rank": 384,
   "lemma": "Gesicht",
@@ -1148,7 +1148,7 @@
   "case": null
  },
  {
-  "id": "core:0383",
+  "id": "core:r00385",
   "n": 383,
   "rank": 385,
   "lemma": "Spiel",
@@ -1162,7 +1162,7 @@
   "case": null
  },
  {
-  "id": "core:0384",
+  "id": "core:r00386",
   "n": 384,
   "rank": 386,
   "lemma": "Freundin",
@@ -1176,7 +1176,7 @@
   "case": null
  },
  {
-  "id": "core:0385",
+  "id": "core:r00387",
   "n": 385,
   "rank": 387,
   "lemma": "Schule",
@@ -1190,7 +1190,7 @@
   "case": null
  },
  {
-  "id": "core:0386",
+  "id": "core:r00388",
   "n": 386,
   "rank": 388,
   "lemma": "Krieg",
@@ -1204,7 +1204,7 @@
   "case": null
  },
  {
-  "id": "core:0387",
+  "id": "core:r00389",
   "n": 387,
   "rank": 389,
   "lemma": "benutzen",
@@ -1218,7 +1218,7 @@
   "case": null
  },
  {
-  "id": "core:0388",
+  "id": "core:r00390",
   "n": 388,
   "rank": 390,
   "lemma": "Monat",
@@ -1232,7 +1232,7 @@
   "case": "D"
  },
  {
-  "id": "core:0389",
+  "id": "core:r00391",
   "n": 389,
   "rank": 391,
   "lemma": "stecken",
@@ -1246,7 +1246,7 @@
   "case": "D"
  },
  {
-  "id": "core:0390",
+  "id": "core:r00392",
   "n": 390,
   "rank": 392,
   "lemma": "Bett",
@@ -1260,7 +1260,7 @@
   "case": "A"
  },
  {
-  "id": "core:0391",
+  "id": "core:r00394",
   "n": 391,
   "rank": 394,
   "lemma": "verkaufen",
@@ -1274,7 +1274,7 @@
   "case": null
  },
  {
-  "id": "core:0392",
+  "id": "core:r00395",
   "n": 392,
   "rank": 395,
   "lemma": "Entschuldigung",
@@ -1288,7 +1288,7 @@
   "case": null
  },
  {
-  "id": "core:0393",
+  "id": "core:r00396",
   "n": 393,
   "rank": 396,
   "lemma": "Wort",
@@ -1302,7 +1302,7 @@
   "case": null
  },
  {
-  "id": "core:0394",
+  "id": "core:r00397",
   "n": 394,
   "rank": 397,
   "lemma": "Gefühl",
@@ -1316,7 +1316,7 @@
   "case": null
  },
  {
-  "id": "core:0395",
+  "id": "core:r00399",
   "n": 395,
   "rank": 399,
   "lemma": "ehrlich",
@@ -1330,7 +1330,7 @@
   "case": null
  },
  {
-  "id": "core:0396",
+  "id": "core:r00400",
   "n": 396,
   "rank": 400,
   "lemma": "Nachricht",
@@ -1344,7 +1344,7 @@
   "case": null
  },
  {
-  "id": "core:0397",
+  "id": "core:r00402",
   "n": 397,
   "rank": 402,
   "lemma": "funktionieren",
@@ -1358,7 +1358,7 @@
   "case": null
  },
  {
-  "id": "core:0398",
+  "id": "core:r00403",
   "n": 398,
   "rank": 403,
   "lemma": "fest",
@@ -1372,7 +1372,7 @@
   "case": null
  },
  {
-  "id": "core:0399",
+  "id": "core:r00404",
   "n": 399,
   "rank": 404,
   "lemma": "geschehen",
@@ -1386,7 +1386,7 @@
   "case": null
  },
  {
-  "id": "core:0400",
+  "id": "core:r00405",
   "n": 400,
   "rank": 405,
   "lemma": "falls",

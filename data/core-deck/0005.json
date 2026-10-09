@@ -1,6 +1,6 @@
 [
  {
-  "id": "core:0401",
+  "id": "core:r00406",
   "n": 401,
   "rank": 406,
   "lemma": "nah",
@@ -14,7 +14,7 @@
   "case": "D"
  },
  {
-  "id": "core:0402",
+  "id": "core:r00407",
   "n": 402,
   "rank": 407,
   "lemma": "bloß",
@@ -28,7 +28,7 @@
   "case": null
  },
  {
-  "id": "core:0403",
+  "id": "core:r00408",
   "n": 403,
   "rank": 408,
   "lemma": "unten",
@@ -42,7 +42,7 @@
   "case": null
  },
  {
-  "id": "core:0404",
+  "id": "core:r00409",
   "n": 404,
   "rank": 409,
   "lemma": "aufhören",
@@ -56,7 +56,7 @@
   "case": "D"
  },
  {
-  "id": "core:0405",
+  "id": "core:r00410",
   "n": 405,
   "rank": 410,
   "lemma": "süß",
@@ -70,7 +70,7 @@
   "case": null
  },
  {
-  "id": "core:0406",
+  "id": "core:r00411",
   "n": 406,
   "rank": 411,
   "lemma": "Film",
@@ -84,7 +84,7 @@
   "case": null
  },
  {
-  "id": "core:0407",
+  "id": "core:r00412",
   "n": 407,
   "rank": 412,
   "lemma": "hart",
@@ -98,7 +98,7 @@
   "case": null
  },
  {
-  "id": "core:0408",
+  "id": "core:r00413",
   "n": 408,
   "rank": 413,
   "lemma": "oft",
@@ -112,7 +112,7 @@
   "case": null
  },
  {
-  "id": "core:0409",
+  "id": "core:r00414",
   "n": 409,
   "rank": 414,
   "lemma": "Sorge",
@@ -126,7 +126,7 @@
   "case": "A"
  },
  {
-  "id": "core:0410",
+  "id": "core:r00416",
   "n": 410,
   "rank": 416,
   "lemma": "einige",
@@ -140,7 +140,7 @@
   "case": null
  },
  {
-  "id": "core:0411",
+  "id": "core:r00417",
   "n": 411,
   "rank": 417,
   "lemma": "erklären",
@@ -154,7 +154,7 @@
   "case": "D"
  },
  {
-  "id": "core:0412",
+  "id": "core:r00419",
   "n": 412,
   "rank": 419,
   "lemma": "Blut",
@@ -168,7 +168,7 @@
   "case": null
  },
  {
-  "id": "core:0413",
+  "id": "core:r00420",
   "n": 413,
   "rank": 420,
   "lemma": "Eltern",
@@ -182,7 +182,7 @@
   "case": null
  },
  {
-  "id": "core:0414",
+  "id": "core:r00421",
   "n": 414,
   "rank": 421,
   "lemma": "verdienen",
@@ -196,7 +196,7 @@
   "case": null
  },
  {
-  "id": "core:0415",
+  "id": "core:r00422",
   "n": 415,
   "rank": 422,
   "lemma": "langsam",
@@ -210,7 +210,7 @@
   "case": null
  },
  {
-  "id": "core:0416",
+  "id": "core:r00423",
   "n": 416,
   "rank": 423,
   "lemma": "Herz",
@@ -224,7 +224,7 @@
   "case": "D"
  },
  {
-  "id": "core:0417",
+  "id": "core:r00424",
   "n": 417,
   "rank": 424,
   "lemma": "wiedersehen",
@@ -238,7 +238,7 @@
   "case": null
  },
  {
-  "id": "core:0418",
+  "id": "core:r00425",
   "n": 418,
   "rank": 425,
   "lemma": "folgen",
@@ -252,7 +252,7 @@
   "case": "D"
  },
  {
-  "id": "core:0419",
+  "id": "core:r00426",
   "n": 419,
   "rank": 426,
   "lemma": "versprechen",
@@ -266,7 +266,7 @@
   "case": "D"
  },
  {
-  "id": "core:0420",
+  "id": "core:r00427",
   "n": 420,
   "rank": 427,
   "lemma": "anfangen",
@@ -280,7 +280,7 @@
   "case": null
  },
  {
-  "id": "core:0421",
+  "id": "core:r00428",
   "n": 421,
   "rank": 428,
   "lemma": "solcher",
@@ -294,7 +294,7 @@
   "case": null
  },
  {
-  "id": "core:0422",
+  "id": "core:r00429",
   "n": 422,
   "rank": 429,
   "lemma": "wohnen",
@@ -308,7 +308,7 @@
   "case": null
  },
  {
-  "id": "core:0423",
+  "id": "core:r00430",
   "n": 423,
   "rank": 430,
   "lemma": "wen",
@@ -322,7 +322,7 @@
   "case": "A"
  },
  {
-  "id": "core:0424",
+  "id": "core:r00431",
   "n": 424,
   "rank": 431,
   "lemma": "drauf",
@@ -336,7 +336,7 @@
   "case": null
  },
  {
-  "id": "core:0425",
+  "id": "core:r00432",
   "n": 425,
   "rank": 432,
   "lemma": "voll",
@@ -350,7 +350,7 @@
   "case": null
  },
  {
-  "id": "core:0426",
+  "id": "core:r00433",
   "n": 426,
   "rank": 433,
   "lemma": "beginnen",
@@ -364,7 +364,7 @@
   "case": null
  },
  {
-  "id": "core:0427",
+  "id": "core:r00434",
   "n": 427,
   "rank": 434,
   "lemma": "irgendwie",
@@ -378,7 +378,7 @@
   "case": null
  },
  {
-  "id": "core:0428",
+  "id": "core:r00435",
   "n": 428,
   "rank": 435,
   "lemma": "wünschen",
@@ -392,7 +392,7 @@
   "case": "D"
  },
  {
-  "id": "core:0429",
+  "id": "core:r00436",
   "n": 429,
   "rank": 436,
   "lemma": "fliegen",
@@ -406,7 +406,7 @@
   "case": null
  },
  {
-  "id": "core:0430",
+  "id": "core:r00437",
   "n": 430,
   "rank": 437,
   "lemma": "legen",
@@ -420,7 +420,7 @@
   "case": "A"
  },
  {
-  "id": "core:0431",
+  "id": "core:r00438",
   "n": 431,
   "rank": 438,
   "lemma": "Waffe",
@@ -434,7 +434,7 @@
   "case": null
  },
  {
-  "id": "core:0432",
+  "id": "core:r00439",
   "n": 432,
   "rank": 439,
   "lemma": "Platz",
@@ -448,7 +448,7 @@
   "case": null
  },
  {
-  "id": "core:0433",
+  "id": "core:r00440",
   "n": 433,
   "rank": 440,
   "lemma": "kaum",
@@ -462,7 +462,7 @@
   "case": null
  },
  {
-  "id": "core:0434",
+  "id": "core:r00441",
   "n": 434,
   "rank": 441,
   "lemma": "heiß",
@@ -476,7 +476,7 @@
   "case": null
  },
  {
-  "id": "core:0435",
+  "id": "core:r00442",
   "n": 435,
   "rank": 442,
   "lemma": "irgendwas",
@@ -490,7 +490,7 @@
   "case": null
  },
  {
-  "id": "core:0436",
+  "id": "core:r00443",
   "n": 436,
   "rank": 443,
   "lemma": "böse",
@@ -504,8 +504,22 @@
   "case": "D"
  },
  {
-  "id": "core:0437",
+  "id": "core:r00444",
   "n": 437,
+  "rank": 444,
+  "lemma": "Rede",
+  "pos": "NOUN",
+  "display": "die Rede · die Reden",
+  "gloss": "speech",
+  "sentence": "Auf der Hochzeit hat mein Bruder eine schöne Rede gehalten.",
+  "target": "Rede",
+  "en": "At the wedding my brother gave a lovely speech.",
+  "note": "eine Rede halten = give a speech",
+  "case": null
+ },
+ {
+  "id": "core:r00445",
+  "n": 438,
   "rank": 445,
   "lemma": "Papa",
   "pos": "NOUN",
@@ -518,8 +532,8 @@
   "case": null
  },
  {
-  "id": "core:0438",
-  "n": 438,
+  "id": "core:r00446",
+  "n": 439,
   "rank": 446,
   "lemma": "sondern",
   "pos": "CCONJ",
@@ -532,8 +546,8 @@
   "case": null
  },
  {
-  "id": "core:0439",
-  "n": 439,
+  "id": "core:r00447",
+  "n": 440,
   "rank": 447,
   "lemma": "Nummer",
   "pos": "NOUN",
@@ -546,8 +560,8 @@
   "case": null
  },
  {
-  "id": "core:0440",
-  "n": 440,
+  "id": "core:r00448",
+  "n": 441,
   "rank": 448,
   "lemma": "wohin",
   "pos": "ADV",
@@ -560,8 +574,8 @@
   "case": null
  },
  {
-  "id": "core:0441",
-  "n": 441,
+  "id": "core:r00449",
+  "n": 442,
   "rank": 449,
   "lemma": "wahrscheinlich",
   "pos": "ADV",
@@ -574,8 +588,8 @@
   "case": null
  },
  {
-  "id": "core:0442",
-  "n": 442,
+  "id": "core:r00450",
+  "n": 443,
   "rank": 450,
   "lemma": "außer",
   "pos": "ADP",
@@ -588,8 +602,8 @@
   "case": "D"
  },
  {
-  "id": "core:0443",
-  "n": 443,
+  "id": "core:r00451",
+  "n": 444,
   "rank": 451,
   "lemma": "kämpfen",
   "pos": "VERB",
@@ -602,8 +616,8 @@
   "case": "A"
  },
  {
-  "id": "core:0444",
-  "n": 444,
+  "id": "core:r00452",
+  "n": 445,
   "rank": 452,
   "lemma": "vertrauen",
   "pos": "VERB",
@@ -616,8 +630,8 @@
   "case": "D"
  },
  {
-  "id": "core:0445",
-  "n": 445,
+  "id": "core:r00454",
+  "n": 446,
   "rank": 454,
   "lemma": "zuerst",
   "pos": "ADV",
@@ -630,8 +644,8 @@
   "case": null
  },
  {
-  "id": "core:0446",
-  "n": 446,
+  "id": "core:r00455",
+  "n": 447,
   "rank": 455,
   "lemma": "verletzen",
   "pos": "VERB",
@@ -644,8 +658,8 @@
   "case": null
  },
  {
-  "id": "core:0447",
-  "n": 447,
+  "id": "core:r00457",
+  "n": 448,
   "rank": 457,
   "lemma": "Telefon",
   "pos": "NOUN",
@@ -658,8 +672,8 @@
   "case": null
  },
  {
-  "id": "core:0448",
-  "n": 448,
+  "id": "core:r00458",
+  "n": 449,
   "rank": 458,
   "lemma": "König",
   "pos": "NOUN",
@@ -672,8 +686,8 @@
   "case": null
  },
  {
-  "id": "core:0449",
-  "n": 449,
+  "id": "core:r00459",
+  "n": 450,
   "rank": 459,
   "lemma": "leicht",
   "pos": "ADJ",
@@ -686,8 +700,8 @@
   "case": null
  },
  {
-  "id": "core:0450",
-  "n": 450,
+  "id": "core:r00460",
+  "n": 451,
   "rank": 460,
   "lemma": "dauern",
   "pos": "VERB",
@@ -700,8 +714,8 @@
   "case": null
  },
  {
-  "id": "core:0451",
-  "n": 451,
+  "id": "core:r00462",
+  "n": 452,
   "rank": 462,
   "lemma": "Arzt",
   "pos": "NOUN",
@@ -714,8 +728,8 @@
   "case": null
  },
  {
-  "id": "core:0452",
-  "n": 452,
+  "id": "core:r00463",
+  "n": 453,
   "rank": 463,
   "lemma": "Antwort",
   "pos": "NOUN",
@@ -728,8 +742,8 @@
   "case": "A"
  },
  {
-  "id": "core:0453",
-  "n": 453,
+  "id": "core:r00464",
+  "n": 454,
   "rank": 464,
   "lemma": "Dollar",
   "pos": "NOUN",
@@ -742,22 +756,22 @@
   "case": null
  },
  {
-  "id": "core:0454",
-  "n": 454,
+  "id": "core:r00465",
+  "n": 455,
   "rank": 465,
   "lemma": "willkommen",
   "pos": "ADJ",
   "display": "willkommen",
   "gloss": "welcome",
-  "sentence": "Herzlich willkommen in unserer neuen Wohnung!",
+  "sentence": "Neue Mitglieder sind in unserem Verein jederzeit willkommen.",
   "target": "willkommen",
-  "en": "A warm welcome to our new flat!",
-  "note": "Herzlich willkommen in + Dativ",
+  "en": "New members are always welcome in our club.",
+  "note": "willkommen in + Dativ; Herzlich willkommen! = A warm welcome!",
   "case": "D"
  },
  {
-  "id": "core:0455",
-  "n": 455,
+  "id": "core:r00466",
+  "n": 456,
   "rank": 466,
   "lemma": "erfahren",
   "pos": "VERB",
@@ -770,8 +784,8 @@
   "case": null
  },
  {
-  "id": "core:0456",
-  "n": 456,
+  "id": "core:r00467",
+  "n": 457,
   "rank": 467,
   "lemma": "froh",
   "pos": "ADJ",
@@ -784,8 +798,8 @@
   "case": null
  },
  {
-  "id": "core:0457",
-  "n": 457,
+  "id": "core:r00468",
+  "n": 458,
   "rank": 468,
   "lemma": "entscheiden",
   "pos": "VERB",
@@ -798,8 +812,8 @@
   "case": "A"
  },
  {
-  "id": "core:0458",
-  "n": 458,
+  "id": "core:r00469",
+  "n": 459,
   "rank": 469,
   "lemma": "hierher",
   "pos": "ADV",
@@ -812,8 +826,8 @@
   "case": null
  },
  {
-  "id": "core:0459",
-  "n": 459,
+  "id": "core:r00470",
+  "n": 460,
   "rank": 470,
   "lemma": "verstecken",
   "pos": "VERB",
@@ -826,8 +840,8 @@
   "case": null
  },
  {
-  "id": "core:0460",
-  "n": 460,
+  "id": "core:r00471",
+  "n": 461,
   "rank": 471,
   "lemma": "Büro",
   "pos": "NOUN",
@@ -840,8 +854,8 @@
   "case": null
  },
  {
-  "id": "core:0461",
-  "n": 461,
+  "id": "core:r00473",
+  "n": 462,
   "rank": 473,
   "lemma": "Fehler",
   "pos": "NOUN",
@@ -854,8 +868,8 @@
   "case": null
  },
  {
-  "id": "core:0462",
-  "n": 462,
+  "id": "core:r00475",
+  "n": 463,
   "rank": 475,
   "lemma": "Menge",
   "pos": "NOUN",
@@ -868,8 +882,8 @@
   "case": null
  },
  {
-  "id": "core:0463",
-  "n": 463,
+  "id": "core:r00476",
+  "n": 464,
   "rank": 476,
   "lemma": "bereits",
   "pos": "ADV",
@@ -882,8 +896,8 @@
   "case": null
  },
  {
-  "id": "core:0464",
-  "n": 464,
+  "id": "core:r00477",
+  "n": 465,
   "rank": 477,
   "lemma": "brechen",
   "pos": "VERB",
@@ -896,8 +910,8 @@
   "case": null
  },
  {
-  "id": "core:0465",
-  "n": 465,
+  "id": "core:r00478",
+  "n": 466,
   "rank": 478,
   "lemma": "vorstellen",
   "pos": "VERB",
@@ -910,8 +924,8 @@
   "case": null
  },
  {
-  "id": "core:0466",
-  "n": 466,
+  "id": "core:r00479",
+  "n": 467,
   "rank": 479,
   "lemma": "direkt",
   "pos": "ADV",
@@ -924,8 +938,8 @@
   "case": null
  },
  {
-  "id": "core:0467",
-  "n": 467,
+  "id": "core:r00480",
+  "n": 468,
   "rank": 480,
   "lemma": "zahlen",
   "pos": "VERB",
@@ -938,8 +952,8 @@
   "case": null
  },
  {
-  "id": "core:0468",
-  "n": 468,
+  "id": "core:r00481",
+  "n": 469,
   "rank": 481,
   "lemma": "erledigen",
   "pos": "VERB",
@@ -952,8 +966,8 @@
   "case": null
  },
  {
-  "id": "core:0469",
-  "n": 469,
+  "id": "core:r00482",
+  "n": 470,
   "rank": 482,
   "lemma": "fangen",
   "pos": "VERB",
@@ -966,8 +980,8 @@
   "case": null
  },
  {
-  "id": "core:0470",
-  "n": 470,
+  "id": "core:r00483",
+  "n": 471,
   "rank": 483,
   "lemma": "schießen",
   "pos": "VERB",
@@ -980,8 +994,8 @@
   "case": null
  },
  {
-  "id": "core:0471",
-  "n": 471,
+  "id": "core:r00484",
+  "n": 472,
   "rank": 484,
   "lemma": "aussehen",
   "pos": "VERB",
@@ -994,8 +1008,22 @@
   "case": null
  },
  {
-  "id": "core:0472",
-  "n": 472,
+  "id": "core:r00485",
+  "n": 473,
+  "rank": 485,
+  "lemma": "Ruf",
+  "pos": "NOUN",
+  "display": "der Ruf · die Rufe",
+  "gloss": "reputation; call",
+  "sentence": "Die Bäckerei an der Ecke hat einen sehr guten Ruf.",
+  "target": "Ruf",
+  "en": "The bakery on the corner has a very good reputation.",
+  "note": "einen guten/schlechten Ruf haben; Verb: rufen",
+  "case": null
+ },
+ {
+  "id": "core:r00486",
+  "n": 474,
   "rank": 486,
   "lemma": "leider",
   "pos": "ADV",
@@ -1008,8 +1036,8 @@
   "case": null
  },
  {
-  "id": "core:0473",
-  "n": 473,
+  "id": "core:r00487",
+  "n": 475,
   "rank": 487,
   "lemma": "freuen",
   "pos": "VERB",
@@ -1022,8 +1050,8 @@
   "case": "A"
  },
  {
-  "id": "core:0474",
-  "n": 474,
+  "id": "core:r00488",
+  "n": 476,
   "rank": 488,
   "lemma": "Million",
   "pos": "NOUN",
@@ -1036,8 +1064,8 @@
   "case": null
  },
  {
-  "id": "core:0475",
-  "n": 475,
+  "id": "core:r00489",
+  "n": 477,
   "rank": 489,
   "lemma": "Hölle",
   "pos": "NOUN",
@@ -1050,8 +1078,8 @@
   "case": null
  },
  {
-  "id": "core:0476",
-  "n": 476,
+  "id": "core:r00490",
+  "n": 478,
   "rank": 490,
   "lemma": "trotzdem",
   "pos": "ADV",
@@ -1064,8 +1092,8 @@
   "case": null
  },
  {
-  "id": "core:0477",
-  "n": 477,
+  "id": "core:r00491",
+  "n": 479,
   "rank": 491,
   "lemma": "Doktor",
   "pos": "NOUN",
@@ -1078,8 +1106,8 @@
   "case": null
  },
  {
-  "id": "core:0478",
-  "n": 478,
+  "id": "core:r00492",
+  "n": 480,
   "rank": 492,
   "lemma": "überall",
   "pos": "ADV",
@@ -1092,8 +1120,8 @@
   "case": null
  },
  {
-  "id": "core:0479",
-  "n": 479,
+  "id": "core:r00493",
+  "n": 481,
   "rank": 493,
   "lemma": "Hund",
   "pos": "NOUN",
@@ -1106,8 +1134,8 @@
   "case": null
  },
  {
-  "id": "core:0480",
-  "n": 480,
+  "id": "core:r00494",
+  "n": 482,
   "rank": 494,
   "lemma": "Stück",
   "pos": "NOUN",
@@ -1120,8 +1148,8 @@
   "case": null
  },
  {
-  "id": "core:0481",
-  "n": 481,
+  "id": "core:r00496",
+  "n": 483,
   "rank": 496,
   "lemma": "schließen",
   "pos": "VERB",
@@ -1134,8 +1162,8 @@
   "case": null
  },
  {
-  "id": "core:0482",
-  "n": 482,
+  "id": "core:r00497",
+  "n": 484,
   "rank": 497,
   "lemma": "Schiff",
   "pos": "NOUN",
@@ -1148,8 +1176,8 @@
   "case": null
  },
  {
-  "id": "core:0483",
-  "n": 483,
+  "id": "core:r00498",
+  "n": 485,
   "rank": 498,
   "lemma": "ansehen",
   "pos": "VERB",
@@ -1162,8 +1190,8 @@
   "case": null
  },
  {
-  "id": "core:0484",
-  "n": 484,
+  "id": "core:r00499",
+  "n": 486,
   "rank": 499,
   "lemma": "wem",
   "pos": "PRON",
@@ -1176,8 +1204,8 @@
   "case": "D"
  },
  {
-  "id": "core:0485",
-  "n": 485,
+  "id": "core:r00500",
+  "n": 487,
   "rank": 500,
   "lemma": "großartig",
   "pos": "ADJ",
@@ -1190,8 +1218,8 @@
   "case": null
  },
  {
-  "id": "core:0486",
-  "n": 486,
+  "id": "core:r00501",
+  "n": 488,
   "rank": 501,
   "lemma": "Bild",
   "pos": "NOUN",
@@ -1204,8 +1232,8 @@
   "case": null
  },
  {
-  "id": "core:0487",
-  "n": 487,
+  "id": "core:r00502",
+  "n": 489,
   "rank": 502,
   "lemma": "danach",
   "pos": "ADV",
@@ -1218,8 +1246,8 @@
   "case": null
  },
  {
-  "id": "core:0488",
-  "n": 488,
+  "id": "core:r00503",
+  "n": 490,
   "rank": 503,
   "lemma": "öffnen",
   "pos": "VERB",
@@ -1232,8 +1260,8 @@
   "case": null
  },
  {
-  "id": "core:0489",
-  "n": 489,
+  "id": "core:r00505",
+  "n": 491,
   "rank": 505,
   "lemma": "deswegen",
   "pos": "ADV",
@@ -1246,8 +1274,8 @@
   "case": null
  },
  {
-  "id": "core:0490",
-  "n": 490,
+  "id": "core:r00506",
+  "n": 492,
   "rank": 506,
   "lemma": "zweite",
   "pos": "ADJ",
@@ -1260,8 +1288,8 @@
   "case": null
  },
  {
-  "id": "core:0491",
-  "n": 491,
+  "id": "core:r00508",
+  "n": 493,
   "rank": 508,
   "lemma": "völlig",
   "pos": "ADV",
@@ -1274,8 +1302,8 @@
   "case": null
  },
  {
-  "id": "core:0492",
-  "n": 492,
+  "id": "core:r00509",
+  "n": 494,
   "rank": 509,
   "lemma": "Feuer",
   "pos": "NOUN",
@@ -1288,8 +1316,8 @@
   "case": null
  },
  {
-  "id": "core:0493",
-  "n": 493,
+  "id": "core:r00510",
+  "n": 495,
   "rank": 510,
   "lemma": "alleine",
   "pos": "ADV",
@@ -1302,8 +1330,8 @@
   "case": null
  },
  {
-  "id": "core:0494",
-  "n": 494,
+  "id": "core:r00511",
+  "n": 496,
   "rank": 511,
   "lemma": "singen",
   "pos": "VERB",
@@ -1316,8 +1344,8 @@
   "case": null
  },
  {
-  "id": "core:0495",
-  "n": 495,
+  "id": "core:r00512",
+  "n": 497,
   "rank": 512,
   "lemma": "fehlen",
   "pos": "VERB",
@@ -1330,8 +1358,8 @@
   "case": "D"
  },
  {
-  "id": "core:0496",
-  "n": 496,
+  "id": "core:r00513",
+  "n": 498,
   "rank": 513,
   "lemma": "zerstören",
   "pos": "VERB",
@@ -1344,8 +1372,8 @@
   "case": null
  },
  {
-  "id": "core:0497",
-  "n": 497,
+  "id": "core:r00514",
+  "n": 499,
   "rank": 514,
   "lemma": "Ehre",
   "pos": "NOUN",
@@ -1358,8 +1386,8 @@
   "case": null
  },
  {
-  "id": "core:0498",
-  "n": 498,
+  "id": "core:r00515",
+  "n": 500,
   "rank": 515,
   "lemma": "Stelle",
   "pos": "NOUN",
@@ -1369,34 +1397,6 @@
   "target": "Stelle",
   "en": "I applied for a job as a sales assistant.",
   "note": "auch: an deiner Stelle = if I were you",
-  "case": null
- },
- {
-  "id": "core:0499",
-  "n": 499,
-  "rank": 517,
-  "lemma": "Kumpel",
-  "pos": "NOUN",
-  "display": "der Kumpel · die Kumpel / die Kumpels",
-  "gloss": "mate, buddy",
-  "sentence": "Am Samstag spiele ich mit ein paar Kumpels Fußball.",
-  "target": "Kumpels",
-  "en": "On Saturday I'm playing football with a few mates.",
-  "note": "umgangssprachlich für Freund",
-  "case": null
- },
- {
-  "id": "core:0500",
-  "n": 500,
-  "rank": 518,
-  "lemma": "Person",
-  "pos": "NOUN",
-  "display": "die Person · die Personen",
-  "gloss": "person",
-  "sentence": "Der Tisch ist für vier Personen reserviert.",
-  "target": "Personen",
-  "en": "The table is reserved for four people.",
-  "note": null,
   "case": null
  }
 ]

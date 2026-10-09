@@ -613,7 +613,15 @@
  },
  {
   "rank": 1858,
-  "skip": "Duplikat: lecken"
+  "lemma": "Leck",
+  "pos": "NOUN",
+  "display": "das Leck · die Lecks",
+  "gloss": "leak",
+  "sentence": "Die Waschmaschine hat ein Leck, überall in der Küche ist Wasser.",
+  "target": "Leck",
+  "en": "The washing machine has a leak; there's water all over the kitchen.",
+  "note": "Verb: lecken (= mit der Zunge berühren; auch: undicht sein)",
+  "case": null
  },
  {
   "rank": 1859,

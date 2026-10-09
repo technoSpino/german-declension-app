@@ -645,7 +645,15 @@
  },
  {
   "rank": 960,
-  "skip": "Duplikat: schlagen"
+  "lemma": "Schlag",
+  "pos": "NOUN",
+  "display": "der Schlag · die Schläge",
+  "gloss": "blow, hit; shock",
+  "sentence": "Die Nachricht war ein schwerer Schlag für die ganze Familie.",
+  "target": "Schlag",
+  "en": "The news was a heavy blow for the whole family.",
+  "note": "das Verb: schlagen; mit einem Schlag = plötzlich",
+  "case": null
  },
  {
   "rank": 961,

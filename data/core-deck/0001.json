@@ -1,6 +1,6 @@
 [
  {
-  "id": "core:0001",
+  "id": "core:r00001",
   "n": 1,
   "rank": 1,
   "lemma": "der",
@@ -14,7 +14,7 @@
   "case": "N"
  },
  {
-  "id": "core:0002",
+  "id": "core:r00002",
   "n": 2,
   "rank": 2,
   "lemma": "ich",
@@ -28,7 +28,7 @@
   "case": null
  },
  {
-  "id": "core:0003",
+  "id": "core:r00003",
   "n": 3,
   "rank": 3,
   "lemma": "sein",
@@ -42,7 +42,7 @@
   "case": null
  },
  {
-  "id": "core:0004",
+  "id": "core:r00004",
   "n": 4,
   "rank": 4,
   "lemma": "du",
@@ -56,7 +56,7 @@
   "case": null
  },
  {
-  "id": "core:0005",
+  "id": "core:r00005",
   "n": 5,
   "rank": 5,
   "lemma": "sie",
@@ -70,7 +70,7 @@
   "case": null
  },
  {
-  "id": "core:0006",
+  "id": "core:r00006",
   "n": 6,
   "rank": 6,
   "lemma": "ein",
@@ -84,7 +84,7 @@
   "case": "A"
  },
  {
-  "id": "core:0007",
+  "id": "core:r00007",
   "n": 7,
   "rank": 7,
   "lemma": "haben",
@@ -98,7 +98,7 @@
   "case": null
  },
  {
-  "id": "core:0008",
+  "id": "core:r00008",
   "n": 8,
   "rank": 8,
   "lemma": "nicht",
@@ -112,7 +112,7 @@
   "case": null
  },
  {
-  "id": "core:0009",
+  "id": "core:r00009",
   "n": 9,
   "rank": 9,
   "lemma": "es",
@@ -126,7 +126,7 @@
   "case": null
  },
  {
-  "id": "core:0010",
+  "id": "core:r00010",
   "n": 10,
   "rank": 10,
   "lemma": "und",
@@ -140,7 +140,7 @@
   "case": null
  },
  {
-  "id": "core:0011",
+  "id": "core:r00011",
   "n": 11,
   "rank": 11,
   "lemma": "wir",
@@ -154,7 +154,7 @@
   "case": null
  },
  {
-  "id": "core:0012",
+  "id": "core:r00012",
   "n": 12,
   "rank": 12,
   "lemma": "er",
@@ -168,7 +168,7 @@
   "case": null
  },
  {
-  "id": "core:0013",
+  "id": "core:r00013",
   "n": 13,
   "rank": 13,
   "lemma": "zu",
@@ -182,7 +182,7 @@
   "case": "D"
  },
  {
-  "id": "core:0014",
+  "id": "core:r00014",
   "n": 14,
   "rank": 14,
   "lemma": "in",
@@ -196,7 +196,7 @@
   "case": "D"
  },
  {
-  "id": "core:0015",
+  "id": "core:r00015",
   "n": 15,
   "rank": 15,
   "lemma": "was",
@@ -210,7 +210,7 @@
   "case": null
  },
  {
-  "id": "core:0016",
+  "id": "core:r00016",
   "n": 16,
   "rank": 16,
   "lemma": "werden",
@@ -224,7 +224,7 @@
   "case": null
  },
  {
-  "id": "core:0017",
+  "id": "core:r00017",
   "n": 17,
   "rank": 17,
   "lemma": "ihr",
@@ -238,7 +238,7 @@
   "case": null
  },
  {
-  "id": "core:0018",
+  "id": "core:r00018",
   "n": 18,
   "rank": 18,
   "lemma": "mein",
@@ -252,7 +252,7 @@
   "case": null
  },
  {
-  "id": "core:0019",
+  "id": "core:r00019",
   "n": 19,
   "rank": 19,
   "lemma": "können",
@@ -266,7 +266,7 @@
   "case": null
  },
  {
-  "id": "core:0020",
+  "id": "core:r00020",
   "n": 20,
   "rank": 20,
   "lemma": "ja",
@@ -280,7 +280,7 @@
   "case": null
  },
  {
-  "id": "core:0021",
+  "id": "core:r00021",
   "n": 21,
   "rank": 21,
   "lemma": "mit",
@@ -294,7 +294,7 @@
   "case": "D"
  },
  {
-  "id": "core:0022",
+  "id": "core:r00022",
   "n": 22,
   "rank": 22,
   "lemma": "wie",
@@ -308,7 +308,7 @@
   "case": null
  },
  {
-  "id": "core:0023",
+  "id": "core:r00023",
   "n": 23,
   "rank": 23,
   "lemma": "auf",
@@ -322,7 +322,7 @@
   "case": "A"
  },
  {
-  "id": "core:0024",
+  "id": "core:r00024",
   "n": 24,
   "rank": 24,
   "lemma": "dass",
@@ -336,7 +336,7 @@
   "case": null
  },
  {
-  "id": "core:0025",
+  "id": "core:r00025",
   "n": 25,
   "rank": 25,
   "lemma": "aber",
@@ -350,7 +350,7 @@
   "case": null
  },
  {
-  "id": "core:0026",
+  "id": "core:r00026",
   "n": 26,
   "rank": 26,
   "lemma": "gut",
@@ -364,7 +364,7 @@
   "case": null
  },
  {
-  "id": "core:0027",
+  "id": "core:r00027",
   "n": 27,
   "rank": 27,
   "lemma": "so",
@@ -378,7 +378,7 @@
   "case": null
  },
  {
-  "id": "core:0028",
+  "id": "core:r00028",
   "n": 28,
   "rank": 28,
   "lemma": "wollen",
@@ -392,7 +392,7 @@
   "case": null
  },
  {
-  "id": "core:0029",
+  "id": "core:r00029",
   "n": 29,
   "rank": 29,
   "lemma": "an",
@@ -406,7 +406,7 @@
   "case": "D"
  },
  {
-  "id": "core:0030",
+  "id": "core:r00030",
   "n": 30,
   "rank": 30,
   "lemma": "von",
@@ -420,7 +420,7 @@
   "case": "D"
  },
  {
-  "id": "core:0031",
+  "id": "core:r00031",
   "n": 31,
   "rank": 31,
   "lemma": "wissen",
@@ -434,7 +434,7 @@
   "case": null
  },
  {
-  "id": "core:0032",
+  "id": "core:r00032",
   "n": 32,
   "rank": 32,
   "lemma": "hier",
@@ -448,7 +448,7 @@
   "case": null
  },
  {
-  "id": "core:0033",
+  "id": "core:r00033",
   "n": 33,
   "rank": 33,
   "lemma": "für",
@@ -462,7 +462,7 @@
   "case": "A"
  },
  {
-  "id": "core:0034",
+  "id": "core:r00034",
   "n": 34,
   "rank": 34,
   "lemma": "sagen",
@@ -476,7 +476,7 @@
   "case": null
  },
  {
-  "id": "core:0035",
+  "id": "core:r00035",
   "n": 35,
   "rank": 35,
   "lemma": "gehen",
@@ -490,7 +490,7 @@
   "case": null
  },
  {
-  "id": "core:0036",
+  "id": "core:r00036",
   "n": 36,
   "rank": 36,
   "lemma": "kommen",
@@ -504,7 +504,7 @@
   "case": null
  },
  {
-  "id": "core:0037",
+  "id": "core:r00037",
   "n": 37,
   "rank": 37,
   "lemma": "wenn",
@@ -518,7 +518,7 @@
   "case": null
  },
  {
-  "id": "core:0038",
+  "id": "core:r00038",
   "n": 38,
   "rank": 38,
   "lemma": "machen",
@@ -532,7 +532,7 @@
   "case": null
  },
  {
-  "id": "core:0039",
+  "id": "core:r00039",
   "n": 39,
   "rank": 39,
   "lemma": "kein",
@@ -546,7 +546,7 @@
   "case": null
  },
  {
-  "id": "core:0040",
+  "id": "core:r00040",
   "n": 40,
   "rank": 40,
   "lemma": "nein",
@@ -560,7 +560,7 @@
   "case": null
  },
  {
-  "id": "core:0041",
+  "id": "core:r00041",
   "n": 41,
   "rank": 41,
   "lemma": "dieser",
@@ -574,7 +574,7 @@
   "case": null
  },
  {
-  "id": "core:0042",
+  "id": "core:r00042",
   "n": 42,
   "rank": 42,
   "lemma": "sehen",
@@ -588,7 +588,7 @@
   "case": null
  },
  {
-  "id": "core:0043",
+  "id": "core:r00043",
   "n": 43,
   "rank": 43,
   "lemma": "noch",
@@ -602,7 +602,7 @@
   "case": null
  },
  {
-  "id": "core:0044",
+  "id": "core:r00044",
   "n": 44,
   "rank": 44,
   "lemma": "nur",
@@ -616,7 +616,7 @@
   "case": null
  },
  {
-  "id": "core:0045",
+  "id": "core:r00045",
   "n": 45,
   "rank": 45,
   "lemma": "da",
@@ -630,7 +630,7 @@
   "case": null
  },
  {
-  "id": "core:0046",
+  "id": "core:r00046",
   "n": 46,
   "rank": 46,
   "lemma": "tun",
@@ -644,7 +644,7 @@
   "case": null
  },
  {
-  "id": "core:0047",
+  "id": "core:r00047",
   "n": 47,
   "rank": 47,
   "lemma": "sich",
@@ -658,7 +658,7 @@
   "case": null
  },
  {
-  "id": "core:0048",
+  "id": "core:r00048",
   "n": 48,
   "rank": 48,
   "lemma": "dein",
@@ -672,7 +672,7 @@
   "case": null
  },
  {
-  "id": "core:0049",
+  "id": "core:r00049",
   "n": 49,
   "rank": 49,
   "lemma": "viel",
@@ -686,7 +686,7 @@
   "case": null
  },
  {
-  "id": "core:0050",
+  "id": "core:r00050",
   "n": 50,
   "rank": 50,
   "lemma": "sollen",
@@ -700,7 +700,7 @@
   "case": null
  },
  {
-  "id": "core:0051",
+  "id": "core:r00051",
   "n": 51,
   "rank": 51,
   "lemma": "auch",
@@ -714,7 +714,7 @@
   "case": null
  },
  {
-  "id": "core:0052",
+  "id": "core:r00052",
   "n": 52,
   "rank": 52,
   "lemma": "schon",
@@ -728,7 +728,7 @@
   "case": null
  },
  {
-  "id": "core:0053",
+  "id": "core:r00053",
   "n": 53,
   "rank": 53,
   "lemma": "als",
@@ -742,7 +742,7 @@
   "case": null
  },
  {
-  "id": "core:0054",
+  "id": "core:r00054",
   "n": 54,
   "rank": 54,
   "lemma": "mal",
@@ -756,7 +756,7 @@
   "case": null
  },
  {
-  "id": "core:0055",
+  "id": "core:r00055",
   "n": 55,
   "rank": 55,
   "lemma": "jetzt",
@@ -770,21 +770,21 @@
   "case": null
  },
  {
-  "id": "core:0056",
+  "id": "core:r00056",
   "n": 56,
   "rank": 56,
   "lemma": "geben",
   "pos": "VERB",
   "display": "geben · gab · hat gegeben",
   "gloss": "to give; there is (es gibt)",
-  "sentence": "Gibt es hier in der Nähe eine Apotheke?",
+  "sentence": "Gibt es in eurem Büro eine Kantine?",
   "target": "Gibt",
-  "en": "Is there a pharmacy near here?",
+  "en": "Is there a canteen in your office?",
   "note": "es gibt + Akkusativ = there is/are; du gibst, er gibt",
   "case": "A"
  },
  {
-  "id": "core:0057",
+  "id": "core:r00057",
   "n": 57,
   "rank": 57,
   "lemma": "dann",
@@ -798,7 +798,7 @@
   "case": null
  },
  {
-  "id": "core:0058",
+  "id": "core:r00058",
   "n": 58,
   "rank": 58,
   "lemma": "aus",
@@ -812,7 +812,7 @@
   "case": "D"
  },
  {
-  "id": "core:0059",
+  "id": "core:r00059",
   "n": 59,
   "rank": 59,
   "lemma": "um",
@@ -826,7 +826,7 @@
   "case": "A"
  },
  {
-  "id": "core:0060",
+  "id": "core:r00060",
   "n": 60,
   "rank": 60,
   "lemma": "alle",
@@ -840,7 +840,7 @@
   "case": null
  },
  {
-  "id": "core:0061",
+  "id": "core:r00061",
   "n": 61,
   "rank": 61,
   "lemma": "doch",
@@ -854,7 +854,7 @@
   "case": null
  },
  {
-  "id": "core:0062",
+  "id": "core:r00062",
   "n": 62,
   "rank": 62,
   "lemma": "lassen",
@@ -868,7 +868,7 @@
   "case": null
  },
  {
-  "id": "core:0063",
+  "id": "core:r00063",
   "n": 63,
   "rank": 63,
   "lemma": "oder",
@@ -882,7 +882,7 @@
   "case": null
  },
  {
-  "id": "core:0064",
+  "id": "core:r00064",
   "n": 64,
   "rank": 64,
   "lemma": "müssen",
@@ -896,7 +896,7 @@
   "case": null
  },
  {
-  "id": "core:0065",
+  "id": "core:r00065",
   "n": 65,
   "rank": 65,
   "lemma": "bei",
@@ -910,7 +910,7 @@
   "case": "D"
  },
  {
-  "id": "core:0066",
+  "id": "core:r00066",
   "n": 66,
   "rank": 66,
   "lemma": "nach",
@@ -924,7 +924,7 @@
   "case": "D"
  },
  {
-  "id": "core:0067",
+  "id": "core:r00067",
   "n": 67,
   "rank": 67,
   "lemma": "nichts",
@@ -938,7 +938,7 @@
   "case": null
  },
  {
-  "id": "core:0068",
+  "id": "core:r00068",
   "n": 68,
   "rank": 68,
   "lemma": "denken",
@@ -952,7 +952,7 @@
   "case": "A"
  },
  {
-  "id": "core:0069",
+  "id": "core:r00069",
   "n": 69,
   "rank": 69,
   "lemma": "wo",
@@ -966,7 +966,7 @@
   "case": null
  },
  {
-  "id": "core:0070",
+  "id": "core:r00070",
   "n": 70,
   "rank": 70,
   "lemma": "etwas",
@@ -980,7 +980,7 @@
   "case": null
  },
  {
-  "id": "core:0071",
+  "id": "core:r00071",
   "n": 71,
   "rank": 71,
   "lemma": "also",
@@ -994,7 +994,7 @@
   "case": null
  },
  {
-  "id": "core:0072",
+  "id": "core:r00072",
   "n": 72,
   "rank": 72,
   "lemma": "Mann",
@@ -1008,21 +1008,21 @@
   "case": null
  },
  {
-  "id": "core:0073",
+  "id": "core:r00074",
   "n": 73,
   "rank": 74,
   "lemma": "bitte",
   "pos": "ADV",
   "display": "bitte",
   "gloss": "please; you're welcome",
-  "sentence": "Können Sie das bitte noch einmal wiederholen?",
+  "sentence": "Kannst du mir bitte kurz helfen?",
   "target": "bitte",
-  "en": "Could you repeat that once more, please?",
+  "en": "Can you help me for a moment, please?",
   "note": "Bitte! = You're welcome! Wie bitte? = Pardon?",
   "case": null
  },
  {
-  "id": "core:0074",
+  "id": "core:r00075",
   "n": 74,
   "rank": 75,
   "lemma": "immer",
@@ -1036,7 +1036,7 @@
   "case": null
  },
  {
-  "id": "core:0075",
+  "id": "core:r00076",
   "n": 75,
   "rank": 76,
   "lemma": "ganz",
@@ -1050,7 +1050,7 @@
   "case": null
  },
  {
-  "id": "core:0076",
+  "id": "core:r00077",
   "n": 76,
   "rank": 77,
   "lemma": "unser",
@@ -1064,7 +1064,7 @@
   "case": null
  },
  {
-  "id": "core:0077",
+  "id": "core:r00078",
   "n": 77,
   "rank": 78,
   "lemma": "warum",
@@ -1078,7 +1078,7 @@
   "case": null
  },
  {
-  "id": "core:0078",
+  "id": "core:r00079",
   "n": 78,
   "rank": 79,
   "lemma": "vor",
@@ -1092,7 +1092,7 @@
   "case": "D"
  },
  {
-  "id": "core:0079",
+  "id": "core:r00080",
   "n": 79,
   "rank": 80,
   "lemma": "los",
@@ -1106,7 +1106,7 @@
   "case": null
  },
  {
-  "id": "core:0080",
+  "id": "core:r00081",
   "n": 80,
   "rank": 81,
   "lemma": "wieder",
@@ -1120,7 +1120,7 @@
   "case": null
  },
  {
-  "id": "core:0081",
+  "id": "core:r00082",
   "n": 81,
   "rank": 82,
   "lemma": "hören",
@@ -1134,7 +1134,7 @@
   "case": null
  },
  {
-  "id": "core:0082",
+  "id": "core:r00083",
   "n": 82,
   "rank": 83,
   "lemma": "danke",
@@ -1148,7 +1148,7 @@
   "case": "A"
  },
  {
-  "id": "core:0083",
+  "id": "core:r00084",
   "n": 83,
   "rank": 84,
   "lemma": "glauben",
@@ -1162,7 +1162,7 @@
   "case": null
  },
  {
-  "id": "core:0084",
+  "id": "core:r00085",
   "n": 84,
   "rank": 85,
   "lemma": "sehr",
@@ -1176,7 +1176,7 @@
   "case": null
  },
  {
-  "id": "core:0085",
+  "id": "core:r00086",
   "n": 85,
   "rank": 86,
   "lemma": "denn",
@@ -1190,7 +1190,7 @@
   "case": null
  },
  {
-  "id": "core:0086",
+  "id": "core:r00087",
   "n": 86,
   "rank": 87,
   "lemma": "finden",
@@ -1204,7 +1204,7 @@
   "case": null
  },
  {
-  "id": "core:0087",
+  "id": "core:r00088",
   "n": 87,
   "rank": 88,
   "lemma": "vielleicht",
@@ -1218,7 +1218,7 @@
   "case": null
  },
  {
-  "id": "core:0088",
+  "id": "core:r00089",
   "n": 88,
   "rank": 89,
   "lemma": "wer",
@@ -1232,7 +1232,7 @@
   "case": null
  },
  {
-  "id": "core:0089",
+  "id": "core:r00090",
   "n": 89,
   "rank": 90,
   "lemma": "leben",
@@ -1246,7 +1246,7 @@
   "case": null
  },
  {
-  "id": "core:0090",
+  "id": "core:r00091",
   "n": 90,
   "rank": 91,
   "lemma": "über",
@@ -1260,7 +1260,7 @@
   "case": "A"
  },
  {
-  "id": "core:0091",
+  "id": "core:r00092",
   "n": 91,
   "rank": 92,
   "lemma": "anderer",
@@ -1274,7 +1274,7 @@
   "case": null
  },
  {
-  "id": "core:0092",
+  "id": "core:r00093",
   "n": 92,
   "rank": 93,
   "lemma": "brauchen",
@@ -1288,7 +1288,7 @@
   "case": null
  },
  {
-  "id": "core:0093",
+  "id": "core:r00094",
   "n": 93,
   "rank": 94,
   "lemma": "wirklich",
@@ -1302,7 +1302,7 @@
   "case": null
  },
  {
-  "id": "core:0094",
+  "id": "core:r00095",
   "n": 94,
   "rank": 95,
   "lemma": "nie",
@@ -1316,7 +1316,7 @@
   "case": null
  },
  {
-  "id": "core:0095",
+  "id": "core:r00096",
   "n": 95,
   "rank": 96,
   "lemma": "nehmen",
@@ -1330,7 +1330,7 @@
   "case": null
  },
  {
-  "id": "core:0096",
+  "id": "core:r00097",
   "n": 96,
   "rank": 97,
   "lemma": "Frau",
@@ -1344,7 +1344,7 @@
   "case": null
  },
  {
-  "id": "core:0097",
+  "id": "core:r00098",
   "n": 97,
   "rank": 98,
   "lemma": "einfach",
@@ -1358,7 +1358,7 @@
   "case": null
  },
  {
-  "id": "core:0098",
+  "id": "core:r00099",
   "n": 98,
   "rank": 99,
   "lemma": "weg",
@@ -1372,7 +1372,7 @@
   "case": null
  },
  {
-  "id": "core:0099",
+  "id": "core:r00100",
   "n": 99,
   "rank": 100,
   "lemma": "Zeit",
@@ -1386,7 +1386,7 @@
   "case": null
  },
  {
-  "id": "core:0100",
+  "id": "core:r00101",
   "n": 100,
   "rank": 101,
   "lemma": "weil",

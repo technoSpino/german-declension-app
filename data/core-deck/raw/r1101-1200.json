@@ -465,9 +465,9 @@
   "pos": "ADJ",
   "display": "teuer · teurer · am teuersten",
   "gloss": "expensive",
-  "sentence": "Die Mieten in unserer Stadt sind sehr teuer.",
+  "sentence": "Die Wohnungen in unserer Stadt sind sehr teuer.",
   "target": "teuer",
-  "en": "Rents in our city are very expensive.",
+  "en": "Flats in our city are very expensive.",
   "note": "mit Endung ohne e: eine teure Wohnung",
   "case": null
  },

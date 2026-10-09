@@ -165,7 +165,15 @@
  },
  {
   "rank": 516,
-  "skip": "Duplikat: arm (Formen arme/armen)"
+  "lemma": "Arm",
+  "pos": "NOUN",
+  "display": "der Arm · die Arme",
+  "gloss": "arm",
+  "sentence": "Ich bin gestern hingefallen, und jetzt tut mir der Arm weh.",
+  "target": "Arm",
+  "en": "I fell over yesterday, and now my arm hurts.",
+  "note": "Achtung: der Arm (Körper) – arm (Adjektiv) = poor",
+  "case": null
  },
  {
   "rank": 517,
@@ -309,7 +317,15 @@
  },
  {
   "rank": 530,
-  "skip": "Duplikat: suchen"
+  "lemma": "Suche",
+  "pos": "NOUN",
+  "display": "die Suche · die Suchen",
+  "gloss": "search",
+  "sentence": "Die Suche nach einer bezahlbaren Wohnung dauert in Berlin oft Monate.",
+  "target": "Suche",
+  "en": "The search for an affordable flat in Berlin often takes months.",
+  "note": "die Suche nach + Dativ; auf der Suche sein = be looking for",
+  "case": "D"
  },
  {
   "rank": 531,
@@ -681,9 +697,9 @@
   "pos": "NOUN",
   "display": "das Licht · die Lichter",
   "gloss": "light",
-  "sentence": "Kannst du bitte das Licht im Flur ausmachen?",
+  "sentence": "Mach bitte das Licht an, ich sehe gar nichts.",
   "target": "Licht",
-  "en": "Can you turn off the light in the hallway, please?",
+  "en": "Please turn on the light, I can't see a thing.",
   "note": "das Licht anmachen / ausmachen",
   "case": null
  },

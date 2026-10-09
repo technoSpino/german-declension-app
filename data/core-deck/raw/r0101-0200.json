@@ -53,9 +53,9 @@
     "pos": "ADV",
     "display": "heute",
     "gloss": "today",
-    "sentence": "Was gibt es heute zum Mittagessen?",
-    "target": "heute",
-    "en": "What's for lunch today?",
+    "sentence": "Heute habe ich frei, aber morgen muss ich wieder arbeiten.",
+    "target": "Heute",
+    "en": "I'm off today, but tomorrow I have to work again.",
     "note": null,
     "case": null
   },
@@ -515,7 +515,7 @@
     "gloss": "right now; just; straight",
     "sentence": "Ich kann jetzt nicht telefonieren, ich koche gerade.",
     "target": "gerade",
-    "en": "I can't talk on the phone now, I'm cooking.",
+    "en": "I can't talk on the phone now, I'm in the middle of cooking.",
     "note": null,
     "case": null
   },
@@ -885,9 +885,9 @@
     "pos": "ADJ",
     "display": "spät · später · am spätesten",
     "gloss": "late",
-    "sentence": "Entschuldigung, wie spät ist es gerade?",
+    "sentence": "Entschuldigung, wie spät ist es?",
     "target": "spät",
-    "en": "Excuse me, what time is it now?",
+    "en": "Excuse me, what time is it?",
     "note": "Wie spät ist es? = What time is it?",
     "case": null
   },
@@ -984,7 +984,7 @@
     "sentence": "Wo habt ihr euer Auto geparkt?",
     "target": "euer",
     "en": "Where did you park your car?",
-    "note": "mit Endung ohne e: eure Wohnung",
+    "note": "mit Endung fällt das e weg: eure Wohnung, euren Hund",
     "case": null
   },
   {

@@ -11,6 +11,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M4 Kernwortschatz + Karten → http://100.64.43.3:5173/karten
 - [ ] M5 Heute + Wochen 1–4
 - [ ] M6 Extras
+- [x] M7 Kerndeck-Korrektur (vorgezogen)
 
 ## Betrieb
 
@@ -74,3 +75,9 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - FSRS (Python `fsrs` 6.3, Ziel 90 % behalten) komplett auf dem Server, Zustand in SQLite. Tag wechselt um Mitternacht Berliner Zeit. Nach 4× „Nochmal“ wird eine Karte pausiert.
 - Tests: Frontend 74 ✅ · Backend 121 ✅ (Unit 60, API 38, Content 23) · E2E 5 ✅.
 - Bekannt: 8 doppelte Beispielsätze und ein paar wichtige Nomen, die wegen eines (behobenen) Skriptfehlers fehlen (der Arm, die Rede, die Suche) → M7.
+
+### M7 Kerndeck-Korrektur ✅ (vorgezogen, lief parallel zu M5)
+- Zweiter Durchgang über alle 26 Rohdateien durch 8 Korrektur-Agenten: **46 Karten korrigiert** (u. a. Kasus-Badges, „ertönen · hat ertönt“, unidiomatische Sätze wie „Magie können“, „Die Mieten sind teuer“ → „hoch/Wohnungen teuer“), alle 8 doppelten Sätze ersetzt.
+- **16 fehlende Wörter ergänzt:** der Arm, die Rede, der Ruf, die Suche, die Wette, der Schlag, der Brauch, der Griff, das Leck, rein (pur), meiste, der Roboter, der Teller, das Medikament, das Geräusch, heilen. Deck jetzt **2.201 Karten**.
+- Karten-IDs hängen jetzt am Frequenzrang (`core:r00211`) statt an der Position → neue Karten verschieben nie den Lernstand.
+- Neue Tests: keine doppelten Sätze, IDs = Rang.

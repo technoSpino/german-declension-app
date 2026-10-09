@@ -1,7 +1,91 @@
 [
  {
-  "id": "core:0901",
+  "id": "core:r00977",
   "n": 901,
+  "rank": 977,
+  "lemma": "Richter",
+  "pos": "NOUN",
+  "display": "der Richter · die Richter",
+  "gloss": "judge",
+  "sentence": "Der Richter hat das Urteil am Freitag verkündet.",
+  "target": "Richter",
+  "en": "The judge announced the verdict on Friday.",
+  "note": "weiblich: die Richterin",
+  "case": null
+ },
+ {
+  "id": "core:r00978",
+  "n": 902,
+  "rank": 978,
+  "lemma": "besorgt",
+  "pos": "ADJ",
+  "display": "besorgt",
+  "gloss": "worried, concerned",
+  "sentence": "Meine Mutter ist besorgt, weil ich so viel arbeite.",
+  "target": "besorgt",
+  "en": "My mother is worried because I work so much.",
+  "note": "besorgt sein um + Akk.",
+  "case": null
+ },
+ {
+  "id": "core:r00979",
+  "n": 903,
+  "rank": 979,
+  "lemma": "Küche",
+  "pos": "NOUN",
+  "display": "die Küche · die Küchen",
+  "gloss": "kitchen; cuisine",
+  "sentence": "Die neue Wohnung hat eine schöne, große Küche.",
+  "target": "Küche",
+  "en": "The new flat has a nice, big kitchen.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r00980",
+  "n": 904,
+  "rank": 980,
+  "lemma": "verantwortlich",
+  "pos": "ADJ",
+  "display": "verantwortlich",
+  "gloss": "responsible",
+  "sentence": "Wer ist bei Ihnen für die Buchhaltung verantwortlich?",
+  "target": "verantwortlich",
+  "en": "Who is responsible for accounting at your company?",
+  "note": "verantwortlich für + Akk.",
+  "case": "A"
+ },
+ {
+  "id": "core:r00981",
+  "n": 905,
+  "rank": 981,
+  "lemma": "verbinden",
+  "pos": "VERB",
+  "display": "verbinden · verband · hat verbunden",
+  "gloss": "to connect; to put through (phone)",
+  "sentence": "Einen Moment, ich verbinde Sie mit meinem Kollegen.",
+  "target": "verbinde",
+  "en": "One moment, I'll put you through to my colleague.",
+  "note": "am Telefon: jemanden mit jemandem verbinden; mit + Dativ",
+  "case": "D"
+ },
+ {
+  "id": "core:r00983",
+  "n": 906,
+  "rank": 983,
+  "lemma": "Fisch",
+  "pos": "NOUN",
+  "display": "der Fisch · die Fische",
+  "gloss": "fish",
+  "sentence": "Freitags gibt es in der Kantine immer Fisch.",
+  "target": "Fisch",
+  "en": "On Fridays there is always fish in the canteen.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r00984",
+  "n": 907,
   "rank": 984,
   "lemma": "Königin",
   "pos": "NOUN",
@@ -14,8 +98,8 @@
   "case": null
  },
  {
-  "id": "core:0902",
-  "n": 902,
+  "id": "core:r00985",
+  "n": 908,
   "rank": 985,
   "lemma": "allerdings",
   "pos": "ADV",
@@ -28,8 +112,8 @@
   "case": null
  },
  {
-  "id": "core:0903",
-  "n": 903,
+  "id": "core:r00986",
+  "n": 909,
   "rank": 986,
   "lemma": "soweit",
   "pos": "SCONJ",
@@ -42,8 +126,8 @@
   "case": null
  },
  {
-  "id": "core:0904",
-  "n": 904,
+  "id": "core:r00988",
+  "n": 910,
   "rank": 988,
   "lemma": "Bord",
   "pos": "NOUN",
@@ -56,8 +140,8 @@
   "case": null
  },
  {
-  "id": "core:0905",
-  "n": 905,
+  "id": "core:r00989",
+  "n": 911,
   "rank": 989,
   "lemma": "verhalten",
   "pos": "VERB",
@@ -70,8 +154,8 @@
   "case": null
  },
  {
-  "id": "core:0906",
-  "n": 906,
+  "id": "core:r00991",
+  "n": 912,
   "rank": 991,
   "lemma": "Mission",
   "pos": "NOUN",
@@ -84,8 +168,8 @@
   "case": null
  },
  {
-  "id": "core:0907",
-  "n": 907,
+  "id": "core:r00993",
+  "n": 913,
   "rank": 993,
   "lemma": "worauf",
   "pos": "ADV",
@@ -98,8 +182,8 @@
   "case": null
  },
  {
-  "id": "core:0908",
-  "n": 908,
+  "id": "core:r00994",
+  "n": 914,
   "rank": 994,
   "lemma": "Kamera",
   "pos": "NOUN",
@@ -112,8 +196,8 @@
   "case": null
  },
  {
-  "id": "core:0909",
-  "n": 909,
+  "id": "core:r00995",
+  "n": 915,
   "rank": 995,
   "lemma": "Achtung",
   "pos": "NOUN",
@@ -126,8 +210,8 @@
   "case": null
  },
  {
-  "id": "core:0910",
-  "n": 910,
+  "id": "core:r00997",
+  "n": 916,
   "rank": 997,
   "lemma": "ähnlich",
   "pos": "ADJ",
@@ -140,8 +224,8 @@
   "case": "D"
  },
  {
-  "id": "core:0911",
-  "n": 911,
+  "id": "core:r00998",
+  "n": 917,
   "rank": 998,
   "lemma": "Schuh",
   "pos": "NOUN",
@@ -154,8 +238,8 @@
   "case": null
  },
  {
-  "id": "core:0912",
-  "n": 912,
+  "id": "core:r00999",
+  "n": 918,
   "rank": 999,
   "lemma": "Glückwunsch",
   "pos": "NOUN",
@@ -168,8 +252,8 @@
   "case": "D"
  },
  {
-  "id": "core:0913",
-  "n": 913,
+  "id": "core:r01000",
+  "n": 919,
   "rank": 1000,
   "lemma": "unschuldig",
   "pos": "ADJ",
@@ -182,8 +266,8 @@
   "case": null
  },
  {
-  "id": "core:0914",
-  "n": 914,
+  "id": "core:r01001",
+  "n": 920,
   "rank": 1001,
   "lemma": "statt",
   "pos": "ADP",
@@ -196,8 +280,8 @@
   "case": "G"
  },
  {
-  "id": "core:0915",
-  "n": 915,
+  "id": "core:r01002",
+  "n": 921,
   "rank": 1002,
   "lemma": "Interesse",
   "pos": "NOUN",
@@ -210,8 +294,8 @@
   "case": "D"
  },
  {
-  "id": "core:0916",
-  "n": 916,
+  "id": "core:r01003",
+  "n": 922,
   "rank": 1003,
   "lemma": "kochen",
   "pos": "VERB",
@@ -224,8 +308,8 @@
   "case": null
  },
  {
-  "id": "core:0917",
-  "n": 917,
+  "id": "core:r01004",
+  "n": 923,
   "rank": 1004,
   "lemma": "auftauchen",
   "pos": "VERB",
@@ -238,8 +322,8 @@
   "case": null
  },
  {
-  "id": "core:0918",
-  "n": 918,
+  "id": "core:r01005",
+  "n": 924,
   "rank": 1005,
   "lemma": "Gegend",
   "pos": "NOUN",
@@ -252,8 +336,8 @@
   "case": null
  },
  {
-  "id": "core:0919",
-  "n": 919,
+  "id": "core:r01006",
+  "n": 925,
   "rank": 1006,
   "lemma": "lächerlich",
   "pos": "ADJ",
@@ -266,8 +350,8 @@
   "case": null
  },
  {
-  "id": "core:0920",
-  "n": 920,
+  "id": "core:r01007",
+  "n": 926,
   "rank": 1007,
   "lemma": "gelten",
   "pos": "VERB",
@@ -280,8 +364,8 @@
   "case": null
  },
  {
-  "id": "core:0921",
-  "n": 921,
+  "id": "core:r01008",
+  "n": 927,
   "rank": 1008,
   "lemma": "klauen",
   "pos": "VERB",
@@ -294,8 +378,8 @@
   "case": null
  },
  {
-  "id": "core:0922",
-  "n": 922,
+  "id": "core:r01009",
+  "n": 928,
   "rank": 1009,
   "lemma": "entkommen",
   "pos": "VERB",
@@ -308,8 +392,8 @@
   "case": "D"
  },
  {
-  "id": "core:0923",
-  "n": 923,
+  "id": "core:r01010",
+  "n": 929,
   "rank": 1010,
   "lemma": "weiß",
   "pos": "ADJ",
@@ -322,8 +406,8 @@
   "case": null
  },
  {
-  "id": "core:0924",
-  "n": 924,
+  "id": "core:r01011",
+  "n": 930,
   "rank": 1011,
   "lemma": "Position",
   "pos": "NOUN",
@@ -336,8 +420,8 @@
   "case": null
  },
  {
-  "id": "core:0925",
-  "n": 925,
+  "id": "core:r01012",
+  "n": 931,
   "rank": 1012,
   "lemma": "rauchen",
   "pos": "VERB",
@@ -350,8 +434,8 @@
   "case": null
  },
  {
-  "id": "core:0926",
-  "n": 926,
+  "id": "core:r01013",
+  "n": 932,
   "rank": 1013,
   "lemma": "Glas",
   "pos": "NOUN",
@@ -364,8 +448,8 @@
   "case": null
  },
  {
-  "id": "core:0927",
-  "n": 927,
+  "id": "core:r01014",
+  "n": 933,
   "rank": 1014,
   "lemma": "beeilen",
   "pos": "VERB",
@@ -378,36 +462,36 @@
   "case": null
  },
  {
-  "id": "core:0928",
-  "n": 928,
+  "id": "core:r01015",
+  "n": 934,
   "rank": 1015,
   "lemma": "packen",
   "pos": "VERB",
   "display": "packen · hat gepackt",
   "gloss": "to pack; to manage (colloquial)",
-  "sentence": "Hast du deinen Koffer schon gepackt?",
-  "target": "gepackt",
-  "en": "Have you packed your suitcase yet?",
+  "sentence": "Ich muss heute Abend noch meine Tasche für die Reise packen.",
+  "target": "packen",
+  "en": "I still have to pack my bag for the trip this evening.",
   "note": "umgangssprachlich auch: schaffen (Das packe ich!)",
   "case": null
  },
  {
-  "id": "core:0929",
-  "n": 929,
+  "id": "core:r01016",
+  "n": 935,
   "rank": 1016,
   "lemma": "herein",
   "pos": "ADV",
   "display": "herein",
   "gloss": "in (towards the speaker)",
-  "sentence": "Kommen Sie doch herein, draußen ist es kalt.",
+  "sentence": "Kommen Sie doch herein und nehmen Sie Platz!",
   "target": "herein",
-  "en": "Do come in, it's cold outside.",
+  "en": "Do come in and take a seat!",
   "note": "Herein! = Kommen Sie rein! (umgangssprachlich: rein)",
   "case": null
  },
  {
-  "id": "core:0930",
-  "n": 930,
+  "id": "core:r01017",
+  "n": 936,
   "rank": 1017,
   "lemma": "Kleid",
   "pos": "NOUN",
@@ -420,8 +504,8 @@
   "case": null
  },
  {
-  "id": "core:0931",
-  "n": 931,
+  "id": "core:r01018",
+  "n": 937,
   "rank": 1018,
   "lemma": "Kunde",
   "pos": "NOUN",
@@ -434,8 +518,8 @@
   "case": null
  },
  {
-  "id": "core:0932",
-  "n": 932,
+  "id": "core:r01019",
+  "n": 938,
   "rank": 1019,
   "lemma": "jawohl",
   "pos": "ADV",
@@ -448,8 +532,8 @@
   "case": null
  },
  {
-  "id": "core:0933",
-  "n": 933,
+  "id": "core:r01021",
+  "n": 939,
   "rank": 1021,
   "lemma": "Abendessen",
   "pos": "NOUN",
@@ -462,8 +546,8 @@
   "case": null
  },
  {
-  "id": "core:0934",
-  "n": 934,
+  "id": "core:r01022",
+  "n": 940,
   "rank": 1022,
   "lemma": "behaupten",
   "pos": "VERB",
@@ -476,8 +560,8 @@
   "case": null
  },
  {
-  "id": "core:0935",
-  "n": 935,
+  "id": "core:r01023",
+  "n": 941,
   "rank": 1023,
   "lemma": "schreien",
   "pos": "VERB",
@@ -490,8 +574,8 @@
   "case": null
  },
  {
-  "id": "core:0936",
-  "n": 936,
+  "id": "core:r01024",
+  "n": 942,
   "rank": 1024,
   "lemma": "springen",
   "pos": "VERB",
@@ -504,8 +588,8 @@
   "case": null
  },
  {
-  "id": "core:0937",
-  "n": 937,
+  "id": "core:r01025",
+  "n": 943,
   "rank": 1025,
   "lemma": "gucken",
   "pos": "VERB",
@@ -518,8 +602,8 @@
   "case": null
  },
  {
-  "id": "core:0938",
-  "n": 938,
+  "id": "core:r01026",
+  "n": 944,
   "rank": 1026,
   "lemma": "Band",
   "pos": "NOUN",
@@ -532,8 +616,8 @@
   "case": null
  },
  {
-  "id": "core:0939",
-  "n": 939,
+  "id": "core:r01027",
+  "n": 945,
   "rank": 1027,
   "lemma": "ungefähr",
   "pos": "ADV",
@@ -546,8 +630,8 @@
   "case": null
  },
  {
-  "id": "core:0940",
-  "n": 940,
+  "id": "core:r01028",
+  "n": 946,
   "rank": 1028,
   "lemma": "Aufgabe",
   "pos": "NOUN",
@@ -560,8 +644,8 @@
   "case": null
  },
  {
-  "id": "core:0941",
-  "n": 941,
+  "id": "core:r01029",
+  "n": 947,
   "rank": 1029,
   "lemma": "trauen",
   "pos": "VERB",
@@ -574,8 +658,8 @@
   "case": null
  },
  {
-  "id": "core:0942",
-  "n": 942,
+  "id": "core:r01030",
+  "n": 948,
   "rank": 1030,
   "lemma": "drinnen",
   "pos": "ADV",
@@ -588,8 +672,8 @@
   "case": null
  },
  {
-  "id": "core:0943",
-  "n": 943,
+  "id": "core:r01031",
+  "n": 949,
   "rank": 1031,
   "lemma": "zuvor",
   "pos": "ADV",
@@ -602,8 +686,8 @@
   "case": null
  },
  {
-  "id": "core:0944",
-  "n": 944,
+  "id": "core:r01033",
+  "n": 950,
   "rank": 1033,
   "lemma": "streiten",
   "pos": "VERB",
@@ -616,8 +700,8 @@
   "case": null
  },
  {
-  "id": "core:0945",
-  "n": 945,
+  "id": "core:r01034",
+  "n": 951,
   "rank": 1034,
   "lemma": "heilig",
   "pos": "ADJ",
@@ -630,8 +714,8 @@
   "case": null
  },
  {
-  "id": "core:0946",
-  "n": 946,
+  "id": "core:r01035",
+  "n": 952,
   "rank": 1035,
   "lemma": "Erfolg",
   "pos": "NOUN",
@@ -644,8 +728,8 @@
   "case": null
  },
  {
-  "id": "core:0947",
-  "n": 947,
+  "id": "core:r01036",
+  "n": 953,
   "rank": 1036,
   "lemma": "mitnehmen",
   "pos": "VERB",
@@ -658,8 +742,8 @@
   "case": null
  },
  {
-  "id": "core:0948",
-  "n": 948,
+  "id": "core:r01037",
+  "n": 954,
   "rank": 1037,
   "lemma": "fliehen",
   "pos": "VERB",
@@ -672,8 +756,8 @@
   "case": "D"
  },
  {
-  "id": "core:0949",
-  "n": 949,
+  "id": "core:r01038",
+  "n": 955,
   "rank": 1038,
   "lemma": "Spur",
   "pos": "NOUN",
@@ -686,8 +770,8 @@
   "case": null
  },
  {
-  "id": "core:0950",
-  "n": 950,
+  "id": "core:r01039",
+  "n": 956,
   "rank": 1039,
   "lemma": "Messer",
   "pos": "NOUN",
@@ -700,8 +784,8 @@
   "case": null
  },
  {
-  "id": "core:0951",
-  "n": 951,
+  "id": "core:r01041",
+  "n": 957,
   "rank": 1041,
   "lemma": "Angebot",
   "pos": "NOUN",
@@ -714,8 +798,8 @@
   "case": null
  },
  {
-  "id": "core:0952",
-  "n": 952,
+  "id": "core:r01042",
+  "n": 958,
   "rank": 1042,
   "lemma": "Freude",
   "pos": "NOUN",
@@ -728,8 +812,8 @@
   "case": null
  },
  {
-  "id": "core:0953",
-  "n": 953,
+  "id": "core:r01043",
+  "n": 959,
   "rank": 1043,
   "lemma": "Respekt",
   "pos": "NOUN",
@@ -742,8 +826,8 @@
   "case": "D"
  },
  {
-  "id": "core:0954",
-  "n": 954,
+  "id": "core:r01044",
+  "n": 960,
   "rank": 1044,
   "lemma": "Ehemann",
   "pos": "NOUN",
@@ -756,8 +840,8 @@
   "case": null
  },
  {
-  "id": "core:0955",
-  "n": 955,
+  "id": "core:r01045",
+  "n": 961,
   "rank": 1045,
   "lemma": "Schwein",
   "pos": "NOUN",
@@ -770,8 +854,8 @@
   "case": null
  },
  {
-  "id": "core:0956",
-  "n": 956,
+  "id": "core:r01046",
+  "n": 962,
   "rank": 1046,
   "lemma": "Monster",
   "pos": "NOUN",
@@ -784,8 +868,22 @@
   "case": null
  },
  {
-  "id": "core:0957",
-  "n": 957,
+  "id": "core:r01048",
+  "n": 963,
+  "rank": 1048,
+  "lemma": "Brauch",
+  "pos": "NOUN",
+  "display": "der Brauch · die Bräuche",
+  "gloss": "custom, tradition",
+  "sentence": "Zu Ostern bemalen wir Eier, das ist bei uns ein alter Brauch.",
+  "target": "Brauch",
+  "en": "At Easter we paint eggs; that's an old custom in our family.",
+  "note": "Achtung: „ich brauch“ (umgangssprachlich) = ich brauche, von brauchen",
+  "case": null
+ },
+ {
+  "id": "core:r01049",
+  "n": 964,
   "rank": 1049,
   "lemma": "vorne",
   "pos": "ADV",
@@ -798,8 +896,8 @@
   "case": null
  },
  {
-  "id": "core:0958",
-  "n": 958,
+  "id": "core:r01051",
+  "n": 965,
   "rank": 1051,
   "lemma": "Adresse",
   "pos": "NOUN",
@@ -812,8 +910,8 @@
   "case": null
  },
  {
-  "id": "core:0959",
-  "n": 959,
+  "id": "core:r01052",
+  "n": 966,
   "rank": 1052,
   "lemma": "Unsinn",
   "pos": "NOUN",
@@ -826,8 +924,8 @@
   "case": null
  },
  {
-  "id": "core:0960",
-  "n": 960,
+  "id": "core:r01053",
+  "n": 967,
   "rank": 1053,
   "lemma": "decken",
   "pos": "VERB",
@@ -840,8 +938,8 @@
   "case": null
  },
  {
-  "id": "core:0961",
-  "n": 961,
+  "id": "core:r01054",
+  "n": 968,
   "rank": 1054,
   "lemma": "pro",
   "pos": "ADP",
@@ -854,8 +952,8 @@
   "case": "A"
  },
  {
-  "id": "core:0962",
-  "n": 962,
+  "id": "core:r01055",
+  "n": 969,
   "rank": 1055,
   "lemma": "klappen",
   "pos": "VERB",
@@ -868,8 +966,8 @@
   "case": null
  },
  {
-  "id": "core:0963",
-  "n": 963,
+  "id": "core:r01056",
+  "n": 970,
   "rank": 1056,
   "lemma": "unterschreiben",
   "pos": "VERB",
@@ -882,8 +980,8 @@
   "case": null
  },
  {
-  "id": "core:0964",
-  "n": 964,
+  "id": "core:r01057",
+  "n": 971,
   "rank": 1057,
   "lemma": "davor",
   "pos": "ADV",
@@ -896,8 +994,8 @@
   "case": null
  },
  {
-  "id": "core:0965",
-  "n": 965,
+  "id": "core:r01058",
+  "n": 972,
   "rank": 1058,
   "lemma": "Feind",
   "pos": "NOUN",
@@ -910,8 +1008,8 @@
   "case": null
  },
  {
-  "id": "core:0966",
-  "n": 966,
+  "id": "core:r01059",
+  "n": 973,
   "rank": 1059,
   "lemma": "richten",
   "pos": "VERB",
@@ -924,8 +1022,8 @@
   "case": null
  },
  {
-  "id": "core:0967",
-  "n": 967,
+  "id": "core:r01060",
+  "n": 974,
   "rank": 1060,
   "lemma": "dienen",
   "pos": "VERB",
@@ -938,8 +1036,8 @@
   "case": null
  },
  {
-  "id": "core:0968",
-  "n": 968,
+  "id": "core:r01061",
+  "n": 975,
   "rank": 1061,
   "lemma": "unterhalten",
   "pos": "VERB",
@@ -952,8 +1050,8 @@
   "case": null
  },
  {
-  "id": "core:0969",
-  "n": 969,
+  "id": "core:r01062",
+  "n": 976,
   "rank": 1062,
   "lemma": "Ball",
   "pos": "NOUN",
@@ -966,8 +1064,8 @@
   "case": null
  },
  {
-  "id": "core:0970",
-  "n": 970,
+  "id": "core:r01063",
+  "n": 977,
   "rank": 1063,
   "lemma": "untersuchen",
   "pos": "VERB",
@@ -980,8 +1078,8 @@
   "case": null
  },
  {
-  "id": "core:0971",
-  "n": 971,
+  "id": "core:r01064",
+  "n": 978,
   "rank": 1064,
   "lemma": "warnen",
   "pos": "VERB",
@@ -994,8 +1092,8 @@
   "case": "D"
  },
  {
-  "id": "core:0972",
-  "n": 972,
+  "id": "core:r01065",
+  "n": 979,
   "rank": 1065,
   "lemma": "wiederholen",
   "pos": "VERB",
@@ -1008,8 +1106,8 @@
   "case": null
  },
  {
-  "id": "core:0973",
-  "n": 973,
+  "id": "core:r01066",
+  "n": 980,
   "rank": 1066,
   "lemma": "Schwierigkeit",
   "pos": "NOUN",
@@ -1022,8 +1120,8 @@
   "case": null
  },
  {
-  "id": "core:0974",
-  "n": 974,
+  "id": "core:r01067",
+  "n": 981,
   "rank": 1067,
   "lemma": "Hälfte",
   "pos": "NOUN",
@@ -1036,8 +1134,8 @@
   "case": null
  },
  {
-  "id": "core:0975",
-  "n": 975,
+  "id": "core:r01068",
+  "n": 982,
   "rank": 1068,
   "lemma": "bestellen",
   "pos": "VERB",
@@ -1050,8 +1148,8 @@
   "case": null
  },
  {
-  "id": "core:0976",
-  "n": 976,
+  "id": "core:r01069",
+  "n": 983,
   "rank": 1069,
   "lemma": "Papier",
   "pos": "NOUN",
@@ -1064,8 +1162,8 @@
   "case": null
  },
  {
-  "id": "core:0977",
-  "n": 977,
+  "id": "core:r01070",
+  "n": 984,
   "rank": 1070,
   "lemma": "brennen",
   "pos": "VERB",
@@ -1078,8 +1176,8 @@
   "case": null
  },
  {
-  "id": "core:0978",
-  "n": 978,
+  "id": "core:r01071",
+  "n": 985,
   "rank": 1071,
   "lemma": "Planet",
   "pos": "NOUN",
@@ -1092,8 +1190,8 @@
   "case": null
  },
  {
-  "id": "core:0979",
-  "n": 979,
+  "id": "core:r01072",
+  "n": 986,
   "rank": 1072,
   "lemma": "schwanger",
   "pos": "ADJ",
@@ -1106,22 +1204,22 @@
   "case": null
  },
  {
-  "id": "core:0980",
-  "n": 980,
+  "id": "core:r01073",
+  "n": 987,
   "rank": 1073,
   "lemma": "herzlich",
   "pos": "ADJ",
   "display": "herzlich",
   "gloss": "warm, cordial",
-  "sentence": "Herzlich willkommen in unserer neuen Wohnung!",
-  "target": "Herzlich",
-  "en": "A warm welcome to our new flat!",
+  "sentence": "Vielen Dank für die herzliche Einladung!",
+  "target": "herzliche",
+  "en": "Thank you very much for the kind invitation!",
   "note": "Herzlichen Glückwunsch! / Herzliche Grüße",
   "case": null
  },
  {
-  "id": "core:0981",
-  "n": 981,
+  "id": "core:r01074",
+  "n": 988,
   "rank": 1074,
   "lemma": "lächeln",
   "pos": "VERB",
@@ -1134,8 +1232,8 @@
   "case": null
  },
  {
-  "id": "core:0982",
-  "n": 982,
+  "id": "core:r01075",
+  "n": 989,
   "rank": 1075,
   "lemma": "wild",
   "pos": "ADJ",
@@ -1148,8 +1246,8 @@
   "case": null
  },
  {
-  "id": "core:0983",
-  "n": 983,
+  "id": "core:r01076",
+  "n": 990,
   "rank": 1076,
   "lemma": "Kollege",
   "pos": "NOUN",
@@ -1162,8 +1260,8 @@
   "case": null
  },
  {
-  "id": "core:0984",
-  "n": 984,
+  "id": "core:r01077",
+  "n": 991,
   "rank": 1077,
   "lemma": "Park",
   "pos": "NOUN",
@@ -1176,8 +1274,8 @@
   "case": null
  },
  {
-  "id": "core:0985",
-  "n": 985,
+  "id": "core:r01079",
+  "n": 992,
   "rank": 1079,
   "lemma": "Eis",
   "pos": "NOUN",
@@ -1190,8 +1288,8 @@
   "case": null
  },
  {
-  "id": "core:0986",
-  "n": 986,
+  "id": "core:r01080",
+  "n": 993,
   "rank": 1080,
   "lemma": "anziehen",
   "pos": "VERB",
@@ -1204,8 +1302,8 @@
   "case": null
  },
  {
-  "id": "core:0987",
-  "n": 987,
+  "id": "core:r01081",
+  "n": 994,
   "rank": 1081,
   "lemma": "derjenige",
   "pos": "PRON",
@@ -1218,8 +1316,8 @@
   "case": null
  },
  {
-  "id": "core:0988",
-  "n": 988,
+  "id": "core:r01082",
+  "n": 995,
   "rank": 1082,
   "lemma": "bemerken",
   "pos": "VERB",
@@ -1232,8 +1330,8 @@
   "case": null
  },
  {
-  "id": "core:0989",
-  "n": 989,
+  "id": "core:r01083",
+  "n": 996,
   "rank": 1083,
   "lemma": "zufrieden",
   "pos": "ADJ",
@@ -1246,8 +1344,8 @@
   "case": "D"
  },
  {
-  "id": "core:0990",
-  "n": 990,
+  "id": "core:r01084",
+  "n": 997,
   "rank": 1084,
   "lemma": "Wochenende",
   "pos": "NOUN",
@@ -1260,8 +1358,8 @@
   "case": null
  },
  {
-  "id": "core:0991",
-  "n": 991,
+  "id": "core:r01085",
+  "n": 998,
   "rank": 1085,
   "lemma": "worüber",
   "pos": "ADV",
@@ -1274,8 +1372,8 @@
   "case": null
  },
  {
-  "id": "core:0992",
-  "n": 992,
+  "id": "core:r01086",
+  "n": 999,
   "rank": 1086,
   "lemma": "Erfahrung",
   "pos": "NOUN",
@@ -1288,8 +1386,8 @@
   "case": null
  },
  {
-  "id": "core:0993",
-  "n": 993,
+  "id": "core:r01088",
+  "n": 1000,
   "rank": 1088,
   "lemma": "System",
   "pos": "NOUN",
@@ -1298,104 +1396,6 @@
   "sentence": "Unser System ist heute Morgen abgestürzt, deshalb funktioniert nichts.",
   "target": "System",
   "en": "Our system crashed this morning, so nothing is working.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:0994",
-  "n": 994,
-  "rank": 1089,
-  "lemma": "Verbrechen",
-  "pos": "NOUN",
-  "display": "das Verbrechen · die Verbrechen",
-  "gloss": "crime",
-  "sentence": "In den Nachrichten haben sie über ein Verbrechen in unserer Stadt berichtet.",
-  "target": "Verbrechen",
-  "en": "On the news they reported on a crime in our town.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:0995",
-  "n": 995,
-  "rank": 1090,
-  "lemma": "verschieden",
-  "pos": "ADJ",
-  "display": "verschieden",
-  "gloss": "different, various",
-  "sentence": "Wir haben ganz verschiedene Meinungen zu diesem Thema.",
-  "target": "verschiedene",
-  "en": "We have very different opinions on this topic.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:0996",
-  "n": 996,
-  "rank": 1091,
-  "lemma": "mitkommen",
-  "pos": "VERB",
-  "display": "mitkommen · kam mit · ist mitgekommen",
-  "gloss": "to come along",
-  "sentence": "Wir gehen ins Kino. Willst du mitkommen?",
-  "target": "mitkommen",
-  "en": "We're going to the cinema. Do you want to come along?",
-  "note": "trennbar; Perfekt mit sein",
-  "case": null
- },
- {
-  "id": "core:0997",
-  "n": 997,
-  "rank": 1092,
-  "lemma": "bestätigen",
-  "pos": "VERB",
-  "display": "bestätigen · hat bestätigt",
-  "gloss": "to confirm",
-  "sentence": "Können Sie mir den Termin bitte per E-Mail bestätigen?",
-  "target": "bestätigen",
-  "en": "Could you please confirm the appointment by email?",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:0998",
-  "n": 998,
-  "rank": 1093,
-  "lemma": "zufällig",
-  "pos": "ADJ",
-  "display": "zufällig",
-  "gloss": "by chance; random",
-  "sentence": "Ich habe meine alte Lehrerin zufällig im Supermarkt getroffen.",
-  "target": "zufällig",
-  "en": "I happened to run into my old teacher in the supermarket.",
-  "note": "Hast du zufällig …? = Do you happen to have …?",
-  "case": null
- },
- {
-  "id": "core:0999",
-  "n": 999,
-  "rank": 1094,
-  "lemma": "klopfen",
-  "pos": "VERB",
-  "display": "klopfen · hat geklopft",
-  "gloss": "to knock",
-  "sentence": "Hat da gerade jemand an die Tür geklopft?",
-  "target": "geklopft",
-  "en": "Did someone just knock on the door?",
-  "note": "an die Tür klopfen (Wohin? → Akk.)",
-  "case": "A"
- },
- {
-  "id": "core:1000",
-  "n": 1000,
-  "rank": 1095,
-  "lemma": "Wind",
-  "pos": "NOUN",
-  "display": "der Wind · die Winde",
-  "gloss": "wind",
-  "sentence": "Morgen soll es viel Wind und Regen geben.",
-  "target": "Wind",
-  "en": "There's supposed to be a lot of wind and rain tomorrow.",
   "note": null,
   "case": null
  }

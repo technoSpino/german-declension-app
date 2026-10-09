@@ -1,6 +1,6 @@
 [
  {
-  "id": "core:0201",
+  "id": "core:r00203",
   "n": 201,
   "rank": 203,
   "lemma": "unter",
@@ -14,7 +14,7 @@
   "case": "D"
  },
  {
-  "id": "core:0202",
+  "id": "core:r00204",
   "n": 202,
   "rank": 204,
   "lemma": "vergessen",
@@ -28,7 +28,7 @@
   "case": null
  },
  {
-  "id": "core:0203",
+  "id": "core:r00205",
   "n": 203,
   "rank": 205,
   "lemma": "Angst",
@@ -42,7 +42,7 @@
   "case": "D"
  },
  {
-  "id": "core:0204",
+  "id": "core:r00206",
   "n": 204,
   "rank": 206,
   "lemma": "Herr",
@@ -56,7 +56,7 @@
   "case": null
  },
  {
-  "id": "core:0205",
+  "id": "core:r00207",
   "n": 205,
   "rank": 207,
   "lemma": "verlieren",
@@ -70,7 +70,7 @@
   "case": null
  },
  {
-  "id": "core:0206",
+  "id": "core:r00208",
   "n": 206,
   "rank": 208,
   "lemma": "verdammt",
@@ -84,7 +84,7 @@
   "case": null
  },
  {
-  "id": "core:0207",
+  "id": "core:r00209",
   "n": 207,
   "rank": 209,
   "lemma": "zusammen",
@@ -98,7 +98,7 @@
   "case": null
  },
  {
-  "id": "core:0208",
+  "id": "core:r00210",
   "n": 208,
   "rank": 210,
   "lemma": "Welt",
@@ -112,21 +112,21 @@
   "case": null
  },
  {
-  "id": "core:0209",
+  "id": "core:r00211",
   "n": 209,
   "rank": 211,
   "lemma": "rein",
   "pos": "ADV",
   "display": "rein",
-  "gloss": "in (inside); pure",
-  "sentence": "Komm doch rein, es ist kalt draußen!",
+  "gloss": "in (inside)",
+  "sentence": "Geh schon mal rein, ich parke noch schnell das Auto.",
   "target": "rein",
-  "en": "Come on in, it's cold outside!",
+  "en": "Go on in, I'll just quickly park the car.",
   "note": "umgangssprachlich für herein/hinein",
   "case": null
  },
  {
-  "id": "core:0210",
+  "id": "core:r00212",
   "n": 210,
   "rank": 212,
   "lemma": "weit",
@@ -140,7 +140,7 @@
   "case": null
  },
  {
-  "id": "core:0211",
+  "id": "core:r00213",
   "n": 211,
   "rank": 213,
   "lemma": "Junge",
@@ -154,7 +154,7 @@
   "case": null
  },
  {
-  "id": "core:0212",
+  "id": "core:r00214",
   "n": 212,
   "rank": 214,
   "lemma": "liegen",
@@ -168,7 +168,7 @@
   "case": "D"
  },
  {
-  "id": "core:0213",
+  "id": "core:r00215",
   "n": 213,
   "rank": 215,
   "lemma": "lang",
@@ -182,7 +182,7 @@
   "case": null
  },
  {
-  "id": "core:0214",
+  "id": "core:r00216",
   "n": 214,
   "rank": 216,
   "lemma": "erst",
@@ -196,7 +196,7 @@
   "case": null
  },
  {
-  "id": "core:0215",
+  "id": "core:r00217",
   "n": 215,
   "rank": 217,
   "lemma": "gefallen",
@@ -210,7 +210,7 @@
   "case": "D"
  },
  {
-  "id": "core:0216",
+  "id": "core:r00218",
   "n": 216,
   "rank": 218,
   "lemma": "suchen",
@@ -224,7 +224,7 @@
   "case": null
  },
  {
-  "id": "core:0217",
+  "id": "core:r00219",
   "n": 217,
   "rank": 219,
   "lemma": "genug",
@@ -238,7 +238,7 @@
   "case": null
  },
  {
-  "id": "core:0218",
+  "id": "core:r00220",
   "n": 218,
   "rank": 220,
   "lemma": "Scheiße",
@@ -252,7 +252,7 @@
   "case": null
  },
  {
-  "id": "core:0219",
+  "id": "core:r00221",
   "n": 219,
   "rank": 221,
   "lemma": "Familie",
@@ -266,7 +266,7 @@
   "case": null
  },
  {
-  "id": "core:0220",
+  "id": "core:r00222",
   "n": 220,
   "rank": 222,
   "lemma": "gegen",
@@ -280,7 +280,7 @@
   "case": "A"
  },
  {
-  "id": "core:0221",
+  "id": "core:r00223",
   "n": 221,
   "rank": 223,
   "lemma": "Moment",
@@ -294,7 +294,7 @@
   "case": null
  },
  {
-  "id": "core:0222",
+  "id": "core:r00224",
   "n": 222,
   "rank": 224,
   "lemma": "sonst",
@@ -308,7 +308,7 @@
   "case": null
  },
  {
-  "id": "core:0223",
+  "id": "core:r00225",
   "n": 223,
   "rank": 225,
   "lemma": "schauen",
@@ -322,7 +322,7 @@
   "case": null
  },
  {
-  "id": "core:0224",
+  "id": "core:r00226",
   "n": 224,
   "rank": 226,
   "lemma": "Musik",
@@ -336,7 +336,7 @@
   "case": null
  },
  {
-  "id": "core:0225",
+  "id": "core:r00227",
   "n": 225,
   "rank": 227,
   "lemma": "Arbeit",
@@ -350,7 +350,7 @@
   "case": null
  },
  {
-  "id": "core:0226",
+  "id": "core:r00228",
   "n": 226,
   "rank": 228,
   "lemma": "nächste",
@@ -364,7 +364,7 @@
   "case": null
  },
  {
-  "id": "core:0227",
+  "id": "core:r00229",
   "n": 227,
   "rank": 229,
   "lemma": "dabei",
@@ -378,7 +378,7 @@
   "case": null
  },
  {
-  "id": "core:0228",
+  "id": "core:r00230",
   "n": 228,
   "rank": 230,
   "lemma": "Hand",
@@ -392,7 +392,7 @@
   "case": null
  },
  {
-  "id": "core:0229",
+  "id": "core:r00231",
   "n": 229,
   "rank": 231,
   "lemma": "schaffen",
@@ -406,7 +406,7 @@
   "case": null
  },
  {
-  "id": "core:0230",
+  "id": "core:r00232",
   "n": 230,
   "rank": 232,
   "lemma": "zeigen",
@@ -420,7 +420,7 @@
   "case": null
  },
  {
-  "id": "core:0231",
+  "id": "core:r00233",
   "n": 231,
   "rank": 233,
   "lemma": "wahr",
@@ -434,7 +434,7 @@
   "case": null
  },
  {
-  "id": "core:0232",
+  "id": "core:r00234",
   "n": 232,
   "rank": 234,
   "lemma": "Stunde",
@@ -448,7 +448,7 @@
   "case": null
  },
  {
-  "id": "core:0233",
+  "id": "core:r00235",
   "n": 233,
   "rank": 235,
   "lemma": "sofort",
@@ -462,7 +462,7 @@
   "case": null
  },
  {
-  "id": "core:0234",
+  "id": "core:r00236",
   "n": 234,
   "rank": 236,
   "lemma": "fühlen",
@@ -476,7 +476,7 @@
   "case": null
  },
  {
-  "id": "core:0235",
+  "id": "core:r00237",
   "n": 235,
   "rank": 237,
   "lemma": "bevor",
@@ -490,7 +490,7 @@
   "case": null
  },
  {
-  "id": "core:0236",
+  "id": "core:r00238",
   "n": 236,
   "rank": 238,
   "lemma": "einmal",
@@ -504,7 +504,7 @@
   "case": null
  },
  {
-  "id": "core:0237",
+  "id": "core:r00239",
   "n": 237,
   "rank": 239,
   "lemma": "echt",
@@ -518,7 +518,7 @@
   "case": null
  },
  {
-  "id": "core:0238",
+  "id": "core:r00240",
   "n": 238,
   "rank": 240,
   "lemma": "Woche",
@@ -532,7 +532,7 @@
   "case": null
  },
  {
-  "id": "core:0239",
+  "id": "core:r00241",
   "n": 239,
   "rank": 241,
   "lemma": "Sohn",
@@ -546,7 +546,7 @@
   "case": null
  },
  {
-  "id": "core:0240",
+  "id": "core:r00242",
   "n": 240,
   "rank": 242,
   "lemma": "wann",
@@ -560,7 +560,7 @@
   "case": null
  },
  {
-  "id": "core:0241",
+  "id": "core:r00243",
   "n": 241,
   "rank": 243,
   "lemma": "Auge",
@@ -574,7 +574,7 @@
   "case": null
  },
  {
-  "id": "core:0242",
+  "id": "core:r00244",
   "n": 242,
   "rank": 244,
   "lemma": "Minute",
@@ -588,7 +588,7 @@
   "case": null
  },
  {
-  "id": "core:0243",
+  "id": "core:r00245",
   "n": 243,
   "rank": 245,
   "lemma": "fertig",
@@ -602,7 +602,7 @@
   "case": null
  },
  {
-  "id": "core:0244",
+  "id": "core:r00246",
   "n": 244,
   "rank": 246,
   "lemma": "halt",
@@ -616,7 +616,7 @@
   "case": null
  },
  {
-  "id": "core:0245",
+  "id": "core:r00247",
   "n": 245,
   "rank": 247,
   "lemma": "allein",
@@ -630,7 +630,7 @@
   "case": null
  },
  {
-  "id": "core:0246",
+  "id": "core:r00248",
   "n": 246,
   "rank": 248,
   "lemma": "Fall",
@@ -644,7 +644,7 @@
   "case": null
  },
  {
-  "id": "core:0247",
+  "id": "core:r00249",
   "n": 247,
   "rank": 249,
   "lemma": "lieben",
@@ -658,7 +658,7 @@
   "case": null
  },
  {
-  "id": "core:0248",
+  "id": "core:r00250",
   "n": 248,
   "rank": 250,
   "lemma": "Sache",
@@ -672,7 +672,7 @@
   "case": null
  },
  {
-  "id": "core:0249",
+  "id": "core:r00251",
   "n": 249,
   "rank": 251,
   "lemma": "früh",
@@ -686,7 +686,7 @@
   "case": null
  },
  {
-  "id": "core:0250",
+  "id": "core:r00252",
   "n": 250,
   "rank": 252,
   "lemma": "Hilfe",
@@ -700,7 +700,7 @@
   "case": null
  },
  {
-  "id": "core:0251",
+  "id": "core:r00253",
   "n": 251,
   "rank": 253,
   "lemma": "wichtig",
@@ -714,7 +714,7 @@
   "case": null
  },
  {
-  "id": "core:0252",
+  "id": "core:r00254",
   "n": 252,
   "rank": 254,
   "lemma": "darüber",
@@ -728,7 +728,7 @@
   "case": null
  },
  {
-  "id": "core:0253",
+  "id": "core:r00255",
   "n": 253,
   "rank": 255,
   "lemma": "dazu",
@@ -742,7 +742,7 @@
   "case": null
  },
  {
-  "id": "core:0254",
+  "id": "core:r00256",
   "n": 254,
   "rank": 256,
   "lemma": "Bruder",
@@ -756,7 +756,7 @@
   "case": null
  },
  {
-  "id": "core:0255",
+  "id": "core:r00257",
   "n": 255,
   "rank": 257,
   "lemma": "daran",
@@ -770,7 +770,7 @@
   "case": null
  },
  {
-  "id": "core:0256",
+  "id": "core:r00258",
   "n": 256,
   "rank": 258,
   "lemma": "holen",
@@ -784,7 +784,7 @@
   "case": null
  },
  {
-  "id": "core:0257",
+  "id": "core:r00259",
   "n": 257,
   "rank": 259,
   "lemma": "schlafen",
@@ -798,7 +798,7 @@
   "case": null
  },
  {
-  "id": "core:0258",
+  "id": "core:r00260",
   "n": 258,
   "rank": 260,
   "lemma": "hoch",
@@ -812,7 +812,7 @@
   "case": null
  },
  {
-  "id": "core:0259",
+  "id": "core:r00261",
   "n": 259,
   "rank": 261,
   "lemma": "dank",
@@ -826,7 +826,7 @@
   "case": "G"
  },
  {
-  "id": "core:0260",
+  "id": "core:r00262",
   "n": 260,
   "rank": 262,
   "lemma": "schlecht",
@@ -840,7 +840,7 @@
   "case": null
  },
  {
-  "id": "core:0261",
+  "id": "core:r00263",
   "n": 261,
   "rank": 263,
   "lemma": "hoffen",
@@ -854,7 +854,7 @@
   "case": null
  },
  {
-  "id": "core:0262",
+  "id": "core:r00264",
   "n": 262,
   "rank": 264,
   "lemma": "egal",
@@ -868,7 +868,7 @@
   "case": null
  },
  {
-  "id": "core:0263",
+  "id": "core:r00265",
   "n": 263,
   "rank": 265,
   "lemma": "stellen",
@@ -882,7 +882,7 @@
   "case": "A"
  },
  {
-  "id": "core:0264",
+  "id": "core:r00266",
   "n": 264,
   "rank": 266,
   "lemma": "Frage",
@@ -896,7 +896,7 @@
   "case": null
  },
  {
-  "id": "core:0265",
+  "id": "core:r00267",
   "n": 265,
   "rank": 267,
   "lemma": "eigentlich",
@@ -910,7 +910,7 @@
   "case": null
  },
  {
-  "id": "core:0266",
+  "id": "core:r00268",
   "n": 266,
   "rank": 268,
   "lemma": "Auto",
@@ -924,7 +924,7 @@
   "case": null
  },
  {
-  "id": "core:0267",
+  "id": "core:r00269",
   "n": 267,
   "rank": 269,
   "lemma": "Stadt",
@@ -938,7 +938,7 @@
   "case": null
  },
  {
-  "id": "core:0268",
+  "id": "core:r00270",
   "n": 268,
   "rank": 270,
   "lemma": "toll",
@@ -952,7 +952,7 @@
   "case": null
  },
  {
-  "id": "core:0269",
+  "id": "core:r00271",
   "n": 269,
   "rank": 271,
   "lemma": "fallen",
@@ -966,7 +966,7 @@
   "case": null
  },
  {
-  "id": "core:0270",
+  "id": "core:r00272",
   "n": 270,
   "rank": 272,
   "lemma": "ziehen",
@@ -980,7 +980,7 @@
   "case": null
  },
  {
-  "id": "core:0271",
+  "id": "core:r00273",
   "n": 271,
   "rank": 273,
   "lemma": "Typ",
@@ -994,7 +994,7 @@
   "case": null
  },
  {
-  "id": "core:0272",
+  "id": "core:r00274",
   "n": 272,
   "rank": 274,
   "lemma": "kurz",
@@ -1008,7 +1008,7 @@
   "case": null
  },
  {
-  "id": "core:0273",
+  "id": "core:r00275",
   "n": 273,
   "rank": 275,
   "lemma": "Uhr",
@@ -1022,7 +1022,7 @@
   "case": null
  },
  {
-  "id": "core:0274",
+  "id": "core:r00276",
   "n": 274,
   "rank": 276,
   "lemma": "falsch",
@@ -1036,7 +1036,7 @@
   "case": null
  },
  {
-  "id": "core:0275",
+  "id": "core:r00277",
   "n": 275,
   "rank": 277,
   "lemma": "hinter",
@@ -1050,7 +1050,7 @@
   "case": "D"
  },
  {
-  "id": "core:0276",
+  "id": "core:r00278",
   "n": 276,
   "rank": 278,
   "lemma": "nennen",
@@ -1064,7 +1064,7 @@
   "case": null
  },
  {
-  "id": "core:0277",
+  "id": "core:r00279",
   "n": 277,
   "rank": 279,
   "lemma": "Kopf",
@@ -1078,7 +1078,7 @@
   "case": "D"
  },
  {
-  "id": "core:0278",
+  "id": "core:r00280",
   "n": 278,
   "rank": 280,
   "lemma": "setzen",
@@ -1092,7 +1092,7 @@
   "case": null
  },
  {
-  "id": "core:0279",
+  "id": "core:r00281",
   "n": 279,
   "rank": 281,
   "lemma": "erinnern",
@@ -1106,7 +1106,7 @@
   "case": "A"
  },
  {
-  "id": "core:0280",
+  "id": "core:r00282",
   "n": 280,
   "rank": 282,
   "lemma": "schreiben",
@@ -1120,7 +1120,7 @@
   "case": null
  },
  {
-  "id": "core:0281",
+  "id": "core:r00283",
   "n": 281,
   "rank": 283,
   "lemma": "Glück",
@@ -1134,7 +1134,7 @@
   "case": null
  },
  {
-  "id": "core:0282",
+  "id": "core:r00284",
   "n": 282,
   "rank": 284,
   "lemma": "einzig",
@@ -1148,7 +1148,7 @@
   "case": null
  },
  {
-  "id": "core:0283",
+  "id": "core:r00285",
   "n": 283,
   "rank": 285,
   "lemma": "sorgen",
@@ -1162,7 +1162,7 @@
   "case": "A"
  },
  {
-  "id": "core:0284",
+  "id": "core:r00286",
   "n": 284,
   "rank": 286,
   "lemma": "darauf",
@@ -1176,7 +1176,7 @@
   "case": null
  },
  {
-  "id": "core:0285",
+  "id": "core:r00287",
   "n": 285,
   "rank": 287,
   "lemma": "Ende",
@@ -1190,7 +1190,7 @@
   "case": null
  },
  {
-  "id": "core:0286",
+  "id": "core:r00288",
   "n": 286,
   "rank": 288,
   "lemma": "bald",
@@ -1204,7 +1204,7 @@
   "case": null
  },
  {
-  "id": "core:0287",
+  "id": "core:r00289",
   "n": 287,
   "rank": 289,
   "lemma": "Ding",
@@ -1218,7 +1218,7 @@
   "case": null
  },
  {
-  "id": "core:0288",
+  "id": "core:r00290",
   "n": 288,
   "rank": 290,
   "lemma": "kriegen",
@@ -1232,7 +1232,7 @@
   "case": null
  },
  {
-  "id": "core:0289",
+  "id": "core:r00291",
   "n": 289,
   "rank": 291,
   "lemma": "bedeuten",
@@ -1246,7 +1246,7 @@
   "case": null
  },
  {
-  "id": "core:0290",
+  "id": "core:r00292",
   "n": 290,
   "rank": 292,
   "lemma": "Idee",
@@ -1260,7 +1260,7 @@
   "case": null
  },
  {
-  "id": "core:0291",
+  "id": "core:r00293",
   "n": 291,
   "rank": 293,
   "lemma": "bereit",
@@ -1274,7 +1274,7 @@
   "case": null
  },
  {
-  "id": "core:0292",
+  "id": "core:r00294",
   "n": 292,
   "rank": 294,
   "lemma": "rufen",
@@ -1288,7 +1288,7 @@
   "case": null
  },
  {
-  "id": "core:0293",
+  "id": "core:r00295",
   "n": 293,
   "rank": 295,
   "lemma": "Ahnung",
@@ -1302,7 +1302,7 @@
   "case": null
  },
  {
-  "id": "core:0294",
+  "id": "core:r00296",
   "n": 294,
   "rank": 296,
   "lemma": "bisschen",
@@ -1316,7 +1316,7 @@
   "case": null
  },
  {
-  "id": "core:0295",
+  "id": "core:r00297",
   "n": 295,
   "rank": 297,
   "lemma": "Tür",
@@ -1330,7 +1330,7 @@
   "case": null
  },
  {
-  "id": "core:0296",
+  "id": "core:r00298",
   "n": 296,
   "rank": 298,
   "lemma": "schicken",
@@ -1344,7 +1344,7 @@
   "case": null
  },
  {
-  "id": "core:0297",
+  "id": "core:r00299",
   "n": 297,
   "rank": 299,
   "lemma": "trinken",
@@ -1358,7 +1358,7 @@
   "case": null
  },
  {
-  "id": "core:0298",
+  "id": "core:r00300",
   "n": 298,
   "rank": 300,
   "lemma": "Polizei",
@@ -1372,7 +1372,7 @@
   "case": null
  },
  {
-  "id": "core:0299",
+  "id": "core:r00301",
   "n": 299,
   "rank": 301,
   "lemma": "schwer",
@@ -1386,7 +1386,7 @@
   "case": null
  },
  {
-  "id": "core:0300",
+  "id": "core:r00302",
   "n": 300,
   "rank": 302,
   "lemma": "retten",

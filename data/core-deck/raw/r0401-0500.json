@@ -493,7 +493,15 @@
  },
  {
   "rank": 444,
-  "skip": "Duplikat: reden"
+  "lemma": "Rede",
+  "pos": "NOUN",
+  "display": "die Rede · die Reden",
+  "gloss": "speech",
+  "sentence": "Auf der Hochzeit hat mein Bruder eine schöne Rede gehalten.",
+  "target": "Rede",
+  "en": "At the wedding my brother gave a lovely speech.",
+  "note": "eine Rede halten = give a speech",
+  "case": null
  },
  {
   "rank": 445,
@@ -717,10 +725,10 @@
   "pos": "ADJ",
   "display": "willkommen",
   "gloss": "welcome",
-  "sentence": "Herzlich willkommen in unserer neuen Wohnung!",
+  "sentence": "Neue Mitglieder sind in unserem Verein jederzeit willkommen.",
   "target": "willkommen",
-  "en": "A warm welcome to our new flat!",
-  "note": "Herzlich willkommen in + Dativ",
+  "en": "New members are always welcome in our club.",
+  "note": "willkommen in + Dativ; Herzlich willkommen! = A warm welcome!",
   "case": "D"
  },
  {
@@ -937,7 +945,15 @@
  },
  {
   "rank": 485,
-  "skip": "Duplikat: rufen"
+  "lemma": "Ruf",
+  "pos": "NOUN",
+  "display": "der Ruf · die Rufe",
+  "gloss": "reputation; call",
+  "sentence": "Die Bäckerei an der Ecke hat einen sehr guten Ruf.",
+  "target": "Ruf",
+  "en": "The bakery on the corner has a very good reputation.",
+  "note": "einen guten/schlechten Ruf haben; Verb: rufen",
+  "case": null
  },
  {
   "rank": 486,

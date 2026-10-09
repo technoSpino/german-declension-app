@@ -101,7 +101,9 @@ def main() -> None:
     for start in range(0, len(cards), 100):
         batch = []
         for i, c in enumerate(cards[start:start + 100], start + 1):
-            out = {"id": f"core:{i:04d}", "n": i}
+            # id is tied to the frequency rank, so it stays stable when cards are
+            # added or removed later (review history in the DB keys on it).
+            out = {"id": f"core:r{c['rank']:05d}", "n": i}
             out.update({k: c.get(k) for k in (*REQUIRED, "note", "case")})
             batch.append(out)
         name = DECK / f"{start // 100 + 1:04d}.json"

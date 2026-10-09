@@ -697,7 +697,15 @@
  },
  {
   "rank": 865,
-  "skip": "Duplikat: wetten (ich wette)"
+  "lemma": "Wette",
+  "pos": "NOUN",
+  "display": "die Wette · die Wetten",
+  "gloss": "bet",
+  "sentence": "Ich habe die Wette verloren und muss jetzt das Essen bezahlen.",
+  "target": "Wette",
+  "en": "I lost the bet and now I have to pay for the meal.",
+  "note": "eine Wette gewinnen / verlieren; Verb: wetten",
+  "case": null
  },
  {
   "rank": 866,

@@ -173,9 +173,9 @@
   "pos": "VERB",
   "display": "packen · hat gepackt",
   "gloss": "to pack; to manage (colloquial)",
-  "sentence": "Hast du deinen Koffer schon gepackt?",
-  "target": "gepackt",
-  "en": "Have you packed your suitcase yet?",
+  "sentence": "Ich muss heute Abend noch meine Tasche für die Reise packen.",
+  "target": "packen",
+  "en": "I still have to pack my bag for the trip this evening.",
   "note": "umgangssprachlich auch: schaffen (Das packe ich!)",
   "case": null
  },
@@ -185,9 +185,9 @@
   "pos": "ADV",
   "display": "herein",
   "gloss": "in (towards the speaker)",
-  "sentence": "Kommen Sie doch herein, draußen ist es kalt.",
+  "sentence": "Kommen Sie doch herein und nehmen Sie Platz!",
   "target": "herein",
-  "en": "Do come in, it's cold outside.",
+  "en": "Do come in and take a seat!",
   "note": "Herein! = Kommen Sie rein! (umgangssprachlich: rein)",
   "case": null
  },
@@ -541,7 +541,15 @@
  },
  {
   "rank": 1048,
-  "skip": "Duplikat: brauchen (ich brauch)"
+  "lemma": "Brauch",
+  "pos": "NOUN",
+  "display": "der Brauch · die Bräuche",
+  "gloss": "custom, tradition",
+  "sentence": "Zu Ostern bemalen wir Eier, das ist bei uns ein alter Brauch.",
+  "target": "Brauch",
+  "en": "At Easter we paint eggs; that's an old custom in our family.",
+  "note": "Achtung: „ich brauch“ (umgangssprachlich) = ich brauche, von brauchen",
+  "case": null
  },
  {
   "rank": 1049,
@@ -829,9 +837,9 @@
   "pos": "ADJ",
   "display": "herzlich",
   "gloss": "warm, cordial",
-  "sentence": "Herzlich willkommen in unserer neuen Wohnung!",
-  "target": "Herzlich",
-  "en": "A warm welcome to our new flat!",
+  "sentence": "Vielen Dank für die herzliche Einladung!",
+  "target": "herzliche",
+  "en": "Thank you very much for the kind invitation!",
   "note": "Herzlichen Glückwunsch! / Herzliche Grüße",
   "case": null
  },

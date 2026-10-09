@@ -124,10 +124,10 @@
     "lemma": "rein",
     "pos": "ADV",
     "display": "rein",
-    "gloss": "in (inside); pure",
-    "sentence": "Komm doch rein, es ist kalt draußen!",
+    "gloss": "in (inside)",
+    "sentence": "Geh schon mal rein, ich parke noch schnell das Auto.",
     "target": "rein",
-    "en": "Come on in, it's cold outside!",
+    "en": "Go on in, I'll just quickly park the car.",
     "note": "umgangssprachlich für herein/hinein",
     "case": null
   },

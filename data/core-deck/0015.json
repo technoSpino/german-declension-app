@@ -1,7 +1,119 @@
 [
  {
-  "id": "core:1401",
+  "id": "core:r01581",
   "n": 1401,
+  "rank": 1581,
+  "lemma": "Flughafen",
+  "pos": "NOUN",
+  "display": "der Flughafen · die Flughäfen",
+  "gloss": "airport",
+  "sentence": "Ich hole dich am Sonntag vom Flughafen ab.",
+  "target": "Flughafen",
+  "en": "I'll pick you up from the airport on Sunday.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r01583",
+  "n": 1402,
+  "rank": 1583,
+  "lemma": "bewusst",
+  "pos": "ADJ",
+  "display": "bewusst",
+  "gloss": "conscious(ly), aware",
+  "sentence": "Mir ist bewusst, dass die Miete bald steigt.",
+  "target": "bewusst",
+  "en": "I'm aware that the rent will go up soon.",
+  "note": "mir (Dativ) ist bewusst = ich weiß; auch: bewusst leben",
+  "case": null
+ },
+ {
+  "id": "core:r01584",
+  "n": 1403,
+  "rank": 1584,
+  "lemma": "reiten",
+  "pos": "VERB",
+  "display": "reiten · ritt · ist/hat geritten",
+  "gloss": "to ride (a horse)",
+  "sentence": "Meine Nichte reitet jeden Mittwoch nach der Schule.",
+  "target": "reitet",
+  "en": "My niece goes horse riding every Wednesday after school.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r01585",
+  "n": 1404,
+  "rank": 1585,
+  "lemma": "voraus",
+  "pos": "ADV",
+  "display": "voraus · im Voraus",
+  "gloss": "ahead; im Voraus: in advance",
+  "sentence": "Die Miete muss man im Voraus bezahlen.",
+  "target": "im Voraus",
+  "en": "The rent has to be paid in advance.",
+  "note": "im Voraus = vorher; Vielen Dank im Voraus!",
+  "case": null
+ },
+ {
+  "id": "core:r01589",
+  "n": 1405,
+  "rank": 1589,
+  "lemma": "beeindrucken",
+  "pos": "VERB",
+  "display": "beeindrucken · hat beeindruckt",
+  "gloss": "to impress",
+  "sentence": "Die Aussicht vom Berg hat uns sehr beeindruckt.",
+  "target": "beeindruckt",
+  "en": "The view from the mountain really impressed us.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r01590",
+  "n": 1406,
+  "rank": 1590,
+  "lemma": "Kino",
+  "pos": "NOUN",
+  "display": "das Kino · die Kinos",
+  "gloss": "cinema",
+  "sentence": "Gehen wir am Wochenende zusammen ins Kino?",
+  "target": "Kino",
+  "en": "Shall we go to the cinema together at the weekend?",
+  "note": "ins Kino gehen (Wohin? + Akk.), im Kino sein (Wo? + Dativ)",
+  "case": "A"
+ },
+ {
+  "id": "core:r01591",
+  "n": 1407,
+  "rank": 1591,
+  "lemma": "einander",
+  "pos": "PRON",
+  "display": "einander",
+  "gloss": "each other, one another",
+  "sentence": "Die beiden Familien helfen einander, wo sie können.",
+  "target": "einander",
+  "en": "The two families help each other wherever they can.",
+  "note": "oft mit Präposition: miteinander, voneinander",
+  "case": null
+ },
+ {
+  "id": "core:r01593",
+  "n": 1408,
+  "rank": 1593,
+  "lemma": "locker",
+  "pos": "ADJ",
+  "display": "locker",
+  "gloss": "loose; relaxed, easygoing",
+  "sentence": "Mein neuer Chef ist ziemlich locker.",
+  "target": "locker",
+  "en": "My new boss is pretty easygoing.",
+  "note": "auch: Die Schraube ist locker.",
+  "case": null
+ },
+ {
+  "id": "core:r01594",
+  "n": 1409,
   "rank": 1594,
   "lemma": "weiterhin",
   "pos": "ADV",
@@ -14,8 +126,8 @@
   "case": null
  },
  {
-  "id": "core:1402",
-  "n": 1402,
+  "id": "core:r01595",
+  "n": 1410,
   "rank": 1595,
   "lemma": "verdächtigen",
   "pos": "VERB",
@@ -28,8 +140,8 @@
   "case": null
  },
  {
-  "id": "core:1403",
-  "n": 1403,
+  "id": "core:r01596",
+  "n": 1411,
   "rank": 1596,
   "lemma": "verbrennen",
   "pos": "VERB",
@@ -42,8 +154,8 @@
   "case": null
  },
  {
-  "id": "core:1404",
-  "n": 1404,
+  "id": "core:r01597",
+  "n": 1412,
   "rank": 1597,
   "lemma": "durchsuchen",
   "pos": "VERB",
@@ -56,8 +168,8 @@
   "case": null
  },
  {
-  "id": "core:1405",
-  "n": 1405,
+  "id": "core:r01599",
+  "n": 1413,
   "rank": 1599,
   "lemma": "Alkohol",
   "pos": "NOUN",
@@ -70,8 +182,8 @@
   "case": null
  },
  {
-  "id": "core:1406",
-  "n": 1406,
+  "id": "core:r01602",
+  "n": 1414,
   "rank": 1602,
   "lemma": "weitermachen",
   "pos": "VERB",
@@ -84,8 +196,8 @@
   "case": null
  },
  {
-  "id": "core:1407",
-  "n": 1407,
+  "id": "core:r01603",
+  "n": 1415,
   "rank": 1603,
   "lemma": "erfolgreich",
   "pos": "ADJ",
@@ -98,8 +210,8 @@
   "case": null
  },
  {
-  "id": "core:1408",
-  "n": 1408,
+  "id": "core:r01604",
+  "n": 1416,
   "rank": 1604,
   "lemma": "ungewöhnlich",
   "pos": "ADJ",
@@ -112,8 +224,8 @@
   "case": null
  },
  {
-  "id": "core:1409",
-  "n": 1409,
+  "id": "core:r01605",
+  "n": 1417,
   "rank": 1605,
   "lemma": "einsam",
   "pos": "ADJ",
@@ -126,8 +238,8 @@
   "case": null
  },
  {
-  "id": "core:1410",
-  "n": 1410,
+  "id": "core:r01607",
+  "n": 1418,
   "rank": 1607,
   "lemma": "fordern",
   "pos": "VERB",
@@ -140,8 +252,8 @@
   "case": null
  },
  {
-  "id": "core:1411",
-  "n": 1411,
+  "id": "core:r01609",
+  "n": 1419,
   "rank": 1609,
   "lemma": "scheiden",
   "pos": "VERB",
@@ -154,8 +266,8 @@
   "case": null
  },
  {
-  "id": "core:1412",
-  "n": 1412,
+  "id": "core:r01610",
+  "n": 1420,
   "rank": 1610,
   "lemma": "Post",
   "pos": "NOUN",
@@ -168,8 +280,8 @@
   "case": null
  },
  {
-  "id": "core:1413",
-  "n": 1413,
+  "id": "core:r01612",
+  "n": 1421,
   "rank": 1612,
   "lemma": "Botschaft",
   "pos": "NOUN",
@@ -182,8 +294,8 @@
   "case": null
  },
  {
-  "id": "core:1414",
-  "n": 1414,
+  "id": "core:r01613",
+  "n": 1422,
   "rank": 1613,
   "lemma": "Selbstmord",
   "pos": "NOUN",
@@ -196,22 +308,22 @@
   "case": null
  },
  {
-  "id": "core:1415",
-  "n": 1415,
+  "id": "core:r01614",
+  "n": 1423,
   "rank": 1614,
   "lemma": "Magie",
   "pos": "NOUN",
   "display": "die Magie · kein Plural",
   "gloss": "magic",
-  "sentence": "Die Kinder glauben, dass der Zauberer echte Magie kann.",
+  "sentence": "Die Kinder glauben fest an Magie und Zauberer.",
   "target": "Magie",
-  "en": "The children believe the magician can do real magic.",
+  "en": "The children firmly believe in magic and wizards.",
   "note": null,
   "case": null
  },
  {
-  "id": "core:1416",
-  "n": 1416,
+  "id": "core:r01615",
+  "n": 1424,
   "rank": 1615,
   "lemma": "aufbauen",
   "pos": "VERB",
@@ -224,8 +336,8 @@
   "case": null
  },
  {
-  "id": "core:1417",
-  "n": 1417,
+  "id": "core:r01616",
+  "n": 1425,
   "rank": 1616,
   "lemma": "Flucht",
   "pos": "NOUN",
@@ -238,8 +350,8 @@
   "case": null
  },
  {
-  "id": "core:1418",
-  "n": 1418,
+  "id": "core:r01617",
+  "n": 1426,
   "rank": 1617,
   "lemma": "Gegenteil",
   "pos": "NOUN",
@@ -252,8 +364,8 @@
   "case": null
  },
  {
-  "id": "core:1419",
-  "n": 1419,
+  "id": "core:r01619",
+  "n": 1427,
   "rank": 1619,
   "lemma": "sich nähern",
   "pos": "VERB",
@@ -266,8 +378,8 @@
   "case": "D"
  },
  {
-  "id": "core:1420",
-  "n": 1420,
+  "id": "core:r01620",
+  "n": 1428,
   "rank": 1620,
   "lemma": "Trottel",
   "pos": "NOUN",
@@ -280,8 +392,8 @@
   "case": null
  },
  {
-  "id": "core:1421",
-  "n": 1421,
+  "id": "core:r01621",
+  "n": 1429,
   "rank": 1621,
   "lemma": "immerhin",
   "pos": "ADV",
@@ -294,8 +406,8 @@
   "case": null
  },
  {
-  "id": "core:1422",
-  "n": 1422,
+  "id": "core:r01622",
+  "n": 1430,
   "rank": 1622,
   "lemma": "schwul",
   "pos": "ADJ",
@@ -308,8 +420,8 @@
   "case": null
  },
  {
-  "id": "core:1423",
-  "n": 1423,
+  "id": "core:r01623",
+  "n": 1431,
   "rank": 1623,
   "lemma": "beschreiben",
   "pos": "VERB",
@@ -322,8 +434,8 @@
   "case": null
  },
  {
-  "id": "core:1424",
-  "n": 1424,
+  "id": "core:r01624",
+  "n": 1432,
   "rank": 1624,
   "lemma": "innerhalb",
   "pos": "ADP",
@@ -336,8 +448,8 @@
   "case": "G"
  },
  {
-  "id": "core:1425",
-  "n": 1425,
+  "id": "core:r01627",
+  "n": 1433,
   "rank": 1627,
   "lemma": "Code",
   "pos": "NOUN",
@@ -350,8 +462,8 @@
   "case": null
  },
  {
-  "id": "core:1426",
-  "n": 1426,
+  "id": "core:r01628",
+  "n": 1434,
   "rank": 1628,
   "lemma": "wenden",
   "pos": "VERB",
@@ -364,8 +476,8 @@
   "case": "A"
  },
  {
-  "id": "core:1427",
-  "n": 1427,
+  "id": "core:r01629",
+  "n": 1435,
   "rank": 1629,
   "lemma": "Absicht",
   "pos": "NOUN",
@@ -378,8 +490,8 @@
   "case": null
  },
  {
-  "id": "core:1428",
-  "n": 1428,
+  "id": "core:r01630",
+  "n": 1436,
   "rank": 1630,
   "lemma": "drohen",
   "pos": "VERB",
@@ -392,8 +504,8 @@
   "case": "D"
  },
  {
-  "id": "core:1429",
-  "n": 1429,
+  "id": "core:r01632",
+  "n": 1437,
   "rank": 1632,
   "lemma": "zuletzt",
   "pos": "ADV",
@@ -406,8 +518,8 @@
   "case": null
  },
  {
-  "id": "core:1430",
-  "n": 1430,
+  "id": "core:r01633",
+  "n": 1438,
   "rank": 1633,
   "lemma": "Ohr",
   "pos": "NOUN",
@@ -420,8 +532,8 @@
   "case": null
  },
  {
-  "id": "core:1431",
-  "n": 1431,
+  "id": "core:r01635",
+  "n": 1439,
   "rank": 1635,
   "lemma": "begraben",
   "pos": "VERB",
@@ -434,8 +546,8 @@
   "case": null
  },
  {
-  "id": "core:1432",
-  "n": 1432,
+  "id": "core:r01637",
+  "n": 1440,
   "rank": 1637,
   "lemma": "Größe",
   "pos": "NOUN",
@@ -448,8 +560,8 @@
   "case": null
  },
  {
-  "id": "core:1433",
-  "n": 1433,
+  "id": "core:r01638",
+  "n": 1441,
   "rank": 1638,
   "lemma": "illegal",
   "pos": "ADJ",
@@ -462,8 +574,8 @@
   "case": null
  },
  {
-  "id": "core:1434",
-  "n": 1434,
+  "id": "core:r01639",
+  "n": 1442,
   "rank": 1639,
   "lemma": "üben",
   "pos": "VERB",
@@ -476,8 +588,8 @@
   "case": null
  },
  {
-  "id": "core:1435",
-  "n": 1435,
+  "id": "core:r01640",
+  "n": 1443,
   "rank": 1640,
   "lemma": "sichern",
   "pos": "VERB",
@@ -490,8 +602,8 @@
   "case": null
  },
  {
-  "id": "core:1436",
-  "n": 1436,
+  "id": "core:r01641",
+  "n": 1444,
   "rank": 1641,
   "lemma": "begreifen",
   "pos": "VERB",
@@ -504,8 +616,8 @@
   "case": null
  },
  {
-  "id": "core:1437",
-  "n": 1437,
+  "id": "core:r01642",
+  "n": 1445,
   "rank": 1642,
   "lemma": "wetten",
   "pos": "VERB",
@@ -518,8 +630,8 @@
   "case": null
  },
  {
-  "id": "core:1438",
-  "n": 1438,
+  "id": "core:r01643",
+  "n": 1446,
   "rank": 1643,
   "lemma": "rechnen",
   "pos": "VERB",
@@ -532,8 +644,8 @@
   "case": "D"
  },
  {
-  "id": "core:1439",
-  "n": 1439,
+  "id": "core:r01644",
+  "n": 1447,
   "rank": 1644,
   "lemma": "Trick",
   "pos": "NOUN",
@@ -546,8 +658,8 @@
   "case": null
  },
  {
-  "id": "core:1440",
-  "n": 1440,
+  "id": "core:r01645",
+  "n": 1448,
   "rank": 1645,
   "lemma": "abnehmen",
   "pos": "VERB",
@@ -560,8 +672,8 @@
   "case": null
  },
  {
-  "id": "core:1441",
-  "n": 1441,
+  "id": "core:r01647",
+  "n": 1449,
   "rank": 1647,
   "lemma": "verbergen",
   "pos": "VERB",
@@ -574,8 +686,8 @@
   "case": null
  },
  {
-  "id": "core:1442",
-  "n": 1442,
+  "id": "core:r01648",
+  "n": 1450,
   "rank": 1648,
   "lemma": "vernünftig",
   "pos": "ADJ",
@@ -588,8 +700,8 @@
   "case": null
  },
  {
-  "id": "core:1443",
-  "n": 1443,
+  "id": "core:r01649",
+  "n": 1451,
   "rank": 1649,
   "lemma": "Sonntag",
   "pos": "NOUN",
@@ -602,8 +714,8 @@
   "case": null
  },
  {
-  "id": "core:1444",
-  "n": 1444,
+  "id": "core:r01650",
+  "n": 1452,
   "rank": 1650,
   "lemma": "Killer",
   "pos": "NOUN",
@@ -616,8 +728,8 @@
   "case": null
  },
  {
-  "id": "core:1445",
-  "n": 1445,
+  "id": "core:r01651",
+  "n": 1453,
   "rank": 1651,
   "lemma": "Unterstützung",
   "pos": "NOUN",
@@ -630,8 +742,8 @@
   "case": null
  },
  {
-  "id": "core:1446",
-  "n": 1446,
+  "id": "core:r01652",
+  "n": 1454,
   "rank": 1652,
   "lemma": "Rechnung",
   "pos": "NOUN",
@@ -644,8 +756,8 @@
   "case": null
  },
  {
-  "id": "core:1447",
-  "n": 1447,
+  "id": "core:r01653",
+  "n": 1455,
   "rank": 1653,
   "lemma": "benötigen",
   "pos": "VERB",
@@ -658,8 +770,8 @@
   "case": null
  },
  {
-  "id": "core:1448",
-  "n": 1448,
+  "id": "core:r01654",
+  "n": 1456,
   "rank": 1654,
   "lemma": "opfern",
   "pos": "VERB",
@@ -672,8 +784,8 @@
   "case": null
  },
  {
-  "id": "core:1449",
-  "n": 1449,
+  "id": "core:r01655",
+  "n": 1457,
   "rank": 1655,
   "lemma": "achten",
   "pos": "VERB",
@@ -686,8 +798,8 @@
   "case": "A"
  },
  {
-  "id": "core:1450",
-  "n": 1450,
+  "id": "core:r01656",
+  "n": 1458,
   "rank": 1656,
   "lemma": "möglicherweise",
   "pos": "ADV",
@@ -700,8 +812,8 @@
   "case": null
  },
  {
-  "id": "core:1451",
-  "n": 1451,
+  "id": "core:r01657",
+  "n": 1459,
   "rank": 1657,
   "lemma": "definitiv",
   "pos": "ADV",
@@ -714,8 +826,8 @@
   "case": null
  },
  {
-  "id": "core:1452",
-  "n": 1452,
+  "id": "core:r01660",
+  "n": 1460,
   "rank": 1660,
   "lemma": "abends",
   "pos": "ADV",
@@ -728,8 +840,8 @@
   "case": null
  },
  {
-  "id": "core:1453",
-  "n": 1453,
+  "id": "core:r01661",
+  "n": 1461,
   "rank": 1661,
   "lemma": "abgeben",
   "pos": "VERB",
@@ -742,8 +854,8 @@
   "case": null
  },
  {
-  "id": "core:1454",
-  "n": 1454,
+  "id": "core:r01662",
+  "n": 1462,
   "rank": 1662,
   "lemma": "gelingen",
   "pos": "VERB",
@@ -756,8 +868,8 @@
   "case": "D"
  },
  {
-  "id": "core:1455",
-  "n": 1455,
+  "id": "core:r01663",
+  "n": 1463,
   "rank": 1663,
   "lemma": "ignorieren",
   "pos": "VERB",
@@ -770,8 +882,8 @@
   "case": null
  },
  {
-  "id": "core:1456",
-  "n": 1456,
+  "id": "core:r01664",
+  "n": 1464,
   "rank": 1664,
   "lemma": "Kohle",
   "pos": "NOUN",
@@ -784,8 +896,8 @@
   "case": null
  },
  {
-  "id": "core:1457",
-  "n": 1457,
+  "id": "core:r01666",
+  "n": 1465,
   "rank": 1666,
   "lemma": "zielen",
   "pos": "VERB",
@@ -798,8 +910,8 @@
   "case": "A"
  },
  {
-  "id": "core:1458",
-  "n": 1458,
+  "id": "core:r01669",
+  "n": 1466,
   "rank": 1669,
   "lemma": "knapp",
   "pos": "ADJ",
@@ -812,8 +924,8 @@
   "case": null
  },
  {
-  "id": "core:1459",
-  "n": 1459,
+  "id": "core:r01670",
+  "n": 1467,
   "rank": 1670,
   "lemma": "ebenfalls",
   "pos": "ADV",
@@ -826,8 +938,8 @@
   "case": null
  },
  {
-  "id": "core:1460",
-  "n": 1460,
+  "id": "core:r01671",
+  "n": 1468,
   "rank": 1671,
   "lemma": "Artikel",
   "pos": "NOUN",
@@ -840,8 +952,8 @@
   "case": null
  },
  {
-  "id": "core:1461",
-  "n": 1461,
+  "id": "core:r01672",
+  "n": 1469,
   "rank": 1672,
   "lemma": "jederzeit",
   "pos": "ADV",
@@ -854,8 +966,8 @@
   "case": null
  },
  {
-  "id": "core:1462",
-  "n": 1462,
+  "id": "core:r01673",
+  "n": 1470,
   "rank": 1673,
   "lemma": "garantieren",
   "pos": "VERB",
@@ -868,8 +980,8 @@
   "case": null
  },
  {
-  "id": "core:1463",
-  "n": 1463,
+  "id": "core:r01674",
+  "n": 1471,
   "rank": 1674,
   "lemma": "Mittel",
   "pos": "NOUN",
@@ -882,8 +994,8 @@
   "case": null
  },
  {
-  "id": "core:1464",
-  "n": 1464,
+  "id": "core:r01675",
+  "n": 1472,
   "rank": 1675,
   "lemma": "testen",
   "pos": "VERB",
@@ -896,8 +1008,8 @@
   "case": null
  },
  {
-  "id": "core:1465",
-  "n": 1465,
+  "id": "core:r01676",
+  "n": 1473,
   "rank": 1676,
   "lemma": "Tanz",
   "pos": "NOUN",
@@ -910,8 +1022,8 @@
   "case": null
  },
  {
-  "id": "core:1466",
-  "n": 1466,
+  "id": "core:r01677",
+  "n": 1474,
   "rank": 1677,
   "lemma": "Kerl",
   "pos": "NOUN",
@@ -924,22 +1036,22 @@
   "case": null
  },
  {
-  "id": "core:1467",
-  "n": 1467,
+  "id": "core:r01678",
+  "n": 1475,
   "rank": 1678,
   "lemma": "auffallen",
   "pos": "VERB",
   "display": "auffallen · fiel auf · ist aufgefallen",
   "gloss": "to be noticeable; to notice",
-  "sentence": "Ist dir aufgefallen, dass der Bäcker zu hat?",
+  "sentence": "Ist dir aufgefallen, dass der Bäcker geschlossen hat?",
   "target": "aufgefallen",
   "en": "Did you notice that the bakery is closed?",
   "note": "Es fällt mir (Dativ) auf = Ich bemerke es. Perfekt mit sein",
   "case": "D"
  },
  {
-  "id": "core:1468",
-  "n": 1468,
+  "id": "core:r01679",
+  "n": 1476,
   "rank": 1679,
   "lemma": "Prozent",
   "pos": "NOUN",
@@ -952,8 +1064,8 @@
   "case": null
  },
  {
-  "id": "core:1469",
-  "n": 1469,
+  "id": "core:r01680",
+  "n": 1477,
   "rank": 1680,
   "lemma": "Hoheit",
   "pos": "NOUN",
@@ -966,8 +1078,8 @@
   "case": null
  },
  {
-  "id": "core:1470",
-  "n": 1470,
+  "id": "core:r01681",
+  "n": 1478,
   "rank": 1681,
   "lemma": "Riese",
   "pos": "NOUN",
@@ -980,8 +1092,8 @@
   "case": null
  },
  {
-  "id": "core:1471",
-  "n": 1471,
+  "id": "core:r01682",
+  "n": 1479,
   "rank": 1682,
   "lemma": "gewöhnlich",
   "pos": "ADJ",
@@ -994,8 +1106,8 @@
   "case": null
  },
  {
-  "id": "core:1472",
-  "n": 1472,
+  "id": "core:r01683",
+  "n": 1480,
   "rank": 1683,
   "lemma": "Zugang",
   "pos": "NOUN",
@@ -1008,8 +1120,8 @@
   "case": null
  },
  {
-  "id": "core:1473",
-  "n": 1473,
+  "id": "core:r01684",
+  "n": 1481,
   "rank": 1684,
   "lemma": "Station",
   "pos": "NOUN",
@@ -1022,8 +1134,8 @@
   "case": null
  },
  {
-  "id": "core:1474",
-  "n": 1474,
+  "id": "core:r01685",
+  "n": 1482,
   "rank": 1685,
   "lemma": "Verlust",
   "pos": "NOUN",
@@ -1036,8 +1148,8 @@
   "case": null
  },
  {
-  "id": "core:1475",
-  "n": 1475,
+  "id": "core:r01686",
+  "n": 1483,
   "rank": 1686,
   "lemma": "praktisch",
   "pos": "ADJ",
@@ -1050,8 +1162,8 @@
   "case": null
  },
  {
-  "id": "core:1476",
-  "n": 1476,
+  "id": "core:r01687",
+  "n": 1484,
   "rank": 1687,
   "lemma": "vorn",
   "pos": "ADV",
@@ -1064,8 +1176,8 @@
   "case": null
  },
  {
-  "id": "core:1477",
-  "n": 1477,
+  "id": "core:r01690",
+  "n": 1485,
   "rank": 1690,
   "lemma": "Erlaubnis",
   "pos": "NOUN",
@@ -1078,8 +1190,8 @@
   "case": null
  },
  {
-  "id": "core:1478",
-  "n": 1478,
+  "id": "core:r01692",
+  "n": 1486,
   "rank": 1692,
   "lemma": "Beerdigung",
   "pos": "NOUN",
@@ -1092,8 +1204,8 @@
   "case": null
  },
  {
-  "id": "core:1479",
-  "n": 1479,
+  "id": "core:r01694",
+  "n": 1487,
   "rank": 1694,
   "lemma": "senden",
   "pos": "VERB",
@@ -1106,8 +1218,8 @@
   "case": null
  },
  {
-  "id": "core:1480",
-  "n": 1480,
+  "id": "core:r01695",
+  "n": 1488,
   "rank": 1695,
   "lemma": "anschauen",
   "pos": "VERB",
@@ -1120,8 +1232,8 @@
   "case": null
  },
  {
-  "id": "core:1481",
-  "n": 1481,
+  "id": "core:r01698",
+  "n": 1489,
   "rank": 1698,
   "lemma": "Priester",
   "pos": "NOUN",
@@ -1134,8 +1246,8 @@
   "case": null
  },
  {
-  "id": "core:1482",
-  "n": 1482,
+  "id": "core:r01699",
+  "n": 1490,
   "rank": 1699,
   "lemma": "präsentieren",
   "pos": "VERB",
@@ -1148,8 +1260,8 @@
   "case": null
  },
  {
-  "id": "core:1483",
-  "n": 1483,
+  "id": "core:r01700",
+  "n": 1491,
   "rank": 1700,
   "lemma": "löschen",
   "pos": "VERB",
@@ -1162,8 +1274,8 @@
   "case": null
  },
  {
-  "id": "core:1484",
-  "n": 1484,
+  "id": "core:r01701",
+  "n": 1492,
   "rank": 1701,
   "lemma": "inzwischen",
   "pos": "ADV",
@@ -1176,8 +1288,8 @@
   "case": null
  },
  {
-  "id": "core:1485",
-  "n": 1485,
+  "id": "core:r01702",
+  "n": 1493,
   "rank": 1702,
   "lemma": "Presse",
   "pos": "NOUN",
@@ -1190,8 +1302,8 @@
   "case": null
  },
  {
-  "id": "core:1486",
-  "n": 1486,
+  "id": "core:r01704",
+  "n": 1494,
   "rank": 1704,
   "lemma": "fein",
   "pos": "ADJ",
@@ -1204,8 +1316,8 @@
   "case": null
  },
  {
-  "id": "core:1487",
-  "n": 1487,
+  "id": "core:r01705",
+  "n": 1495,
   "rank": 1705,
   "lemma": "Geduld",
   "pos": "NOUN",
@@ -1218,8 +1330,8 @@
   "case": null
  },
  {
-  "id": "core:1488",
-  "n": 1488,
+  "id": "core:r01706",
+  "n": 1496,
   "rank": 1706,
   "lemma": "Bühne",
   "pos": "NOUN",
@@ -1232,8 +1344,8 @@
   "case": "A"
  },
  {
-  "id": "core:1489",
-  "n": 1489,
+  "id": "core:r01707",
+  "n": 1497,
   "rank": 1707,
   "lemma": "erheben",
   "pos": "VERB",
@@ -1246,8 +1358,8 @@
   "case": null
  },
  {
-  "id": "core:1490",
-  "n": 1490,
+  "id": "core:r01708",
+  "n": 1498,
   "rank": 1708,
   "lemma": "ausgezeichnet",
   "pos": "ADJ",
@@ -1260,8 +1372,8 @@
   "case": null
  },
  {
-  "id": "core:1491",
-  "n": 1491,
+  "id": "core:r01709",
+  "n": 1499,
   "rank": 1709,
   "lemma": "aussuchen",
   "pos": "VERB",
@@ -1274,8 +1386,8 @@
   "case": null
  },
  {
-  "id": "core:1492",
-  "n": 1492,
+  "id": "core:r01710",
+  "n": 1500,
   "rank": 1710,
   "lemma": "Gerechtigkeit",
   "pos": "NOUN",
@@ -1285,118 +1397,6 @@
   "target": "Gerechtigkeit",
   "en": "Many people want more social justice.",
   "note": "Adjektiv: gerecht",
-  "case": null
- },
- {
-  "id": "core:1493",
-  "n": 1493,
-  "rank": 1711,
-  "lemma": "rund",
-  "pos": "ADJ",
-  "display": "rund",
-  "gloss": "round; about, around",
-  "sentence": "Die Fahrt nach Berlin dauert rund drei Stunden.",
-  "target": "rund",
-  "en": "The journey to Berlin takes about three hours.",
-  "note": "rund = ungefähr; auch: ein runder Tisch",
-  "case": null
- },
- {
-  "id": "core:1494",
-  "n": 1494,
-  "rank": 1712,
-  "lemma": "Lügner",
-  "pos": "NOUN",
-  "display": "der Lügner · die Lügner",
-  "gloss": "liar",
-  "sentence": "Er hat schon wieder gelogen, er ist ein echter Lügner.",
-  "target": "Lügner",
-  "en": "He lied again; he's a real liar.",
-  "note": "weiblich: die Lügnerin; Verb: lügen",
-  "case": null
- },
- {
-  "id": "core:1495",
-  "n": 1495,
-  "rank": 1713,
-  "lemma": "aufregend",
-  "pos": "ADJ",
-  "display": "aufregend",
-  "gloss": "exciting",
-  "sentence": "Der erste Tag im neuen Job war sehr aufregend.",
-  "target": "aufregend",
-  "en": "The first day at the new job was very exciting.",
-  "note": "aufregend = spannend; aufgeregt = nervös",
-  "case": null
- },
- {
-  "id": "core:1496",
-  "n": 1496,
-  "rank": 1714,
-  "lemma": "gering",
-  "pos": "ADJ",
-  "display": "gering",
-  "gloss": "low, small, slight",
-  "sentence": "Die Gefahr ist gering, aber wir sollten trotzdem vorsichtig sein.",
-  "target": "gering",
-  "en": "The risk is low, but we should still be careful.",
-  "note": "keine Ahnung → nicht die geringste Ahnung",
-  "case": null
- },
- {
-  "id": "core:1497",
-  "n": 1497,
-  "rank": 1715,
-  "lemma": "Medizin",
-  "pos": "NOUN",
-  "display": "die Medizin · kein Plural",
-  "gloss": "medicine",
-  "sentence": "Meine Tochter möchte später Medizin studieren.",
-  "target": "Medizin",
-  "en": "My daughter wants to study medicine later.",
-  "note": "Tabletten usw. heißen meist: das Medikament",
-  "case": null
- },
- {
-  "id": "core:1498",
-  "n": 1498,
-  "rank": 1716,
-  "lemma": "Prozess",
-  "pos": "NOUN",
-  "display": "der Prozess · die Prozesse",
-  "gloss": "trial; process",
-  "sentence": "Der Prozess gegen die Betrüger beginnt nächste Woche.",
-  "target": "Prozess",
-  "en": "The trial of the fraudsters begins next week.",
-  "note": "auch: ein langer Prozess = eine lange Entwicklung",
-  "case": null
- },
- {
-  "id": "core:1499",
-  "n": 1499,
-  "rank": 1717,
-  "lemma": "schieben",
-  "pos": "VERB",
-  "display": "schieben · schob · hat geschoben",
-  "gloss": "to push",
-  "sentence": "Wir mussten das kaputte Auto bis zur Tankstelle schieben.",
-  "target": "schieben",
-  "en": "We had to push the broken-down car to the petrol station.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1500",
-  "n": 1500,
-  "rank": 1718,
-  "lemma": "Samstag",
-  "pos": "NOUN",
-  "display": "der Samstag · die Samstage",
-  "gloss": "Saturday",
-  "sentence": "Am Samstag gehen wir immer auf den Wochenmarkt.",
-  "target": "Samstag",
-  "en": "On Saturdays we always go to the farmers' market.",
-  "note": "am Samstag; samstags = jeden Samstag",
   "case": null
  }
 ]

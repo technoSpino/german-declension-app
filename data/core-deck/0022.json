@@ -1,7 +1,203 @@
 [
  {
-  "id": "core:2101",
+  "id": "core:r02467",
   "n": 2101,
+  "rank": 2467,
+  "lemma": "engagieren",
+  "pos": "VERB",
+  "display": "sich engagieren · hat sich engagiert",
+  "gloss": "to be involved, to volunteer; to hire (engagieren)",
+  "sentence": "Sie engagiert sich in ihrer Freizeit für den Umweltschutz.",
+  "target": "engagiert",
+  "en": "In her free time she is involved in environmental protection.",
+  "note": "sich für + Akkusativ engagieren",
+  "case": "A"
+ },
+ {
+  "id": "core:r02469",
+  "n": 2102,
+  "rank": 2469,
+  "lemma": "köstlich",
+  "pos": "ADJ",
+  "display": "köstlich",
+  "gloss": "delicious",
+  "sentence": "Der Kuchen deiner Mutter ist wirklich köstlich.",
+  "target": "köstlich",
+  "en": "Your mother's cake is really delicious.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02470",
+  "n": 2103,
+  "rank": 2470,
+  "lemma": "summen",
+  "pos": "VERB",
+  "display": "summen · hat gesummt",
+  "gloss": "to hum; to buzz",
+  "sentence": "Beim Kochen summt sie immer ein Lied.",
+  "target": "summt",
+  "en": "She always hums a song while cooking.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02471",
+  "n": 2104,
+  "rank": 2471,
+  "lemma": "erholen",
+  "pos": "VERB",
+  "display": "sich erholen · hat sich erholt",
+  "gloss": "to recover, to relax",
+  "sentence": "Im Urlaub habe ich mich gut erholt.",
+  "target": "erholt",
+  "en": "I had a good rest on holiday.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02472",
+  "n": 2105,
+  "rank": 2472,
+  "lemma": "vollständig",
+  "pos": "ADJ",
+  "display": "vollständig",
+  "gloss": "complete(ly)",
+  "sentence": "Bitte füllen Sie das Formular vollständig aus.",
+  "target": "vollständig",
+  "en": "Please fill in the form completely.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02476",
+  "n": 2106,
+  "rank": 2476,
+  "lemma": "beherrschen",
+  "pos": "VERB",
+  "display": "beherrschen · hat beherrscht",
+  "gloss": "to master; to control (sich beherrschen)",
+  "sentence": "Sie beherrscht drei Sprachen fließend.",
+  "target": "beherrscht",
+  "en": "She speaks three languages fluently.",
+  "note": "sich beherrschen = ruhig bleiben",
+  "case": null
+ },
+ {
+  "id": "core:r02477",
+  "n": 2107,
+  "rank": 2477,
+  "lemma": "Aufnahme",
+  "pos": "NOUN",
+  "display": "die Aufnahme · die Aufnahmen",
+  "gloss": "admission; recording, photo",
+  "sentence": "Die Aufnahme ins Krankenhaus hat lange gedauert.",
+  "target": "Aufnahme",
+  "en": "The admission to hospital took a long time.",
+  "note": "auch: Foto oder Tonaufnahme",
+  "case": null
+ },
+ {
+  "id": "core:r02478",
+  "n": 2108,
+  "rank": 2478,
+  "lemma": "Katastrophe",
+  "pos": "NOUN",
+  "display": "die Katastrophe · die Katastrophen",
+  "gloss": "disaster, catastrophe",
+  "sentence": "Das Wetter im Urlaub war eine Katastrophe.",
+  "target": "Katastrophe",
+  "en": "The weather on holiday was a disaster.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02479",
+  "n": 2109,
+  "rank": 2479,
+  "lemma": "vertragen",
+  "pos": "VERB",
+  "display": "vertragen · vertrug · hat vertragen",
+  "gloss": "to tolerate; to get along (sich vertragen)",
+  "sentence": "Ich vertrage abends leider keinen Kaffee.",
+  "target": "vertrage",
+  "en": "Unfortunately I can't handle coffee in the evening.",
+  "note": "sich vertragen = sich gut verstehen",
+  "case": null
+ },
+ {
+  "id": "core:r02483",
+  "n": 2110,
+  "rank": 2483,
+  "lemma": "Manager",
+  "pos": "NOUN",
+  "display": "der Manager · die Manager",
+  "gloss": "manager",
+  "sentence": "Der Manager des Hotels hat sich bei uns entschuldigt.",
+  "target": "Manager",
+  "en": "The hotel manager apologised to us.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02484",
+  "n": 2111,
+  "rank": 2484,
+  "lemma": "gestehen",
+  "pos": "VERB",
+  "display": "gestehen · gestand · hat gestanden",
+  "gloss": "to confess",
+  "sentence": "Der Verdächtige hat die Tat inzwischen gestanden.",
+  "target": "gestanden",
+  "en": "The suspect has now confessed to the crime.",
+  "note": "Partizip wie bei stehen: gestanden",
+  "case": null
+ },
+ {
+  "id": "core:r02485",
+  "n": 2112,
+  "rank": 2485,
+  "lemma": "meiste",
+  "pos": "DET",
+  "display": "der/die/das meiste · die meisten",
+  "gloss": "most",
+  "sentence": "Die meisten Geschäfte haben sonntags geschlossen.",
+  "target": "meisten",
+  "en": "Most shops are closed on Sundays.",
+  "note": "Superlativ von viel: viel – mehr – am meisten",
+  "case": null
+ },
+ {
+  "id": "core:r02486",
+  "n": 2113,
+  "rank": 2486,
+  "lemma": "zurückziehen",
+  "pos": "VERB",
+  "display": "zurückziehen · zog zurück · hat zurückgezogen",
+  "gloss": "to withdraw; to retreat (sich zurückziehen)",
+  "sentence": "Er hat seine Bewerbung kurzfristig zurückgezogen.",
+  "target": "zurückgezogen",
+  "en": "He withdrew his application at short notice.",
+  "note": "trennbar",
+  "case": null
+ },
+ {
+  "id": "core:r02487",
+  "n": 2114,
+  "rank": 2487,
+  "lemma": "Höhle",
+  "pos": "NOUN",
+  "display": "die Höhle · die Höhlen",
+  "gloss": "cave",
+  "sentence": "Im Urlaub haben wir eine Höhle in den Bergen besichtigt.",
+  "target": "Höhle",
+  "en": "On holiday we visited a cave in the mountains.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02488",
+  "n": 2115,
   "rank": 2488,
   "lemma": "Schokolade",
   "pos": "NOUN",
@@ -14,8 +210,8 @@
   "case": null
  },
  {
-  "id": "core:2102",
-  "n": 2102,
+  "id": "core:r02489",
+  "n": 2116,
   "rank": 2489,
   "lemma": "befreundet",
   "pos": "ADJ",
@@ -28,8 +224,22 @@
   "case": "D"
  },
  {
-  "id": "core:2103",
-  "n": 2103,
+  "id": "core:r02491",
+  "n": 2117,
+  "rank": 2491,
+  "lemma": "Roboter",
+  "pos": "NOUN",
+  "display": "der Roboter · die Roboter",
+  "gloss": "robot",
+  "sentence": "Seit wir einen Roboter haben, muss ich nicht mehr Staub saugen.",
+  "target": "Roboter",
+  "en": "Since we got a robot, I don't have to vacuum any more.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02492",
+  "n": 2118,
   "rank": 2492,
   "lemma": "ausgerechnet",
   "pos": "ADV",
@@ -42,8 +252,8 @@
   "case": null
  },
  {
-  "id": "core:2104",
-  "n": 2104,
+  "id": "core:r02493",
+  "n": 2119,
   "rank": 2493,
   "lemma": "Belohnung",
   "pos": "NOUN",
@@ -56,8 +266,8 @@
   "case": null
  },
  {
-  "id": "core:2105",
-  "n": 2105,
+  "id": "core:r02495",
+  "n": 2120,
   "rank": 2495,
   "lemma": "Garage",
   "pos": "NOUN",
@@ -70,8 +280,8 @@
   "case": "D"
  },
  {
-  "id": "core:2106",
-  "n": 2106,
+  "id": "core:r02497",
+  "n": 2121,
   "rank": 2497,
   "lemma": "Pille",
   "pos": "NOUN",
@@ -84,8 +294,8 @@
   "case": null
  },
  {
-  "id": "core:2107",
-  "n": 2107,
+  "id": "core:r02498",
+  "n": 2122,
   "rank": 2498,
   "lemma": "Gepäck",
   "pos": "NOUN",
@@ -98,8 +308,8 @@
   "case": null
  },
  {
-  "id": "core:2108",
-  "n": 2108,
+  "id": "core:r02501",
+  "n": 2123,
   "rank": 2501,
   "lemma": "proben",
   "pos": "VERB",
@@ -112,8 +322,8 @@
   "case": null
  },
  {
-  "id": "core:2109",
-  "n": 2109,
+  "id": "core:r02502",
+  "n": 2124,
   "rank": 2502,
   "lemma": "Vergleich",
   "pos": "NOUN",
@@ -126,8 +336,8 @@
   "case": "D"
  },
  {
-  "id": "core:2110",
-  "n": 2110,
+  "id": "core:r02507",
+  "n": 2125,
   "rank": 2507,
   "lemma": "vergleichen",
   "pos": "VERB",
@@ -140,8 +350,8 @@
   "case": null
  },
  {
-  "id": "core:2111",
-  "n": 2111,
+  "id": "core:r02508",
+  "n": 2126,
   "rank": 2508,
   "lemma": "scheinbar",
   "pos": "ADV",
@@ -154,8 +364,8 @@
   "case": null
  },
  {
-  "id": "core:2112",
-  "n": 2112,
+  "id": "core:r02509",
+  "n": 2127,
   "rank": 2509,
   "lemma": "Fakt",
   "pos": "NOUN",
@@ -168,8 +378,8 @@
   "case": null
  },
  {
-  "id": "core:2113",
-  "n": 2113,
+  "id": "core:r02510",
+  "n": 2128,
   "rank": 2510,
   "lemma": "Jugend",
   "pos": "NOUN",
@@ -182,8 +392,8 @@
   "case": null
  },
  {
-  "id": "core:2114",
-  "n": 2114,
+  "id": "core:r02511",
+  "n": 2129,
   "rank": 2511,
   "lemma": "Feier",
   "pos": "NOUN",
@@ -196,8 +406,8 @@
   "case": null
  },
  {
-  "id": "core:2115",
-  "n": 2115,
+  "id": "core:r02513",
+  "n": 2130,
   "rank": 2513,
   "lemma": "Benzin",
   "pos": "NOUN",
@@ -210,8 +420,8 @@
   "case": null
  },
  {
-  "id": "core:2116",
-  "n": 2116,
+  "id": "core:r02514",
+  "n": 2131,
   "rank": 2514,
   "lemma": "nix",
   "pos": "PRON",
@@ -224,8 +434,8 @@
   "case": null
  },
  {
-  "id": "core:2117",
-  "n": 2117,
+  "id": "core:r02515",
+  "n": 2132,
   "rank": 2515,
   "lemma": "auflegen",
   "pos": "VERB",
@@ -238,8 +448,8 @@
   "case": null
  },
  {
-  "id": "core:2118",
-  "n": 2118,
+  "id": "core:r02517",
+  "n": 2133,
   "rank": 2517,
   "lemma": "hinlegen",
   "pos": "VERB",
@@ -252,8 +462,8 @@
   "case": null
  },
  {
-  "id": "core:2119",
-  "n": 2119,
+  "id": "core:r02518",
+  "n": 2134,
   "rank": 2518,
   "lemma": "läuten",
   "pos": "VERB",
@@ -266,8 +476,8 @@
   "case": null
  },
  {
-  "id": "core:2120",
-  "n": 2120,
+  "id": "core:r02519",
+  "n": 2135,
   "rank": 2519,
   "lemma": "lehnen",
   "pos": "VERB",
@@ -280,8 +490,8 @@
   "case": "D"
  },
  {
-  "id": "core:2121",
-  "n": 2121,
+  "id": "core:r02521",
+  "n": 2136,
   "rank": 2521,
   "lemma": "Mauer",
   "pos": "NOUN",
@@ -294,8 +504,8 @@
   "case": null
  },
  {
-  "id": "core:2122",
-  "n": 2122,
+  "id": "core:r02524",
+  "n": 2137,
   "rank": 2524,
   "lemma": "Dummkopf",
   "pos": "NOUN",
@@ -308,8 +518,8 @@
   "case": null
  },
  {
-  "id": "core:2123",
-  "n": 2123,
+  "id": "core:r02525",
+  "n": 2138,
   "rank": 2525,
   "lemma": "Gerücht",
   "pos": "NOUN",
@@ -322,8 +532,8 @@
   "case": null
  },
  {
-  "id": "core:2124",
-  "n": 2124,
+  "id": "core:r02526",
+  "n": 2139,
   "rank": 2526,
   "lemma": "Gewicht",
   "pos": "NOUN",
@@ -336,8 +546,8 @@
   "case": null
  },
  {
-  "id": "core:2125",
-  "n": 2125,
+  "id": "core:r02527",
+  "n": 2140,
   "rank": 2527,
   "lemma": "Verrat",
   "pos": "NOUN",
@@ -350,8 +560,8 @@
   "case": "D"
  },
  {
-  "id": "core:2126",
-  "n": 2126,
+  "id": "core:r02528",
+  "n": 2141,
   "rank": 2528,
   "lemma": "ermitteln",
   "pos": "VERB",
@@ -364,8 +574,8 @@
   "case": null
  },
  {
-  "id": "core:2127",
-  "n": 2127,
+  "id": "core:r02529",
+  "n": 2142,
   "rank": 2529,
   "lemma": "grau",
   "pos": "ADJ",
@@ -378,8 +588,8 @@
   "case": null
  },
  {
-  "id": "core:2128",
-  "n": 2128,
+  "id": "core:r02530",
+  "n": 2143,
   "rank": 2530,
   "lemma": "bezweifeln",
   "pos": "VERB",
@@ -392,8 +602,8 @@
   "case": null
  },
  {
-  "id": "core:2129",
-  "n": 2129,
+  "id": "core:r02531",
+  "n": 2144,
   "rank": 2531,
   "lemma": "zerbrechen",
   "pos": "VERB",
@@ -406,8 +616,8 @@
   "case": null
  },
  {
-  "id": "core:2130",
-  "n": 2130,
+  "id": "core:r02533",
+  "n": 2145,
   "rank": 2533,
   "lemma": "Anzeige",
   "pos": "NOUN",
@@ -420,8 +630,8 @@
   "case": null
  },
  {
-  "id": "core:2131",
-  "n": 2131,
+  "id": "core:r02534",
+  "n": 2146,
   "rank": 2534,
   "lemma": "gelb",
   "pos": "ADJ",
@@ -434,8 +644,8 @@
   "case": null
  },
  {
-  "id": "core:2132",
-  "n": 2132,
+  "id": "core:r02537",
+  "n": 2147,
   "rank": 2537,
   "lemma": "gemütlich",
   "pos": "ADJ",
@@ -448,8 +658,8 @@
   "case": null
  },
  {
-  "id": "core:2133",
-  "n": 2133,
+  "id": "core:r02538",
+  "n": 2148,
   "rank": 2538,
   "lemma": "sinnlos",
   "pos": "ADJ",
@@ -462,8 +672,8 @@
   "case": null
  },
  {
-  "id": "core:2134",
-  "n": 2134,
+  "id": "core:r02539",
+  "n": 2149,
   "rank": 2539,
   "lemma": "pflanzen",
   "pos": "VERB",
@@ -476,8 +686,8 @@
   "case": null
  },
  {
-  "id": "core:2135",
-  "n": 2135,
+  "id": "core:r02540",
+  "n": 2150,
   "rank": 2540,
   "lemma": "Eile",
   "pos": "NOUN",
@@ -490,8 +700,8 @@
   "case": null
  },
  {
-  "id": "core:2136",
-  "n": 2136,
+  "id": "core:r02541",
+  "n": 2151,
   "rank": 2541,
   "lemma": "innen",
   "pos": "ADV",
@@ -504,8 +714,8 @@
   "case": null
  },
  {
-  "id": "core:2137",
-  "n": 2137,
+  "id": "core:r02542",
+  "n": 2152,
   "rank": 2542,
   "lemma": "einig",
   "pos": "ADJ",
@@ -518,8 +728,8 @@
   "case": null
  },
  {
-  "id": "core:2138",
-  "n": 2138,
+  "id": "core:r02543",
+  "n": 2153,
   "rank": 2543,
   "lemma": "Tradition",
   "pos": "NOUN",
@@ -532,8 +742,8 @@
   "case": null
  },
  {
-  "id": "core:2139",
-  "n": 2139,
+  "id": "core:r02544",
+  "n": 2154,
   "rank": 2544,
   "lemma": "Fahrzeug",
   "pos": "NOUN",
@@ -546,8 +756,8 @@
   "case": null
  },
  {
-  "id": "core:2140",
-  "n": 2140,
+  "id": "core:r02545",
+  "n": 2155,
   "rank": 2545,
   "lemma": "weswegen",
   "pos": "ADV",
@@ -560,8 +770,8 @@
   "case": null
  },
  {
-  "id": "core:2141",
-  "n": 2141,
+  "id": "core:r02546",
+  "n": 2156,
   "rank": 2546,
   "lemma": "heimlich",
   "pos": "ADJ",
@@ -574,8 +784,8 @@
   "case": null
  },
  {
-  "id": "core:2142",
-  "n": 2142,
+  "id": "core:r02547",
+  "n": 2157,
   "rank": 2547,
   "lemma": "sinken",
   "pos": "VERB",
@@ -588,8 +798,8 @@
   "case": null
  },
  {
-  "id": "core:2143",
-  "n": 2143,
+  "id": "core:r02548",
+  "n": 2158,
   "rank": 2548,
   "lemma": "hinsetzen",
   "pos": "VERB",
@@ -602,8 +812,8 @@
   "case": null
  },
  {
-  "id": "core:2144",
-  "n": 2144,
+  "id": "core:r02551",
+  "n": 2159,
   "rank": 2551,
   "lemma": "Warnung",
   "pos": "NOUN",
@@ -616,8 +826,8 @@
   "case": "D"
  },
  {
-  "id": "core:2145",
-  "n": 2145,
+  "id": "core:r02552",
+  "n": 2160,
   "rank": 2552,
   "lemma": "Diamant",
   "pos": "NOUN",
@@ -630,8 +840,8 @@
   "case": null
  },
  {
-  "id": "core:2146",
-  "n": 2146,
+  "id": "core:r02553",
+  "n": 2161,
   "rank": 2553,
   "lemma": "Seil",
   "pos": "NOUN",
@@ -644,8 +854,8 @@
   "case": null
  },
  {
-  "id": "core:2147",
-  "n": 2147,
+  "id": "core:r02554",
+  "n": 2162,
   "rank": 2554,
   "lemma": "Euro",
   "pos": "NOUN",
@@ -658,8 +868,8 @@
   "case": null
  },
  {
-  "id": "core:2148",
-  "n": 2148,
+  "id": "core:r02555",
+  "n": 2163,
   "rank": 2555,
   "lemma": "Ware",
   "pos": "NOUN",
@@ -672,8 +882,8 @@
   "case": null
  },
  {
-  "id": "core:2149",
-  "n": 2149,
+  "id": "core:r02556",
+  "n": 2164,
   "rank": 2556,
   "lemma": "vertreten",
   "pos": "VERB",
@@ -686,8 +896,8 @@
   "case": "G"
  },
  {
-  "id": "core:2150",
-  "n": 2150,
+  "id": "core:r02558",
+  "n": 2165,
   "rank": 2558,
   "lemma": "brutal",
   "pos": "ADJ",
@@ -700,8 +910,8 @@
   "case": null
  },
  {
-  "id": "core:2151",
-  "n": 2151,
+  "id": "core:r02559",
+  "n": 2166,
   "rank": 2559,
   "lemma": "bezeichnen",
   "pos": "VERB",
@@ -714,8 +924,8 @@
   "case": null
  },
  {
-  "id": "core:2152",
-  "n": 2152,
+  "id": "core:r02560",
+  "n": 2167,
   "rank": 2560,
   "lemma": "kürzlich",
   "pos": "ADV",
@@ -728,8 +938,8 @@
   "case": null
  },
  {
-  "id": "core:2153",
-  "n": 2153,
+  "id": "core:r02561",
+  "n": 2168,
   "rank": 2561,
   "lemma": "Material",
   "pos": "NOUN",
@@ -742,22 +952,22 @@
   "case": null
  },
  {
-  "id": "core:2154",
-  "n": 2154,
+  "id": "core:r02563",
+  "n": 2169,
   "rank": 2563,
   "lemma": "Satz",
   "pos": "NOUN",
   "display": "der Satz · die Sätze",
   "gloss": "sentence; set",
-  "sentence": "Kannst du den Satz bitte noch einmal wiederholen?",
+  "sentence": "Den letzten Satz in dem Brief verstehe ich nicht.",
   "target": "Satz",
-  "en": "Can you please repeat the sentence once more?",
+  "en": "I don't understand the last sentence in the letter.",
   "note": null,
   "case": null
  },
  {
-  "id": "core:2155",
-  "n": 2155,
+  "id": "core:r02564",
+  "n": 2170,
   "rank": 2564,
   "lemma": "Welle",
   "pos": "NOUN",
@@ -770,8 +980,8 @@
   "case": null
  },
  {
-  "id": "core:2156",
-  "n": 2156,
+  "id": "core:r02565",
+  "n": 2171,
   "rank": 2565,
   "lemma": "Exzellenz",
   "pos": "NOUN",
@@ -784,8 +994,8 @@
   "case": null
  },
  {
-  "id": "core:2157",
-  "n": 2157,
+  "id": "core:r02567",
+  "n": 2172,
   "rank": 2567,
   "lemma": "womöglich",
   "pos": "ADV",
@@ -798,8 +1008,8 @@
   "case": null
  },
  {
-  "id": "core:2158",
-  "n": 2158,
+  "id": "core:r02570",
+  "n": 2173,
   "rank": 2570,
   "lemma": "Führung",
   "pos": "NOUN",
@@ -812,8 +1022,8 @@
   "case": null
  },
  {
-  "id": "core:2159",
-  "n": 2159,
+  "id": "core:r02571",
+  "n": 2174,
   "rank": 2571,
   "lemma": "Stift",
   "pos": "NOUN",
@@ -826,8 +1036,8 @@
   "case": null
  },
  {
-  "id": "core:2160",
-  "n": 2160,
+  "id": "core:r02572",
+  "n": 2175,
   "rank": 2572,
   "lemma": "servieren",
   "pos": "VERB",
@@ -840,8 +1050,8 @@
   "case": null
  },
  {
-  "id": "core:2161",
-  "n": 2161,
+  "id": "core:r02573",
+  "n": 2176,
   "rank": 2573,
   "lemma": "Unterlage",
   "pos": "NOUN",
@@ -854,8 +1064,8 @@
   "case": null
  },
  {
-  "id": "core:2162",
-  "n": 2162,
+  "id": "core:r02574",
+  "n": 2177,
   "rank": 2574,
   "lemma": "Palast",
   "pos": "NOUN",
@@ -868,8 +1078,8 @@
   "case": null
  },
  {
-  "id": "core:2163",
-  "n": 2163,
+  "id": "core:r02575",
+  "n": 2178,
   "rank": 2575,
   "lemma": "Kette",
   "pos": "NOUN",
@@ -882,8 +1092,8 @@
   "case": null
  },
  {
-  "id": "core:2164",
-  "n": 2164,
+  "id": "core:r02577",
+  "n": 2179,
   "rank": 2577,
   "lemma": "wovor",
   "pos": "ADV",
@@ -896,8 +1106,8 @@
   "case": "D"
  },
  {
-  "id": "core:2165",
-  "n": 2165,
+  "id": "core:r02578",
+  "n": 2180,
   "rank": 2578,
   "lemma": "Terrorist",
   "pos": "NOUN",
@@ -910,8 +1120,8 @@
   "case": null
  },
  {
-  "id": "core:2166",
-  "n": 2166,
+  "id": "core:r02579",
+  "n": 2181,
   "rank": 2579,
   "lemma": "ausrichten",
   "pos": "VERB",
@@ -924,8 +1134,8 @@
   "case": null
  },
  {
-  "id": "core:2167",
-  "n": 2167,
+  "id": "core:r02580",
+  "n": 2182,
   "rank": 2580,
   "lemma": "Lärm",
   "pos": "NOUN",
@@ -938,8 +1148,8 @@
   "case": null
  },
  {
-  "id": "core:2168",
-  "n": 2168,
+  "id": "core:r02581",
+  "n": 2183,
   "rank": 2581,
   "lemma": "unwichtig",
   "pos": "ADJ",
@@ -952,8 +1162,8 @@
   "case": null
  },
  {
-  "id": "core:2169",
-  "n": 2169,
+  "id": "core:r02582",
+  "n": 2184,
   "rank": 2582,
   "lemma": "Netz",
   "pos": "NOUN",
@@ -966,8 +1176,8 @@
   "case": null
  },
  {
-  "id": "core:2170",
-  "n": 2170,
+  "id": "core:r02583",
+  "n": 2185,
   "rank": 2583,
   "lemma": "Arbeiter",
   "pos": "NOUN",
@@ -980,8 +1190,8 @@
   "case": null
  },
  {
-  "id": "core:2171",
-  "n": 2171,
+  "id": "core:r02584",
+  "n": 2186,
   "rank": 2584,
   "lemma": "Humor",
   "pos": "NOUN",
@@ -994,8 +1204,8 @@
   "case": null
  },
  {
-  "id": "core:2172",
-  "n": 2172,
+  "id": "core:r02585",
+  "n": 2187,
   "rank": 2585,
   "lemma": "spenden",
   "pos": "VERB",
@@ -1008,8 +1218,8 @@
   "case": null
  },
  {
-  "id": "core:2173",
-  "n": 2173,
+  "id": "core:r02586",
+  "n": 2188,
   "rank": 2586,
   "lemma": "Symbol",
   "pos": "NOUN",
@@ -1022,8 +1232,8 @@
   "case": null
  },
  {
-  "id": "core:2174",
-  "n": 2174,
+  "id": "core:r02587",
+  "n": 2189,
   "rank": 2587,
   "lemma": "Widerstand",
   "pos": "NOUN",
@@ -1036,8 +1246,8 @@
   "case": "A"
  },
  {
-  "id": "core:2175",
-  "n": 2175,
+  "id": "core:r02588",
+  "n": 2190,
   "rank": 2588,
   "lemma": "Studio",
   "pos": "NOUN",
@@ -1050,8 +1260,8 @@
   "case": null
  },
  {
-  "id": "core:2176",
-  "n": 2176,
+  "id": "core:r02589",
+  "n": 2191,
   "rank": 2589,
   "lemma": "Hausaufgabe",
   "pos": "NOUN",
@@ -1064,8 +1274,8 @@
   "case": null
  },
  {
-  "id": "core:2177",
-  "n": 2177,
+  "id": "core:r02590",
+  "n": 2192,
   "rank": 2590,
   "lemma": "bescheuert",
   "pos": "ADJ",
@@ -1078,8 +1288,22 @@
   "case": null
  },
  {
-  "id": "core:2178",
-  "n": 2178,
+  "id": "core:r02591",
+  "n": 2193,
+  "rank": 2591,
+  "lemma": "Teller",
+  "pos": "NOUN",
+  "display": "der Teller · die Teller",
+  "gloss": "plate",
+  "sentence": "Kannst du bitte die Teller auf den Tisch stellen?",
+  "target": "Teller",
+  "en": "Can you put the plates on the table, please?",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02592",
+  "n": 2194,
   "rank": 2592,
   "lemma": "Revolution",
   "pos": "NOUN",
@@ -1092,8 +1316,8 @@
   "case": null
  },
  {
-  "id": "core:2179",
-  "n": 2179,
+  "id": "core:r02593",
+  "n": 2195,
   "rank": 2593,
   "lemma": "Ermittlung",
   "pos": "NOUN",
@@ -1106,8 +1330,8 @@
   "case": null
  },
  {
-  "id": "core:2180",
-  "n": 2180,
+  "id": "core:r02594",
+  "n": 2196,
   "rank": 2594,
   "lemma": "siegen",
   "pos": "VERB",
@@ -1120,8 +1344,8 @@
   "case": null
  },
  {
-  "id": "core:2181",
-  "n": 2181,
+  "id": "core:r02595",
+  "n": 2197,
   "rank": 2595,
   "lemma": "Wäsche",
   "pos": "NOUN",
@@ -1134,8 +1358,8 @@
   "case": null
  },
  {
-  "id": "core:2182",
-  "n": 2182,
+  "id": "core:r02596",
+  "n": 2198,
   "rank": 2596,
   "lemma": "Rätsel",
   "pos": "NOUN",
@@ -1148,8 +1372,8 @@
   "case": null
  },
  {
-  "id": "core:2183",
-  "n": 2183,
+  "id": "core:r02597",
+  "n": 2199,
   "rank": 2597,
   "lemma": "Hundert",
   "pos": "NOUN",
@@ -1162,8 +1386,8 @@
   "case": null
  },
  {
-  "id": "core:2184",
-  "n": 2184,
+  "id": "core:r02598",
+  "n": 2200,
   "rank": 2598,
   "lemma": "Bibel",
   "pos": "NOUN",
@@ -1172,20 +1396,6 @@
   "sentence": "Meine Großmutter hat jeden Abend in der Bibel gelesen.",
   "target": "Bibel",
   "en": "My grandmother read the Bible every evening.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:2185",
-  "n": 2185,
-  "rank": 2599,
-  "lemma": "wiegen",
-  "pos": "VERB",
-  "display": "wiegen · wog · hat gewogen",
-  "gloss": "to weigh",
-  "sentence": "Mein Koffer wiegt mehr als 23 Kilo.",
-  "target": "wiegt",
-  "en": "My suitcase weighs more than 23 kilos.",
   "note": null,
   "case": null
  }

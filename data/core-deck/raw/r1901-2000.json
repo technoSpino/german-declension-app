@@ -393,7 +393,7 @@
   "target": "Wut",
   "en": "He slammed the door in anger.",
   "note": "vor Wut (+ Dativ)",
-  "case": null
+  "case": "D"
  },
  {
   "rank": 1938,
@@ -421,7 +421,15 @@
  },
  {
   "rank": 1940,
-  "skip": "Duplikat: Medikament"
+  "lemma": "Medikament",
+  "pos": "NOUN",
+  "display": "das Medikament · die Medikamente",
+  "gloss": "medicine, medication",
+  "sentence": "Nehmen Sie das Medikament dreimal am Tag nach dem Essen.",
+  "target": "Medikament",
+  "en": "Take the medicine three times a day after meals.",
+  "note": "ein Medikament nehmen; Medikamente gibt es in der Apotheke",
+  "case": null
  },
  {
   "rank": 1941,

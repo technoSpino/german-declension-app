@@ -1,7 +1,161 @@
 [
  {
-  "id": "core:1801",
+  "id": "core:r02086",
   "n": 1801,
+  "rank": 2086,
+  "lemma": "Bart",
+  "pos": "NOUN",
+  "display": "der Bart · die Bärte",
+  "gloss": "beard",
+  "sentence": "Seit dem Urlaub trägt mein Mann einen Bart.",
+  "target": "Bart",
+  "en": "My husband has had a beard since the holiday.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02087",
+  "n": 1802,
+  "rank": 2087,
+  "lemma": "vermeiden",
+  "pos": "VERB",
+  "display": "vermeiden · vermied · hat vermieden",
+  "gloss": "to avoid",
+  "sentence": "Ich versuche, Zucker so gut wie möglich zu vermeiden.",
+  "target": "vermeiden",
+  "en": "I try to avoid sugar as much as possible.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02088",
+  "n": 1803,
+  "rank": 2088,
+  "lemma": "Klo",
+  "pos": "NOUN",
+  "display": "das Klo · die Klos",
+  "gloss": "loo, toilet",
+  "sentence": "Wo ist hier das Klo?",
+  "target": "Klo",
+  "en": "Where's the loo here?",
+  "note": "umgangssprachlich; = die Toilette",
+  "case": null
+ },
+ {
+  "id": "core:r02090",
+  "n": 1804,
+  "rank": 2090,
+  "lemma": "begeistert",
+  "pos": "ADJ",
+  "display": "begeistert",
+  "gloss": "enthusiastic, thrilled",
+  "sentence": "Die Kinder waren von dem Zoo total begeistert.",
+  "target": "begeistert",
+  "en": "The children were absolutely thrilled with the zoo.",
+  "note": "begeistert von + Dativ",
+  "case": "D"
+ },
+ {
+  "id": "core:r02091",
+  "n": 1805,
+  "rank": 2091,
+  "lemma": "umdrehen",
+  "pos": "VERB",
+  "display": "(sich) umdrehen · hat (sich) umgedreht",
+  "gloss": "to turn (around)",
+  "sentence": "Dreh dich mal um, hinter dir steht dein Chef!",
+  "target": "Dreh",
+  "en": "Turn around, your boss is standing behind you!",
+  "note": "trennbar: sich umdrehen",
+  "case": null
+ },
+ {
+  "id": "core:r02095",
+  "n": 1806,
+  "rank": 2095,
+  "lemma": "fließen",
+  "pos": "VERB",
+  "display": "fließen · floss · ist geflossen",
+  "gloss": "to flow",
+  "sentence": "Der Rhein fließt durch viele Städte.",
+  "target": "fließt",
+  "en": "The Rhine flows through many cities.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02096",
+  "n": 1807,
+  "rank": 2096,
+  "lemma": "aufgrund",
+  "pos": "ADP",
+  "display": "aufgrund",
+  "gloss": "because of, due to",
+  "sentence": "Aufgrund des Streiks fallen heute viele Züge aus.",
+  "target": "Aufgrund",
+  "en": "Due to the strike, many trains are cancelled today.",
+  "note": "aufgrund + Genitiv",
+  "case": "G"
+ },
+ {
+  "id": "core:r02097",
+  "n": 1808,
+  "rank": 2097,
+  "lemma": "momentan",
+  "pos": "ADV",
+  "display": "momentan",
+  "gloss": "at the moment",
+  "sentence": "Momentan habe ich sehr viel Stress bei der Arbeit.",
+  "target": "Momentan",
+  "en": "At the moment I'm very stressed at work.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02099",
+  "n": 1809,
+  "rank": 2099,
+  "lemma": "meistens",
+  "pos": "ADV",
+  "display": "meistens",
+  "gloss": "mostly, usually",
+  "sentence": "Am Wochenende schlafe ich meistens lange.",
+  "target": "meistens",
+  "en": "At the weekend I usually sleep in.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02100",
+  "n": 1810,
+  "rank": 2100,
+  "lemma": "Vision",
+  "pos": "NOUN",
+  "display": "die Vision · die Visionen",
+  "gloss": "vision",
+  "sentence": "Die neue Chefin hat eine klare Vision für die Firma.",
+  "target": "Vision",
+  "en": "The new boss has a clear vision for the company.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02101",
+  "n": 1811,
+  "rank": 2101,
+  "lemma": "heilen",
+  "pos": "VERB",
+  "display": "heilen · ist geheilt / hat geheilt",
+  "gloss": "to heal",
+  "sentence": "Die Wunde ist zum Glück schnell geheilt.",
+  "target": "geheilt",
+  "en": "Luckily the wound healed quickly.",
+  "note": "Die Wunde heilt → ist geheilt. Der Arzt heilt den Patienten → hat geheilt.",
+  "case": null
+ },
+ {
+  "id": "core:r02102",
+  "n": 1812,
   "rank": 2102,
   "lemma": "knurren",
   "pos": "VERB",
@@ -14,8 +168,8 @@
   "case": null
  },
  {
-  "id": "core:1802",
-  "n": 1802,
+  "id": "core:r02103",
+  "n": 1813,
   "rank": 2103,
   "lemma": "soviel",
   "pos": "SCONJ",
@@ -28,8 +182,8 @@
   "case": null
  },
  {
-  "id": "core:1803",
-  "n": 1803,
+  "id": "core:r02104",
+  "n": 1814,
   "rank": 2104,
   "lemma": "international",
   "pos": "ADJ",
@@ -42,8 +196,8 @@
   "case": null
  },
  {
-  "id": "core:1804",
-  "n": 1804,
+  "id": "core:r02105",
+  "n": 1815,
   "rank": 2105,
   "lemma": "stattdessen",
   "pos": "ADV",
@@ -56,8 +210,8 @@
   "case": null
  },
  {
-  "id": "core:1805",
-  "n": 1805,
+  "id": "core:r02108",
+  "n": 1816,
   "rank": 2108,
   "lemma": "beteiligen",
   "pos": "VERB",
@@ -70,8 +224,8 @@
   "case": "D"
  },
  {
-  "id": "core:1806",
-  "n": 1806,
+  "id": "core:r02109",
+  "n": 1817,
   "rank": 2109,
   "lemma": "einkaufen",
   "pos": "VERB",
@@ -84,8 +238,8 @@
   "case": null
  },
  {
-  "id": "core:1807",
-  "n": 1807,
+  "id": "core:r02110",
+  "n": 1818,
   "rank": 2110,
   "lemma": "bergen",
   "pos": "VERB",
@@ -98,8 +252,8 @@
   "case": null
  },
  {
-  "id": "core:1808",
-  "n": 1808,
+  "id": "core:r02111",
+  "n": 1819,
   "rank": 2111,
   "lemma": "Stimmung",
   "pos": "NOUN",
@@ -112,8 +266,8 @@
   "case": null
  },
  {
-  "id": "core:1809",
-  "n": 1809,
+  "id": "core:r02112",
+  "n": 1820,
   "rank": 2112,
   "lemma": "ausruhen",
   "pos": "VERB",
@@ -126,8 +280,8 @@
   "case": null
  },
  {
-  "id": "core:1810",
-  "n": 1810,
+  "id": "core:r02113",
+  "n": 1821,
   "rank": 2113,
   "lemma": "regnen",
   "pos": "VERB",
@@ -140,8 +294,22 @@
   "case": null
  },
  {
-  "id": "core:1811",
-  "n": 1811,
+  "id": "core:r02114",
+  "n": 1822,
+  "rank": 2114,
+  "lemma": "Geräusch",
+  "pos": "NOUN",
+  "display": "das Geräusch · die Geräusche",
+  "gloss": "noise, sound",
+  "sentence": "Hörst du das komische Geräusch aus der Küche?",
+  "target": "Geräusch",
+  "en": "Can you hear that strange noise from the kitchen?",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02115",
+  "n": 1823,
   "rank": 2115,
   "lemma": "Markt",
   "pos": "NOUN",
@@ -154,8 +322,8 @@
   "case": null
  },
  {
-  "id": "core:1812",
-  "n": 1812,
+  "id": "core:r02116",
+  "n": 1824,
   "rank": 2116,
   "lemma": "belügen",
   "pos": "VERB",
@@ -168,8 +336,8 @@
   "case": "A"
  },
  {
-  "id": "core:1813",
-  "n": 1813,
+  "id": "core:r02117",
+  "n": 1825,
   "rank": 2117,
   "lemma": "Künstler",
   "pos": "NOUN",
@@ -182,8 +350,8 @@
   "case": null
  },
  {
-  "id": "core:1814",
-  "n": 1814,
+  "id": "core:r02120",
+  "n": 1826,
   "rank": 2120,
   "lemma": "husten",
   "pos": "VERB",
@@ -196,8 +364,8 @@
   "case": null
  },
  {
-  "id": "core:1815",
-  "n": 1815,
+  "id": "core:r02122",
+  "n": 1827,
   "rank": 2122,
   "lemma": "herrlich",
   "pos": "ADJ",
@@ -210,8 +378,8 @@
   "case": null
  },
  {
-  "id": "core:1816",
-  "n": 1816,
+  "id": "core:r02123",
+  "n": 1828,
   "rank": 2123,
   "lemma": "strecken",
   "pos": "VERB",
@@ -224,8 +392,8 @@
   "case": null
  },
  {
-  "id": "core:1817",
-  "n": 1817,
+  "id": "core:r02124",
+  "n": 1829,
   "rank": 2124,
   "lemma": "Mitarbeiter",
   "pos": "NOUN",
@@ -238,8 +406,8 @@
   "case": null
  },
  {
-  "id": "core:1818",
-  "n": 1818,
+  "id": "core:r02127",
+  "n": 1830,
   "rank": 2127,
   "lemma": "Verletzung",
   "pos": "NOUN",
@@ -252,8 +420,8 @@
   "case": null
  },
  {
-  "id": "core:1819",
-  "n": 1819,
+  "id": "core:r02129",
+  "n": 1831,
   "rank": 2129,
   "lemma": "Unterricht",
   "pos": "NOUN",
@@ -266,8 +434,8 @@
   "case": null
  },
  {
-  "id": "core:1820",
-  "n": 1820,
+  "id": "core:r02130",
+  "n": 1832,
   "rank": 2130,
   "lemma": "ausschalten",
   "pos": "VERB",
@@ -280,8 +448,8 @@
   "case": null
  },
  {
-  "id": "core:1821",
-  "n": 1821,
+  "id": "core:r02131",
+  "n": 1833,
   "rank": 2131,
   "lemma": "Anklage",
   "pos": "NOUN",
@@ -294,8 +462,8 @@
   "case": "A"
  },
  {
-  "id": "core:1822",
-  "n": 1822,
+  "id": "core:r02132",
+  "n": 1834,
   "rank": 2132,
   "lemma": "rollen",
   "pos": "VERB",
@@ -308,8 +476,8 @@
   "case": null
  },
  {
-  "id": "core:1823",
-  "n": 1823,
+  "id": "core:r02134",
+  "n": 1835,
   "rank": 2134,
   "lemma": "Lippe",
   "pos": "NOUN",
@@ -322,8 +490,8 @@
   "case": null
  },
  {
-  "id": "core:1824",
-  "n": 1824,
+  "id": "core:r02135",
+  "n": 1836,
   "rank": 2135,
   "lemma": "Fett",
   "pos": "NOUN",
@@ -336,8 +504,8 @@
   "case": null
  },
  {
-  "id": "core:1825",
-  "n": 1825,
+  "id": "core:r02136",
+  "n": 1837,
   "rank": 2136,
   "lemma": "Serie",
   "pos": "NOUN",
@@ -350,8 +518,8 @@
   "case": null
  },
  {
-  "id": "core:1826",
-  "n": 1826,
+  "id": "core:r02137",
+  "n": 1838,
   "rank": 2137,
   "lemma": "bewaffnet",
   "pos": "ADJ",
@@ -364,8 +532,8 @@
   "case": null
  },
  {
-  "id": "core:1827",
-  "n": 1827,
+  "id": "core:r02139",
+  "n": 1839,
   "rank": 2139,
   "lemma": "dämlich",
   "pos": "ADJ",
@@ -378,8 +546,8 @@
   "case": null
  },
  {
-  "id": "core:1828",
-  "n": 1828,
+  "id": "core:r02140",
+  "n": 1840,
   "rank": 2140,
   "lemma": "äußerst",
   "pos": "ADV",
@@ -392,8 +560,8 @@
   "case": null
  },
  {
-  "id": "core:1829",
-  "n": 1829,
+  "id": "core:r02141",
+  "n": 1841,
   "rank": 2141,
   "lemma": "Käse",
   "pos": "NOUN",
@@ -406,8 +574,8 @@
   "case": null
  },
  {
-  "id": "core:1830",
-  "n": 1830,
+  "id": "core:r02142",
+  "n": 1842,
   "rank": 2142,
   "lemma": "vergewaltigen",
   "pos": "VERB",
@@ -420,8 +588,8 @@
   "case": null
  },
  {
-  "id": "core:1831",
-  "n": 1831,
+  "id": "core:r02143",
+  "n": 1843,
   "rank": 2143,
   "lemma": "Verfügung",
   "pos": "NOUN",
@@ -434,8 +602,8 @@
   "case": null
  },
  {
-  "id": "core:1832",
-  "n": 1832,
+  "id": "core:r02144",
+  "n": 1844,
   "rank": 2144,
   "lemma": "Uniform",
   "pos": "NOUN",
@@ -448,8 +616,8 @@
   "case": null
  },
  {
-  "id": "core:1833",
-  "n": 1833,
+  "id": "core:r02145",
+  "n": 1845,
   "rank": 2145,
   "lemma": "Gesundheit",
   "pos": "NOUN",
@@ -462,8 +630,8 @@
   "case": null
  },
  {
-  "id": "core:1834",
-  "n": 1834,
+  "id": "core:r02146",
+  "n": 1846,
   "rank": 2146,
   "lemma": "Abenteuer",
   "pos": "NOUN",
@@ -476,8 +644,8 @@
   "case": null
  },
  {
-  "id": "core:1835",
-  "n": 1835,
+  "id": "core:r02151",
+  "n": 1847,
   "rank": 2151,
   "lemma": "national",
   "pos": "ADJ",
@@ -490,8 +658,8 @@
   "case": null
  },
  {
-  "id": "core:1836",
-  "n": 1836,
+  "id": "core:r02152",
+  "n": 1848,
   "rank": 2152,
   "lemma": "dramatisch",
   "pos": "ADJ",
@@ -504,8 +672,8 @@
   "case": null
  },
  {
-  "id": "core:1837",
-  "n": 1837,
+  "id": "core:r02153",
+  "n": 1849,
   "rank": 2153,
   "lemma": "Revier",
   "pos": "NOUN",
@@ -518,8 +686,8 @@
   "case": null
  },
  {
-  "id": "core:1838",
-  "n": 1838,
+  "id": "core:r02155",
+  "n": 1850,
   "rank": 2155,
   "lemma": "Test",
   "pos": "NOUN",
@@ -532,8 +700,8 @@
   "case": null
  },
  {
-  "id": "core:1839",
-  "n": 1839,
+  "id": "core:r02156",
+  "n": 1851,
   "rank": 2156,
   "lemma": "Schädel",
   "pos": "NOUN",
@@ -546,8 +714,8 @@
   "case": null
  },
  {
-  "id": "core:1840",
-  "n": 1840,
+  "id": "core:r02157",
+  "n": 1852,
   "rank": 2157,
   "lemma": "Realität",
   "pos": "NOUN",
@@ -560,8 +728,8 @@
   "case": null
  },
  {
-  "id": "core:1841",
-  "n": 1841,
+  "id": "core:r02158",
+  "n": 1853,
   "rank": 2158,
   "lemma": "April",
   "pos": "NOUN",
@@ -574,8 +742,8 @@
   "case": null
  },
  {
-  "id": "core:1842",
-  "n": 1842,
+  "id": "core:r02160",
+  "n": 1854,
   "rank": 2160,
   "lemma": "notwendig",
   "pos": "ADJ",
@@ -588,8 +756,8 @@
   "case": null
  },
  {
-  "id": "core:1843",
-  "n": 1843,
+  "id": "core:r02161",
+  "n": 1855,
   "rank": 2161,
   "lemma": "medizinisch",
   "pos": "ADJ",
@@ -602,8 +770,8 @@
   "case": null
  },
  {
-  "id": "core:1844",
-  "n": 1844,
+  "id": "core:r02162",
+  "n": 1856,
   "rank": 2162,
   "lemma": "Senator",
   "pos": "NOUN",
@@ -616,8 +784,8 @@
   "case": null
  },
  {
-  "id": "core:1845",
-  "n": 1845,
+  "id": "core:r02163",
+  "n": 1857,
   "rank": 2163,
   "lemma": "Fantasie",
   "pos": "NOUN",
@@ -630,8 +798,8 @@
   "case": null
  },
  {
-  "id": "core:1846",
-  "n": 1846,
+  "id": "core:r02164",
+  "n": 1858,
   "rank": 2164,
   "lemma": "beschuldigen",
   "pos": "VERB",
@@ -644,8 +812,8 @@
   "case": null
  },
  {
-  "id": "core:1847",
-  "n": 1847,
+  "id": "core:r02166",
+  "n": 1859,
   "rank": 2166,
   "lemma": "sicherlich",
   "pos": "ADV",
@@ -658,8 +826,8 @@
   "case": null
  },
  {
-  "id": "core:1848",
-  "n": 1848,
+  "id": "core:r02167",
+  "n": 1860,
   "rank": 2167,
   "lemma": "Sand",
   "pos": "NOUN",
@@ -672,8 +840,8 @@
   "case": null
  },
  {
-  "id": "core:1849",
-  "n": 1849,
+  "id": "core:r02168",
+  "n": 1861,
   "rank": 2168,
   "lemma": "Öffentlichkeit",
   "pos": "NOUN",
@@ -686,8 +854,8 @@
   "case": null
  },
  {
-  "id": "core:1850",
-  "n": 1850,
+  "id": "core:r02169",
+  "n": 1862,
   "rank": 2169,
   "lemma": "wehren",
   "pos": "VERB",
@@ -700,8 +868,8 @@
   "case": "A"
  },
  {
-  "id": "core:1851",
-  "n": 1851,
+  "id": "core:r02170",
+  "n": 1863,
   "rank": 2170,
   "lemma": "Verbrecher",
   "pos": "NOUN",
@@ -714,8 +882,8 @@
   "case": null
  },
  {
-  "id": "core:1852",
-  "n": 1852,
+  "id": "core:r02171",
+  "n": 1864,
   "rank": 2171,
   "lemma": "Verstärkung",
   "pos": "NOUN",
@@ -728,8 +896,8 @@
   "case": null
  },
  {
-  "id": "core:1853",
-  "n": 1853,
+  "id": "core:r02172",
+  "n": 1865,
   "rank": 2172,
   "lemma": "mitmachen",
   "pos": "VERB",
@@ -742,8 +910,8 @@
   "case": "D"
  },
  {
-  "id": "core:1854",
-  "n": 1854,
+  "id": "core:r02173",
+  "n": 1866,
   "rank": 2173,
   "lemma": "verlaufen",
   "pos": "VERB",
@@ -756,8 +924,8 @@
   "case": null
  },
  {
-  "id": "core:1855",
-  "n": 1855,
+  "id": "core:r02177",
+  "n": 1867,
   "rank": 2177,
   "lemma": "Ritter",
   "pos": "NOUN",
@@ -770,8 +938,8 @@
   "case": null
  },
  {
-  "id": "core:1856",
-  "n": 1856,
+  "id": "core:r02178",
+  "n": 1868,
   "rank": 2178,
   "lemma": "loslassen",
   "pos": "VERB",
@@ -784,8 +952,8 @@
   "case": null
  },
  {
-  "id": "core:1857",
-  "n": 1857,
+  "id": "core:r02181",
+  "n": 1869,
   "rank": 2181,
   "lemma": "Ereignis",
   "pos": "NOUN",
@@ -798,8 +966,8 @@
   "case": null
  },
  {
-  "id": "core:1858",
-  "n": 1858,
+  "id": "core:r02182",
+  "n": 1870,
   "rank": 2182,
   "lemma": "friedlich",
   "pos": "ADJ",
@@ -812,8 +980,8 @@
   "case": null
  },
  {
-  "id": "core:1859",
-  "n": 1859,
+  "id": "core:r02184",
+  "n": 1871,
   "rank": 2184,
   "lemma": "Verdacht",
   "pos": "NOUN",
@@ -826,8 +994,8 @@
   "case": null
  },
  {
-  "id": "core:1860",
-  "n": 1860,
+  "id": "core:r02185",
+  "n": 1872,
   "rank": 2185,
   "lemma": "Schreibtisch",
   "pos": "NOUN",
@@ -840,8 +1008,8 @@
   "case": null
  },
  {
-  "id": "core:1861",
-  "n": 1861,
+  "id": "core:r02186",
+  "n": 1873,
   "rank": 2186,
   "lemma": "Vampir",
   "pos": "NOUN",
@@ -854,8 +1022,8 @@
   "case": null
  },
  {
-  "id": "core:1862",
-  "n": 1862,
+  "id": "core:r02188",
+  "n": 1874,
   "rank": 2188,
   "lemma": "verzichten",
   "pos": "VERB",
@@ -868,8 +1036,8 @@
   "case": "A"
  },
  {
-  "id": "core:1863",
-  "n": 1863,
+  "id": "core:r02189",
+  "n": 1875,
   "rank": 2189,
   "lemma": "Probe",
   "pos": "NOUN",
@@ -882,8 +1050,8 @@
   "case": null
  },
  {
-  "id": "core:1864",
-  "n": 1864,
+  "id": "core:r02192",
+  "n": 1876,
   "rank": 2192,
   "lemma": "aufheben",
   "pos": "VERB",
@@ -896,8 +1064,8 @@
   "case": null
  },
  {
-  "id": "core:1865",
-  "n": 1865,
+  "id": "core:r02193",
+  "n": 1877,
   "rank": 2193,
   "lemma": "putzen",
   "pos": "VERB",
@@ -910,8 +1078,8 @@
   "case": null
  },
  {
-  "id": "core:1866",
-  "n": 1866,
+  "id": "core:r02194",
+  "n": 1878,
   "rank": 2194,
   "lemma": "Bedrohung",
   "pos": "NOUN",
@@ -924,8 +1092,8 @@
   "case": null
  },
  {
-  "id": "core:1867",
-  "n": 1867,
+  "id": "core:r02196",
+  "n": 1879,
   "rank": 2196,
   "lemma": "brüllen",
   "pos": "VERB",
@@ -938,8 +1106,8 @@
   "case": null
  },
  {
-  "id": "core:1868",
-  "n": 1868,
+  "id": "core:r02197",
+  "n": 1880,
   "rank": 2197,
   "lemma": "Student",
   "pos": "NOUN",
@@ -952,8 +1120,8 @@
   "case": null
  },
  {
-  "id": "core:1869",
-  "n": 1869,
+  "id": "core:r02199",
+  "n": 1881,
   "rank": 2199,
   "lemma": "Tiger",
   "pos": "NOUN",
@@ -966,8 +1134,8 @@
   "case": null
  },
  {
-  "id": "core:1870",
-  "n": 1870,
+  "id": "core:r02201",
+  "n": 1882,
   "rank": 2201,
   "lemma": "kontaktieren",
   "pos": "VERB",
@@ -980,8 +1148,8 @@
   "case": "A"
  },
  {
-  "id": "core:1871",
-  "n": 1871,
+  "id": "core:r02203",
+  "n": 1883,
   "rank": 2203,
   "lemma": "Klamotten",
   "pos": "NOUN",
@@ -994,8 +1162,8 @@
   "case": null
  },
  {
-  "id": "core:1872",
-  "n": 1872,
+  "id": "core:r02204",
+  "n": 1884,
   "rank": 2204,
   "lemma": "aussetzen",
   "pos": "VERB",
@@ -1008,8 +1176,8 @@
   "case": null
  },
  {
-  "id": "core:1873",
-  "n": 1873,
+  "id": "core:r02205",
+  "n": 1885,
   "rank": 2205,
   "lemma": "beißen",
   "pos": "VERB",
@@ -1022,8 +1190,8 @@
   "case": null
  },
  {
-  "id": "core:1874",
-  "n": 1874,
+  "id": "core:r02206",
+  "n": 1886,
   "rank": 2206,
   "lemma": "Besitzer",
   "pos": "NOUN",
@@ -1036,8 +1204,8 @@
   "case": null
  },
  {
-  "id": "core:1875",
-  "n": 1875,
+  "id": "core:r02207",
+  "n": 1887,
   "rank": 2207,
   "lemma": "betragen",
   "pos": "VERB",
@@ -1050,8 +1218,8 @@
   "case": null
  },
  {
-  "id": "core:1876",
-  "n": 1876,
+  "id": "core:r02208",
+  "n": 1888,
   "rank": 2208,
   "lemma": "sanft",
   "pos": "ADJ",
@@ -1064,8 +1232,8 @@
   "case": null
  },
  {
-  "id": "core:1877",
-  "n": 1877,
+  "id": "core:r02209",
+  "n": 1889,
   "rank": 2209,
   "lemma": "Tasse",
   "pos": "NOUN",
@@ -1078,8 +1246,8 @@
   "case": null
  },
  {
-  "id": "core:1878",
-  "n": 1878,
+  "id": "core:r02210",
+  "n": 1890,
   "rank": 2210,
   "lemma": "Verteidigung",
   "pos": "NOUN",
@@ -1092,8 +1260,8 @@
   "case": null
  },
  {
-  "id": "core:1879",
-  "n": 1879,
+  "id": "core:r02211",
+  "n": 1891,
   "rank": 2211,
   "lemma": "Magen",
   "pos": "NOUN",
@@ -1106,8 +1274,8 @@
   "case": null
  },
  {
-  "id": "core:1880",
-  "n": 1880,
+  "id": "core:r02214",
+  "n": 1892,
   "rank": 2214,
   "lemma": "nachsehen",
   "pos": "VERB",
@@ -1120,8 +1288,8 @@
   "case": null
  },
  {
-  "id": "core:1881",
-  "n": 1881,
+  "id": "core:r02215",
+  "n": 1893,
   "rank": 2215,
   "lemma": "aussteigen",
   "pos": "VERB",
@@ -1134,8 +1302,8 @@
   "case": null
  },
  {
-  "id": "core:1882",
-  "n": 1882,
+  "id": "core:r02216",
+  "n": 1894,
   "rank": 2216,
   "lemma": "Tunnel",
   "pos": "NOUN",
@@ -1148,8 +1316,8 @@
   "case": null
  },
  {
-  "id": "core:1883",
-  "n": 1883,
+  "id": "core:r02217",
+  "n": 1895,
   "rank": 2217,
   "lemma": "einst",
   "pos": "ADV",
@@ -1162,8 +1330,8 @@
   "case": null
  },
  {
-  "id": "core:1884",
-  "n": 1884,
+  "id": "core:r02218",
+  "n": 1896,
   "rank": 2218,
   "lemma": "Behandlung",
   "pos": "NOUN",
@@ -1176,8 +1344,8 @@
   "case": null
  },
  {
-  "id": "core:1885",
-  "n": 1885,
+  "id": "core:r02219",
+  "n": 1897,
   "rank": 2219,
   "lemma": "Applaus",
   "pos": "NOUN",
@@ -1190,8 +1358,8 @@
   "case": null
  },
  {
-  "id": "core:1886",
-  "n": 1886,
+  "id": "core:r02220",
+  "n": 1898,
   "rank": 2220,
   "lemma": "korrekt",
   "pos": "ADJ",
@@ -1204,8 +1372,8 @@
   "case": null
  },
  {
-  "id": "core:1887",
-  "n": 1887,
+  "id": "core:r02221",
+  "n": 1899,
   "rank": 2221,
   "lemma": "besessen",
   "pos": "ADJ",
@@ -1218,8 +1386,8 @@
   "case": "D"
  },
  {
-  "id": "core:1888",
-  "n": 1888,
+  "id": "core:r02222",
+  "n": 1900,
   "rank": 2222,
   "lemma": "verärgern",
   "pos": "VERB",
@@ -1229,174 +1397,6 @@
   "target": "verärgert",
   "en": "The long wait annoyed many customers.",
   "note": "oft als Adjektiv: Ich bin verärgert.",
-  "case": null
- },
- {
-  "id": "core:1889",
-  "n": 1889,
-  "rank": 2224,
-  "lemma": "respektieren",
-  "pos": "VERB",
-  "display": "respektieren · hat respektiert",
-  "gloss": "to respect",
-  "sentence": "Ich respektiere deine Entscheidung, auch wenn ich sie nicht verstehe.",
-  "target": "respektiere",
-  "en": "I respect your decision, even if I don't understand it.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1890",
-  "n": 1890,
-  "rank": 2225,
-  "lemma": "Kommandant",
-  "pos": "NOUN",
-  "display": "der Kommandant · die Kommandanten",
-  "gloss": "commander",
-  "sentence": "Der Kommandant der Feuerwehr hat mit der Presse gesprochen.",
-  "target": "Kommandant",
-  "en": "The fire brigade commander spoke to the press.",
-  "note": "n-Deklination: den Kommandanten",
-  "case": null
- },
- {
-  "id": "core:1891",
-  "n": 1891,
-  "rank": 2226,
-  "lemma": "Osten",
-  "pos": "NOUN",
-  "display": "der Osten · kein Plural",
-  "gloss": "east",
-  "sentence": "Morgen regnet es vor allem im Osten.",
-  "target": "Osten",
-  "en": "Tomorrow it will rain mainly in the east.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1892",
-  "n": 1892,
-  "rank": 2227,
-  "lemma": "chinesisch",
-  "pos": "ADJ",
-  "display": "chinesisch",
-  "gloss": "Chinese",
-  "sentence": "Wollen wir heute Abend chinesisch essen?",
-  "target": "chinesisch",
-  "en": "Shall we eat Chinese food tonight?",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1893",
-  "n": 1893,
-  "rank": 2228,
-  "lemma": "sexuell",
-  "pos": "ADJ",
-  "display": "sexuell",
-  "gloss": "sexual",
-  "sentence": "Sexuelle Belästigung am Arbeitsplatz ist verboten.",
-  "target": "Sexuelle",
-  "en": "Sexual harassment in the workplace is prohibited.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1894",
-  "n": 1894,
-  "rank": 2230,
-  "lemma": "clever",
-  "pos": "ADJ",
-  "display": "clever",
-  "gloss": "clever, smart",
-  "sentence": "Das war eine clevere Idee von dir.",
-  "target": "clevere",
-  "en": "That was a clever idea of yours.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1895",
-  "n": 1895,
-  "rank": 2232,
-  "lemma": "Hass",
-  "pos": "NOUN",
-  "display": "der Hass · kein Plural",
-  "gloss": "hatred, hate",
-  "sentence": "Im Internet liest man leider viel Hass.",
-  "target": "Hass",
-  "en": "Unfortunately you read a lot of hate on the internet.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1896",
-  "n": 1896,
-  "rank": 2234,
-  "lemma": "Ticket",
-  "pos": "NOUN",
-  "display": "das Ticket · die Tickets",
-  "gloss": "ticket",
-  "sentence": "Hast du die Tickets für das Konzert schon gekauft?",
-  "target": "Tickets",
-  "en": "Have you already bought the tickets for the concert?",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1897",
-  "n": 1897,
-  "rank": 2235,
-  "lemma": "verschieben",
-  "pos": "VERB",
-  "display": "verschieben · verschob · hat verschoben",
-  "gloss": "to postpone; to move",
-  "sentence": "Können wir den Termin auf nächste Woche verschieben?",
-  "target": "verschieben",
-  "en": "Can we postpone the appointment to next week?",
-  "note": "etwas auf + Akk. verschieben",
-  "case": null
- },
- {
-  "id": "core:1898",
-  "n": 1898,
-  "rank": 2236,
-  "lemma": "ärgern",
-  "pos": "VERB",
-  "display": "sich ärgern · hat sich geärgert",
-  "gloss": "to be annoyed; to annoy (ärgern)",
-  "sentence": "Ich habe mich sehr über den Vermieter geärgert.",
-  "target": "geärgert",
-  "en": "I was very annoyed with the landlord.",
-  "note": "sich ärgern über + Akkusativ",
-  "case": "A"
- },
- {
-  "id": "core:1899",
-  "n": 1899,
-  "rank": 2237,
-  "lemma": "gefährden",
-  "pos": "VERB",
-  "display": "gefährden · hat gefährdet",
-  "gloss": "to endanger",
-  "sentence": "Wer zu schnell fährt, gefährdet auch andere Menschen.",
-  "target": "gefährdet",
-  "en": "Anyone who drives too fast also endangers other people.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1900",
-  "n": 1900,
-  "rank": 2238,
-  "lemma": "linken",
-  "pos": "VERB",
-  "display": "linken · hat gelinkt",
-  "gloss": "to con, to cheat (colloquial)",
-  "sentence": "Der Verkäufer hat uns gelinkt, das Fahrrad ist kaputt.",
-  "target": "gelinkt",
-  "en": "The seller conned us, the bike is broken.",
-  "note": "umgangssprachlich = betrügen, reinlegen",
   "case": null
  }
 ]

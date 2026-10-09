@@ -421,7 +421,15 @@
   },
   {
     "rank": 1440,
-    "skip": "Duplikat: greifen"
+    "lemma": "Griff",
+    "pos": "NOUN",
+    "display": "der Griff · die Griffe",
+    "gloss": "handle; grip",
+    "sentence": "Der Griff von meinem Koffer ist leider abgebrochen.",
+    "target": "Griff",
+    "en": "Unfortunately the handle of my suitcase has broken off.",
+    "note": "etwas im Griff haben = etwas unter Kontrolle haben",
+    "case": null
   },
   {
     "rank": 1441,

@@ -1,7 +1,77 @@
 [
  {
-  "id": "core:0801",
+  "id": "core:r00862",
   "n": 801,
+  "rank": 862,
+  "lemma": "Befehl",
+  "pos": "NOUN",
+  "display": "der Befehl · die Befehle",
+  "gloss": "order, command",
+  "sentence": "Der Hund hört sofort auf jeden Befehl.",
+  "target": "Befehl",
+  "en": "The dog obeys every command immediately.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r00863",
+  "n": 802,
+  "rank": 863,
+  "lemma": "witzig",
+  "pos": "ADJ",
+  "display": "witzig",
+  "gloss": "funny",
+  "sentence": "Dein neuer Kollege ist echt witzig.",
+  "target": "witzig",
+  "en": "Your new colleague is really funny.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r00864",
+  "n": 803,
+  "rank": 864,
+  "lemma": "Geburtstag",
+  "pos": "NOUN",
+  "display": "der Geburtstag · die Geburtstage",
+  "gloss": "birthday",
+  "sentence": "Meine Oma hat am Sonntag Geburtstag.",
+  "target": "Geburtstag",
+  "en": "It's my grandma's birthday on Sunday.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r00865",
+  "n": 804,
+  "rank": 865,
+  "lemma": "Wette",
+  "pos": "NOUN",
+  "display": "die Wette · die Wetten",
+  "gloss": "bet",
+  "sentence": "Ich habe die Wette verloren und muss jetzt das Essen bezahlen.",
+  "target": "Wette",
+  "en": "I lost the bet and now I have to pay for the meal.",
+  "note": "eine Wette gewinnen / verlieren; Verb: wetten",
+  "case": null
+ },
+ {
+  "id": "core:r00866",
+  "n": 805,
+  "rank": 866,
+  "lemma": "Sekunde",
+  "pos": "NOUN",
+  "display": "die Sekunde · die Sekunden",
+  "gloss": "second",
+  "sentence": "Warte eine Sekunde, ich komme sofort!",
+  "target": "Sekunde",
+  "en": "Wait a second, I'm coming right away!",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r00869",
+  "n": 806,
   "rank": 869,
   "lemma": "offensichtlich",
   "pos": "ADV",
@@ -14,8 +84,8 @@
   "case": null
  },
  {
-  "id": "core:0802",
-  "n": 802,
+  "id": "core:r00870",
+  "n": 807,
   "rank": 870,
   "lemma": "zwingen",
   "pos": "VERB",
@@ -28,8 +98,8 @@
   "case": null
  },
  {
-  "id": "core:0803",
-  "n": 803,
+  "id": "core:r00871",
+  "n": 808,
   "rank": 871,
   "lemma": "atmen",
   "pos": "VERB",
@@ -42,8 +112,8 @@
   "case": null
  },
  {
-  "id": "core:0804",
-  "n": 804,
+  "id": "core:r00872",
+  "n": 809,
   "rank": 872,
   "lemma": "Karte",
   "pos": "NOUN",
@@ -56,8 +126,8 @@
   "case": null
  },
  {
-  "id": "core:0805",
-  "n": 805,
+  "id": "core:r00873",
+  "n": 810,
   "rank": 873,
   "lemma": "Güte",
   "pos": "NOUN",
@@ -70,8 +140,8 @@
   "case": null
  },
  {
-  "id": "core:0806",
-  "n": 806,
+  "id": "core:r00874",
+  "n": 811,
   "rank": 874,
   "lemma": "entfernt",
   "pos": "ADJ",
@@ -84,8 +154,8 @@
   "case": null
  },
  {
-  "id": "core:0807",
-  "n": 807,
+  "id": "core:r00875",
+  "n": 812,
   "rank": 875,
   "lemma": "diesmal",
   "pos": "ADV",
@@ -98,8 +168,8 @@
   "case": null
  },
  {
-  "id": "core:0808",
-  "n": 808,
+  "id": "core:r00876",
+  "n": 813,
   "rank": 876,
   "lemma": "schade",
   "pos": "ADJ",
@@ -112,8 +182,8 @@
   "case": null
  },
  {
-  "id": "core:0809",
-  "n": 809,
+  "id": "core:r00877",
+  "n": 814,
   "rank": 877,
   "lemma": "Professor",
   "pos": "NOUN",
@@ -126,8 +196,8 @@
   "case": null
  },
  {
-  "id": "core:0810",
-  "n": 810,
+  "id": "core:r00879",
+  "n": 815,
   "rank": 879,
   "lemma": "erleben",
   "pos": "VERB",
@@ -140,8 +210,8 @@
   "case": null
  },
  {
-  "id": "core:0811",
-  "n": 811,
+  "id": "core:r00880",
+  "n": 816,
   "rank": 880,
   "lemma": "entdecken",
   "pos": "VERB",
@@ -154,8 +224,8 @@
   "case": null
  },
  {
-  "id": "core:0812",
-  "n": 812,
+  "id": "core:r00881",
+  "n": 817,
   "rank": 881,
   "lemma": "Sonne",
   "pos": "NOUN",
@@ -168,8 +238,8 @@
   "case": null
  },
  {
-  "id": "core:0813",
-  "n": 813,
+  "id": "core:r00882",
+  "n": 818,
   "rank": 882,
   "lemma": "lieb",
   "pos": "ADJ",
@@ -182,8 +252,8 @@
   "case": null
  },
  {
-  "id": "core:0814",
-  "n": 814,
+  "id": "core:r00883",
+  "n": 819,
   "rank": 883,
   "lemma": "nämlich",
   "pos": "ADV",
@@ -196,8 +266,8 @@
   "case": null
  },
  {
-  "id": "core:0815",
-  "n": 815,
+  "id": "core:r00884",
+  "n": 820,
   "rank": 884,
   "lemma": "vermissen",
   "pos": "VERB",
@@ -210,8 +280,8 @@
   "case": null
  },
  {
-  "id": "core:0816",
-  "n": 816,
+  "id": "core:r00885",
+  "n": 821,
   "rank": 885,
   "lemma": "Gericht",
   "pos": "NOUN",
@@ -224,8 +294,8 @@
   "case": null
  },
  {
-  "id": "core:0817",
-  "n": 817,
+  "id": "core:r00886",
+  "n": 822,
   "rank": 886,
   "lemma": "beruhigen",
   "pos": "VERB",
@@ -238,8 +308,8 @@
   "case": null
  },
  {
-  "id": "core:0818",
-  "n": 818,
+  "id": "core:r00887",
+  "n": 823,
   "rank": 887,
   "lemma": "Nase",
   "pos": "NOUN",
@@ -252,8 +322,8 @@
   "case": null
  },
  {
-  "id": "core:0819",
-  "n": 819,
+  "id": "core:r00888",
+  "n": 824,
   "rank": 888,
   "lemma": "Computer",
   "pos": "NOUN",
@@ -266,8 +336,8 @@
   "case": null
  },
  {
-  "id": "core:0820",
-  "n": 820,
+  "id": "core:r00890",
+  "n": 825,
   "rank": 890,
   "lemma": "vorbereiten",
   "pos": "VERB",
@@ -280,8 +350,8 @@
   "case": "A"
  },
  {
-  "id": "core:0821",
-  "n": 821,
+  "id": "core:r00891",
+  "n": 826,
   "rank": 891,
   "lemma": "Weihnachten",
   "pos": "NOUN",
@@ -294,8 +364,8 @@
   "case": null
  },
  {
-  "id": "core:0822",
-  "n": 822,
+  "id": "core:r00892",
+  "n": 827,
   "rank": 892,
   "lemma": "Situation",
   "pos": "NOUN",
@@ -308,8 +378,8 @@
   "case": null
  },
  {
-  "id": "core:0823",
-  "n": 823,
+  "id": "core:r00893",
+  "n": 828,
   "rank": 893,
   "lemma": "ergeben",
   "pos": "VERB",
@@ -322,8 +392,8 @@
   "case": null
  },
  {
-  "id": "core:0824",
-  "n": 824,
+  "id": "core:r00894",
+  "n": 829,
   "rank": 894,
   "lemma": "mitbringen",
   "pos": "VERB",
@@ -336,8 +406,8 @@
   "case": null
  },
  {
-  "id": "core:0825",
-  "n": 825,
+  "id": "core:r00895",
+  "n": 830,
   "rank": 895,
   "lemma": "Armee",
   "pos": "NOUN",
@@ -350,8 +420,8 @@
   "case": null
  },
  {
-  "id": "core:0826",
-  "n": 826,
+  "id": "core:r00896",
+  "n": 831,
   "rank": 896,
   "lemma": "Zeitung",
   "pos": "NOUN",
@@ -364,8 +434,8 @@
   "case": null
  },
  {
-  "id": "core:0827",
-  "n": 827,
+  "id": "core:r00897",
+  "n": 832,
   "rank": 897,
   "lemma": "aufnehmen",
   "pos": "VERB",
@@ -378,8 +448,8 @@
   "case": null
  },
  {
-  "id": "core:0828",
-  "n": 828,
+  "id": "core:r00898",
+  "n": 833,
   "rank": 898,
   "lemma": "Überraschung",
   "pos": "NOUN",
@@ -392,8 +462,8 @@
   "case": null
  },
  {
-  "id": "core:0829",
-  "n": 829,
+  "id": "core:r00899",
+  "n": 834,
   "rank": 899,
   "lemma": "Geheimnis",
   "pos": "NOUN",
@@ -406,8 +476,8 @@
   "case": null
  },
  {
-  "id": "core:0830",
-  "n": 830,
+  "id": "core:r00900",
+  "n": 835,
   "rank": 900,
   "lemma": "Drink",
   "pos": "NOUN",
@@ -420,8 +490,8 @@
   "case": null
  },
  {
-  "id": "core:0831",
-  "n": 831,
+  "id": "core:r00901",
+  "n": 836,
   "rank": 901,
   "lemma": "ausgehen",
   "pos": "VERB",
@@ -434,8 +504,8 @@
   "case": null
  },
  {
-  "id": "core:0832",
-  "n": 832,
+  "id": "core:r00902",
+  "n": 837,
   "rank": 902,
   "lemma": "Gold",
   "pos": "NOUN",
@@ -448,8 +518,8 @@
   "case": null
  },
  {
-  "id": "core:0833",
-  "n": 833,
+  "id": "core:r00903",
+  "n": 838,
   "rank": 903,
   "lemma": "Droge",
   "pos": "NOUN",
@@ -462,8 +532,8 @@
   "case": null
  },
  {
-  "id": "core:0834",
-  "n": 834,
+  "id": "core:r00904",
+  "n": 839,
   "rank": 904,
   "lemma": "Regierung",
   "pos": "NOUN",
@@ -476,8 +546,8 @@
   "case": null
  },
  {
-  "id": "core:0835",
-  "n": 835,
+  "id": "core:r00906",
+  "n": 840,
   "rank": 906,
   "lemma": "befinden",
   "pos": "VERB",
@@ -490,8 +560,8 @@
   "case": null
  },
  {
-  "id": "core:0836",
-  "n": 836,
+  "id": "core:r00908",
+  "n": 841,
   "rank": 908,
   "lemma": "lauten",
   "pos": "VERB",
@@ -504,8 +574,8 @@
   "case": null
  },
  {
-  "id": "core:0837",
-  "n": 837,
+  "id": "core:r00909",
+  "n": 842,
   "rank": 909,
   "lemma": "geraten",
   "pos": "VERB",
@@ -518,8 +588,8 @@
   "case": "A"
  },
  {
-  "id": "core:0838",
-  "n": 838,
+  "id": "core:r00910",
+  "n": 843,
   "rank": 910,
   "lemma": "Maschine",
   "pos": "NOUN",
@@ -532,8 +602,8 @@
   "case": null
  },
  {
-  "id": "core:0839",
-  "n": 839,
+  "id": "core:r00911",
+  "n": 844,
   "rank": 911,
   "lemma": "gegenüber",
   "pos": "ADP",
@@ -546,8 +616,8 @@
   "case": "D"
  },
  {
-  "id": "core:0840",
-  "n": 840,
+  "id": "core:r00912",
+  "n": 845,
   "rank": 912,
   "lemma": "Schlaf",
   "pos": "NOUN",
@@ -560,8 +630,8 @@
   "case": null
  },
  {
-  "id": "core:0841",
-  "n": 841,
+  "id": "core:r00913",
+  "n": 846,
   "rank": 913,
   "lemma": "Lust",
   "pos": "NOUN",
@@ -574,8 +644,8 @@
   "case": null
  },
  {
-  "id": "core:0842",
-  "n": 842,
+  "id": "core:r00914",
+  "n": 847,
   "rank": 914,
   "lemma": "übrigens",
   "pos": "ADV",
@@ -588,8 +658,8 @@
   "case": null
  },
  {
-  "id": "core:0843",
-  "n": 843,
+  "id": "core:r00915",
+  "n": 848,
   "rank": 915,
   "lemma": "Wille",
   "pos": "NOUN",
@@ -602,8 +672,8 @@
   "case": null
  },
  {
-  "id": "core:0844",
-  "n": 844,
+  "id": "core:r00916",
+  "n": 849,
   "rank": 916,
   "lemma": "schuldig",
   "pos": "ADJ",
@@ -616,8 +686,8 @@
   "case": null
  },
  {
-  "id": "core:0845",
-  "n": 845,
+  "id": "core:r00917",
+  "n": 850,
   "rank": 917,
   "lemma": "übrig",
   "pos": "ADJ",
@@ -630,8 +700,8 @@
   "case": null
  },
  {
-  "id": "core:0846",
-  "n": 846,
+  "id": "core:r00918",
+  "n": 851,
   "rank": 918,
   "lemma": "Heim",
   "pos": "NOUN",
@@ -644,8 +714,8 @@
   "case": null
  },
  {
-  "id": "core:0847",
-  "n": 847,
+  "id": "core:r00919",
+  "n": 852,
   "rank": 919,
   "lemma": "namens",
   "pos": "ADP",
@@ -658,8 +728,8 @@
   "case": null
  },
  {
-  "id": "core:0848",
-  "n": 848,
+  "id": "core:r00920",
+  "n": 853,
   "rank": 920,
   "lemma": "kaputt",
   "pos": "ADJ",
@@ -672,8 +742,8 @@
   "case": null
  },
  {
-  "id": "core:0849",
-  "n": 849,
+  "id": "core:r00921",
+  "n": 854,
   "rank": 921,
   "lemma": "Zeuge",
   "pos": "NOUN",
@@ -686,8 +756,8 @@
   "case": null
  },
  {
-  "id": "core:0850",
-  "n": 850,
+  "id": "core:r00922",
+  "n": 855,
   "rank": 922,
   "lemma": "wachsen",
   "pos": "VERB",
@@ -700,8 +770,8 @@
   "case": null
  },
  {
-  "id": "core:0851",
-  "n": 851,
+  "id": "core:r00923",
+  "n": 856,
   "rank": 923,
   "lemma": "Blick",
   "pos": "NOUN",
@@ -714,8 +784,8 @@
   "case": null
  },
  {
-  "id": "core:0852",
-  "n": 852,
+  "id": "core:r00924",
+  "n": 857,
   "rank": 924,
   "lemma": "Besuch",
   "pos": "NOUN",
@@ -728,8 +798,8 @@
   "case": null
  },
  {
-  "id": "core:0853",
-  "n": 853,
+  "id": "core:r00925",
+  "n": 858,
   "rank": 925,
   "lemma": "Haar",
   "pos": "NOUN",
@@ -742,8 +812,8 @@
   "case": null
  },
  {
-  "id": "core:0854",
-  "n": 854,
+  "id": "core:r00926",
+  "n": 859,
   "rank": 926,
   "lemma": "nervös",
   "pos": "ADJ",
@@ -756,8 +826,8 @@
   "case": null
  },
  {
-  "id": "core:0855",
-  "n": 855,
+  "id": "core:r00928",
+  "n": 860,
   "rank": 928,
   "lemma": "gesund",
   "pos": "ADJ",
@@ -770,8 +840,8 @@
   "case": null
  },
  {
-  "id": "core:0856",
-  "n": 856,
+  "id": "core:r00929",
+  "n": 861,
   "rank": 929,
   "lemma": "halb",
   "pos": "ADJ",
@@ -784,8 +854,8 @@
   "case": null
  },
  {
-  "id": "core:0857",
-  "n": 857,
+  "id": "core:r00930",
+  "n": 862,
   "rank": 930,
   "lemma": "Hoffnung",
   "pos": "NOUN",
@@ -798,8 +868,8 @@
   "case": null
  },
  {
-  "id": "core:0858",
-  "n": 858,
+  "id": "core:r00931",
+  "n": 863,
   "rank": 931,
   "lemma": "riechen",
   "pos": "VERB",
@@ -812,8 +882,8 @@
   "case": "D"
  },
  {
-  "id": "core:0859",
-  "n": 859,
+  "id": "core:r00932",
+  "n": 864,
   "rank": 932,
   "lemma": "rechts",
   "pos": "ADV",
@@ -826,8 +896,8 @@
   "case": null
  },
  {
-  "id": "core:0860",
-  "n": 860,
+  "id": "core:r00933",
+  "n": 865,
   "rank": 933,
   "lemma": "Vergnügen",
   "pos": "NOUN",
@@ -840,8 +910,8 @@
   "case": null
  },
  {
-  "id": "core:0861",
-  "n": 861,
+  "id": "core:r00934",
+  "n": 866,
   "rank": 934,
   "lemma": "Gespräch",
   "pos": "NOUN",
@@ -854,8 +924,8 @@
   "case": null
  },
  {
-  "id": "core:0862",
-  "n": 862,
+  "id": "core:r00935",
+  "n": 867,
   "rank": 935,
   "lemma": "miteinander",
   "pos": "ADV",
@@ -868,8 +938,8 @@
   "case": null
  },
  {
-  "id": "core:0863",
-  "n": 863,
+  "id": "core:r00937",
+  "n": 868,
   "rank": 937,
   "lemma": "indem",
   "pos": "SCONJ",
@@ -882,8 +952,8 @@
   "case": null
  },
  {
-  "id": "core:0864",
-  "n": 864,
+  "id": "core:r00938",
+  "n": 869,
   "rank": 938,
   "lemma": "weder",
   "pos": "CCONJ",
@@ -896,8 +966,8 @@
   "case": null
  },
  {
-  "id": "core:0865",
-  "n": 865,
+  "id": "core:r00939",
+  "n": 870,
   "rank": 939,
   "lemma": "Möglichkeit",
   "pos": "NOUN",
@@ -910,8 +980,8 @@
   "case": null
  },
  {
-  "id": "core:0866",
-  "n": 866,
+  "id": "core:r00940",
+  "n": 871,
   "rank": 940,
   "lemma": "Flugzeug",
   "pos": "NOUN",
@@ -924,8 +994,8 @@
   "case": null
  },
  {
-  "id": "core:0867",
-  "n": 867,
+  "id": "core:r00941",
+  "n": 872,
   "rank": 941,
   "lemma": "Gesellschaft",
   "pos": "NOUN",
@@ -938,8 +1008,8 @@
   "case": null
  },
  {
-  "id": "core:0868",
-  "n": 868,
+  "id": "core:r00942",
+  "n": 873,
   "rank": 942,
   "lemma": "schaden",
   "pos": "VERB",
@@ -952,8 +1022,8 @@
   "case": "D"
  },
  {
-  "id": "core:0869",
-  "n": 869,
+  "id": "core:r00943",
+  "n": 874,
   "rank": 943,
   "lemma": "leise",
   "pos": "ADJ",
@@ -966,8 +1036,8 @@
   "case": null
  },
  {
-  "id": "core:0870",
-  "n": 870,
+  "id": "core:r00944",
+  "n": 875,
   "rank": 944,
   "lemma": "Vergangenheit",
   "pos": "NOUN",
@@ -980,8 +1050,8 @@
   "case": null
  },
  {
-  "id": "core:0871",
-  "n": 871,
+  "id": "core:r00945",
+  "n": 876,
   "rank": 945,
   "lemma": "schneiden",
   "pos": "VERB",
@@ -994,8 +1064,8 @@
   "case": null
  },
  {
-  "id": "core:0872",
-  "n": 872,
+  "id": "core:r00946",
+  "n": 877,
   "rank": 946,
   "lemma": "Tee",
   "pos": "NOUN",
@@ -1008,8 +1078,8 @@
   "case": null
  },
  {
-  "id": "core:0873",
-  "n": 873,
+  "id": "core:r00947",
+  "n": 878,
   "rank": 947,
   "lemma": "fantastisch",
   "pos": "ADJ",
@@ -1022,8 +1092,8 @@
   "case": null
  },
  {
-  "id": "core:0874",
-  "n": 874,
+  "id": "core:r00948",
+  "n": 879,
   "rank": 948,
   "lemma": "entweder",
   "pos": "CCONJ",
@@ -1036,8 +1106,8 @@
   "case": null
  },
  {
-  "id": "core:0875",
-  "n": 875,
+  "id": "core:r00949",
+  "n": 880,
   "rank": 949,
   "lemma": "aufpassen",
   "pos": "VERB",
@@ -1050,8 +1120,8 @@
   "case": "A"
  },
  {
-  "id": "core:0876",
-  "n": 876,
+  "id": "core:r00950",
+  "n": 881,
   "rank": 950,
   "lemma": "dritte",
   "pos": "NUM",
@@ -1064,8 +1134,8 @@
   "case": null
  },
  {
-  "id": "core:0877",
-  "n": 877,
+  "id": "core:r00951",
+  "n": 882,
   "rank": 951,
   "lemma": "übel",
   "pos": "ADJ",
@@ -1078,8 +1148,8 @@
   "case": "D"
  },
  {
-  "id": "core:0878",
-  "n": 878,
+  "id": "core:r00953",
+  "n": 883,
   "rank": 953,
   "lemma": "Gruppe",
   "pos": "NOUN",
@@ -1092,8 +1162,8 @@
   "case": null
  },
  {
-  "id": "core:0879",
-  "n": 879,
+  "id": "core:r00955",
+  "n": 884,
   "rank": 955,
   "lemma": "irgendwelche",
   "pos": "PRON",
@@ -1106,8 +1176,8 @@
   "case": null
  },
  {
-  "id": "core:0880",
-  "n": 880,
+  "id": "core:r00956",
+  "n": 885,
   "rank": 956,
   "lemma": "Mädel",
   "pos": "NOUN",
@@ -1120,8 +1190,8 @@
   "case": null
  },
  {
-  "id": "core:0881",
-  "n": 881,
+  "id": "core:r00957",
+  "n": 886,
   "rank": 957,
   "lemma": "ankommen",
   "pos": "VERB",
@@ -1134,8 +1204,22 @@
   "case": null
  },
  {
-  "id": "core:0882",
-  "n": 882,
+  "id": "core:r00960",
+  "n": 887,
+  "rank": 960,
+  "lemma": "Schlag",
+  "pos": "NOUN",
+  "display": "der Schlag · die Schläge",
+  "gloss": "blow, hit; shock",
+  "sentence": "Die Nachricht war ein schwerer Schlag für die ganze Familie.",
+  "target": "Schlag",
+  "en": "The news was a heavy blow for the whole family.",
+  "note": "das Verb: schlagen; mit einem Schlag = plötzlich",
+  "case": null
+ },
+ {
+  "id": "core:r00962",
+  "n": 888,
   "rank": 962,
   "lemma": "Untertitel",
   "pos": "NOUN",
@@ -1148,8 +1232,8 @@
   "case": null
  },
  {
-  "id": "core:0883",
-  "n": 883,
+  "id": "core:r00965",
+  "n": 889,
   "rank": 965,
   "lemma": "Schicksal",
   "pos": "NOUN",
@@ -1162,8 +1246,8 @@
   "case": null
  },
  {
-  "id": "core:0884",
-  "n": 884,
+  "id": "core:r00966",
+  "n": 890,
   "rank": 966,
   "lemma": "Hals",
   "pos": "NOUN",
@@ -1176,8 +1260,8 @@
   "case": null
  },
  {
-  "id": "core:0885",
-  "n": 885,
+  "id": "core:r00967",
+  "n": 891,
   "rank": 967,
   "lemma": "Lied",
   "pos": "NOUN",
@@ -1190,8 +1274,8 @@
   "case": null
  },
  {
-  "id": "core:0886",
-  "n": 886,
+  "id": "core:r00968",
+  "n": 892,
   "rank": 968,
   "lemma": "danken",
   "pos": "VERB",
@@ -1204,8 +1288,8 @@
   "case": "D"
  },
  {
-  "id": "core:0887",
-  "n": 887,
+  "id": "core:r00969",
+  "n": 893,
   "rank": 969,
   "lemma": "schätzen",
   "pos": "VERB",
@@ -1218,8 +1302,8 @@
   "case": null
  },
  {
-  "id": "core:0888",
-  "n": 888,
+  "id": "core:r00970",
+  "n": 894,
   "rank": 970,
   "lemma": "reisen",
   "pos": "VERB",
@@ -1232,8 +1316,8 @@
   "case": null
  },
  {
-  "id": "core:0889",
-  "n": 889,
+  "id": "core:r00971",
+  "n": 895,
   "rank": 971,
   "lemma": "erscheinen",
   "pos": "VERB",
@@ -1246,8 +1330,8 @@
   "case": null
  },
  {
-  "id": "core:0890",
-  "n": 890,
+  "id": "core:r00972",
+  "n": 896,
   "rank": 972,
   "lemma": "schmecken",
   "pos": "VERB",
@@ -1260,8 +1344,8 @@
   "case": "D"
  },
  {
-  "id": "core:0891",
-  "n": 891,
+  "id": "core:r00973",
+  "n": 897,
   "rank": 973,
   "lemma": "Wald",
   "pos": "NOUN",
@@ -1274,8 +1358,8 @@
   "case": null
  },
  {
-  "id": "core:0892",
-  "n": 892,
+  "id": "core:r00974",
+  "n": 898,
   "rank": 974,
   "lemma": "Gebäude",
   "pos": "NOUN",
@@ -1288,8 +1372,8 @@
   "case": null
  },
  {
-  "id": "core:0893",
-  "n": 893,
+  "id": "core:r00975",
+  "n": 899,
   "rank": 975,
   "lemma": "Stein",
   "pos": "NOUN",
@@ -1302,8 +1386,8 @@
   "case": null
  },
  {
-  "id": "core:0894",
-  "n": 894,
+  "id": "core:r00976",
+  "n": 900,
   "rank": 976,
   "lemma": "Zeichen",
   "pos": "NOUN",
@@ -1312,90 +1396,6 @@
   "sentence": "Fieber ist oft ein Zeichen für eine Infektion.",
   "target": "Zeichen",
   "en": "Fever is often a sign of an infection.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:0895",
-  "n": 895,
-  "rank": 977,
-  "lemma": "Richter",
-  "pos": "NOUN",
-  "display": "der Richter · die Richter",
-  "gloss": "judge",
-  "sentence": "Der Richter hat das Urteil am Freitag verkündet.",
-  "target": "Richter",
-  "en": "The judge announced the verdict on Friday.",
-  "note": "weiblich: die Richterin",
-  "case": null
- },
- {
-  "id": "core:0896",
-  "n": 896,
-  "rank": 978,
-  "lemma": "besorgt",
-  "pos": "ADJ",
-  "display": "besorgt",
-  "gloss": "worried, concerned",
-  "sentence": "Meine Mutter ist besorgt, weil ich so viel arbeite.",
-  "target": "besorgt",
-  "en": "My mother is worried because I work so much.",
-  "note": "besorgt sein um + Akk.",
-  "case": null
- },
- {
-  "id": "core:0897",
-  "n": 897,
-  "rank": 979,
-  "lemma": "Küche",
-  "pos": "NOUN",
-  "display": "die Küche · die Küchen",
-  "gloss": "kitchen; cuisine",
-  "sentence": "Die neue Wohnung hat eine schöne, große Küche.",
-  "target": "Küche",
-  "en": "The new flat has a nice, big kitchen.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:0898",
-  "n": 898,
-  "rank": 980,
-  "lemma": "verantwortlich",
-  "pos": "ADJ",
-  "display": "verantwortlich",
-  "gloss": "responsible",
-  "sentence": "Wer ist bei Ihnen für die Buchhaltung verantwortlich?",
-  "target": "verantwortlich",
-  "en": "Who is responsible for accounting at your company?",
-  "note": "verantwortlich für + Akk.",
-  "case": "A"
- },
- {
-  "id": "core:0899",
-  "n": 899,
-  "rank": 981,
-  "lemma": "verbinden",
-  "pos": "VERB",
-  "display": "verbinden · verband · hat verbunden",
-  "gloss": "to connect; to put through (phone)",
-  "sentence": "Einen Moment, ich verbinde Sie mit meinem Kollegen.",
-  "target": "verbinde",
-  "en": "One moment, I'll put you through to my colleague.",
-  "note": "am Telefon: jemanden mit jemandem verbinden; mit + Dativ",
-  "case": "D"
- },
- {
-  "id": "core:0900",
-  "n": 900,
-  "rank": 983,
-  "lemma": "Fisch",
-  "pos": "NOUN",
-  "display": "der Fisch · die Fische",
-  "gloss": "fish",
-  "sentence": "Freitags gibt es in der Kantine immer Fisch.",
-  "target": "Fisch",
-  "en": "On Fridays there is always fish in the canteen.",
   "note": null,
   "case": null
  }

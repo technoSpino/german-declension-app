@@ -1,7 +1,63 @@
 [
  {
-  "id": "core:0701",
+  "id": "core:r00749",
   "n": 701,
+  "rank": 749,
+  "lemma": "Chef",
+  "pos": "NOUN",
+  "display": "der Chef · die Chefs",
+  "gloss": "boss",
+  "sentence": "Ich muss meinen Chef fragen, ob ich Urlaub nehmen kann.",
+  "target": "Chef",
+  "en": "I have to ask my boss whether I can take time off.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r00750",
+  "n": 702,
+  "rank": 750,
+  "lemma": "lösen",
+  "pos": "VERB",
+  "display": "lösen · hat gelöst",
+  "gloss": "to solve",
+  "sentence": "Wir müssen das Problem mit der Heizung schnell lösen.",
+  "target": "lösen",
+  "en": "We have to solve the problem with the heating quickly.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r00751",
+  "n": 703,
+  "rank": 751,
+  "lemma": "annehmen",
+  "pos": "VERB",
+  "display": "annehmen · nahm an · hat angenommen",
+  "gloss": "to accept; to assume",
+  "sentence": "Ich habe das Jobangebot angenommen.",
+  "target": "angenommen",
+  "en": "I've accepted the job offer.",
+  "note": "trennbar; auch: annehmen = vermuten",
+  "case": null
+ },
+ {
+  "id": "core:r00752",
+  "n": 704,
+  "rank": 752,
+  "lemma": "verraten",
+  "pos": "VERB",
+  "display": "verraten · verriet · hat verraten",
+  "gloss": "to tell, to reveal; to betray",
+  "sentence": "Kannst du mir verraten, was es heute zum Essen gibt?",
+  "target": "verraten",
+  "en": "Can you tell me what's for dinner today?",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r00753",
+  "n": 705,
   "rank": 753,
   "lemma": "hoffentlich",
   "pos": "ADV",
@@ -14,8 +70,8 @@
   "case": null
  },
  {
-  "id": "core:0702",
-  "n": 702,
+  "id": "core:r00754",
+  "n": 706,
   "rank": 754,
   "lemma": "zählen",
   "pos": "VERB",
@@ -28,8 +84,8 @@
   "case": null
  },
  {
-  "id": "core:0703",
-  "n": 703,
+  "id": "core:r00755",
+  "n": 707,
   "rank": 755,
   "lemma": "zuhause",
   "pos": "ADV",
@@ -42,8 +98,8 @@
   "case": null
  },
  {
-  "id": "core:0704",
-  "n": 704,
+  "id": "core:r00756",
+  "n": 708,
   "rank": 756,
   "lemma": "Firma",
   "pos": "NOUN",
@@ -56,8 +112,8 @@
   "case": null
  },
  {
-  "id": "core:0705",
-  "n": 705,
+  "id": "core:r00757",
+  "n": 709,
   "rank": 757,
   "lemma": "Raum",
   "pos": "NOUN",
@@ -70,8 +126,8 @@
   "case": null
  },
  {
-  "id": "core:0706",
-  "n": 706,
+  "id": "core:r00758",
+  "n": 710,
   "rank": 758,
   "lemma": "feiern",
   "pos": "VERB",
@@ -84,8 +140,8 @@
   "case": null
  },
  {
-  "id": "core:0707",
-  "n": 707,
+  "id": "core:r00759",
+  "n": 711,
   "rank": 759,
   "lemma": "Reise",
   "pos": "NOUN",
@@ -98,8 +154,8 @@
   "case": null
  },
  {
-  "id": "core:0708",
-  "n": 708,
+  "id": "core:r00760",
+  "n": 712,
   "rank": 760,
   "lemma": "Dame",
   "pos": "NOUN",
@@ -112,8 +168,8 @@
   "case": null
  },
  {
-  "id": "core:0709",
-  "n": 709,
+  "id": "core:r00761",
+  "n": 713,
   "rank": 761,
   "lemma": "Zug",
   "pos": "NOUN",
@@ -126,8 +182,8 @@
   "case": null
  },
  {
-  "id": "core:0710",
-  "n": 710,
+  "id": "core:r00762",
+  "n": 714,
   "rank": 762,
   "lemma": "fassen",
   "pos": "VERB",
@@ -140,8 +196,8 @@
   "case": null
  },
  {
-  "id": "core:0711",
-  "n": 711,
+  "id": "core:r00763",
+  "n": 715,
   "rank": 763,
   "lemma": "irgendwann",
   "pos": "ADV",
@@ -154,8 +210,8 @@
   "case": null
  },
  {
-  "id": "core:0712",
-  "n": 712,
+  "id": "core:r00764",
+  "n": 716,
   "rank": 764,
   "lemma": "passen",
   "pos": "VERB",
@@ -168,8 +224,8 @@
   "case": "D"
  },
  {
-  "id": "core:0713",
-  "n": 713,
+  "id": "core:r00765",
+  "n": 717,
   "rank": 765,
   "lemma": "jedenfalls",
   "pos": "ADV",
@@ -182,8 +238,8 @@
   "case": null
  },
  {
-  "id": "core:0714",
-  "n": 714,
+  "id": "core:r00767",
+  "n": 718,
   "rank": 767,
   "lemma": "Gesetz",
   "pos": "NOUN",
@@ -196,8 +252,8 @@
   "case": null
  },
  {
-  "id": "core:0715",
-  "n": 715,
+  "id": "core:r00768",
+  "n": 719,
   "rank": 768,
   "lemma": "rüber",
   "pos": "ADV",
@@ -210,8 +266,8 @@
   "case": null
  },
  {
-  "id": "core:0716",
-  "n": 716,
+  "id": "core:r00769",
+  "n": 720,
   "rank": 769,
   "lemma": "Wein",
   "pos": "NOUN",
@@ -224,8 +280,8 @@
   "case": null
  },
  {
-  "id": "core:0717",
-  "n": 717,
+  "id": "core:r00770",
+  "n": 721,
   "rank": 770,
   "lemma": "nutzen",
   "pos": "VERB",
@@ -238,8 +294,8 @@
   "case": null
  },
  {
-  "id": "core:0718",
-  "n": 718,
+  "id": "core:r00771",
+  "n": 722,
   "rank": 771,
   "lemma": "rennen",
   "pos": "VERB",
@@ -252,8 +308,8 @@
   "case": null
  },
  {
-  "id": "core:0719",
-  "n": 719,
+  "id": "core:r00772",
+  "n": 723,
   "rank": 772,
   "lemma": "behandeln",
   "pos": "VERB",
@@ -266,8 +322,8 @@
   "case": null
  },
  {
-  "id": "core:0720",
-  "n": 720,
+  "id": "core:r00773",
+  "n": 724,
   "rank": 773,
   "lemma": "Foto",
   "pos": "NOUN",
@@ -280,8 +336,8 @@
   "case": null
  },
  {
-  "id": "core:0721",
-  "n": 721,
+  "id": "core:r00774",
+  "n": 725,
   "rank": 774,
   "lemma": "ermorden",
   "pos": "VERB",
@@ -294,8 +350,8 @@
   "case": null
  },
  {
-  "id": "core:0722",
-  "n": 722,
+  "id": "core:r00775",
+  "n": 726,
   "rank": 775,
   "lemma": "irgendetwas",
   "pos": "PRON",
@@ -308,8 +364,8 @@
   "case": null
  },
  {
-  "id": "core:0723",
-  "n": 723,
+  "id": "core:r00776",
+  "n": 727,
   "rank": 776,
   "lemma": "Weile",
   "pos": "NOUN",
@@ -322,8 +378,8 @@
   "case": null
  },
  {
-  "id": "core:0724",
-  "n": 724,
+  "id": "core:r00777",
+  "n": 728,
   "rank": 777,
   "lemma": "bisher",
   "pos": "ADV",
@@ -336,8 +392,8 @@
   "case": null
  },
  {
-  "id": "core:0725",
-  "n": 725,
+  "id": "core:r00779",
+  "n": 729,
   "rank": 779,
   "lemma": "unbedingt",
   "pos": "ADV",
@@ -350,8 +406,8 @@
   "case": null
  },
  {
-  "id": "core:0726",
-  "n": 726,
+  "id": "core:r00780",
+  "n": 730,
   "rank": 780,
   "lemma": "ewig",
   "pos": "ADJ",
@@ -364,8 +420,8 @@
   "case": null
  },
  {
-  "id": "core:0727",
-  "n": 727,
+  "id": "core:r00782",
+  "n": 731,
   "rank": 782,
   "lemma": "rücken",
   "pos": "VERB",
@@ -378,8 +434,8 @@
   "case": null
  },
  {
-  "id": "core:0728",
-  "n": 728,
+  "id": "core:r00783",
+  "n": 732,
   "rank": 783,
   "lemma": "wofür",
   "pos": "ADV",
@@ -392,8 +448,8 @@
   "case": null
  },
  {
-  "id": "core:0729",
-  "n": 729,
+  "id": "core:r00784",
+  "n": 733,
   "rank": 784,
   "lemma": "wütend",
   "pos": "ADJ",
@@ -406,8 +462,8 @@
   "case": null
  },
  {
-  "id": "core:0730",
-  "n": 730,
+  "id": "core:r00786",
+  "n": 734,
   "rank": 786,
   "lemma": "Kontrolle",
   "pos": "NOUN",
@@ -420,8 +476,8 @@
   "case": null
  },
  {
-  "id": "core:0731",
-  "n": 731,
+  "id": "core:r00787",
+  "n": 735,
   "rank": 787,
   "lemma": "stöhnen",
   "pos": "VERB",
@@ -434,8 +490,8 @@
   "case": "A"
  },
  {
-  "id": "core:0732",
-  "n": 732,
+  "id": "core:r00788",
+  "n": 736,
   "rank": 788,
   "lemma": "aufgeben",
   "pos": "VERB",
@@ -448,8 +504,8 @@
   "case": null
  },
  {
-  "id": "core:0733",
-  "n": 733,
+  "id": "core:r00789",
+  "n": 737,
   "rank": 789,
   "lemma": "Seele",
   "pos": "NOUN",
@@ -462,8 +518,8 @@
   "case": null
  },
  {
-  "id": "core:0734",
-  "n": 734,
+  "id": "core:r00790",
+  "n": 738,
   "rank": 790,
   "lemma": "beschäftigen",
   "pos": "VERB",
@@ -476,8 +532,8 @@
   "case": "D"
  },
  {
-  "id": "core:0735",
-  "n": 735,
+  "id": "core:r00791",
+  "n": 739,
   "rank": 791,
   "lemma": "müde",
   "pos": "ADJ",
@@ -490,8 +546,8 @@
   "case": null
  },
  {
-  "id": "core:0736",
-  "n": 736,
+  "id": "core:r00792",
+  "n": 740,
   "rank": 792,
   "lemma": "einladen",
   "pos": "VERB",
@@ -504,8 +560,8 @@
   "case": "D"
  },
  {
-  "id": "core:0737",
-  "n": 737,
+  "id": "core:r00793",
+  "n": 741,
   "rank": 793,
   "lemma": "Brief",
   "pos": "NOUN",
@@ -518,8 +574,8 @@
   "case": null
  },
  {
-  "id": "core:0738",
-  "n": 738,
+  "id": "core:r00794",
+  "n": 742,
   "rank": 794,
   "lemma": "wählen",
   "pos": "VERB",
@@ -532,8 +588,8 @@
   "case": null
  },
  {
-  "id": "core:0739",
-  "n": 739,
+  "id": "core:r00795",
+  "n": 743,
   "rank": 795,
   "lemma": "gewiss",
   "pos": "ADJ",
@@ -546,8 +602,8 @@
   "case": null
  },
  {
-  "id": "core:0740",
-  "n": 740,
+  "id": "core:r00796",
+  "n": 744,
   "rank": 796,
   "lemma": "treiben",
   "pos": "VERB",
@@ -560,8 +616,8 @@
   "case": null
  },
  {
-  "id": "core:0741",
-  "n": 741,
+  "id": "core:r00797",
+  "n": 745,
   "rank": 797,
   "lemma": "verzeihen",
   "pos": "VERB",
@@ -574,8 +630,8 @@
   "case": "D"
  },
  {
-  "id": "core:0742",
-  "n": 742,
+  "id": "core:r00798",
+  "n": 746,
   "rank": 798,
   "lemma": "Bank",
   "pos": "NOUN",
@@ -588,8 +644,8 @@
   "case": null
  },
  {
-  "id": "core:0743",
-  "n": 743,
+  "id": "core:r00799",
+  "n": 747,
   "rank": 799,
   "lemma": "Unfall",
   "pos": "NOUN",
@@ -602,8 +658,8 @@
   "case": null
  },
  {
-  "id": "core:0744",
-  "n": 744,
+  "id": "core:r00800",
+  "n": 748,
   "rank": 800,
   "lemma": "dahin",
   "pos": "ADV",
@@ -616,8 +672,8 @@
   "case": null
  },
  {
-  "id": "core:0745",
-  "n": 745,
+  "id": "core:r00801",
+  "n": 749,
   "rank": 801,
   "lemma": "Kontakt",
   "pos": "NOUN",
@@ -630,8 +686,8 @@
   "case": null
  },
  {
-  "id": "core:0746",
-  "n": 746,
+  "id": "core:r00802",
+  "n": 750,
   "rank": 802,
   "lemma": "Beispiel",
   "pos": "NOUN",
@@ -644,8 +700,8 @@
   "case": null
  },
  {
-  "id": "core:0747",
-  "n": 747,
+  "id": "core:r00803",
+  "n": 751,
   "rank": 803,
   "lemma": "dasselbe",
   "pos": "PRON",
@@ -658,8 +714,8 @@
   "case": null
  },
  {
-  "id": "core:0748",
-  "n": 748,
+  "id": "core:r00805",
+  "n": 752,
   "rank": 805,
   "lemma": "Weise",
   "pos": "NOUN",
@@ -672,8 +728,8 @@
   "case": null
  },
  {
-  "id": "core:0749",
-  "n": 749,
+  "id": "core:r00807",
+  "n": 753,
   "rank": 807,
   "lemma": "darin",
   "pos": "ADV",
@@ -686,8 +742,8 @@
   "case": null
  },
  {
-  "id": "core:0750",
-  "n": 750,
+  "id": "core:r00808",
+  "n": 754,
   "rank": 808,
   "lemma": "frisch",
   "pos": "ADJ",
@@ -700,8 +756,8 @@
   "case": null
  },
  {
-  "id": "core:0751",
-  "n": 751,
+  "id": "core:r00810",
+  "n": 755,
   "rank": 810,
   "lemma": "enden",
   "pos": "VERB",
@@ -714,8 +770,8 @@
   "case": null
  },
  {
-  "id": "core:0752",
-  "n": 752,
+  "id": "core:r00811",
+  "n": 756,
   "rank": 811,
   "lemma": "bar",
   "pos": "ADV",
@@ -728,8 +784,8 @@
   "case": null
  },
  {
-  "id": "core:0753",
-  "n": 753,
+  "id": "core:r00812",
+  "n": 757,
   "rank": 812,
   "lemma": "Vorsicht",
   "pos": "NOUN",
@@ -742,8 +798,8 @@
   "case": null
  },
  {
-  "id": "core:0754",
-  "n": 754,
+  "id": "core:r00813",
+  "n": 758,
   "rank": 813,
   "lemma": "zumindest",
   "pos": "ADV",
@@ -756,8 +812,8 @@
   "case": null
  },
  {
-  "id": "core:0755",
-  "n": 755,
+  "id": "core:r00815",
+  "n": 759,
   "rank": 815,
   "lemma": "überprüfen",
   "pos": "VERB",
@@ -770,8 +826,8 @@
   "case": null
  },
  {
-  "id": "core:0756",
-  "n": 756,
+  "id": "core:r00816",
+  "n": 760,
   "rank": 816,
   "lemma": "Verbindung",
   "pos": "NOUN",
@@ -784,8 +840,8 @@
   "case": null
  },
  {
-  "id": "core:0757",
-  "n": 757,
+  "id": "core:r00817",
+  "n": 761,
   "rank": 817,
   "lemma": "Richtung",
   "pos": "NOUN",
@@ -798,8 +854,8 @@
   "case": null
  },
  {
-  "id": "core:0758",
-  "n": 758,
+  "id": "core:r00818",
+  "n": 762,
   "rank": 818,
   "lemma": "Lage",
   "pos": "NOUN",
@@ -812,8 +868,8 @@
   "case": null
  },
  {
-  "id": "core:0759",
-  "n": 759,
+  "id": "core:r00819",
+  "n": 763,
   "rank": 819,
   "lemma": "sowieso",
   "pos": "ADV",
@@ -826,8 +882,8 @@
   "case": null
  },
  {
-  "id": "core:0760",
-  "n": 760,
+  "id": "core:r00820",
+  "n": 764,
   "rank": 820,
   "lemma": "Kraft",
   "pos": "NOUN",
@@ -840,8 +896,8 @@
   "case": null
  },
  {
-  "id": "core:0761",
-  "n": 761,
+  "id": "core:r00823",
+  "n": 765,
   "rank": 823,
   "lemma": "beobachten",
   "pos": "VERB",
@@ -854,8 +910,8 @@
   "case": null
  },
  {
-  "id": "core:0762",
-  "n": 762,
+  "id": "core:r00824",
+  "n": 766,
   "rank": 824,
   "lemma": "leisten",
   "pos": "VERB",
@@ -868,8 +924,8 @@
   "case": "D"
  },
  {
-  "id": "core:0763",
-  "n": 763,
+  "id": "core:r00825",
+  "n": 767,
   "rank": 825,
   "lemma": "Tasche",
   "pos": "NOUN",
@@ -882,8 +938,8 @@
   "case": null
  },
  {
-  "id": "core:0764",
-  "n": 764,
+  "id": "core:r00826",
+  "n": 768,
   "rank": 826,
   "lemma": "jagen",
   "pos": "VERB",
@@ -896,8 +952,8 @@
   "case": null
  },
  {
-  "id": "core:0765",
-  "n": 765,
+  "id": "core:r00827",
+  "n": 769,
   "rank": 827,
   "lemma": "Hunger",
   "pos": "NOUN",
@@ -910,8 +966,8 @@
   "case": null
  },
  {
-  "id": "core:0766",
-  "n": 766,
+  "id": "core:r00828",
+  "n": 770,
   "rank": 828,
   "lemma": "überzeugen",
   "pos": "VERB",
@@ -924,8 +980,8 @@
   "case": null
  },
  {
-  "id": "core:0767",
-  "n": 767,
+  "id": "core:r00829",
+  "n": 771,
   "rank": 829,
   "lemma": "landen",
   "pos": "VERB",
@@ -938,8 +994,8 @@
   "case": null
  },
  {
-  "id": "core:0768",
-  "n": 768,
+  "id": "core:r00830",
+  "n": 772,
   "rank": 830,
   "lemma": "gebären",
   "pos": "VERB",
@@ -952,8 +1008,8 @@
   "case": null
  },
  {
-  "id": "core:0769",
-  "n": 769,
+  "id": "core:r00831",
+  "n": 773,
   "rank": 831,
   "lemma": "sauber",
   "pos": "ADJ",
@@ -966,8 +1022,8 @@
   "case": null
  },
  {
-  "id": "core:0770",
-  "n": 770,
+  "id": "core:r00832",
+  "n": 774,
   "rank": 832,
   "lemma": "Pferd",
   "pos": "NOUN",
@@ -980,8 +1036,8 @@
   "case": null
  },
  {
-  "id": "core:0771",
-  "n": 771,
+  "id": "core:r00833",
+  "n": 775,
   "rank": 833,
   "lemma": "Kirche",
   "pos": "NOUN",
@@ -994,8 +1050,8 @@
   "case": null
  },
  {
-  "id": "core:0772",
-  "n": 772,
+  "id": "core:r00834",
+  "n": 776,
   "rank": 834,
   "lemma": "Frieden",
   "pos": "NOUN",
@@ -1008,8 +1064,8 @@
   "case": null
  },
  {
-  "id": "core:0773",
-  "n": 773,
+  "id": "core:r00835",
+  "n": 777,
   "rank": 835,
   "lemma": "furchtbar",
   "pos": "ADJ",
@@ -1022,8 +1078,8 @@
   "case": null
  },
  {
-  "id": "core:0774",
-  "n": 774,
+  "id": "core:r00836",
+  "n": 778,
   "rank": 836,
   "lemma": "besorgen",
   "pos": "VERB",
@@ -1036,8 +1092,8 @@
   "case": null
  },
  {
-  "id": "core:0775",
-  "n": 775,
+  "id": "core:r00837",
+  "n": 779,
   "rank": 837,
   "lemma": "Liste",
   "pos": "NOUN",
@@ -1050,8 +1106,8 @@
   "case": null
  },
  {
-  "id": "core:0776",
-  "n": 776,
+  "id": "core:r00838",
+  "n": 780,
   "rank": 838,
   "lemma": "neben",
   "pos": "ADP",
@@ -1064,8 +1120,8 @@
   "case": "D"
  },
  {
-  "id": "core:0777",
-  "n": 777,
+  "id": "core:r00839",
+  "n": 781,
   "rank": 839,
   "lemma": "angreifen",
   "pos": "VERB",
@@ -1078,8 +1134,8 @@
   "case": null
  },
  {
-  "id": "core:0778",
-  "n": 778,
+  "id": "core:r00840",
+  "n": 782,
   "rank": 840,
   "lemma": "schenken",
   "pos": "VERB",
@@ -1092,8 +1148,8 @@
   "case": "D"
  },
  {
-  "id": "core:0779",
-  "n": 779,
+  "id": "core:r00841",
+  "n": 783,
   "rank": 841,
   "lemma": "Boot",
   "pos": "NOUN",
@@ -1106,8 +1162,8 @@
   "case": null
  },
  {
-  "id": "core:0780",
-  "n": 780,
+  "id": "core:r00844",
+  "n": 784,
   "rank": 844,
   "lemma": "Tante",
   "pos": "NOUN",
@@ -1120,8 +1176,8 @@
   "case": null
  },
  {
-  "id": "core:0781",
-  "n": 781,
+  "id": "core:r00845",
+  "n": 785,
   "rank": 845,
   "lemma": "schulden",
   "pos": "VERB",
@@ -1134,8 +1190,8 @@
   "case": "D"
  },
  {
-  "id": "core:0782",
-  "n": 782,
+  "id": "core:r00846",
+  "n": 786,
   "rank": 846,
   "lemma": "Wunder",
   "pos": "NOUN",
@@ -1148,8 +1204,8 @@
   "case": null
  },
  {
-  "id": "core:0783",
-  "n": 783,
+  "id": "core:r00847",
+  "n": 787,
   "rank": 847,
   "lemma": "sauer",
   "pos": "ADJ",
@@ -1162,8 +1218,8 @@
   "case": "A"
  },
  {
-  "id": "core:0784",
-  "n": 784,
+  "id": "core:r00848",
+  "n": 788,
   "rank": 848,
   "lemma": "feuern",
   "pos": "VERB",
@@ -1176,8 +1232,8 @@
   "case": null
  },
  {
-  "id": "core:0785",
-  "n": 785,
+  "id": "core:r00849",
+  "n": 789,
   "rank": 849,
   "lemma": "erwähnen",
   "pos": "VERB",
@@ -1190,8 +1246,8 @@
   "case": null
  },
  {
-  "id": "core:0786",
-  "n": 786,
+  "id": "core:r00850",
+  "n": 790,
   "rank": 850,
   "lemma": "vermutlich",
   "pos": "ADV",
@@ -1204,8 +1260,8 @@
   "case": null
  },
  {
-  "id": "core:0787",
-  "n": 787,
+  "id": "core:r00851",
+  "n": 791,
   "rank": 851,
   "lemma": "Majestät",
   "pos": "NOUN",
@@ -1218,8 +1274,8 @@
   "case": null
  },
  {
-  "id": "core:0788",
-  "n": 788,
+  "id": "core:r00852",
+  "n": 792,
   "rank": 852,
   "lemma": "Volk",
   "pos": "NOUN",
@@ -1232,8 +1288,8 @@
   "case": null
  },
  {
-  "id": "core:0789",
-  "n": 789,
+  "id": "core:r00853",
+  "n": 793,
   "rank": 853,
   "lemma": "klingeln",
   "pos": "VERB",
@@ -1246,8 +1302,8 @@
   "case": null
  },
  {
-  "id": "core:0790",
-  "n": 790,
+  "id": "core:r00854",
+  "n": 794,
   "rank": 854,
   "lemma": "Patient",
   "pos": "NOUN",
@@ -1260,8 +1316,8 @@
   "case": null
  },
  {
-  "id": "core:0791",
-  "n": 791,
+  "id": "core:r00855",
+  "n": 795,
   "rank": 855,
   "lemma": "links",
   "pos": "ADV",
@@ -1274,8 +1330,8 @@
   "case": null
  },
  {
-  "id": "core:0792",
-  "n": 792,
+  "id": "core:r00856",
+  "n": 796,
   "rank": 856,
   "lemma": "trennen",
   "pos": "VERB",
@@ -1288,8 +1344,8 @@
   "case": null
  },
  {
-  "id": "core:0793",
-  "n": 793,
+  "id": "core:r00857",
+  "n": 797,
   "rank": 857,
   "lemma": "Bericht",
   "pos": "NOUN",
@@ -1302,8 +1358,8 @@
   "case": null
  },
  {
-  "id": "core:0794",
-  "n": 794,
+  "id": "core:r00858",
+  "n": 798,
   "rank": 858,
   "lemma": "leiden",
   "pos": "VERB",
@@ -1316,8 +1372,8 @@
   "case": "D"
  },
  {
-  "id": "core:0795",
-  "n": 795,
+  "id": "core:r00860",
+  "n": 799,
   "rank": 860,
   "lemma": "menschlich",
   "pos": "ADJ",
@@ -1330,8 +1386,8 @@
   "case": null
  },
  {
-  "id": "core:0796",
-  "n": 796,
+  "id": "core:r00861",
+  "n": 800,
   "rank": 861,
   "lemma": "selber",
   "pos": "ADV",
@@ -1341,62 +1397,6 @@
   "target": "selber",
   "en": "Did you bake the cake yourself?",
   "note": "umgangssprachlich = selbst",
-  "case": null
- },
- {
-  "id": "core:0797",
-  "n": 797,
-  "rank": 862,
-  "lemma": "Befehl",
-  "pos": "NOUN",
-  "display": "der Befehl · die Befehle",
-  "gloss": "order, command",
-  "sentence": "Der Hund hört sofort auf jeden Befehl.",
-  "target": "Befehl",
-  "en": "The dog obeys every command immediately.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:0798",
-  "n": 798,
-  "rank": 863,
-  "lemma": "witzig",
-  "pos": "ADJ",
-  "display": "witzig",
-  "gloss": "funny",
-  "sentence": "Dein neuer Kollege ist echt witzig.",
-  "target": "witzig",
-  "en": "Your new colleague is really funny.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:0799",
-  "n": 799,
-  "rank": 864,
-  "lemma": "Geburtstag",
-  "pos": "NOUN",
-  "display": "der Geburtstag · die Geburtstage",
-  "gloss": "birthday",
-  "sentence": "Meine Oma hat am Sonntag Geburtstag.",
-  "target": "Geburtstag",
-  "en": "It's my grandma's birthday on Sunday.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:0800",
-  "n": 800,
-  "rank": 866,
-  "lemma": "Sekunde",
-  "pos": "NOUN",
-  "display": "die Sekunde · die Sekunden",
-  "gloss": "second",
-  "sentence": "Warte eine Sekunde, ich komme sofort!",
-  "target": "Sekunde",
-  "en": "Wait a second, I'm coming right away!",
-  "note": null,
   "case": null
  }
 ]

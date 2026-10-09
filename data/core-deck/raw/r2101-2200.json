@@ -1,7 +1,15 @@
 [
  {
   "rank": 2101,
-  "skip": "Duplikat: heilen"
+  "lemma": "heilen",
+  "pos": "VERB",
+  "display": "heilen · ist geheilt / hat geheilt",
+  "gloss": "to heal",
+  "sentence": "Die Wunde ist zum Glück schnell geheilt.",
+  "target": "geheilt",
+  "en": "Luckily the wound healed quickly.",
+  "note": "Die Wunde heilt → ist geheilt. Der Arzt heilt den Patienten → hat geheilt.",
+  "case": null
  },
  {
   "rank": 2102,
@@ -133,7 +141,15 @@
  },
  {
   "rank": 2114,
-  "skip": "Duplikat: Geräusch"
+  "lemma": "Geräusch",
+  "pos": "NOUN",
+  "display": "das Geräusch · die Geräusche",
+  "gloss": "noise, sound",
+  "sentence": "Hörst du das komische Geräusch aus der Küche?",
+  "target": "Geräusch",
+  "en": "Can you hear that strange noise from the kitchen?",
+  "note": null,
+  "case": null
  },
  {
   "rank": 2115,

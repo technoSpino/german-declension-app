@@ -67,6 +67,18 @@ def test_no_duplicate_lemmas(cards):
         seen[c["lemma"]] = c["n"]
 
 
+def test_ids_are_tied_to_rank(cards):
+    for c in cards:
+        assert c["id"] == f"core:r{c['rank']:05d}"
+
+
+def test_no_duplicate_sentences(cards):
+    seen = {}
+    for c in cards:
+        assert c["sentence"] not in seen, f"cards {seen.get(c['sentence'])} and {c['n']}: {c['sentence']}"
+        seen[c["sentence"]] = c["n"]
+
+
 def test_sentence_contains_target(cards):
     for c in cards:
         assert c["target"] in c["sentence"], f"card {c['n']}: {c['target']!r} not in sentence"

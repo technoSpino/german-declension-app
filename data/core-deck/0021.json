@@ -1,7 +1,189 @@
 [
  {
-  "id": "core:2001",
+  "id": "core:r02342",
   "n": 2001,
+  "rank": 2342,
+  "lemma": "Donnerstag",
+  "pos": "NOUN",
+  "display": "der Donnerstag · die Donnerstage",
+  "gloss": "Thursday",
+  "sentence": "Am Donnerstag gehe ich nach der Arbeit schwimmen.",
+  "target": "Donnerstag",
+  "en": "On Thursday I'm going swimming after work.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02344",
+  "n": 2002,
+  "rank": 2344,
+  "lemma": "Jahrhundert",
+  "pos": "NOUN",
+  "display": "das Jahrhundert · die Jahrhunderte",
+  "gloss": "century",
+  "sentence": "Das Haus wurde im 19. Jahrhundert gebaut.",
+  "target": "Jahrhundert",
+  "en": "The house was built in the 19th century.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02345",
+  "n": 2003,
+  "rank": 2345,
+  "lemma": "irgend",
+  "pos": "ADV",
+  "display": "irgend",
+  "gloss": "some (irgend so ein = some ...)",
+  "sentence": "Vorhin hat irgend so ein Typ nach dir gefragt.",
+  "target": "irgend",
+  "en": "Some guy was asking about you earlier.",
+  "note": "irgend so ein = ein unbekannter; umgangssprachlich. Meist in Wörtern wie irgendwo, irgendwann.",
+  "case": null
+ },
+ {
+  "id": "core:r02346",
+  "n": 2004,
+  "rank": 2346,
+  "lemma": "telefonieren",
+  "pos": "VERB",
+  "display": "telefonieren · hat telefoniert",
+  "gloss": "to talk on the phone",
+  "sentence": "Ich habe gestern lange mit meiner Mutter telefoniert.",
+  "target": "telefoniert",
+  "en": "Yesterday I talked to my mother on the phone for a long time.",
+  "note": "mit + Dativ telefonieren",
+  "case": "D"
+ },
+ {
+  "id": "core:r02347",
+  "n": 2005,
+  "rank": 2347,
+  "lemma": "Neffe",
+  "pos": "NOUN",
+  "display": "der Neffe · die Neffen",
+  "gloss": "nephew",
+  "sentence": "Am Wochenende besucht uns mein Neffe aus Hamburg.",
+  "target": "Neffe",
+  "en": "My nephew from Hamburg is visiting us at the weekend.",
+  "note": "n-Deklination: den Neffen; weiblich: die Nichte",
+  "case": null
+ },
+ {
+  "id": "core:r02348",
+  "n": 2006,
+  "rank": 2348,
+  "lemma": "großzügig",
+  "pos": "ADJ",
+  "display": "großzügig",
+  "gloss": "generous",
+  "sentence": "Unsere Nachbarin ist sehr großzügig und hilft gern.",
+  "target": "großzügig",
+  "en": "Our neighbour is very generous and likes to help.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02349",
+  "n": 2007,
+  "rank": 2349,
+  "lemma": "vermasseln",
+  "pos": "VERB",
+  "display": "vermasseln · hat vermasselt",
+  "gloss": "to mess up, to botch",
+  "sentence": "Ich habe die Prüfung total vermasselt.",
+  "target": "vermasselt",
+  "en": "I completely messed up the exam.",
+  "note": "umgangssprachlich",
+  "case": null
+ },
+ {
+  "id": "core:r02350",
+  "n": 2008,
+  "rank": 2350,
+  "lemma": "losgehen",
+  "pos": "VERB",
+  "display": "losgehen · ging los · ist losgegangen",
+  "gloss": "to start; to set off",
+  "sentence": "Wann geht das Konzert heute Abend los?",
+  "target": "geht",
+  "en": "When does the concert start tonight?",
+  "note": "trennbar: geht ... los",
+  "case": null
+ },
+ {
+  "id": "core:r02351",
+  "n": 2009,
+  "rank": 2351,
+  "lemma": "verbreiten",
+  "pos": "VERB",
+  "display": "verbreiten · hat verbreitet",
+  "gloss": "to spread",
+  "sentence": "Falsche Nachrichten verbreiten sich im Internet sehr schnell.",
+  "target": "verbreiten",
+  "en": "Fake news spreads very quickly on the internet.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02352",
+  "n": 2010,
+  "rank": 2352,
+  "lemma": "Ausweis",
+  "pos": "NOUN",
+  "display": "der Ausweis · die Ausweise",
+  "gloss": "ID card",
+  "sentence": "Vergessen Sie nicht, Ihren Ausweis mitzubringen.",
+  "target": "Ausweis",
+  "en": "Don't forget to bring your ID card.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02353",
+  "n": 2011,
+  "rank": 2353,
+  "lemma": "Sicht",
+  "pos": "NOUN",
+  "display": "die Sicht · kein Plural",
+  "gloss": "view, visibility",
+  "sentence": "Wegen des Nebels ist die Sicht heute sehr schlecht.",
+  "target": "Sicht",
+  "en": "Because of the fog, visibility is very poor today.",
+  "note": "auch: aus meiner Sicht = meiner Meinung nach",
+  "case": null
+ },
+ {
+  "id": "core:r02354",
+  "n": 2012,
+  "rank": 2354,
+  "lemma": "Sport",
+  "pos": "NOUN",
+  "display": "der Sport · kein Plural",
+  "gloss": "sport, exercise",
+  "sentence": "Ich mache dreimal pro Woche Sport.",
+  "target": "Sport",
+  "en": "I do sport three times a week.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r02355",
+  "n": 2013,
+  "rank": 2355,
+  "lemma": "Jude",
+  "pos": "NOUN",
+  "display": "der Jude · die Juden",
+  "gloss": "Jew",
+  "sentence": "Mein Kollege ist Jude und feiert im Dezember Chanukka.",
+  "target": "Jude",
+  "en": "My colleague is Jewish and celebrates Hanukkah in December.",
+  "note": "n-Deklination: den Juden; weiblich: die Jüdin",
+  "case": null
+ },
+ {
+  "id": "core:r02356",
+  "n": 2014,
   "rank": 2356,
   "lemma": "anlügen",
   "pos": "VERB",
@@ -14,8 +196,8 @@
   "case": "A"
  },
  {
-  "id": "core:2002",
-  "n": 2002,
+  "id": "core:r02358",
+  "n": 2015,
   "rank": 2358,
   "lemma": "Bestie",
   "pos": "NOUN",
@@ -28,8 +210,8 @@
   "case": null
  },
  {
-  "id": "core:2003",
-  "n": 2003,
+  "id": "core:r02359",
+  "n": 2016,
   "rank": 2359,
   "lemma": "nebenan",
   "pos": "ADV",
@@ -42,8 +224,8 @@
   "case": null
  },
  {
-  "id": "core:2004",
-  "n": 2004,
+  "id": "core:r02361",
+  "n": 2017,
   "rank": 2361,
   "lemma": "bedanken",
   "pos": "VERB",
@@ -56,8 +238,8 @@
   "case": null
  },
  {
-  "id": "core:2005",
-  "n": 2005,
+  "id": "core:r02362",
+  "n": 2018,
   "rank": 2362,
   "lemma": "Lektion",
   "pos": "NOUN",
@@ -70,8 +252,8 @@
   "case": null
  },
  {
-  "id": "core:2006",
-  "n": 2006,
+  "id": "core:r02363",
+  "n": 2019,
   "rank": 2363,
   "lemma": "Maus",
   "pos": "NOUN",
@@ -84,8 +266,8 @@
   "case": null
  },
  {
-  "id": "core:2007",
-  "n": 2007,
+  "id": "core:r02364",
+  "n": 2020,
   "rank": 2364,
   "lemma": "Staub",
   "pos": "NOUN",
@@ -98,8 +280,8 @@
   "case": null
  },
  {
-  "id": "core:2008",
-  "n": 2008,
+  "id": "core:r02365",
+  "n": 2021,
   "rank": 2365,
   "lemma": "Kugel",
   "pos": "NOUN",
@@ -112,8 +294,8 @@
   "case": null
  },
  {
-  "id": "core:2009",
-  "n": 2009,
+  "id": "core:r02366",
+  "n": 2022,
   "rank": 2366,
   "lemma": "Mitleid",
   "pos": "NOUN",
@@ -123,11 +305,11 @@
   "target": "Mitleid",
   "en": "I don't need pity, I need help.",
   "note": "Mitleid mit + Dativ haben",
-  "case": null
+  "case": "D"
  },
  {
-  "id": "core:2010",
-  "n": 2010,
+  "id": "core:r02367",
+  "n": 2023,
   "rank": 2367,
   "lemma": "vermuten",
   "pos": "VERB",
@@ -140,8 +322,8 @@
   "case": null
  },
  {
-  "id": "core:2011",
-  "n": 2011,
+  "id": "core:r02368",
+  "n": 2024,
   "rank": 2368,
   "lemma": "einnehmen",
   "pos": "VERB",
@@ -154,8 +336,8 @@
   "case": null
  },
  {
-  "id": "core:2012",
-  "n": 2012,
+  "id": "core:r02369",
+  "n": 2025,
   "rank": 2369,
   "lemma": "Wunde",
   "pos": "NOUN",
@@ -168,8 +350,8 @@
   "case": null
  },
  {
-  "id": "core:2013",
-  "n": 2013,
+  "id": "core:r02370",
+  "n": 2026,
   "rank": 2370,
   "lemma": "anklagen",
   "pos": "VERB",
@@ -182,8 +364,8 @@
   "case": "G"
  },
  {
-  "id": "core:2014",
-  "n": 2014,
+  "id": "core:r02371",
+  "n": 2027,
   "rank": 2371,
   "lemma": "Kreuz",
   "pos": "NOUN",
@@ -196,8 +378,8 @@
   "case": null
  },
  {
-  "id": "core:2015",
-  "n": 2015,
+  "id": "core:r02372",
+  "n": 2028,
   "rank": 2372,
   "lemma": "verhungern",
   "pos": "VERB",
@@ -210,8 +392,8 @@
   "case": null
  },
  {
-  "id": "core:2016",
-  "n": 2016,
+  "id": "core:r02373",
+  "n": 2029,
   "rank": 2373,
   "lemma": "Junior",
   "pos": "NOUN",
@@ -224,8 +406,8 @@
   "case": null
  },
  {
-  "id": "core:2017",
-  "n": 2017,
+  "id": "core:r02374",
+  "n": 2030,
   "rank": 2374,
   "lemma": "rausholen",
   "pos": "VERB",
@@ -238,8 +420,8 @@
   "case": null
  },
  {
-  "id": "core:2018",
-  "n": 2018,
+  "id": "core:r02375",
+  "n": 2031,
   "rank": 2375,
   "lemma": "bedienen",
   "pos": "VERB",
@@ -252,8 +434,8 @@
   "case": null
  },
  {
-  "id": "core:2019",
-  "n": 2019,
+  "id": "core:r02377",
+  "n": 2032,
   "rank": 2377,
   "lemma": "Leidenschaft",
   "pos": "NOUN",
@@ -266,8 +448,8 @@
   "case": null
  },
  {
-  "id": "core:2020",
-  "n": 2020,
+  "id": "core:r02378",
+  "n": 2033,
   "rank": 2378,
   "lemma": "genial",
   "pos": "ADJ",
@@ -280,8 +462,8 @@
   "case": null
  },
  {
-  "id": "core:2021",
-  "n": 2021,
+  "id": "core:r02379",
+  "n": 2034,
   "rank": 2379,
   "lemma": "Militär",
   "pos": "NOUN",
@@ -294,8 +476,8 @@
   "case": null
  },
  {
-  "id": "core:2022",
-  "n": 2022,
+  "id": "core:r02380",
+  "n": 2035,
   "rank": 2380,
   "lemma": "sprengen",
   "pos": "VERB",
@@ -308,8 +490,8 @@
   "case": null
  },
  {
-  "id": "core:2023",
-  "n": 2023,
+  "id": "core:r02382",
+  "n": 2036,
   "rank": 2382,
   "lemma": "Spieler",
   "pos": "NOUN",
@@ -322,8 +504,8 @@
   "case": null
  },
  {
-  "id": "core:2024",
-  "n": 2024,
+  "id": "core:r02383",
+  "n": 2037,
   "rank": 2383,
   "lemma": "voran",
   "pos": "ADV",
@@ -336,8 +518,8 @@
   "case": null
  },
  {
-  "id": "core:2025",
-  "n": 2025,
+  "id": "core:r02385",
+  "n": 2038,
   "rank": 2385,
   "lemma": "manipulieren",
   "pos": "VERB",
@@ -350,8 +532,8 @@
   "case": null
  },
  {
-  "id": "core:2026",
-  "n": 2026,
+  "id": "core:r02386",
+  "n": 2039,
   "rank": 2386,
   "lemma": "diskutieren",
   "pos": "VERB",
@@ -364,8 +546,8 @@
   "case": "A"
  },
  {
-  "id": "core:2027",
-  "n": 2027,
+  "id": "core:r02387",
+  "n": 2040,
   "rank": 2387,
   "lemma": "Verabredung",
   "pos": "NOUN",
@@ -378,8 +560,8 @@
   "case": null
  },
  {
-  "id": "core:2028",
-  "n": 2028,
+  "id": "core:r02389",
+  "n": 2041,
   "rank": 2389,
   "lemma": "verabreden",
   "pos": "VERB",
@@ -392,8 +574,8 @@
   "case": null
  },
  {
-  "id": "core:2029",
-  "n": 2029,
+  "id": "core:r02390",
+  "n": 2042,
   "rank": 2390,
   "lemma": "überfallen",
   "pos": "VERB",
@@ -406,8 +588,8 @@
   "case": null
  },
  {
-  "id": "core:2030",
-  "n": 2030,
+  "id": "core:r02392",
+  "n": 2043,
   "rank": 2392,
   "lemma": "Kilo",
   "pos": "NOUN",
@@ -420,8 +602,8 @@
   "case": null
  },
  {
-  "id": "core:2031",
-  "n": 2031,
+  "id": "core:r02393",
+  "n": 2044,
   "rank": 2393,
   "lemma": "Organisation",
   "pos": "NOUN",
@@ -434,8 +616,8 @@
   "case": null
  },
  {
-  "id": "core:2032",
-  "n": 2032,
+  "id": "core:r02395",
+  "n": 2045,
   "rank": 2395,
   "lemma": "bellen",
   "pos": "VERB",
@@ -448,8 +630,8 @@
   "case": null
  },
  {
-  "id": "core:2033",
-  "n": 2033,
+  "id": "core:r02397",
+  "n": 2046,
   "rank": 2397,
   "lemma": "kriminell",
   "pos": "ADJ",
@@ -462,8 +644,8 @@
   "case": null
  },
  {
-  "id": "core:2034",
-  "n": 2034,
+  "id": "core:r02398",
+  "n": 2047,
   "rank": 2398,
   "lemma": "Versicherung",
   "pos": "NOUN",
@@ -476,8 +658,8 @@
   "case": null
  },
  {
-  "id": "core:2035",
-  "n": 2035,
+  "id": "core:r02399",
+  "n": 2048,
   "rank": 2399,
   "lemma": "technisch",
   "pos": "ADJ",
@@ -490,8 +672,8 @@
   "case": "G"
  },
  {
-  "id": "core:2036",
-  "n": 2036,
+  "id": "core:r02400",
+  "n": 2049,
   "rank": 2400,
   "lemma": "hervorragend",
   "pos": "ADJ",
@@ -504,8 +686,8 @@
   "case": null
  },
  {
-  "id": "core:2037",
-  "n": 2037,
+  "id": "core:r02401",
+  "n": 2050,
   "rank": 2401,
   "lemma": "Kühlschrank",
   "pos": "NOUN",
@@ -518,8 +700,8 @@
   "case": "A"
  },
  {
-  "id": "core:2038",
-  "n": 2038,
+  "id": "core:r02402",
+  "n": 2051,
   "rank": 2402,
   "lemma": "Lehrerin",
   "pos": "NOUN",
@@ -532,8 +714,8 @@
   "case": null
  },
  {
-  "id": "core:2039",
-  "n": 2039,
+  "id": "core:r02403",
+  "n": 2052,
   "rank": 2403,
   "lemma": "anschließen",
   "pos": "VERB",
@@ -546,8 +728,8 @@
   "case": null
  },
  {
-  "id": "core:2040",
-  "n": 2040,
+  "id": "core:r02404",
+  "n": 2053,
   "rank": 2404,
   "lemma": "scherzen",
   "pos": "VERB",
@@ -560,8 +742,8 @@
   "case": null
  },
  {
-  "id": "core:2041",
-  "n": 2041,
+  "id": "core:r02405",
+  "n": 2054,
   "rank": 2405,
   "lemma": "platzen",
   "pos": "VERB",
@@ -574,8 +756,8 @@
   "case": null
  },
  {
-  "id": "core:2042",
-  "n": 2042,
+  "id": "core:r02406",
+  "n": 2055,
   "rank": 2406,
   "lemma": "Jäger",
   "pos": "NOUN",
@@ -588,8 +770,8 @@
   "case": null
  },
  {
-  "id": "core:2043",
-  "n": 2043,
+  "id": "core:r02408",
+  "n": 2056,
   "rank": 2408,
   "lemma": "Käfig",
   "pos": "NOUN",
@@ -602,8 +784,8 @@
   "case": null
  },
  {
-  "id": "core:2044",
-  "n": 2044,
+  "id": "core:r02410",
+  "n": 2057,
   "rank": 2410,
   "lemma": "Original",
   "pos": "NOUN",
@@ -616,8 +798,8 @@
   "case": null
  },
  {
-  "id": "core:2045",
-  "n": 2045,
+  "id": "core:r02411",
+  "n": 2058,
   "rank": 2411,
   "lemma": "Technologie",
   "pos": "NOUN",
@@ -630,8 +812,8 @@
   "case": null
  },
  {
-  "id": "core:2046",
-  "n": 2046,
+  "id": "core:r02412",
+  "n": 2059,
   "rank": 2412,
   "lemma": "Start",
   "pos": "NOUN",
@@ -644,8 +826,8 @@
   "case": null
  },
  {
-  "id": "core:2047",
-  "n": 2047,
+  "id": "core:r02414",
+  "n": 2060,
   "rank": 2414,
   "lemma": "Gemeinde",
   "pos": "NOUN",
@@ -658,8 +840,8 @@
   "case": null
  },
  {
-  "id": "core:2048",
-  "n": 2048,
+  "id": "core:r02415",
+  "n": 2061,
   "rank": 2415,
   "lemma": "Pfarrer",
   "pos": "NOUN",
@@ -672,8 +854,8 @@
   "case": null
  },
  {
-  "id": "core:2049",
-  "n": 2049,
+  "id": "core:r02416",
+  "n": 2062,
   "rank": 2416,
   "lemma": "plus",
   "pos": "CCONJ",
@@ -686,8 +868,8 @@
   "case": null
  },
  {
-  "id": "core:2050",
-  "n": 2050,
+  "id": "core:r02417",
+  "n": 2063,
   "rank": 2417,
   "lemma": "Zauber",
   "pos": "NOUN",
@@ -700,8 +882,8 @@
   "case": null
  },
  {
-  "id": "core:2051",
-  "n": 2051,
+  "id": "core:r02418",
+  "n": 2064,
   "rank": 2418,
   "lemma": "Rückkehr",
   "pos": "NOUN",
@@ -714,8 +896,8 @@
   "case": null
  },
  {
-  "id": "core:2052",
-  "n": 2052,
+  "id": "core:r02419",
+  "n": 2065,
   "rank": 2419,
   "lemma": "Hafen",
   "pos": "NOUN",
@@ -728,8 +910,8 @@
   "case": null
  },
  {
-  "id": "core:2053",
-  "n": 2053,
+  "id": "core:r02420",
+  "n": 2066,
   "rank": 2420,
   "lemma": "grüßen",
   "pos": "VERB",
@@ -742,8 +924,8 @@
   "case": null
  },
  {
-  "id": "core:2054",
-  "n": 2054,
+  "id": "core:r02421",
+  "n": 2067,
   "rank": 2421,
   "lemma": "gestatten",
   "pos": "VERB",
@@ -756,8 +938,8 @@
   "case": null
  },
  {
-  "id": "core:2055",
-  "n": 2055,
+  "id": "core:r02422",
+  "n": 2068,
   "rank": 2422,
   "lemma": "vierte",
   "pos": "ADJ",
@@ -770,8 +952,8 @@
   "case": null
  },
  {
-  "id": "core:2056",
-  "n": 2056,
+  "id": "core:r02423",
+  "n": 2069,
   "rank": 2423,
   "lemma": "keuchen",
   "pos": "VERB",
@@ -784,8 +966,8 @@
   "case": null
  },
  {
-  "id": "core:2057",
-  "n": 2057,
+  "id": "core:r02427",
+  "n": 2070,
   "rank": 2427,
   "lemma": "Affe",
   "pos": "NOUN",
@@ -798,8 +980,8 @@
   "case": null
  },
  {
-  "id": "core:2058",
-  "n": 2058,
+  "id": "core:r02428",
+  "n": 2071,
   "rank": 2428,
   "lemma": "Sandwich",
   "pos": "NOUN",
@@ -812,8 +994,8 @@
   "case": null
  },
  {
-  "id": "core:2059",
-  "n": 2059,
+  "id": "core:r02429",
+  "n": 2072,
   "rank": 2429,
   "lemma": "gnädig",
   "pos": "ADJ",
@@ -826,8 +1008,8 @@
   "case": null
  },
  {
-  "id": "core:2060",
-  "n": 2060,
+  "id": "core:r02430",
+  "n": 2073,
   "rank": 2430,
   "lemma": "Kindheit",
   "pos": "NOUN",
@@ -840,8 +1022,8 @@
   "case": null
  },
  {
-  "id": "core:2061",
-  "n": 2061,
+  "id": "core:r02431",
+  "n": 2074,
   "rank": 2431,
   "lemma": "OP",
   "pos": "NOUN",
@@ -854,8 +1036,8 @@
   "case": null
  },
  {
-  "id": "core:2062",
-  "n": 2062,
+  "id": "core:r02433",
+  "n": 2075,
   "rank": 2433,
   "lemma": "vorbeikommen",
   "pos": "VERB",
@@ -868,8 +1050,8 @@
   "case": "D"
  },
  {
-  "id": "core:2063",
-  "n": 2063,
+  "id": "core:r02434",
+  "n": 2076,
   "rank": 2434,
   "lemma": "unverständlich",
   "pos": "ADJ",
@@ -882,8 +1064,8 @@
   "case": null
  },
  {
-  "id": "core:2064",
-  "n": 2064,
+  "id": "core:r02435",
+  "n": 2077,
   "rank": 2435,
   "lemma": "Fabrik",
   "pos": "NOUN",
@@ -896,22 +1078,22 @@
   "case": null
  },
  {
-  "id": "core:2065",
-  "n": 2065,
+  "id": "core:r02439",
+  "n": 2078,
   "rank": 2439,
   "lemma": "Jungfrau",
   "pos": "NOUN",
   "display": "die Jungfrau · die Jungfrauen",
   "gloss": "virgin; Virgo",
-  "sentence": "Meine Schwester hat im September Geburtstag, sie ist Sternzeichen Jungfrau.",
+  "sentence": "Meine Schwester hat im September Geburtstag, ihr Sternzeichen ist Jungfrau.",
   "target": "Jungfrau",
   "en": "My sister's birthday is in September, her star sign is Virgo.",
   "note": null,
   "case": null
  },
  {
-  "id": "core:2066",
-  "n": 2066,
+  "id": "core:r02440",
+  "n": 2079,
   "rank": 2440,
   "lemma": "drängen",
   "pos": "VERB",
@@ -924,8 +1106,8 @@
   "case": null
  },
  {
-  "id": "core:2067",
-  "n": 2067,
+  "id": "core:r02441",
+  "n": 2080,
   "rank": 2441,
   "lemma": "enthalten",
   "pos": "VERB",
@@ -938,8 +1120,8 @@
   "case": null
  },
  {
-  "id": "core:2068",
-  "n": 2068,
+  "id": "core:r02442",
+  "n": 2081,
   "rank": 2442,
   "lemma": "reinlegen",
   "pos": "VERB",
@@ -952,8 +1134,8 @@
   "case": null
  },
  {
-  "id": "core:2069",
-  "n": 2069,
+  "id": "core:r02443",
+  "n": 2082,
   "rank": 2443,
   "lemma": "angenehm",
   "pos": "ADJ",
@@ -966,8 +1148,8 @@
   "case": null
  },
  {
-  "id": "core:2070",
-  "n": 2070,
+  "id": "core:r02444",
+  "n": 2083,
   "rank": 2444,
   "lemma": "daheim",
   "pos": "ADV",
@@ -980,8 +1162,8 @@
   "case": null
  },
  {
-  "id": "core:2071",
-  "n": 2071,
+  "id": "core:r02445",
+  "n": 2084,
   "rank": 2445,
   "lemma": "Geruch",
   "pos": "NOUN",
@@ -994,8 +1176,8 @@
   "case": null
  },
  {
-  "id": "core:2072",
-  "n": 2072,
+  "id": "core:r02447",
+  "n": 2085,
   "rank": 2447,
   "lemma": "ungern",
   "pos": "ADV",
@@ -1008,8 +1190,8 @@
   "case": null
  },
  {
-  "id": "core:2073",
-  "n": 2073,
+  "id": "core:r02448",
+  "n": 2086,
   "rank": 2448,
   "lemma": "japanisch",
   "pos": "ADJ",
@@ -1022,8 +1204,8 @@
   "case": null
  },
  {
-  "id": "core:2074",
-  "n": 2074,
+  "id": "core:r02449",
+  "n": 2087,
   "rank": 2449,
   "lemma": "vertreiben",
   "pos": "VERB",
@@ -1036,8 +1218,8 @@
   "case": null
  },
  {
-  "id": "core:2075",
-  "n": 2075,
+  "id": "core:r02450",
+  "n": 2088,
   "rank": 2450,
   "lemma": "erstens",
   "pos": "ADV",
@@ -1050,8 +1232,8 @@
   "case": null
  },
  {
-  "id": "core:2076",
-  "n": 2076,
+  "id": "core:r02451",
+  "n": 2089,
   "rank": 2451,
   "lemma": "Abmachung",
   "pos": "NOUN",
@@ -1064,8 +1246,8 @@
   "case": null
  },
  {
-  "id": "core:2077",
-  "n": 2077,
+  "id": "core:r02452",
+  "n": 2090,
   "rank": 2452,
   "lemma": "Appetit",
   "pos": "NOUN",
@@ -1078,8 +1260,8 @@
   "case": null
  },
  {
-  "id": "core:2078",
-  "n": 2078,
+  "id": "core:r02453",
+  "n": 2091,
   "rank": 2453,
   "lemma": "knacken",
   "pos": "VERB",
@@ -1092,8 +1274,8 @@
   "case": null
  },
  {
-  "id": "core:2079",
-  "n": 2079,
+  "id": "core:r02454",
+  "n": 2092,
   "rank": 2454,
   "lemma": "wiederkommen",
   "pos": "VERB",
@@ -1106,8 +1288,8 @@
   "case": null
  },
  {
-  "id": "core:2080",
-  "n": 2080,
+  "id": "core:r02456",
+  "n": 2093,
   "rank": 2456,
   "lemma": "hierbleiben",
   "pos": "VERB",
@@ -1120,8 +1302,8 @@
   "case": null
  },
  {
-  "id": "core:2081",
-  "n": 2081,
+  "id": "core:r02457",
+  "n": 2094,
   "rank": 2457,
   "lemma": "verbessern",
   "pos": "VERB",
@@ -1134,8 +1316,8 @@
   "case": null
  },
  {
-  "id": "core:2082",
-  "n": 2082,
+  "id": "core:r02458",
+  "n": 2095,
   "rank": 2458,
   "lemma": "erneut",
   "pos": "ADV",
@@ -1148,8 +1330,8 @@
   "case": null
  },
  {
-  "id": "core:2083",
-  "n": 2083,
+  "id": "core:r02459",
+  "n": 2096,
   "rank": 2459,
   "lemma": "Verkauf",
   "pos": "NOUN",
@@ -1162,8 +1344,8 @@
   "case": null
  },
  {
-  "id": "core:2084",
-  "n": 2084,
+  "id": "core:r02461",
+  "n": 2097,
   "rank": 2461,
   "lemma": "Interview",
   "pos": "NOUN",
@@ -1176,8 +1358,8 @@
   "case": null
  },
  {
-  "id": "core:2085",
-  "n": 2085,
+  "id": "core:r02463",
+  "n": 2098,
   "rank": 2463,
   "lemma": "breit",
   "pos": "ADJ",
@@ -1190,8 +1372,8 @@
   "case": null
  },
  {
-  "id": "core:2086",
-  "n": 2086,
+  "id": "core:r02465",
+  "n": 2099,
   "rank": 2465,
   "lemma": "übersehen",
   "pos": "VERB",
@@ -1204,8 +1386,8 @@
   "case": null
  },
  {
-  "id": "core:2087",
-  "n": 2087,
+  "id": "core:r02466",
+  "n": 2100,
   "rank": 2466,
   "lemma": "Korrektur",
   "pos": "NOUN",
@@ -1215,188 +1397,6 @@
   "target": "Korrektur",
   "en": "Can you proofread my application once more?",
   "note": "Korrektur lesen = Fehler suchen",
-  "case": null
- },
- {
-  "id": "core:2088",
-  "n": 2088,
-  "rank": 2467,
-  "lemma": "engagieren",
-  "pos": "VERB",
-  "display": "sich engagieren · hat sich engagiert",
-  "gloss": "to be involved, to volunteer; to hire (engagieren)",
-  "sentence": "Sie engagiert sich in ihrer Freizeit für den Umweltschutz.",
-  "target": "engagiert",
-  "en": "In her free time she is involved in environmental protection.",
-  "note": "sich für + Akkusativ engagieren",
-  "case": "A"
- },
- {
-  "id": "core:2089",
-  "n": 2089,
-  "rank": 2469,
-  "lemma": "köstlich",
-  "pos": "ADJ",
-  "display": "köstlich",
-  "gloss": "delicious",
-  "sentence": "Der Kuchen deiner Mutter ist wirklich köstlich.",
-  "target": "köstlich",
-  "en": "Your mother's cake is really delicious.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:2090",
-  "n": 2090,
-  "rank": 2470,
-  "lemma": "summen",
-  "pos": "VERB",
-  "display": "summen · hat gesummt",
-  "gloss": "to hum; to buzz",
-  "sentence": "Beim Kochen summt sie immer ein Lied.",
-  "target": "summt",
-  "en": "She always hums a song while cooking.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:2091",
-  "n": 2091,
-  "rank": 2471,
-  "lemma": "erholen",
-  "pos": "VERB",
-  "display": "sich erholen · hat sich erholt",
-  "gloss": "to recover, to relax",
-  "sentence": "Im Urlaub habe ich mich gut erholt.",
-  "target": "erholt",
-  "en": "I had a good rest on holiday.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:2092",
-  "n": 2092,
-  "rank": 2472,
-  "lemma": "vollständig",
-  "pos": "ADJ",
-  "display": "vollständig",
-  "gloss": "complete(ly)",
-  "sentence": "Bitte füllen Sie das Formular vollständig aus.",
-  "target": "vollständig",
-  "en": "Please fill in the form completely.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:2093",
-  "n": 2093,
-  "rank": 2476,
-  "lemma": "beherrschen",
-  "pos": "VERB",
-  "display": "beherrschen · hat beherrscht",
-  "gloss": "to master; to control (sich beherrschen)",
-  "sentence": "Sie beherrscht drei Sprachen fließend.",
-  "target": "beherrscht",
-  "en": "She speaks three languages fluently.",
-  "note": "sich beherrschen = ruhig bleiben",
-  "case": null
- },
- {
-  "id": "core:2094",
-  "n": 2094,
-  "rank": 2477,
-  "lemma": "Aufnahme",
-  "pos": "NOUN",
-  "display": "die Aufnahme · die Aufnahmen",
-  "gloss": "admission; recording, photo",
-  "sentence": "Die Aufnahme ins Krankenhaus hat lange gedauert.",
-  "target": "Aufnahme",
-  "en": "The admission to hospital took a long time.",
-  "note": "auch: Foto oder Tonaufnahme",
-  "case": null
- },
- {
-  "id": "core:2095",
-  "n": 2095,
-  "rank": 2478,
-  "lemma": "Katastrophe",
-  "pos": "NOUN",
-  "display": "die Katastrophe · die Katastrophen",
-  "gloss": "disaster, catastrophe",
-  "sentence": "Das Wetter im Urlaub war eine Katastrophe.",
-  "target": "Katastrophe",
-  "en": "The weather on holiday was a disaster.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:2096",
-  "n": 2096,
-  "rank": 2479,
-  "lemma": "vertragen",
-  "pos": "VERB",
-  "display": "vertragen · vertrug · hat vertragen",
-  "gloss": "to tolerate; to get along (sich vertragen)",
-  "sentence": "Ich vertrage abends leider keinen Kaffee.",
-  "target": "vertrage",
-  "en": "Unfortunately I can't handle coffee in the evening.",
-  "note": "sich vertragen = sich gut verstehen",
-  "case": null
- },
- {
-  "id": "core:2097",
-  "n": 2097,
-  "rank": 2483,
-  "lemma": "Manager",
-  "pos": "NOUN",
-  "display": "der Manager · die Manager",
-  "gloss": "manager",
-  "sentence": "Der Manager des Hotels hat sich bei uns entschuldigt.",
-  "target": "Manager",
-  "en": "The hotel manager apologised to us.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:2098",
-  "n": 2098,
-  "rank": 2484,
-  "lemma": "gestehen",
-  "pos": "VERB",
-  "display": "gestehen · gestand · hat gestanden",
-  "gloss": "to confess",
-  "sentence": "Der Verdächtige hat die Tat inzwischen gestanden.",
-  "target": "gestanden",
-  "en": "The suspect has now confessed to the crime.",
-  "note": "Partizip wie bei stehen: gestanden",
-  "case": null
- },
- {
-  "id": "core:2099",
-  "n": 2099,
-  "rank": 2486,
-  "lemma": "zurückziehen",
-  "pos": "VERB",
-  "display": "zurückziehen · zog zurück · hat zurückgezogen",
-  "gloss": "to withdraw; to retreat (sich zurückziehen)",
-  "sentence": "Er hat seine Bewerbung kurzfristig zurückgezogen.",
-  "target": "zurückgezogen",
-  "en": "He withdrew his application at short notice.",
-  "note": "trennbar",
-  "case": null
- },
- {
-  "id": "core:2100",
-  "n": 2100,
-  "rank": 2487,
-  "lemma": "Höhle",
-  "pos": "NOUN",
-  "display": "die Höhle · die Höhlen",
-  "gloss": "cave",
-  "sentence": "Im Urlaub haben wir eine Höhle in den Bergen besichtigt.",
-  "target": "Höhle",
-  "en": "On holiday we visited a cave in the mountains.",
-  "note": null,
   "case": null
  }
 ]

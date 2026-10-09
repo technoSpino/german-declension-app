@@ -665,9 +665,9 @@
     "pos": "VERB",
     "display": "geben · gab · hat gegeben",
     "gloss": "to give; there is (es gibt)",
-    "sentence": "Gibt es hier in der Nähe eine Apotheke?",
+    "sentence": "Gibt es in eurem Büro eine Kantine?",
     "target": "Gibt",
-    "en": "Is there a pharmacy near here?",
+    "en": "Is there a canteen in your office?",
     "note": "es gibt + Akkusativ = there is/are; du gibst, er gibt",
     "case": "A"
   },
@@ -873,9 +873,9 @@
     "pos": "ADV",
     "display": "bitte",
     "gloss": "please; you're welcome",
-    "sentence": "Können Sie das bitte noch einmal wiederholen?",
+    "sentence": "Kannst du mir bitte kurz helfen?",
     "target": "bitte",
-    "en": "Could you repeat that once more, please?",
+    "en": "Can you help me for a moment, please?",
     "note": "Bitte! = You're welcome! Wie bitte? = Pardon?",
     "case": null
   },

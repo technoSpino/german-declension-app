@@ -1,7 +1,105 @@
 [
  {
-  "id": "core:1101",
+  "id": "core:r01209",
   "n": 1101,
+  "rank": 1209,
+  "lemma": "ernsthaft",
+  "pos": "ADJ",
+  "display": "ernsthaft",
+  "gloss": "serious(ly)",
+  "sentence": "Denkst du ernsthaft darüber nach, nach Berlin zu ziehen?",
+  "target": "ernsthaft",
+  "en": "Are you seriously thinking about moving to Berlin?",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r01210",
+  "n": 1102,
+  "rank": 1210,
+  "lemma": "Gang",
+  "pos": "NOUN",
+  "display": "der Gang · die Gänge",
+  "gloss": "corridor, aisle; gear",
+  "sentence": "Die Toiletten sind am Ende des Gangs.",
+  "target": "Gangs",
+  "en": "The toilets are at the end of the corridor.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r01211",
+  "n": 1103,
+  "rank": 1211,
+  "lemma": "Haufen",
+  "pos": "NOUN",
+  "display": "der Haufen · die Haufen",
+  "gloss": "pile, heap; a lot of",
+  "sentence": "Ich habe heute einen Haufen Arbeit auf dem Tisch.",
+  "target": "Haufen",
+  "en": "I have a pile of work on my desk today.",
+  "note": "ein Haufen … = sehr viel (umgangssprachlich)",
+  "case": null
+ },
+ {
+  "id": "core:r01213",
+  "n": 1104,
+  "rank": 1213,
+  "lemma": "grün",
+  "pos": "ADJ",
+  "display": "grün",
+  "gloss": "green",
+  "sentence": "Warte, bis die Ampel grün ist!",
+  "target": "grün",
+  "en": "Wait until the traffic light is green!",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r01216",
+  "n": 1105,
+  "rank": 1216,
+  "lemma": "Pause",
+  "pos": "NOUN",
+  "display": "die Pause · die Pausen",
+  "gloss": "break",
+  "sentence": "Lass uns kurz eine Pause machen.",
+  "target": "Pause",
+  "en": "Let's take a short break.",
+  "note": "eine Pause machen",
+  "case": null
+ },
+ {
+  "id": "core:r01217",
+  "n": 1106,
+  "rank": 1217,
+  "lemma": "Keller",
+  "pos": "NOUN",
+  "display": "der Keller · die Keller",
+  "gloss": "basement, cellar",
+  "sentence": "Die Fahrräder stehen unten im Keller.",
+  "target": "Keller",
+  "en": "The bikes are down in the basement.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r01218",
+  "n": 1107,
+  "rank": 1218,
+  "lemma": "stoppen",
+  "pos": "VERB",
+  "display": "stoppen · hat gestoppt",
+  "gloss": "to stop",
+  "sentence": "Die Polizei hat das Auto an der Grenze gestoppt.",
+  "target": "gestoppt",
+  "en": "The police stopped the car at the border.",
+  "note": null,
+  "case": null
+ },
+ {
+  "id": "core:r01219",
+  "n": 1108,
   "rank": 1219,
   "lemma": "wechseln",
   "pos": "VERB",
@@ -14,8 +112,8 @@
   "case": null
  },
  {
-  "id": "core:1102",
-  "n": 1102,
+  "id": "core:r01220",
+  "n": 1109,
   "rank": 1220,
   "lemma": "probieren",
   "pos": "VERB",
@@ -28,8 +126,8 @@
   "case": null
  },
  {
-  "id": "core:1103",
-  "n": 1103,
+  "id": "core:r01221",
+  "n": 1110,
   "rank": 1221,
   "lemma": "Verantwortung",
   "pos": "NOUN",
@@ -42,8 +140,8 @@
   "case": null
  },
  {
-  "id": "core:1104",
-  "n": 1104,
+  "id": "core:r01222",
+  "n": 1111,
   "rank": 1222,
   "lemma": "vernichten",
   "pos": "VERB",
@@ -56,8 +154,8 @@
   "case": null
  },
  {
-  "id": "core:1105",
-  "n": 1105,
+  "id": "core:r01223",
+  "n": 1112,
   "rank": 1223,
   "lemma": "ruinieren",
   "pos": "VERB",
@@ -70,8 +168,8 @@
   "case": null
  },
  {
-  "id": "core:1106",
-  "n": 1106,
+  "id": "core:r01225",
+  "n": 1113,
   "rank": 1225,
   "lemma": "Termin",
   "pos": "NOUN",
@@ -84,8 +182,8 @@
   "case": null
  },
  {
-  "id": "core:1107",
-  "n": 1107,
+  "id": "core:r01226",
+  "n": 1114,
   "rank": 1226,
   "lemma": "starten",
   "pos": "VERB",
@@ -98,8 +196,8 @@
   "case": null
  },
  {
-  "id": "core:1108",
-  "n": 1108,
+  "id": "core:r01227",
+  "n": 1115,
   "rank": 1227,
   "lemma": "hinaus",
   "pos": "ADV",
@@ -112,8 +210,8 @@
   "case": null
  },
  {
-  "id": "core:1109",
-  "n": 1109,
+  "id": "core:r01228",
+  "n": 1116,
   "rank": 1228,
   "lemma": "vorhin",
   "pos": "ADV",
@@ -126,8 +224,8 @@
   "case": null
  },
  {
-  "id": "core:1110",
-  "n": 1110,
+  "id": "core:r01229",
+  "n": 1117,
   "rank": 1229,
   "lemma": "geheim",
   "pos": "ADJ",
@@ -140,8 +238,8 @@
   "case": null
  },
  {
-  "id": "core:1111",
-  "n": 1111,
+  "id": "core:r01230",
+  "n": 1118,
   "rank": 1230,
   "lemma": "Lehrer",
   "pos": "NOUN",
@@ -154,8 +252,8 @@
   "case": null
  },
  {
-  "id": "core:1112",
-  "n": 1112,
+  "id": "core:r01231",
+  "n": 1119,
   "rank": 1231,
   "lemma": "Bombe",
   "pos": "NOUN",
@@ -168,8 +266,8 @@
   "case": null
  },
  {
-  "id": "core:1113",
-  "n": 1113,
+  "id": "core:r01233",
+  "n": 1120,
   "rank": 1233,
   "lemma": "akzeptieren",
   "pos": "VERB",
@@ -182,8 +280,8 @@
   "case": null
  },
  {
-  "id": "core:1114",
-  "n": 1114,
+  "id": "core:r01234",
+  "n": 1121,
   "rank": 1234,
   "lemma": "beten",
   "pos": "VERB",
@@ -196,8 +294,8 @@
   "case": null
  },
  {
-  "id": "core:1115",
-  "n": 1115,
+  "id": "core:r01235",
+  "n": 1122,
   "rank": 1235,
   "lemma": "langweilig",
   "pos": "ADJ",
@@ -210,8 +308,8 @@
   "case": null
  },
  {
-  "id": "core:1116",
-  "n": 1116,
+  "id": "core:r01237",
+  "n": 1123,
   "rank": 1237,
   "lemma": "anhalten",
   "pos": "VERB",
@@ -224,8 +322,8 @@
   "case": null
  },
  {
-  "id": "core:1117",
-  "n": 1117,
+  "id": "core:r01238",
+  "n": 1124,
   "rank": 1238,
   "lemma": "Operation",
   "pos": "NOUN",
@@ -238,8 +336,8 @@
   "case": null
  },
  {
-  "id": "core:1118",
-  "n": 1118,
+  "id": "core:r01240",
+  "n": 1125,
   "rank": 1240,
   "lemma": "aufstehen",
   "pos": "VERB",
@@ -252,8 +350,8 @@
   "case": null
  },
  {
-  "id": "core:1119",
-  "n": 1119,
+  "id": "core:r01241",
+  "n": 1126,
   "rank": 1241,
   "lemma": "klären",
   "pos": "VERB",
@@ -266,8 +364,8 @@
   "case": null
  },
  {
-  "id": "core:1120",
-  "n": 1120,
+  "id": "core:r01242",
+  "n": 1127,
   "rank": 1242,
   "lemma": "Knie",
   "pos": "NOUN",
@@ -280,8 +378,8 @@
   "case": null
  },
  {
-  "id": "core:1121",
-  "n": 1121,
+  "id": "core:r01243",
+  "n": 1128,
   "rank": 1243,
   "lemma": "Dach",
   "pos": "NOUN",
@@ -294,8 +392,8 @@
   "case": null
  },
  {
-  "id": "core:1122",
-  "n": 1122,
+  "id": "core:r01244",
+  "n": 1129,
   "rank": 1244,
   "lemma": "Folge",
   "pos": "NOUN",
@@ -308,8 +406,8 @@
   "case": null
  },
  {
-  "id": "core:1123",
-  "n": 1123,
+  "id": "core:r01245",
+  "n": 1130,
   "rank": 1245,
   "lemma": "rauskommen",
   "pos": "VERB",
@@ -322,8 +420,8 @@
   "case": null
  },
  {
-  "id": "core:1124",
-  "n": 1124,
+  "id": "core:r01247",
+  "n": 1131,
   "rank": 1247,
   "lemma": "genießen",
   "pos": "VERB",
@@ -336,8 +434,8 @@
   "case": null
  },
  {
-  "id": "core:1125",
-  "n": 1125,
+  "id": "core:r01248",
+  "n": 1132,
   "rank": 1248,
   "lemma": "dankbar",
   "pos": "ADJ",
@@ -350,8 +448,8 @@
   "case": null
  },
  {
-  "id": "core:1126",
-  "n": 1126,
+  "id": "core:r01249",
+  "n": 1133,
   "rank": 1249,
   "lemma": "Szene",
   "pos": "NOUN",
@@ -364,8 +462,8 @@
   "case": null
  },
  {
-  "id": "core:1127",
-  "n": 1127,
+  "id": "core:r01250",
+  "n": 1134,
   "rank": 1250,
   "lemma": "Gehirn",
   "pos": "NOUN",
@@ -378,8 +476,8 @@
   "case": null
  },
  {
-  "id": "core:1128",
-  "n": 1128,
+  "id": "core:r01251",
+  "n": 1135,
   "rank": 1251,
   "lemma": "Mut",
   "pos": "NOUN",
@@ -392,8 +490,8 @@
   "case": null
  },
  {
-  "id": "core:1129",
-  "n": 1129,
+  "id": "core:r01252",
+  "n": 1136,
   "rank": 1252,
   "lemma": "träumen",
   "pos": "VERB",
@@ -406,8 +504,8 @@
   "case": "D"
  },
  {
-  "id": "core:1130",
-  "n": 1130,
+  "id": "core:r01254",
+  "n": 1137,
   "rank": 1254,
   "lemma": "begleiten",
   "pos": "VERB",
@@ -420,8 +518,8 @@
   "case": null
  },
  {
-  "id": "core:1131",
-  "n": 1131,
+  "id": "core:r01256",
+  "n": 1138,
   "rank": 1256,
   "lemma": "Wahnsinn",
   "pos": "NOUN",
@@ -434,8 +532,8 @@
   "case": null
  },
  {
-  "id": "core:1132",
-  "n": 1132,
+  "id": "core:r01257",
+  "n": 1139,
   "rank": 1257,
   "lemma": "nee",
   "pos": "PART",
@@ -448,8 +546,8 @@
   "case": null
  },
  {
-  "id": "core:1133",
-  "n": 1133,
+  "id": "core:r01258",
+  "n": 1140,
   "rank": 1258,
   "lemma": "Rose",
   "pos": "NOUN",
@@ -462,8 +560,8 @@
   "case": null
  },
  {
-  "id": "core:1134",
-  "n": 1134,
+  "id": "core:r01259",
+  "n": 1141,
   "rank": 1259,
   "lemma": "Club",
   "pos": "NOUN",
@@ -476,8 +574,8 @@
   "case": null
  },
  {
-  "id": "core:1135",
-  "n": 1135,
+  "id": "core:r01260",
+  "n": 1142,
   "rank": 1260,
   "lemma": "lebend",
   "pos": "ADJ",
@@ -490,8 +588,8 @@
   "case": null
  },
  {
-  "id": "core:1136",
-  "n": 1136,
+  "id": "core:r01261",
+  "n": 1143,
   "rank": 1261,
   "lemma": "verwenden",
   "pos": "VERB",
@@ -504,8 +602,8 @@
   "case": null
  },
  {
-  "id": "core:1137",
-  "n": 1137,
+  "id": "core:r01262",
+  "n": 1144,
   "rank": 1262,
   "lemma": "berühren",
   "pos": "VERB",
@@ -518,8 +616,8 @@
   "case": null
  },
  {
-  "id": "core:1138",
-  "n": 1138,
+  "id": "core:r01263",
+  "n": 1145,
   "rank": 1263,
   "lemma": "einigen",
   "pos": "VERB",
@@ -532,8 +630,8 @@
   "case": "A"
  },
  {
-  "id": "core:1139",
-  "n": 1139,
+  "id": "core:r01264",
+  "n": 1146,
   "rank": 1264,
   "lemma": "zulassen",
   "pos": "VERB",
@@ -546,8 +644,8 @@
   "case": null
  },
  {
-  "id": "core:1140",
-  "n": 1140,
+  "id": "core:r01265",
+  "n": 1147,
   "rank": 1265,
   "lemma": "dorthin",
   "pos": "ADV",
@@ -560,8 +658,8 @@
   "case": null
  },
  {
-  "id": "core:1141",
-  "n": 1141,
+  "id": "core:r01266",
+  "n": 1148,
   "rank": 1266,
   "lemma": "kompliziert",
   "pos": "ADJ",
@@ -574,8 +672,8 @@
   "case": null
  },
  {
-  "id": "core:1142",
-  "n": 1142,
+  "id": "core:r01267",
+  "n": 1149,
   "rank": 1267,
   "lemma": "Vertrag",
   "pos": "NOUN",
@@ -588,8 +686,8 @@
   "case": null
  },
  {
-  "id": "core:1143",
-  "n": 1143,
+  "id": "core:r01268",
+  "n": 1150,
   "rank": 1268,
   "lemma": "Urlaub",
   "pos": "NOUN",
@@ -602,8 +700,8 @@
   "case": null
  },
  {
-  "id": "core:1144",
-  "n": 1144,
+  "id": "core:r01270",
+  "n": 1151,
   "rank": 1270,
   "lemma": "vorwärts",
   "pos": "ADV",
@@ -616,8 +714,8 @@
   "case": null
  },
  {
-  "id": "core:1145",
-  "n": 1145,
+  "id": "core:r01271",
+  "n": 1152,
   "rank": 1271,
   "lemma": "scharf",
   "pos": "ADJ",
@@ -630,8 +728,8 @@
   "case": null
  },
  {
-  "id": "core:1146",
-  "n": 1146,
+  "id": "core:r01272",
+  "n": 1153,
   "rank": 1272,
   "lemma": "informieren",
   "pos": "VERB",
@@ -644,8 +742,8 @@
   "case": null
  },
  {
-  "id": "core:1147",
-  "n": 1147,
+  "id": "core:r01275",
+  "n": 1154,
   "rank": 1275,
   "lemma": "schnappen",
   "pos": "VERB",
@@ -658,8 +756,8 @@
   "case": null
  },
  {
-  "id": "core:1148",
-  "n": 1148,
+  "id": "core:r01276",
+  "n": 1155,
   "rank": 1276,
   "lemma": "Baum",
   "pos": "NOUN",
@@ -672,8 +770,8 @@
   "case": null
  },
  {
-  "id": "core:1149",
-  "n": 1149,
+  "id": "core:r01277",
+  "n": 1156,
   "rank": 1277,
   "lemma": "anscheinend",
   "pos": "ADV",
@@ -686,8 +784,8 @@
   "case": null
  },
  {
-  "id": "core:1150",
-  "n": 1150,
+  "id": "core:r01278",
+  "n": 1157,
   "rank": 1278,
   "lemma": "abschließen",
   "pos": "VERB",
@@ -700,8 +798,8 @@
   "case": null
  },
  {
-  "id": "core:1151",
-  "n": 1151,
+  "id": "core:r01279",
+  "n": 1158,
   "rank": 1279,
   "lemma": "Kurs",
   "pos": "NOUN",
@@ -714,8 +812,8 @@
   "case": null
  },
  {
-  "id": "core:1152",
-  "n": 1152,
+  "id": "core:r01280",
+  "n": 1159,
   "rank": 1280,
   "lemma": "freundlich",
   "pos": "ADJ",
@@ -728,8 +826,8 @@
   "case": null
  },
  {
-  "id": "core:1153",
-  "n": 1153,
+  "id": "core:r01281",
+  "n": 1160,
   "rank": 1281,
   "lemma": "betreffen",
   "pos": "VERB",
@@ -742,8 +840,8 @@
   "case": null
  },
  {
-  "id": "core:1154",
-  "n": 1154,
+  "id": "core:r01282",
+  "n": 1161,
   "rank": 1282,
   "lemma": "Nachmittag",
   "pos": "NOUN",
@@ -756,8 +854,8 @@
   "case": null
  },
  {
-  "id": "core:1155",
-  "n": 1155,
+  "id": "core:r01283",
+  "n": 1162,
   "rank": 1283,
   "lemma": "Risiko",
   "pos": "NOUN",
@@ -770,8 +868,8 @@
   "case": null
  },
  {
-  "id": "core:1156",
-  "n": 1156,
+  "id": "core:r01284",
+  "n": 1163,
   "rank": 1284,
   "lemma": "Stern",
   "pos": "NOUN",
@@ -784,8 +882,8 @@
   "case": null
  },
  {
-  "id": "core:1157",
-  "n": 1157,
+  "id": "core:r01285",
+  "n": 1164,
   "rank": 1285,
   "lemma": "Knast",
   "pos": "NOUN",
@@ -798,8 +896,8 @@
   "case": null
  },
  {
-  "id": "core:1158",
-  "n": 1158,
+  "id": "core:r01286",
+  "n": 1165,
   "rank": 1286,
   "lemma": "stammen",
   "pos": "VERB",
@@ -812,8 +910,8 @@
   "case": "D"
  },
  {
-  "id": "core:1159",
-  "n": 1159,
+  "id": "core:r01287",
+  "n": 1166,
   "rank": 1287,
   "lemma": "Held",
   "pos": "NOUN",
@@ -826,8 +924,8 @@
   "case": null
  },
  {
-  "id": "core:1160",
-  "n": 1160,
+  "id": "core:r01288",
+  "n": 1167,
   "rank": 1288,
   "lemma": "daraus",
   "pos": "ADV",
@@ -840,8 +938,8 @@
   "case": null
  },
  {
-  "id": "core:1161",
-  "n": 1161,
+  "id": "core:r01289",
+  "n": 1168,
   "rank": 1289,
   "lemma": "vollkommen",
   "pos": "ADV",
@@ -854,8 +952,8 @@
   "case": null
  },
  {
-  "id": "core:1162",
-  "n": 1162,
+  "id": "core:r01290",
+  "n": 1169,
   "rank": 1290,
   "lemma": "Fräulein",
   "pos": "NOUN",
@@ -868,8 +966,8 @@
   "case": null
  },
  {
-  "id": "core:1163",
-  "n": 1163,
+  "id": "core:r01291",
+  "n": 1170,
   "rank": 1291,
   "lemma": "offiziell",
   "pos": "ADJ",
@@ -882,8 +980,8 @@
   "case": null
  },
  {
-  "id": "core:1164",
-  "n": 1164,
+  "id": "core:r01292",
+  "n": 1171,
   "rank": 1292,
   "lemma": "fern",
   "pos": "ADJ",
@@ -896,8 +994,8 @@
   "case": null
  },
  {
-  "id": "core:1165",
-  "n": 1165,
+  "id": "core:r01293",
+  "n": 1172,
   "rank": 1293,
   "lemma": "Form",
   "pos": "NOUN",
@@ -910,8 +1008,8 @@
   "case": null
  },
  {
-  "id": "core:1166",
-  "n": 1166,
+  "id": "core:r01294",
+  "n": 1173,
   "rank": 1294,
   "lemma": "prima",
   "pos": "ADJ",
@@ -924,8 +1022,8 @@
   "case": null
  },
  {
-  "id": "core:1167",
-  "n": 1167,
+  "id": "core:r01295",
+  "n": 1174,
   "rank": 1295,
   "lemma": "fair",
   "pos": "ADJ",
@@ -938,8 +1036,8 @@
   "case": null
  },
  {
-  "id": "core:1168",
-  "n": 1168,
+  "id": "core:r01296",
+  "n": 1175,
   "rank": 1296,
   "lemma": "Gewalt",
   "pos": "NOUN",
@@ -952,8 +1050,8 @@
   "case": null
  },
  {
-  "id": "core:1169",
-  "n": 1169,
+  "id": "core:r01298",
+  "n": 1176,
   "rank": 1298,
   "lemma": "wahnsinnig",
   "pos": "ADJ",
@@ -966,8 +1064,8 @@
   "case": null
  },
  {
-  "id": "core:1170",
-  "n": 1170,
+  "id": "core:r01299",
+  "n": 1177,
   "rank": 1299,
   "lemma": "Katze",
   "pos": "NOUN",
@@ -980,8 +1078,8 @@
   "case": null
  },
  {
-  "id": "core:1171",
-  "n": 1171,
+  "id": "core:r01300",
+  "n": 1178,
   "rank": 1300,
   "lemma": "Runde",
   "pos": "NOUN",
@@ -994,8 +1092,8 @@
   "case": null
  },
  {
-  "id": "core:1172",
-  "n": 1172,
+  "id": "core:r01301",
+  "n": 1179,
   "rank": 1301,
   "lemma": "reagieren",
   "pos": "VERB",
@@ -1008,8 +1106,8 @@
   "case": "A"
  },
  {
-  "id": "core:1173",
-  "n": 1173,
+  "id": "core:r01302",
+  "n": 1180,
   "rank": 1302,
   "lemma": "Schwanz",
   "pos": "NOUN",
@@ -1022,8 +1120,8 @@
   "case": null
  },
  {
-  "id": "core:1174",
-  "n": 1174,
+  "id": "core:r01303",
+  "n": 1181,
   "rank": 1303,
   "lemma": "begegnen",
   "pos": "VERB",
@@ -1036,8 +1134,8 @@
   "case": "D"
  },
  {
-  "id": "core:1175",
-  "n": 1175,
+  "id": "core:r01305",
+  "n": 1182,
   "rank": 1305,
   "lemma": "Großvater",
   "pos": "NOUN",
@@ -1050,8 +1148,8 @@
   "case": null
  },
  {
-  "id": "core:1176",
-  "n": 1176,
+  "id": "core:r01306",
+  "n": 1183,
   "rank": 1306,
   "lemma": "Sommer",
   "pos": "NOUN",
@@ -1064,8 +1162,8 @@
   "case": null
  },
  {
-  "id": "core:1177",
-  "n": 1177,
+  "id": "core:r01307",
+  "n": 1184,
   "rank": 1307,
   "lemma": "warm",
   "pos": "ADJ",
@@ -1078,8 +1176,8 @@
   "case": null
  },
  {
-  "id": "core:1178",
-  "n": 1178,
+  "id": "core:r01308",
+  "n": 1185,
   "rank": 1308,
   "lemma": "brav",
   "pos": "ADJ",
@@ -1092,8 +1190,8 @@
   "case": null
  },
  {
-  "id": "core:1179",
-  "n": 1179,
+  "id": "core:r01309",
+  "n": 1186,
   "rank": 1309,
   "lemma": "hingehen",
   "pos": "VERB",
@@ -1106,8 +1204,8 @@
   "case": null
  },
  {
-  "id": "core:1180",
-  "n": 1180,
+  "id": "core:r01310",
+  "n": 1187,
   "rank": 1310,
   "lemma": "beibringen",
   "pos": "VERB",
@@ -1120,8 +1218,8 @@
   "case": null
  },
  {
-  "id": "core:1181",
-  "n": 1181,
+  "id": "core:r01311",
+  "n": 1188,
   "rank": 1311,
   "lemma": "raten",
   "pos": "VERB",
@@ -1134,8 +1232,8 @@
   "case": "D"
  },
  {
-  "id": "core:1182",
-  "n": 1182,
+  "id": "core:r01313",
+  "n": 1189,
   "rank": 1313,
   "lemma": "zuhören",
   "pos": "VERB",
@@ -1148,8 +1246,8 @@
   "case": "D"
  },
  {
-  "id": "core:1183",
-  "n": 1183,
+  "id": "core:r01314",
+  "n": 1190,
   "rank": 1314,
   "lemma": "herkommen",
   "pos": "VERB",
@@ -1162,8 +1260,8 @@
   "case": null
  },
  {
-  "id": "core:1184",
-  "n": 1184,
+  "id": "core:r01316",
+  "n": 1191,
   "rank": 1316,
   "lemma": "jener",
   "pos": "PRON",
@@ -1176,22 +1274,22 @@
   "case": null
  },
  {
-  "id": "core:1185",
-  "n": 1185,
+  "id": "core:r01317",
+  "n": 1192,
   "rank": 1317,
   "lemma": "Hose",
   "pos": "NOUN",
   "display": "die Hose · die Hosen",
   "gloss": "trousers, pants",
-  "sentence": "Die Hose ist mir leider zu eng.",
+  "sentence": "Für das Vorstellungsgespräch brauche ich noch eine schwarze Hose.",
   "target": "Hose",
-  "en": "Unfortunately the trousers are too tight for me.",
+  "en": "I still need a pair of black trousers for the job interview.",
   "note": "die Hose = Singular (ein Paar)",
   "case": null
  },
  {
-  "id": "core:1186",
-  "n": 1186,
+  "id": "core:r01318",
+  "n": 1193,
   "rank": 1318,
   "lemma": "Prinz",
   "pos": "NOUN",
@@ -1204,8 +1302,8 @@
   "case": null
  },
  {
-  "id": "core:1187",
-  "n": 1187,
+  "id": "core:r01319",
+  "n": 1194,
   "rank": 1319,
   "lemma": "privat",
   "pos": "ADJ",
@@ -1218,8 +1316,8 @@
   "case": null
  },
  {
-  "id": "core:1188",
-  "n": 1188,
+  "id": "core:r01321",
+  "n": 1195,
   "rank": 1321,
   "lemma": "gewöhnen",
   "pos": "VERB",
@@ -1232,8 +1330,8 @@
   "case": "A"
  },
  {
-  "id": "core:1189",
-  "n": 1189,
+  "id": "core:r01322",
+  "n": 1196,
   "rank": 1322,
   "lemma": "klug",
   "pos": "ADJ",
@@ -1246,8 +1344,8 @@
   "case": null
  },
  {
-  "id": "core:1190",
-  "n": 1190,
+  "id": "core:r01324",
+  "n": 1197,
   "rank": 1324,
   "lemma": "umgehen",
   "pos": "VERB",
@@ -1260,8 +1358,8 @@
   "case": "D"
  },
  {
-  "id": "core:1191",
-  "n": 1191,
+  "id": "core:r01325",
+  "n": 1198,
   "rank": 1325,
   "lemma": "Restaurant",
   "pos": "NOUN",
@@ -1274,8 +1372,8 @@
   "case": null
  },
  {
-  "id": "core:1192",
-  "n": 1192,
+  "id": "core:r01326",
+  "n": 1199,
   "rank": 1326,
   "lemma": "Natur",
   "pos": "NOUN",
@@ -1288,8 +1386,8 @@
   "case": null
  },
  {
-  "id": "core:1193",
-  "n": 1193,
+  "id": "core:r01327",
+  "n": 1200,
   "rank": 1327,
   "lemma": "vertraut",
   "pos": "ADJ",
@@ -1299,104 +1397,6 @@
   "target": "vertraut",
   "en": "After a few weeks the new city already felt familiar to me.",
   "note": "jdm vertraut sein; mit etwas vertraut sein",
-  "case": null
- },
- {
-  "id": "core:1194",
-  "n": 1194,
-  "rank": 1328,
-  "lemma": "Streit",
-  "pos": "NOUN",
-  "display": "der Streit · die Streitigkeiten",
-  "gloss": "argument, quarrel",
-  "sentence": "Wir hatten Streit mit den Nachbarn wegen des Lärms.",
-  "target": "Streit",
-  "en": "We had an argument with the neighbours about the noise.",
-  "note": "Streit haben mit + Dativ",
-  "case": null
- },
- {
-  "id": "core:1195",
-  "n": 1195,
-  "rank": 1330,
-  "lemma": "begehen",
-  "pos": "VERB",
-  "display": "begehen · beging · hat begangen",
-  "gloss": "to commit (a crime, mistake)",
-  "sentence": "Der Mann hat mehrere Diebstähle begangen.",
-  "target": "begangen",
-  "en": "The man committed several thefts.",
-  "note": "ein Verbrechen / einen Fehler begehen",
-  "case": null
- },
- {
-  "id": "core:1196",
-  "n": 1196,
-  "rank": 1332,
-  "lemma": "längst",
-  "pos": "ADV",
-  "display": "längst",
-  "gloss": "long ago, for a long time",
-  "sentence": "Das weiß ich doch schon längst!",
-  "target": "längst",
-  "en": "I've known that for ages!",
-  "note": "längst = schon lange",
-  "case": null
- },
- {
-  "id": "core:1197",
-  "n": 1197,
-  "rank": 1333,
-  "lemma": "drüber",
-  "pos": "ADV",
-  "display": "drüber",
-  "gloss": "about it; over it",
-  "sentence": "Lass uns morgen noch mal drüber reden.",
-  "target": "drüber",
-  "en": "Let's talk about it again tomorrow.",
-  "note": "umgangssprachlich für darüber",
-  "case": null
- },
- {
-  "id": "core:1198",
-  "n": 1198,
-  "rank": 1335,
-  "lemma": "erwachsen",
-  "pos": "ADJ",
-  "display": "erwachsen",
-  "gloss": "grown-up, adult",
-  "sentence": "Meine Kinder sind schon erwachsen und wohnen nicht mehr zu Hause.",
-  "target": "erwachsen",
-  "en": "My children are already grown up and don't live at home anymore.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1199",
-  "n": 1199,
-  "rank": 1336,
-  "lemma": "lebendig",
-  "pos": "ADJ",
-  "display": "lebendig",
-  "gloss": "alive; lively",
-  "sentence": "Die Altstadt ist am Abend sehr lebendig.",
-  "target": "lebendig",
-  "en": "The old town is very lively in the evening.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:1200",
-  "n": 1200,
-  "rank": 1337,
-  "lemma": "normalerweise",
-  "pos": "ADV",
-  "display": "normalerweise",
-  "gloss": "normally, usually",
-  "sentence": "Normalerweise fahre ich mit dem Fahrrad zur Arbeit.",
-  "target": "Normalerweise",
-  "en": "Normally I cycle to work.",
-  "note": null,
   "case": null
  }
 ]
