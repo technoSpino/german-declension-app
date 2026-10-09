@@ -1,0 +1,31 @@
+import { defineConfig, devices } from '@playwright/test'
+
+// E2E smoke tests for Kaskade:  npm run build && npm run test:e2e:kaskade
+// Starts its own API (127.0.0.1:8001, throwaway data in app/.e2e-data) and a
+// preview server (127.0.0.1:5174), so tests never touch the real ~/kaskade-data.
+const DATA = '.e2e-data'
+
+export default defineConfig({
+  testDir: './e2e',
+  fullyParallel: false,
+  workers: 1,
+  reporter: 'list',
+  timeout: 60_000,
+  use: {
+    baseURL: 'http://127.0.0.1:5174',
+    trace: 'retain-on-failure'
+  },
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  webServer: [
+    {
+      command: `rm -rf ${DATA} && KASKADE_DATA_DIR=$PWD/${DATA} ../server/.venv/bin/uvicorn kaskade.main:app --app-dir ../server --host 127.0.0.1 --port 8001`,
+      url: 'http://127.0.0.1:8001/api/health',
+      reuseExistingServer: false
+    },
+    {
+      command: 'KASKADE_API=http://127.0.0.1:8001 npx vite preview --host 127.0.0.1 --port 5174 --strictPort',
+      url: 'http://127.0.0.1:5174',
+      reuseExistingServer: false
+    }
+  ]
+})

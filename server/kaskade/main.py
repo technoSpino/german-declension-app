@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from . import config, db
+from .routes import vocab
 
 
 @asynccontextmanager
@@ -14,6 +15,13 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Kaskade API", lifespan=lifespan)
+app.include_router(vocab.router)
+
+
+@app.get("/api/status")
+def status():
+    """Learner status for the header and Heute (phase from the last Einstufung)."""
+    return {"phase": db.get_setting("phase"), "name": db.get_setting("name", "Matt")}
 
 
 @app.get("/api/health")

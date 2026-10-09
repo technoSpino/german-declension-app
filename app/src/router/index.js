@@ -10,12 +10,24 @@ import PrepositionsView from '../views/PrepositionsView.vue'
 import WerdenView from '../views/WerdenView.vue'
 import ExercisesView from '../views/ExercisesView.vue'
 
+import HeuteView from '../views/kaskade/HeuteView.vue'
+
 const routes = [
+  // Kaskade
+  { path: '/', name: 'Heute', component: HeuteView, meta: { title: 'Heute' } },
+  { path: '/heute', redirect: '/' },
   {
-    path: '/',
+    path: '/wortschatz',
+    name: 'Wortschatz',
+    component: () => import('../views/kaskade/WortschatzView.vue'),
+    meta: { title: 'Wortschatz-Test' }
+  },
+  // Nachschlagen (the original grammar pages)
+  {
+    path: '/nachschlagen',
     name: 'Home',
     component: HomeView,
-    meta: { title: 'German A2 Grammar Learning App' }
+    meta: { title: 'Nachschlagen' }
   },
   {
     path: '/tables',
@@ -87,7 +99,7 @@ const router = createRouter({
 
 // Update document title on route change
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title || 'German Declension Learning App'
+  document.title = to.meta.title ? `${to.meta.title} · Kaskade` : 'Kaskade'
   next()
 })
 

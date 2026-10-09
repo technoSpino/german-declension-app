@@ -21,6 +21,7 @@ You are building the first working version of **Kaskade**, a Refold-style German
 5. There is **no runtime Anthropic API key** yet. Nothing may depend on one. Anything that needs "AI" tonight (example sentences, reading texts, prompts, pseudowords) you author yourself and commit as JSON. Runtime AI features (grading writing, etc.) go behind `ANTHROPIC_API_KEY` (model `claude-opus-5-5`, official Anthropic SDK) and degrade gracefully when it's unset.
 6. Quality bar: `cd app && npm run test` passes; add unit tests for scoring/scheduling logic (frontend vitest and/or pytest). **German must be correct** — the user learns from it. Re-read every German string you write.
 7. After each milestone update `docs/kaskade/PROGRESS.md`: what's done, URL to open, decisions made, what's next, blockers. The user reads it on their phone in the morning — keep it short and scannable.
+9. **Theme-ready from the start:** every colour, font, radius, border width and shadow comes from CSS custom properties (Tailwind 4 `@theme` mapped to `var(--…)`), defined per theme in one file (e.g. `app/src/styles/themes.css`). No hex values or font names inside components. Themes are switched with `data-theme` on `<html>` (see M5b).
 8. If something is blocked (e.g. a download fails), note it in PROGRESS.md, work around it, and continue with the next milestone. Don't loop on one problem for more than ~20 minutes.
 
 ## Architecture (keep it simple)
@@ -63,3 +64,52 @@ You are building the first working version of **Kaskade**, a Refold-style German
 
 - The URL in PROGRESS.md opens Heute; Einstufung runs end to end; Satz-Check works with an uploaded SRT + media file; Karten reviews the core deck with FSRS; data survives a service restart.
 - PROGRESS.md starts with a **"Heute früh"** checklist: open URL → take Einstufung → first Karten session, plus known issues.
+
+## Backlog — continue here after M6 (in this order)
+
+Same hard rules apply. Commit + push after each item, update PROGRESS.md.
+
+**M7 — Core deck complete + quality pass.** Finish all 2,000 core cards if not done. Then a second pass over every batch: grammar, natural word order, articles/plurals, Perfekt forms, case after prepositions. Fix, don't rewrite for style. Log the number of fixes.
+
+**M8 — Graded reading library.** Write ~20 original short texts (150–350 words, A2+/B1, everyday adult themes: Wohnen, Arbeit, Behörden, Arzt, Einkaufen, Freizeit, Reisen, Nachbarn …) built mostly from core-deck words (i+1: ≤ 5 % words outside the top 2,000). Store in `data/texts/`. These feed the 09:30 and 10:35 slots.
+
+**M9 — Reader with case lens** (see `Lesen.dc.html`). Open any library text or pasted text. spaCy (`de_core_news_sm` or `_md`) gives lemma, POS and `Case=` morphology → colour noun phrases N/A/D/G (always with the letter). Word states: neu / lernend / bekannt from the user's cards. Click a word → lemma, article/plural, case + the preposition or verb that governs it. Dictionary: a German–English glossary derived from Wiktionary (kaikki.org dumps, CC BY-SA — keep the file in `~/kaskade-data`, not git; attribution in docs). "Satz minen" → creates a sentence card in the deck.
+
+**M10 — Audio.** If not done in M6: Piper TTS (German voice with a permissive licence) for core-deck sentences and library texts, cached in `~/kaskade-data/audio`. Reader + Karten play it. Then the **Wiederhören feed**: a private podcast RSS (served on 100.64.43.3 only) with the audio of texts read this week, so a podcast app on the phone (on the tailnet) can play it.
+
+**M11 — B1 practice bank (original items only).** Lesen: 4 original texts with B1-style tasks (richtig/falsch, multiple choice, matching). Hören: 4 original dialogues/announcements rendered with TTS (two voices if available) with questions. Schreiben: the ~16 prompts from M5 with a self-check list (Aufgabe erfüllt? Anrede/Gruß? Konnektoren? Verb an Position 2 / am Ende?). Timed mode. Score per module vs the 60 % pass mark → feeds the "Prüfung" readiness later.
+
+**M12 — Immersion log + Fahrplan.** Manual entry for outside immersion (e.g. "Checker Tobi 25 min, passiv/aktiv"), plus block timer data → hours per day/week, total vs Refold's ~1,150 h; Fahrplan page with real phase, gates and Satz-Check history.
+
+**M13 — Hardening.** Tests for every scoring function, error states (server down, empty deck, failed download), 320 px layout, a short `docs/kaskade/RUNBOOK.md` (restart services, back up `~/kaskade-data`, update deps).
+
+**When everything is done:** do a final QA walk-through of every page, fix what you find, write the morning summary at the top of PROGRESS.md, and stop. Don't invent large new features beyond this list.
+
+## M5b — Themes + "Stil" dropdown (do this right after M5, before M6)
+
+A `<select>` labelled **Stil** in the top nav switches between six themes (table below + **Magazin**). Every page must stay fully functional in every theme. The choice is saved in `localStorage` (wrap access in try/catch) and in server settings; with no choice, follow `prefers-color-scheme` (Signal for light, Nacht for dark). Self-host fonts with `@fontsource/*` packages so nothing depends on external CDNs.
+
+Tokens each theme defines: `--bg --surface --surface-2 --border --border-width --text --text-2 --muted --primary --primary-text --accent --accent-text --word-new-bg --word-learning --focus --radius-sm --radius-lg --shadow --font-ui --font-heading --font-read --font-size-base --case-n --case-a --case-d --case-g --case-n-bg --case-a-bg --case-d-bg --case-g-bg --chart-active --chart-passive`.
+
+| Theme | Character | Key values |
+|---|---|---|
+| **Signal** (default light) | The approved mockups: clean, flat, ink on cool grey | bg `#F3F4F6`, surface `#FFF`, border `#DCDFE5`, text `#14161B`, muted `#5B6270`, primary `#14161B`/`#FFF`, accent `#FFD23F`, word-new `#FFE27A`, learning/focus `#5B3FD6`, radius 10/14 px, Archivo (UI) + Literata (reading). Cases N `#1565C0` A `#C62828` D `#2E7D32` G `#B45309`, tints `#E3F2FD #FFEBEE #E8F5E9 #FFF3E0`. Chart `#5B3FD6` / `#B57A00`. |
+| **Nacht** (dark) | Same layout, dark for evening sessions | bg `#0F1115`, surface `#171A20`, surface-2 `#1E222A`, border `#2C313B`, text `#ECEEF2`, muted `#9AA1AE`, primary `#FFD23F`/`#14161B`, accent `#FFD23F`, word-new bg `#4A3B00`, learning/focus `#A996FF`. Cases N `#64B5F6` A `#EF8A8A` D `#7BC67E` G `#F2A65A`, tints `#10263D #3A1616 #132D17 #3A2410`. Chart `#A996FF` / `#E0A33A`. |
+| **Papier** (editorial) | Like reading a well-set book: warm paper, serif everything, hairline rules instead of boxes, almost square corners | bg `#F6F1E7`, surface `#FFFDF8`, border `#DDD3C1` (1 px rules, cards become ruled sections), text `#231F1A`, muted `#6B6152`, primary deep teal `#1E4D4D`/`#FFFDF8`, accent soft gold `#F2D88A`, word-new `#F5DF94`, learning/focus `#1E4D4D`, radius 2/4 px, Source Serif 4 (UI + headings, small-caps labels) + Literata (reading). Cases slightly muted: N `#1F5A96` A `#A8322A` D `#2F6B35` G `#9A5212`. |
+| **Bauhaus** (bold) | Loud and geometric: black 2 px borders, square corners, hard offset shadows, heavy uppercase headings, yellow blocks | bg/surface `#FFF`, surface-2 `#F2F2F2`, border `#000` 2 px, text `#000`, muted `#4D4D4D`, primary `#000`/`#FFF`, accent `#FFD000`, word-new `#FFD000`, focus `#000` 3 px, radius 0, shadow `4px 4px 0 #000`, Archivo Black (headings, uppercase, letter-spacing .04em) + Archivo (UI) + Literata (reading). Cases N `#0047AB` A `#D10000` D `#007A33` G `#C25700`. Don't use red/blue as decoration — they mean cases. |
+| **Fokus** (high legibility) | Calm and large for long reading: bigger text, more space, no shadows, minimal colour, highlights as thick underlines | bg `#FAFAF7`, surface `#FFF`, border `#D9D9D4`, text `#1A1A1A`, muted `#555`, primary `#1A1A1A`/`#FFF`, accent `#C99700` used as 3 px underline, word-new bg `#FFF6D6` + underline, base font 18 px, line-height 1.7, touch targets ≥ 52 px, Atkinson Hyperlegible (UI + reading). Cases as Signal. Respect `prefers-reduced-motion`. |
+
+Rules for all themes: case colours are always paired with the letter N/A/D/G; text contrast ≥ 4.5:1 (≥ 3:1 for ≥ 24 px and UI marks). Add a **vitest that parses `themes.css` and checks WCAG contrast** for text/bg, muted/bg, primary-text/primary, accent-text/accent and each case colour on its tint and on surface — the test fails if any pair is below the threshold, then adjust the value, not the threshold.
+
+**Sixth theme — Magazin** (inspired by German news magazines such as *Der Spiegel*; use no logos, names or brand assets): white page, black headlines, a thin rule under the nav, square corners, dense grid, small uppercase **kicker** labels above headings in accent red-orange, hairline grey separators instead of cards. bg/surface `#FFF`, surface-2 `#F4F4F2`, border `#D6D6D2`, text `#111`, muted `#5A5A5A`, primary `#111`/`#FFF`, accent text/kickers `#C93A12`, accent bars/rules `#E64415` (marks only, not text), word-new `#FFE7A3`, focus `#111`, radius 0/2 px; fonts: Source Serif 4 bold for headlines, Libre Franklin for UI, Literata for reading. **Cases:** Akkusativ becomes crimson `#9F1239` (tint `#FDE8EE`) so it can't be confused with the red-orange accent; N `#1F5FAF`, D `#2E7D32`, G `#9A5212`. Never use the accent to highlight words.
+
+## Testing — applies to every milestone (non-negotiable)
+
+- **Never commit red.** Before every commit: `cd app && npm run test` and `cd server && .venv/bin/pytest -q` must pass. If a test fails, fix the code (or the test if the test is wrong — say so in the commit message).
+- **Every milestone ships its tests:**
+  - Pure logic (vitest or pytest): vocab scoring + false-alarm correction, Satz-Check coverage + verdict, FSRS wrapper (intervals monotonic, "kenne ich" burial), daily-plan/block generation, immersion-hour totals, theme contrast (see M5b).
+  - API (pytest + FastAPI `TestClient`, temp SQLite per test): every endpoint, happy path + one error case.
+  - **Content validation** (pytest, runs on all JSON in `data/`): schema/required fields, no duplicate lemmas, the example sentence contains the target word or an inflected form, nouns have article + plural, texts in `data/texts/` have ≤ 5 % tokens outside the top 2,000, no empty strings.
+  - **E2E smoke (Playwright, Chromium headless)** in `app/e2e/kaskade.spec.ts` against the running services: Heute loads; vocab test can be answered and shows a result; Satz-Check accepts an SRT and records ratings; Karten reveal + rate + "kenne ich"; theme dropdown switches all six themes without console errors. Chromium is already installed for this user (`~/.cache/ms-playwright`, Playwright 1.56.1). This OS isn't officially supported by Playwright — if you need to (re)install browsers, prefix with `PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64`. Run E2E before each milestone commit from M2 on.
+- **CI:** add `.github/workflows/kaskade-ci.yml` (triggers: push + PR on branch `kaskade`) running `npm ci && npm run test` in `app/`, `pip install -r requirements.txt && pytest -q` in `server/`, and the content validation. Leave the existing main/Pages workflow untouched.
+- Report test counts (unit / API / content / E2E, passed/failed) in PROGRESS.md after each milestone.

@@ -1,0 +1,58 @@
+/*
+ * Kaskade themes. Every colour, font, radius, border width and shadow used by
+ * Kaskade components comes from these custom properties (hard rule 9).
+ * Switch with <html data-theme="…">. Signal is the default.
+ */
+
+:root,
+:root[data-theme='signal'] {
+  color-scheme: light;
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --surface-2: #eceef2;
+  --border: #dcdfe5;
+  --border-strong: #c5cad3;
+  --border-width: 1px;
+  --text: #14161b;
+  --text-2: #3d4350;
+  --muted: #5b6270;
+  --primary: #14161b;
+  --primary-hover: #2e323c;
+  --primary-text: #ffffff;
+  --accent: #ffd23f;
+  --accent-text: #14161b;
+  --callout: #fff4c2;
+  --word-new-bg: #ffe27a;
+  --word-learning: #5b3fd6;
+  --focus: #5b3fd6;
+  --link: #3b2bb0;
+  --nav-bg: #14161b;
+  --nav-text: #ffffff;
+  --nav-muted: #c9cdd6;
+  --nav-hover: #2a2e37;
+  --success: #1f5f2a;
+  --success-bg: #e8f5e9;
+  --danger: #b71c1c;
+  --radius-sm: 10px;
+  --radius-lg: 14px;
+  --shadow: none;
+  --font-ui: 'Archivo', system-ui, sans-serif;
+  --font-heading: 'Archivo', system-ui, sans-serif;
+  --font-read: 'Literata', Georgia, serif;
+  --font-size-base: 16px;
+  --line-height: 1.5;
+  --heading-weight: 800;
+  --heading-transform: none;
+  --heading-spacing: -0.02em;
+  --touch: 44px;
+  --case-n: #1565c0;
+  --case-a: #c62828;
+  --case-d: #2e7d32;
+  --case-g: #b45309;
+  --case-n-bg: #e3f2fd;
+  --case-a-bg: #ffebee;
+  --case-d-bg: #e8f5e9;
+  --case-g-bg: #fff3e0;
+  --chart-active: #5b3fd6;
+  --chart-passive: #b57a00;
+}

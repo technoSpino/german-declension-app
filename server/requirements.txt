@@ -6,6 +6,3 @@ anthropic==1.13.0
 yt-dlp==2026.8.19
 pytest==9.1.1
 httpx==0.28.1
-# Only needed to rebuild data/freq (scripts/build_freq.py):
-spacy==3.8.16
-# python -m spacy download de_core_news_sm

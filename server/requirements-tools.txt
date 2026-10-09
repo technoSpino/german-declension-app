@@ -1,0 +1,3 @@
+# Only needed to rebuild data/freq (scripts/build_freq.py), not to run the app.
+spacy==3.8.16
+# then: .venv/bin/python -m spacy download de_core_news_sm
