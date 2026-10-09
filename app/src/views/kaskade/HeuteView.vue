@@ -3,7 +3,8 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '../../lib/api'
 import { formatClock, formatDate, formatNumber } from '../../lib/format'
-import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, PHASE2_TARGET, weekBars } from '../../lib/heute'
+import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, PHASE2_TARGET, weekStack } from '../../lib/heute'
+import ImmersionForm from '../../components/kaskade/ImmersionForm.vue'
 import { useNow } from '../../lib/useNow'
 import { useStatusStore } from '../../stores/statusStore'
 
@@ -52,8 +53,12 @@ const suggestion = computed(() => (t.value && !isPreview.value ? nextBlock(t.val
 const dateLabel = computed(() =>
   new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Europe/Berlin' }).format(now.value)
 )
-const bars = computed(() => (t.value ? weekBars(t.value.weekTotals.seconds) : []))
-const weekHours = computed(() => (t.value ? t.value.weekTotals.seconds.reduce((a, b) => a + b, 0) / 3600 : 0))
+const bars = computed(() => (t.value ? weekStack(t.value.weekTotals.seconds, t.value.weekTotals.passive) : []))
+const sumH = (arr) => arr.reduce((a, b) => a + b, 0) / 3600
+const activeH = computed(() => (t.value ? sumH(t.value.weekTotals.seconds) : 0))
+const passiveH = computed(() => (t.value ? sumH(t.value.weekTotals.passive) : 0))
+const showForm = ref(false)
+const hours = (x) => x.toLocaleString('de-DE', { maximumFractionDigits: 1 })
 const todayIndex = computed(() => (t.value ? t.value.weekTotals.days.indexOf(t.value.date) : -1))
 const skills = computed(() => t.value?.placement?.skills ?? null)
 const nextSatzcheck = computed(() => {
@@ -246,14 +251,30 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
           <div class="k-progress mt-2" style="height: 8px" role="img" :aria-label="`${Math.round(t.immersion.share * 100)} Prozent der Stunden bis B2`">
             <div :style="{ width: t.immersion.share * 100 + '%' }"></div>
           </div>
-          <p class="m-0 mt-5 mb-2 k-small" style="font-weight: 700">Diese Woche · {{ weekHours.toLocaleString('de-DE', { maximumFractionDigits: 1 }) }} h aktiv <span style="font-weight: 500">· Block-Ziel 11,7 h</span></p>
-          <div class="grid grid-cols-7 gap-2 items-end" style="height: 120px; border-bottom: 1px solid var(--border-strong)" role="img" aria-label="Aktive Stunden pro Tag diese Woche">
-            <div v-for="(h, i) in bars" :key="i" :title="`${WEEKDAYS[i]}: ${(t.weekTotals.seconds[i] / 3600).toLocaleString('de-DE', { maximumFractionDigits: 1 })} h aktiv`" :style="{ height: h + 'px', background: 'var(--chart-active)', borderRadius: '4px 4px 0 0' }"></div>
+          <p class="m-0 mt-5 mb-2 k-small" style="font-weight: 700">Diese Woche · {{ hours(activeH + passiveH) }} h <span style="font-weight: 500">· Block-Ziel 11,7 h aktiv</span></p>
+          <div class="grid grid-cols-7 gap-2 items-end" style="height: 120px; border-bottom: 1px solid var(--border-strong)" role="img" aria-label="Stunden pro Tag diese Woche, aktiv und passiv">
+            <div
+              v-for="(b, i) in bars"
+              :key="i"
+              class="flex flex-col gap-0.5"
+              :title="`${WEEKDAYS[i]}: ${hours(t.weekTotals.seconds[i] / 3600)} h aktiv · ${hours(t.weekTotals.passive[i] / 3600)} h passiv`"
+            >
+              <div v-if="b.passiv" :style="{ height: b.passiv + 'px', background: 'var(--chart-passive)', borderRadius: '4px 4px 0 0' }"></div>
+              <div v-if="b.aktiv" :style="{ height: b.aktiv + 'px', background: 'var(--chart-active)', borderRadius: b.passiv ? '0' : '4px 4px 0 0' }"></div>
+            </div>
           </div>
           <div class="grid grid-cols-7 gap-2 mt-1.5 text-center k-hint">
             <span v-for="(d, i) in WEEKDAYS" :key="d" :style="i === todayIndex ? { fontWeight: 800, color: 'var(--text)' } : {}">{{ d }}</span>
           </div>
-          <p class="k-hint m-0 mt-3">Passives Hören und Zeit außerhalb des Blocks kommen mit dem Immersions-Log (M12).</p>
+          <div class="flex flex-wrap gap-x-4 gap-y-2 mt-3.5 k-small">
+            <span class="inline-flex items-center gap-1.5"><span class="hb-sw" style="background: var(--chart-active)"></span>Aktiv <strong style="color: var(--text)">{{ hours(activeH) }} h</strong></span>
+            <span class="inline-flex items-center gap-1.5"><span class="hb-sw" style="background: var(--chart-passive)"></span>Passiv <strong style="color: var(--text)">{{ hours(passiveH) }} h</strong></span>
+            <button class="k-btn k-btn-ghost k-btn-sm ml-auto" data-testid="imm-toggle" @click="showForm = !showForm">{{ showForm ? 'Schließen' : '+ Eintragen' }}</button>
+          </div>
+          <div v-if="showForm" class="mt-3 pt-3" style="border-top: 1px solid var(--surface-2)">
+            <ImmersionForm :today="t.date" @saved="showForm = false; load()" />
+          </div>
+          <p class="k-hint m-0 mt-3">Block-Timer zählen automatisch. Alles andere (Serien, Podcasts, Gespräche) hier eintragen. <router-link to="/immersion">Alle Einträge</router-link></p>
         </section>
 
         <div class="grid grid-cols-2 gap-4">
@@ -317,6 +338,7 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
 }
 .hb-after-label { font-size: 13px; font-weight: 800; color: var(--text-2); }
 .hb-url { font-size: 13px; word-break: break-all; }
+.hb-sw { width: 10px; height: 10px; border-radius: 3px; }
 .hb-target {
   position: absolute;
   top: -5px;

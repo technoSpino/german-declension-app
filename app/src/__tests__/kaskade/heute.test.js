@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, weekBars } from '../../lib/heute'
+import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, weekBars, weekStack } from '../../lib/heute'
 
 const BLOCK = [
   { id: 'karten', start: '09:00', minutes: 30, kind: 'karten' },
@@ -41,6 +41,11 @@ describe('levels and charts', () => {
   it('scales weekly bars to at least 2.5 h', () => {
     expect(weekBars([0, 9000, 4500], 100)).toEqual([0, 100, 50])
     expect(weekBars([18000], 100)).toEqual([100])
+  })
+
+  it('stacks active and passive time on one scale', () => {
+    expect(weekStack([4500, 0], [4500, 0], 100)).toEqual([{ aktiv: 50, passiv: 50 }, { aktiv: 0, passiv: 0 }])
+    expect(weekStack([3600], [14400], 100)).toEqual([{ aktiv: 20, passiv: 80 }])
   })
 
   it('greets by time of day', () => {

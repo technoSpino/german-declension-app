@@ -98,3 +98,18 @@ def test_immersion_totals():
     assert i["hours"] == 315 and i["target"] == 1150
     assert i["share"] == round(315 / 1150, 3)
     assert plan.immersion(2000, 0)["share"] == 1.0
+
+
+def test_combine_block_and_manual():
+    by_day = plan.combine({"2026-10-12": 1800}, [
+        {"local_date": "2026-10-12", "minutes": 25, "kind": "passiv"},
+        {"local_date": "2026-10-13", "minutes": 10, "kind": "aktiv"},
+    ])
+    assert by_day == {"2026-10-12": {"aktiv": 1800, "passiv": 1500}, "2026-10-13": {"aktiv": 600, "passiv": 0}}
+
+
+def test_weekly_hours_last_8_weeks():
+    by_day = {"2026-10-12": {"aktiv": 7200, "passiv": 3600}, "2026-10-05": {"aktiv": 3600, "passiv": 0}}
+    w = plan.weekly_hours(by_day, date(2026, 10, 14))
+    assert len(w) == 8 and w[-1] == {"week": "2026-10-12", "aktiv": 2.0, "passiv": 1.0}
+    assert w[-2]["aktiv"] == 1.0 and w[0]["aktiv"] == 0

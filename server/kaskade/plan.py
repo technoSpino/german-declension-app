@@ -60,6 +60,29 @@ def totals_by_day(rows: list[dict], now: datetime) -> dict[str, int]:
     return out
 
 
+def combine(block_by_day: dict[str, int], manual: list[dict]) -> dict[str, dict[str, int]]:
+    """Block-timer seconds (always active) + manual log entries → {date: {aktiv, passiv}} in seconds."""
+    out: dict[str, dict[str, int]] = {}
+    for day, secs in block_by_day.items():
+        out.setdefault(day, {"aktiv": 0, "passiv": 0})["aktiv"] += secs
+    for m in manual:
+        out.setdefault(m["local_date"], {"aktiv": 0, "passiv": 0})[m["kind"]] += m["minutes"] * 60
+    return out
+
+
+def weekly_hours(by_day: dict[str, dict[str, int]], today: date, weeks: int = 8) -> list[dict]:
+    """Active/passive hours per ISO week for the last `weeks` weeks (oldest first)."""
+    monday = today - timedelta(days=today.weekday())
+    out = []
+    for w in range(weeks - 1, -1, -1):
+        start = monday - timedelta(weeks=w)
+        days = [(start + timedelta(days=i)).isoformat() for i in range(7)]
+        a = sum(by_day.get(d, {}).get("aktiv", 0) for d in days) / 3600
+        p = sum(by_day.get(d, {}).get("passiv", 0) for d in days) / 3600
+        out.append({"week": start.isoformat(), "aktiv": round(a, 2), "passiv": round(p, 2)})
+    return out
+
+
 def week_days(today: date) -> list[str]:
     monday = today - timedelta(days=today.weekday())
     return [(monday + timedelta(days=i)).isoformat() for i in range(7)]

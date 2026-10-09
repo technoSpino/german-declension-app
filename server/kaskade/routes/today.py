@@ -1,8 +1,10 @@
+import datetime as dt
 import json
 from datetime import date, datetime, timedelta
+from typing import Literal
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from .. import db, plan, srs, texts
 from .texts import read_ids
@@ -20,6 +22,15 @@ def plan_start(today: date) -> date:
         s = plan.default_start(today).isoformat()
         db.set_setting("planStart", s)
     return date.fromisoformat(s)
+
+
+def _manual_rows(conn) -> list[dict]:
+    return [dict(r) for r in conn.execute("SELECT id, local_date, minutes, kind, title FROM immersion_log")]
+
+
+def combined_by_day(conn, now) -> dict[str, dict[str, int]]:
+    """All immersion per local date: block timers (aktiv) + manual log (aktiv/passiv), in seconds."""
+    return plan.combine(plan.totals_by_day(_activity_rows(conn), now), _manual_rows(conn))
 
 
 def _activity_rows(conn, since: str | None = None):
@@ -42,7 +53,7 @@ def today():
     days = plan.week_days(d)
     with db.tx() as conn:
         week_rows = _activity_rows(conn, days[0])
-        all_rows = _activity_rows(conn)
+        by_day = combined_by_day(conn, now)
         done = {r[0] for r in conn.execute("SELECT block FROM plan_done WHERE local_date = ?", (d.isoformat(),))}
         running = conn.execute("SELECT block, started_at FROM activity WHERE ended_at IS NULL").fetchone()
         placement = conn.execute(
@@ -55,8 +66,7 @@ def today():
         if r["local_date"] == d.isoformat():
             secs = r["seconds"] if r["ended_at"] else 0
             per_block[r["block"]] = per_block.get(r["block"], 0) + secs
-    by_day = plan.totals_by_day(week_rows, now)
-    total = sum(plan.totals_by_day(all_rows, now).values())
+    total = sum(v["aktiv"] + v["passiv"] for v in by_day.values())
     start_hours = db.get_setting("startHours", 150)
     p = json.loads(placement["result"]) if placement else None
 
@@ -69,7 +79,11 @@ def today():
         "blockSeconds": per_block,
         "done": sorted(done),
         "running": {"block": running["block"], "startedAt": running["started_at"]} if running else None,
-        "weekTotals": {"days": days, "seconds": [by_day.get(x, 0) for x in days]},
+        "weekTotals": {
+            "days": days,
+            "seconds": [by_day.get(x, {}).get("aktiv", 0) for x in days],
+            "passive": [by_day.get(x, {}).get("passiv", 0) for x in days],
+        },
         "immersion": plan.immersion(start_hours, total),
         "placement": p,
         "satzcheck": {"createdAt": last_sc["created_at"], **json.loads(last_sc["result"])} if last_sc else None,
@@ -84,17 +98,16 @@ def fahrplan():
     now = srs.now_utc()
     d = _today()
     with db.tx() as conn:
-        rows = _activity_rows(conn)
+        by_day = combined_by_day(conn, now)
         placements = conn.execute(
             "SELECT id, updated_at, result FROM placements WHERE status = 'done' ORDER BY id DESC").fetchall()
         checks = conn.execute(
             "SELECT created_at, content_type, result FROM satzcheck_runs ORDER BY id DESC LIMIT 12").fetchall()
-    by_day = plan.totals_by_day(rows, now)
-    total = sum(by_day.values())
+    total = sum(v["aktiv"] + v["passiv"] for v in by_day.values())
     hours = plan.immersion(db.get_setting("startHours", 150), total)["hours"]
     # measured pace over the last 28 days (only once there is some data)
     since = (d - timedelta(days=28)).isoformat()
-    recent = sum(s for day, s in by_day.items() if day >= since) / 3600
+    recent = sum(v["aktiv"] + v["passiv"] for day, v in by_day.items() if day >= since) / 3600
     measured = recent / 4 if recent >= 2 else None
     last_check = checks[0]["created_at"][:10] if checks else None
     return {
@@ -113,7 +126,51 @@ def fahrplan():
         "placements": [{"id": r["id"], "date": r["updated_at"], **json.loads(r["result"])} for r in placements],
         "satzchecks": [{"date": r["created_at"], "contentType": r["content_type"], **json.loads(r["result"])} for r in checks],
         "nextCheck": (date.fromisoformat(last_check) + timedelta(days=28)).isoformat() if last_check else None,
+        "weeks": plan.weekly_hours(by_day, d),
     }
+
+
+class ImmersionIn(BaseModel):
+    title: str = Field(min_length=1, max_length=120)
+    minutes: int = Field(ge=1, le=600)
+    kind: Literal["aktiv", "passiv"]
+    date: dt.date | None = None
+
+
+@router.post("/immersion")
+def add_immersion(body: ImmersionIn):
+    day = body.date or _today()
+    if day > _today():
+        raise HTTPException(422, "Das Datum liegt in der Zukunft.")
+    with db.tx() as conn:
+        cur = conn.execute(
+            "INSERT INTO immersion_log(created_at, local_date, minutes, kind, title) VALUES (?, ?, ?, ?, ?)",
+            (db.now_iso(), day.isoformat(), body.minutes, body.kind, body.title.strip()))
+        iid = cur.lastrowid
+    return {"id": iid, "date": day.isoformat(), "minutes": body.minutes, "kind": body.kind, "title": body.title.strip()}
+
+
+@router.get("/immersion")
+def list_immersion(days: int = 30):
+    since = (_today() - timedelta(days=days)).isoformat()
+    with db.tx() as conn:
+        rows = conn.execute(
+            "SELECT id, local_date, minutes, kind, title FROM immersion_log WHERE local_date >= ? ORDER BY local_date DESC, id DESC",
+            (since,)).fetchall()
+        by_day = combined_by_day(conn, srs.now_utc())
+    return {
+        "entries": [{"id": r["id"], "date": r["local_date"], "minutes": r["minutes"], "kind": r["kind"], "title": r["title"]} for r in rows],
+        "weeks": plan.weekly_hours(by_day, _today()),
+    }
+
+
+@router.delete("/immersion/{iid}")
+def delete_immersion(iid: int):
+    with db.tx() as conn:
+        n = conn.execute("DELETE FROM immersion_log WHERE id = ?", (iid,)).rowcount
+    if not n:
+        raise HTTPException(404, "Eintrag nicht gefunden")
+    return {"ok": True}
 
 
 class BlockIn(BaseModel):

@@ -60,3 +60,10 @@ export function greeting(minutesNow) {
   if (minutesNow < 18 * 60) return 'Hallo'
   return 'Guten Abend'
 }
+
+/** Stacked bar heights (px) for active + passive seconds per day, scaled to max(2.5 h, busiest day). */
+export function weekStack(active, passive, maxPx = 110) {
+  const totals = active.map((a, i) => a + (passive[i] ?? 0))
+  const top = Math.max(2.5 * 3600, ...totals)
+  return active.map((a, i) => ({ aktiv: Math.round((a / top) * maxPx), passiv: Math.round(((passive[i] ?? 0) / top) * maxPx) }))
+}

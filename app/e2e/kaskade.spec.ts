@@ -235,6 +235,20 @@ test('Prüfungstraining: timed reading task, listening task and writing self-che
   expect(errors.filter((e) => !e.includes('404'))).toEqual([])
 })
 
+test('Immersion: manual entry shows up on Heute and in the list', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/')
+  await page.getByTestId('imm-toggle').click()
+  await page.getByTestId('imm-title').fill('Checker Tobi')
+  await page.getByTestId('imm-minutes').fill('25')
+  await page.getByTestId('imm-passiv').check()
+  await page.getByTestId('imm-save').click()
+  await expect(page.locator('span', { hasText: 'Passiv' }).filter({ hasText: '0,4 h' })).toBeVisible()
+  await page.goto('/immersion')
+  await expect(page.getByTestId('immersion')).toContainText('Checker Tobi')
+  expect(errors).toEqual([])
+})
+
 test('Fahrplan shows forecast, phases and checks', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/fahrplan')

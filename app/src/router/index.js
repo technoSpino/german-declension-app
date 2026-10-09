@@ -82,6 +82,12 @@ const routes = [
     component: () => import('../views/kaskade/PruefungItemView.vue'),
     meta: { title: 'Prüfungstraining' }
   },
+  {
+    path: '/immersion',
+    name: 'Immersion',
+    component: () => import('../views/kaskade/ImmersionView.vue'),
+    meta: { title: 'Immersion' }
+  },
   // Nachschlagen (the original grammar pages)
   {
     path: '/nachschlagen',

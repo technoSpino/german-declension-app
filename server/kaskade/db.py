@@ -108,6 +108,14 @@ CREATE TABLE IF NOT EXISTS practice_attempts (
   seconds INTEGER,
   detail TEXT
 );
+CREATE TABLE IF NOT EXISTS immersion_log (
+  id INTEGER PRIMARY KEY,
+  created_at TEXT NOT NULL,
+  local_date TEXT NOT NULL,
+  minutes INTEGER NOT NULL,
+  kind TEXT NOT NULL,            -- aktiv | passiv
+  title TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS text_reads (
   id INTEGER PRIMARY KEY,
   text_id TEXT NOT NULL,

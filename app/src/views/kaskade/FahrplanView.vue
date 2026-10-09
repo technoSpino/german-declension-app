@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
 import { formatDate, formatDecimal, formatNumber } from '../../lib/format'
+import WeeksChart from '../../components/kaskade/WeeksChart.vue'
 
 const f = ref(null)
 const error = ref(null)
@@ -88,6 +89,8 @@ const GOALS = [
           <div v-for="p in f.phases" :key="p.name" class="min-w-0" :style="{ flex: `${p.to - p.from} 1 0` }">{{ p.name }}</div>
         </div>
       </div>
+      <h3 class="k-h2 mt-8 mb-6" style="font-size: 16px">Stunden pro Woche · aktiv + passiv · <router-link to="/immersion" style="font-weight: 600">eintragen</router-link></h3>
+      <WeeksChart :weeks="f.weeks" />
     </section>
 
     <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(210px, 1fr))">

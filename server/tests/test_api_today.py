@@ -97,3 +97,27 @@ def test_set_plan_start_must_be_monday(client):
 def test_plan_prompt_writing_can_be_saved(client):
     r = client.post("/api/writing", json={"context": "plan:2026-10-12", "promptId": "s01", "text": "Liebe Lea, …"})
     assert r.status_code == 200 and r.json()["grade"] is None
+
+
+def test_manual_immersion_counts_into_today_and_fahrplan(client, monkeypatch):
+    at(monkeypatch, FIXED)
+    r = client.post("/api/immersion", json={"title": "Checker Tobi", "minutes": 30, "kind": "passiv"})
+    assert r.status_code == 200 and r.json()["date"] == "2026-10-13"
+    client.post("/api/immersion", json={"title": "Serie", "minutes": 60, "kind": "aktiv", "date": "2026-10-12"})
+    t = client.get("/api/today").json()
+    assert t["weekTotals"]["passive"][1] == 1800 and t["weekTotals"]["seconds"][0] == 3600
+    assert t["immersion"]["hours"] == 151.5
+    f = client.get("/api/fahrplan").json()
+    assert f["hours"] == 151.5 and f["weeks"][-1] == {"week": "2026-10-12", "aktiv": 1.0, "passiv": 0.5}
+    lst = client.get("/api/immersion").json()
+    assert [e["title"] for e in lst["entries"]] == ["Checker Tobi", "Serie"]
+    assert client.delete(f"/api/immersion/{r.json()['id']}").json() == {"ok": True}
+    assert client.get("/api/today").json()["immersion"]["hours"] == 151.0
+
+
+def test_immersion_validation(client, monkeypatch):
+    at(monkeypatch, FIXED)
+    assert client.post("/api/immersion", json={"title": "x", "minutes": 0, "kind": "aktiv"}).status_code == 422
+    assert client.post("/api/immersion", json={"title": "x", "minutes": 5, "kind": "halb"}).status_code == 422
+    assert client.post("/api/immersion", json={"title": "x", "minutes": 5, "kind": "aktiv", "date": "2030-01-01"}).status_code == 422
+    assert client.delete("/api/immersion/999").status_code == 404

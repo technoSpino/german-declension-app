@@ -34,6 +34,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M9 Leser mit Kasus-Linse + Satz minen
 - [x] M10 Audio + Wiederhören-Feed → `http://100.64.43.3:5173/api/feed.xml`
 - [x] M11 B1-Übungsbank → http://100.64.43.3:5173/pruefung
+- [x] M12 Immersions-Log + Fahrplan → http://100.64.43.3:5173/immersion
 
 ## Betrieb
 
@@ -153,3 +154,10 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - **Auf Zeit** (Countdown, gibt automatisch ab) oder ohne Zeit. Ergebnis pro Aufgabe; Stand pro Modul = Schnitt der letzten 3 Versuche gegen die **60-%-Grenze**.
 - Alles original, keine echten Prüfungsaufgaben; Antworten und Deutsch von mir gegengelesen.
 - Tests: Backend 270 ✅ (Bewertung aller Aufgabentypen, 60 %-Grenze, Bereitschaft, Inhalte, TTS-Tauglichkeit der Skripte) · Frontend 277 ✅ · E2E 12 ✅.
+
+### M12 Immersions-Log + Fahrplan ✅
+- **Eintragen** für Zeit außerhalb des Blocks: auf Heute „+ Eintragen“ oder `/immersion` (Titel, Minuten, Datum, aktiv/passiv). Liste der letzten 60 Tage mit Löschen.
+- Heute: Wochenbalken jetzt **aktiv + passiv gestapelt** (wie im Entwurf) mit Summen.
+- Gesamtstunden = Start aus Einstufung + Block-Timer + eigene Einträge (aktiv und passiv zählen beide voll — Entscheidung, wie im Entwurf). Fließt in die Prognose („nach deinem Tempo“, ab 2 h Daten) und die Phase nach Stunden.
+- Fahrplan: neue Grafik **Stunden pro Woche (8 Wochen)** mit 11,7-h-Ziellinie; echte Phase, Tore, Satz-Check-Verlauf waren schon da (M6).
+- Tests: Backend 274 ✅ · Frontend 281 ✅ · E2E 13 ✅.
