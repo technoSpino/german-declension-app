@@ -48,8 +48,8 @@ def test_batches_are_numbered_and_full(batches):
 def test_ids_and_order(cards):
     assert [c["n"] for c in cards] == list(range(1, len(cards) + 1))
     assert len({c["id"] for c in cards}) == len(cards)
-    ranks = [c["rank"] for c in cards]
-    assert ranks == sorted(ranks)
+    order = [c["order"] for c in cards]
+    assert order == sorted(order)
 
 
 def test_required_fields_non_empty(cards):
@@ -119,6 +119,10 @@ def test_raw_files_validate_and_cover_every_rank():
         assert [e["rank"] for e in entries] == list(range(lo, hi + 1)), f.name
         for e in entries:
             assert not merge.check_card(e), (f.name, e.get("rank"), merge.check_card(e))
+    supplement = merge.load(DECK / "raw/supplement.json")
+    for e in supplement:
+        assert e["rank"] >= 90000 and e["count"] > 0
+        assert not merge.check_card(e), (e["rank"], merge.check_card(e))
 
 
 def test_sentences_are_sentences(cards):

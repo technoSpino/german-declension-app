@@ -1,7 +1,37 @@
 [
  {
-  "id": "core:r00303",
+  "id": "core:r00301",
   "n": 301,
+  "rank": 301,
+  "lemma": "schwer",
+  "pos": "ADJ",
+  "display": "schwer · schwerer · am schwersten",
+  "gloss": "heavy; difficult",
+  "sentence": "Der Koffer ist zu schwer, kannst du mir kurz helfen?",
+  "target": "schwer",
+  "en": "The suitcase is too heavy, can you help me for a moment?",
+  "note": "schwer = heavy oder difficult: eine schwere Prüfung",
+  "case": null,
+  "order": 301
+ },
+ {
+  "id": "core:r00302",
+  "n": 302,
+  "rank": 302,
+  "lemma": "retten",
+  "pos": "VERB",
+  "display": "retten · hat gerettet",
+  "gloss": "to save, to rescue",
+  "sentence": "Die Feuerwehr hat den Hund aus dem Fluss gerettet.",
+  "target": "gerettet",
+  "en": "The fire brigade rescued the dog from the river.",
+  "note": null,
+  "case": null,
+  "order": 302
+ },
+ {
+  "id": "core:r00303",
+  "n": 303,
   "rank": 303,
   "lemma": "draußen",
   "pos": "ADV",
@@ -11,11 +41,12 @@
   "target": "draußen",
   "en": "With this lovely weather we're eating outside today.",
   "note": "Wo? draußen – Wohin? nach draußen",
-  "case": null
+  "case": null,
+  "order": 303
  },
  {
   "id": "core:r00304",
-  "n": 302,
+  "n": 304,
   "rank": 304,
   "lemma": "eigen",
   "pos": "ADJ",
@@ -25,11 +56,12 @@
   "target": "eigene",
   "en": "After university I finally want to have my own flat.",
   "note": "fast immer mit Endung: eine eigene Wohnung, mein eigenes Auto",
-  "case": null
+  "case": null,
+  "order": 304
  },
  {
   "id": "core:r00305",
-  "n": 303,
+  "n": 305,
   "rank": 305,
   "lemma": "fast",
   "pos": "ADV",
@@ -39,11 +71,12 @@
   "target": "fast",
   "en": "I've been waiting for the bus for almost an hour.",
   "note": "Achtung: fast = almost, nicht \"schnell\"!",
-  "case": null
+  "case": null,
+  "order": 305
  },
  {
   "id": "core:r00306",
-  "n": 304,
+  "n": 306,
   "rank": 306,
   "lemma": "runter",
   "pos": "ADV",
@@ -53,11 +86,12 @@
   "target": "runter",
   "en": "Please come down, dinner is ready!",
   "note": "umgangssprachlich für herunter/hinunter",
-  "case": null
+  "case": null,
+  "order": 306
  },
  {
   "id": "core:r00307",
-  "n": 305,
+  "n": 307,
   "rank": 307,
   "lemma": "führen",
   "pos": "VERB",
@@ -67,11 +101,12 @@
   "target": "führt",
   "en": "This path leads straight to the station.",
   "note": "auch: ein Gespräch führen, ein Geschäft führen",
-  "case": null
+  "case": null,
+  "order": 307
  },
  {
   "id": "core:r00308",
-  "n": 306,
+  "n": 308,
   "rank": 308,
   "lemma": "Tod",
   "pos": "NOUN",
@@ -81,11 +116,12 @@
   "target": "Tod",
   "en": "After her father's death she moved back to Hamburg.",
   "note": "Adjektiv: tot – Er ist tot.",
-  "case": null
+  "case": null,
+  "order": 308
  },
  {
   "id": "core:r00309",
-  "n": 307,
+  "n": 309,
   "rank": 309,
   "lemma": "bestimmen",
   "pos": "VERB",
@@ -95,11 +131,12 @@
   "target": "bestimmt",
   "en": "Who actually decides when we go on holiday?",
   "note": "Achtung: bestimmt (Adverb) = sicher – Er kommt bestimmt.",
-  "case": null
+  "case": null,
+  "order": 309
  },
  {
   "id": "core:r00310",
-  "n": 308,
+  "n": 310,
   "rank": 310,
   "lemma": "vorbei",
   "pos": "ADV",
@@ -109,11 +146,12 @@
   "target": "vorbei",
   "en": "Unfortunately the summer is already over.",
   "note": "vorbei sein = zu Ende sein; bei jemandem vorbeikommen = kurz besuchen",
-  "case": null
+  "case": null,
+  "order": 310
  },
  {
   "id": "core:r00311",
-  "n": 309,
+  "n": 311,
   "rank": 311,
   "lemma": "gerne",
   "pos": "ADV",
@@ -123,11 +161,12 @@
   "target": "gerne",
   "en": "In the morning I like to drink a coffee on the balcony.",
   "note": "Verb + gerne = etwas gern machen (to like doing)",
-  "case": null
+  "case": null,
+  "order": 311
  },
  {
   "id": "core:r00312",
-  "n": 310,
+  "n": 312,
   "rank": 312,
   "lemma": "kümmern",
   "pos": "VERB",
@@ -137,11 +176,27 @@
   "target": "kümmert sich",
   "en": "Who's looking after your cat while you're on holiday?",
   "note": "sich kümmern um + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 312
+ },
+ {
+  "id": "core:r90003",
+  "n": 313,
+  "rank": 90003,
+  "lemma": "Job",
+  "pos": "NOUN",
+  "display": "der Job · die Jobs",
+  "gloss": "job",
+  "sentence": "Sie hat einen neuen Job in einer Bäckerei gefunden.",
+  "target": "Job",
+  "en": "She found a new job in a bakery.",
+  "note": "umgangssprachlich; formeller: die Stelle, die Arbeitsstelle",
+  "case": null,
+  "order": 312.5
  },
  {
   "id": "core:r00313",
-  "n": 311,
+  "n": 314,
   "rank": 313,
   "lemma": "dran",
   "pos": "ADV",
@@ -151,11 +206,12 @@
   "target": "dran",
   "en": "Whose turn is it next?",
   "note": "umgangssprachlich für daran; dran sein = an der Reihe sein",
-  "case": null
+  "case": null,
+  "order": 313
  },
  {
   "id": "core:r00314",
-  "n": 312,
+  "n": 315,
   "rank": 314,
   "lemma": "ruhig",
   "pos": "ADJ",
@@ -165,11 +221,12 @@
   "target": "ruhigen",
   "en": "Our new flat is on a quiet street.",
   "note": "auch: Bleib ruhig! = Keep calm!",
-  "case": null
+  "case": null,
+  "order": 314
  },
  {
   "id": "core:r00315",
-  "n": 313,
+  "n": 316,
   "rank": 315,
   "lemma": "kaufen",
   "pos": "VERB",
@@ -179,11 +236,12 @@
   "target": "gekauft",
   "en": "Yesterday I bought fresh bread at the supermarket.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 315
  },
  {
   "id": "core:r00316",
-  "n": 314,
+  "n": 317,
   "rank": 316,
   "lemma": "verrückt",
   "pos": "ADJ",
@@ -193,11 +251,12 @@
   "target": "verrückt",
   "en": "Are you crazy? It's far too cold for swimming!",
   "note": "verrückt nach + Dativ = crazy about",
-  "case": null
+  "case": null,
+  "order": 316
  },
  {
   "id": "core:r00317",
-  "n": 315,
+  "n": 318,
   "rank": 317,
   "lemma": "lernen",
   "pos": "VERB",
@@ -207,11 +266,12 @@
   "target": "lerne",
   "en": "I've been learning German at the adult education centre for two years.",
   "note": "seit + Präsens: Ich lerne seit zwei Jahren …",
-  "case": null
+  "case": null,
+  "order": 317
  },
  {
   "id": "core:r00318",
-  "n": 316,
+  "n": 319,
   "rank": 318,
   "lemma": "ziemlich",
   "pos": "ADV",
@@ -221,11 +281,12 @@
   "target": "ziemlich",
   "en": "The rent is pretty high for such a small flat.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 318
  },
  {
   "id": "core:r00319",
-  "n": 317,
+  "n": 320,
   "rank": 319,
   "lemma": "tragen",
   "pos": "VERB",
@@ -235,11 +296,12 @@
   "target": "tragen",
   "en": "Can you help me carry the boxes down to the cellar?",
   "note": "du trägst, er trägt; auch: Kleidung tragen = wear",
-  "case": null
+  "case": null,
+  "order": 319
  },
  {
   "id": "core:r00320",
-  "n": 318,
+  "n": 321,
   "rank": 320,
   "lemma": "verschwinden",
   "pos": "VERB",
@@ -249,11 +311,12 @@
   "target": "verschwunden",
   "en": "My glasses have disappeared again.",
   "note": "Perfekt mit sein",
-  "case": null
+  "case": null,
+  "order": 320
  },
  {
   "id": "core:r00321",
-  "n": 319,
+  "n": 322,
   "rank": 321,
   "lemma": "darum",
   "pos": "ADV",
@@ -263,11 +326,12 @@
   "target": "darum",
   "en": "The bus was delayed, that's why I'm late.",
   "note": "darum = deshalb; danach kommt sofort das Verb. Auch: Es geht darum, … = It's about …",
-  "case": null
+  "case": null,
+  "order": 321
  },
  {
   "id": "core:r00322",
-  "n": 320,
+  "n": 323,
   "rank": 322,
   "lemma": "Tochter",
   "pos": "NOUN",
@@ -277,11 +341,12 @@
   "target": "Tochter",
   "en": "Our daughter has been going to school since September.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 322
  },
  {
   "id": "core:r00323",
-  "n": 321,
+  "n": 324,
   "rank": 323,
   "lemma": "scheinen",
   "pos": "VERB",
@@ -291,11 +356,12 @@
   "target": "scheint",
   "en": "Today the sun is finally shining again.",
   "note": "auch: Er scheint müde zu sein. = He seems to be tired.",
-  "case": null
+  "case": null,
+  "order": 323
  },
  {
   "id": "core:r00324",
-  "n": 322,
+  "n": 325,
   "rank": 324,
   "lemma": "Land",
   "pos": "NOUN",
@@ -305,11 +371,12 @@
   "target": "Land",
   "en": "My parents live in the countryside, quite far from the city.",
   "note": "auf dem Land = nicht in der Stadt; auch: Bundesland",
-  "case": null
+  "case": null,
+  "order": 324
  },
  {
   "id": "core:r00325",
-  "n": 323,
+  "n": 326,
   "rank": 325,
   "lemma": "Schwester",
   "pos": "NOUN",
@@ -319,11 +386,12 @@
   "target": "Schwester",
   "en": "My sister lives with her boyfriend in Cologne.",
   "note": "im Krankenhaus auch: Krankenschwester = nurse",
-  "case": null
+  "case": null,
+  "order": 325
  },
  {
   "id": "core:r00326",
-  "n": 324,
+  "n": 327,
   "rank": 326,
   "lemma": "drin",
   "pos": "ADV",
@@ -333,11 +401,12 @@
   "target": "drin",
   "en": "Is there alcohol in the cake?",
   "note": "umgangssprachlich für darin",
-  "case": null
+  "case": null,
+  "order": 326
  },
  {
   "id": "core:r00327",
-  "n": 325,
+  "n": 328,
   "rank": 327,
   "lemma": "sitzen",
   "pos": "VERB",
@@ -347,11 +416,12 @@
   "target": "gesessen",
   "en": "We sat in the garden all evening.",
   "note": "Wo? sitzen + Dativ (Wohin? sich setzen + Akk.); in Süddeutschland auch: ist gesessen",
-  "case": "D"
+  "case": "D",
+  "order": 327
  },
  {
   "id": "core:r00328",
-  "n": 326,
+  "n": 329,
   "rank": 328,
   "lemma": "sogar",
   "pos": "ADV",
@@ -361,11 +431,12 @@
   "target": "sogar",
   "en": "My boss even called me on Sunday.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 328
  },
  {
   "id": "core:r00329",
-  "n": 327,
+  "n": 330,
   "rank": 329,
   "lemma": "verlassen",
   "pos": "VERB",
@@ -375,11 +446,12 @@
   "target": "verlassen",
   "en": "Please leave the building via the emergency exit.",
   "note": "verlassen + Akk. (ohne Präposition); sich verlassen auf + Akk. = rely on",
-  "case": "A"
+  "case": "A",
+  "order": 329
  },
  {
   "id": "core:r00330",
-  "n": 328,
+  "n": 331,
   "rank": 330,
   "lemma": "reichen",
   "pos": "VERB",
@@ -389,11 +461,12 @@
   "target": "Reichen",
   "en": "Are two pizzas enough for four people?",
   "note": "reichen = genug sein; Es reicht! = Genug!",
-  "case": null
+  "case": null,
+  "order": 330
  },
  {
   "id": "core:r00331",
-  "n": 329,
+  "n": 332,
   "rank": 331,
   "lemma": "je",
   "pos": "ADV",
@@ -403,11 +476,12 @@
   "target": "Je",
   "en": "The earlier we leave, the less traffic there is on the motorway.",
   "note": "je + Komparativ (Verb am Ende), desto + Komparativ (Verb danach)",
-  "case": null
+  "case": null,
+  "order": 331
  },
  {
   "id": "core:r00332",
-  "n": 330,
+  "n": 333,
   "rank": 332,
   "lemma": "anrufen",
   "pos": "VERB",
@@ -417,11 +491,12 @@
   "target": "angerufen",
   "en": "Has the landlord called yet?",
   "note": "trennbar: Ich rufe dich an. anrufen + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 332
  },
  {
   "id": "core:r00333",
-  "n": 331,
+  "n": 334,
   "rank": 333,
   "lemma": "nett",
   "pos": "ADJ",
@@ -431,11 +506,12 @@
   "target": "nett",
   "en": "Our new neighbours are really very nice.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 333
  },
  {
   "id": "core:r00334",
-  "n": 332,
+  "n": 335,
   "rank": 334,
   "lemma": "woher",
   "pos": "ADV",
@@ -445,11 +521,12 @@
   "target": "woher",
   "en": "May I ask where you're originally from?",
   "note": "Woher? = von wo? Im Nebensatz: Verb am Ende",
-  "case": null
+  "case": null,
+  "order": 334
  },
  {
   "id": "core:r00335",
-  "n": 333,
+  "n": 336,
   "rank": 335,
   "lemma": "Art",
   "pos": "NOUN",
@@ -459,11 +536,12 @@
   "target": "Art",
   "en": "I don't like this kind of music at all.",
   "note": "auch: auf diese Art = so, auf diese Weise",
-  "case": null
+  "case": null,
+  "order": 335
  },
  {
   "id": "core:r00336",
-  "n": 334,
+  "n": 337,
   "rank": 336,
   "lemma": "entschuldigen",
   "pos": "VERB",
@@ -473,11 +551,12 @@
   "target": "entschuldigen",
   "en": "I'd like to apologise for being late.",
   "note": "sich entschuldigen für + Akk.; Entschuldigen Sie! = Excuse me!",
-  "case": "A"
+  "case": "A",
+  "order": 336
  },
  {
   "id": "core:r00337",
-  "n": 335,
+  "n": 338,
   "rank": 337,
   "lemma": "überhaupt",
   "pos": "ADV",
@@ -487,11 +566,12 @@
   "target": "überhaupt",
   "en": "I don't feel like cooking at all today.",
   "note": "überhaupt nicht / überhaupt kein = gar nicht / gar kein",
-  "case": null
+  "case": null,
+  "order": 337
  },
  {
   "id": "core:r00338",
-  "n": 336,
+  "n": 339,
   "rank": 338,
   "lemma": "Seite",
   "pos": "NOUN",
@@ -501,11 +581,12 @@
   "target": "Seite",
   "en": "The pharmacy is on the other side of the street.",
   "note": "auch: page – auf Seite 12",
-  "case": null
+  "case": null,
+  "order": 338
  },
  {
   "id": "core:r00339",
-  "n": 337,
+  "n": 340,
   "rank": 339,
   "lemma": "Teufel",
   "pos": "NOUN",
@@ -515,11 +596,12 @@
   "target": "Teufel",
   "en": "Where the hell did I put my key?",
   "note": "umgangssprachlich: Wo/Was zum Teufel …? = Where/What the hell …?",
-  "case": null
+  "case": null,
+  "order": 339
  },
  {
   "id": "core:r00340",
-  "n": 338,
+  "n": 341,
   "rank": 340,
   "lemma": "Grund",
   "pos": "NOUN",
@@ -529,11 +611,12 @@
   "target": "Grund",
   "en": "For what reason did you give notice on the flat?",
   "note": "aus diesem Grund = deshalb",
-  "case": null
+  "case": null,
+  "order": 340
  },
  {
   "id": "core:r00341",
-  "n": 339,
+  "n": 342,
   "rank": 341,
   "lemma": "Mama",
   "pos": "NOUN",
@@ -543,11 +626,12 @@
   "target": "Mama",
   "en": "My mum calls me every Sunday.",
   "note": "familiär; neutral: die Mutter",
-  "case": null
+  "case": null,
+  "order": 341
  },
  {
   "id": "core:r00342",
-  "n": 340,
+  "n": 343,
   "rank": 342,
   "lemma": "lesen",
   "pos": "VERB",
@@ -557,11 +641,12 @@
   "target": "lese",
   "en": "In the evening I like to read a few more pages in bed.",
   "note": "du liest, er liest",
-  "case": null
+  "case": null,
+  "order": 342
  },
  {
   "id": "core:r00343",
-  "n": 341,
+  "n": 344,
   "rank": 343,
   "lemma": "schlagen",
   "pos": "VERB",
@@ -571,11 +656,12 @@
   "target": "geschlagen",
   "en": "She clearly beat her brother at table tennis.",
   "note": "du schlägst, er schlägt; auch: besiegen = beat",
-  "case": null
+  "case": null,
+  "order": 343
  },
  {
   "id": "core:r00344",
-  "n": 342,
+  "n": 345,
   "rank": 344,
   "lemma": "Ruhe",
   "pos": "NOUN",
@@ -585,11 +671,12 @@
   "target": "Ruhe",
   "en": "Please leave me alone, I need to concentrate.",
   "note": "jemanden in Ruhe lassen = nicht stören",
-  "case": null
+  "case": null,
+  "order": 344
  },
  {
   "id": "core:r00345",
-  "n": 343,
+  "n": 346,
   "rank": 345,
   "lemma": "gewinnen",
   "pos": "VERB",
@@ -599,11 +686,12 @@
   "target": "gewonnen",
   "en": "Who won the game yesterday?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 345
  },
  {
   "id": "core:r00346",
-  "n": 344,
+  "n": 347,
   "rank": 346,
   "lemma": "oben",
   "pos": "ADV",
@@ -613,11 +701,12 @@
   "target": "oben",
   "en": "The toilet is upstairs, right next to the bedroom.",
   "note": "Wo? oben – Wohin? nach oben",
-  "case": null
+  "case": null,
+  "order": 346
  },
  {
   "id": "core:r00347",
-  "n": 345,
+  "n": 348,
   "rank": 347,
   "lemma": "gestern",
   "pos": "ADV",
@@ -627,11 +716,12 @@
   "target": "Gestern",
   "en": "Yesterday I went to the doctor after work.",
   "note": "vorgestern = the day before yesterday",
-  "case": null
+  "case": null,
+  "order": 347
  },
  {
   "id": "core:r00348",
-  "n": 346,
+  "n": 349,
   "rank": 348,
   "lemma": "Schatz",
   "pos": "NOUN",
@@ -641,11 +731,12 @@
   "target": "Schatz",
   "en": "Darling, have you already bought the bread rolls?",
   "note": "Kosename für Partner oder Kinder; eigentlich: treasure",
-  "case": null
+  "case": null,
+  "order": 348
  },
  {
   "id": "core:r00349",
-  "n": 347,
+  "n": 350,
   "rank": 349,
   "lemma": "endlich",
   "pos": "ADV",
@@ -655,11 +746,12 @@
   "target": "endlich",
   "en": "After three months I've finally found a flat.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 349
  },
  {
   "id": "core:r00350",
-  "n": 348,
+  "n": 351,
   "rank": 350,
   "lemma": "wagen",
   "pos": "VERB",
@@ -669,11 +761,12 @@
   "target": "gewagt",
   "en": "I didn't dare ask my boss for more money.",
   "note": "etwas wagen = den Mut haben; ähnlich: sich trauen",
-  "case": null
+  "case": null,
+  "order": 350
  },
  {
   "id": "core:r00351",
-  "n": 349,
+  "n": 352,
   "rank": 351,
   "lemma": "etwa",
   "pos": "ADV",
@@ -683,11 +776,12 @@
   "target": "etwa",
   "en": "It's about ten minutes on foot to the station.",
   "note": "etwa = ungefähr",
-  "case": null
+  "case": null,
+  "order": 351
  },
  {
   "id": "core:r00352",
-  "n": 350,
+  "n": 353,
   "rank": 352,
   "lemma": "lachen",
   "pos": "VERB",
@@ -697,11 +791,12 @@
   "target": "gelacht",
   "en": "We laughed at his jokes all evening.",
   "note": "lachen über + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 352
  },
  {
   "id": "core:r00353",
-  "n": 351,
+  "n": 354,
   "rank": 353,
   "lemma": "schlimm",
   "pos": "ADJ",
@@ -711,11 +806,12 @@
   "target": "schlimm",
   "en": "Is it a problem if I come a bit later?",
   "note": "Nicht schlimm! = No problem!",
-  "case": null
+  "case": null,
+  "order": 353
  },
  {
   "id": "core:r00354",
-  "n": 352,
+  "n": 355,
   "rank": 354,
   "lemma": "anders",
   "pos": "ADV",
@@ -725,11 +821,12 @@
   "target": "anders",
   "en": "I imagined the flat completely differently.",
   "note": "anders als = different from",
-  "case": null
+  "case": null,
+  "order": 354
  },
  {
   "id": "core:r00355",
-  "n": 353,
+  "n": 356,
   "rank": 355,
   "lemma": "Chance",
   "pos": "NOUN",
@@ -739,11 +836,12 @@
   "target": "Chance",
   "en": "I think you should give him another chance.",
   "note": "Aussprache französisch: \"Schangse\"",
-  "case": null
+  "case": null,
+  "order": 355
  },
  {
   "id": "core:r00356",
-  "n": 354,
+  "n": 357,
   "rank": 356,
   "lemma": "frei",
   "pos": "ADJ",
@@ -753,11 +851,12 @@
   "target": "frei",
   "en": "Excuse me, is this seat free?",
   "note": "frei = nicht besetzt; ein freier Tag = ein Tag ohne Arbeit",
-  "case": null
+  "case": null,
+  "order": 356
  },
  {
   "id": "core:r00357",
-  "n": 355,
+  "n": 358,
   "rank": 357,
   "lemma": "Wasser",
   "pos": "NOUN",
@@ -767,11 +866,12 @@
   "target": "Wasser",
   "en": "Can I have a glass of still water, please?",
   "note": "ein Glas Wasser (ohne \"von\")",
-  "case": null
+  "case": null,
+  "order": 357
  },
  {
   "id": "core:r00358",
-  "n": 356,
+  "n": 359,
   "rank": 358,
   "lemma": "klingen",
   "pos": "VERB",
@@ -781,11 +881,12 @@
   "target": "klingt",
   "en": "Your plan sounds good, but do we have enough time?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 358
  },
  {
   "id": "core:r00359",
-  "n": 357,
+  "n": 360,
   "rank": 359,
   "lemma": "Geschichte",
   "pos": "NOUN",
@@ -795,11 +896,12 @@
   "target": "Geschichten",
   "en": "My grandma always tells exciting stories from her childhood.",
   "note": "auch: history (Schulfach)",
-  "case": null
+  "case": null,
+  "order": 359
  },
  {
   "id": "core:r00360",
-  "n": 358,
+  "n": 361,
   "rank": 360,
   "lemma": "wenig",
   "pos": "PRON",
@@ -809,11 +911,12 @@
   "target": "wenig",
   "en": "Unfortunately I only have a little time this week.",
   "note": "wenig = nicht viel; ein wenig = ein bisschen",
-  "case": null
+  "case": null,
+  "order": 360
  },
  {
   "id": "core:r00361",
-  "n": 359,
+  "n": 362,
   "rank": 361,
   "lemma": "Wahrheit",
   "pos": "NOUN",
@@ -823,11 +926,12 @@
   "target": "Wahrheit",
   "en": "Please tell me the truth, I'm not angry.",
   "note": "die Wahrheit sagen",
-  "case": null
+  "case": null,
+  "order": 361
  },
  {
   "id": "core:r00362",
-  "n": 360,
+  "n": 363,
   "rank": 362,
   "lemma": "deshalb",
   "pos": "ADV",
@@ -837,11 +941,12 @@
   "target": "deshalb",
   "en": "I was ill, that's why I couldn't come to work.",
   "note": "deshalb + Verb (Position 2)",
-  "case": null
+  "case": null,
+  "order": 362
  },
  {
   "id": "core:r00363",
-  "n": 361,
+  "n": 364,
   "rank": 363,
   "lemma": "bezahlen",
   "pos": "VERB",
@@ -851,11 +956,12 @@
   "target": "bezahlen",
   "en": "Can I pay by card here too?",
   "note": "mit Karte / bar bezahlen",
-  "case": null
+  "case": null,
+  "order": 363
  },
  {
   "id": "core:r00364",
-  "n": 362,
+  "n": 365,
   "rank": 364,
   "lemma": "Zimmer",
   "pos": "NOUN",
@@ -865,11 +971,12 @@
   "target": "Zimmer",
   "en": "The flat has three rooms, a kitchen and a bathroom.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 364
  },
  {
   "id": "core:r00365",
-  "n": 363,
+  "n": 366,
   "rank": 365,
   "lemma": "erwarten",
   "pos": "VERB",
@@ -879,11 +986,12 @@
   "target": "erwarten",
   "en": "We're expecting our second child in May.",
   "note": "erwarten = expect; nicht verwechseln mit warten (auf) = wait",
-  "case": null
+  "case": null,
+  "order": 365
  },
  {
   "id": "core:r00366",
-  "n": 364,
+  "n": 367,
   "rank": 366,
   "lemma": "umbringen",
   "pos": "VERB",
@@ -893,11 +1001,12 @@
   "target": "bringt",
   "en": "If I tell my mother that, she'll kill me!",
   "note": "trennbar; = töten; oft als Übertreibung (umgangssprachlich)",
-  "case": null
+  "case": null,
+  "order": 366
  },
  {
   "id": "core:r00367",
-  "n": 365,
+  "n": 368,
   "rank": 367,
   "lemma": "Teil",
   "pos": "NOUN",
@@ -907,11 +1016,12 @@
   "target": "Teil",
   "en": "Some of the colleagues are working from home today.",
   "note": "zum Teil = teilweise",
-  "case": null
+  "case": null,
+  "order": 367
  },
  {
   "id": "core:r00368",
-  "n": 366,
+  "n": 369,
   "rank": 368,
   "lemma": "bitten",
   "pos": "VERB",
@@ -921,11 +1031,12 @@
   "target": "bitten",
   "en": "May I ask you a small favour?",
   "note": "jemanden um etwas bitten (um + Akk.); nicht verwechseln mit beten = pray",
-  "case": "A"
+  "case": "A",
+  "order": 368
  },
  {
   "id": "core:r00369",
-  "n": 367,
+  "n": 370,
   "rank": 369,
   "lemma": "Spaß",
   "pos": "NOUN",
@@ -935,11 +1046,12 @@
   "target": "Spaß",
   "en": "I really enjoy the German course.",
   "note": "Das macht mir Spaß. = I enjoy it.",
-  "case": null
+  "case": null,
+  "order": 369
  },
  {
   "id": "core:r00370",
-  "n": 368,
+  "n": 371,
   "rank": 370,
   "lemma": "niemals",
   "pos": "ADV",
@@ -949,11 +1061,12 @@
   "target": "niemals",
   "en": "I would never ride a bike without a helmet.",
   "note": "niemals = nie (stärker)",
-  "case": null
+  "case": null,
+  "order": 370
  },
  {
   "id": "core:r00371",
-  "n": 369,
+  "n": 372,
   "rank": 371,
   "lemma": "ändern",
   "pos": "VERB",
@@ -963,11 +1076,12 @@
   "target": "ändern",
   "en": "Can we still change the appointment?",
   "note": "sich ändern = anders werden",
-  "case": null
+  "case": null,
+  "order": 371
  },
  {
   "id": "core:r00372",
-  "n": 370,
+  "n": 373,
   "rank": 372,
   "lemma": "schuld",
   "pos": "ADJ",
@@ -977,11 +1091,12 @@
   "target": "schuld",
   "en": "It's not your fault that the train is late.",
   "note": "schuld sein an + Dativ (klein!); aber: die Schuld",
-  "case": "D"
+  "case": "D",
+  "order": 372
  },
  {
   "id": "core:r00373",
-  "n": 371,
+  "n": 374,
   "rank": 373,
   "lemma": "heiraten",
   "pos": "VERB",
@@ -991,11 +1106,12 @@
   "target": "heiratet",
   "en": "My best friend is getting married next summer.",
   "note": "jemanden heiraten (+ Akk., ohne \"mit\")",
-  "case": "A"
+  "case": "A",
+  "order": 373
  },
  {
   "id": "core:r00374",
-  "n": 372,
+  "n": 375,
   "rank": 374,
   "lemma": "glücklich",
   "pos": "ADJ",
@@ -1005,11 +1121,12 @@
   "target": "glücklich",
   "en": "Since he retired, my father has been really happy.",
   "note": "glücklich = happy; Glück haben = to be lucky",
-  "case": null
+  "case": null,
+  "order": 374
  },
  {
   "id": "core:r00375",
-  "n": 373,
+  "n": 376,
   "rank": 375,
   "lemma": "ernst",
   "pos": "ADJ",
@@ -1019,11 +1136,12 @@
   "target": "ernst",
   "en": "Are you serious, or are you just joking?",
   "note": "etwas ernst meinen / ernst nehmen",
-  "case": null
+  "case": null,
+  "order": 375
  },
  {
   "id": "core:r00376",
-  "n": 374,
+  "n": 377,
   "rank": 376,
   "lemma": "Ort",
   "pos": "NOUN",
@@ -1033,11 +1151,12 @@
   "target": "Ort",
   "en": "We're still looking for a quiet place for our wedding party.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 376
  },
  {
   "id": "core:r00377",
-  "n": 375,
+  "n": 378,
   "rank": 377,
   "lemma": "manchmal",
   "pos": "ADV",
@@ -1047,11 +1166,12 @@
   "target": "Manchmal",
   "en": "Sometimes I cycle to work.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 377
  },
  {
   "id": "core:r00378",
-  "n": 376,
+  "n": 379,
   "rank": 378,
   "lemma": "Plan",
   "pos": "NOUN",
@@ -1061,11 +1181,12 @@
   "target": "Pläne",
   "en": "Do you already have plans for the weekend?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 378
  },
  {
   "id": "core:r00379",
-  "n": 377,
+  "n": 380,
   "rank": 379,
   "lemma": "möglich",
   "pos": "ADJ",
@@ -1075,11 +1196,12 @@
   "target": "möglich",
   "en": "Is it possible to move the appointment to Friday?",
   "note": "so schnell wie möglich = as soon as possible",
-  "case": null
+  "case": null,
+  "order": 379
  },
  {
   "id": "core:r00380",
-  "n": 378,
+  "n": 381,
   "rank": 380,
   "lemma": "zwischen",
   "pos": "ADP",
@@ -1089,11 +1211,12 @@
   "target": "zwischen",
   "en": "The kiosk is between the bank and the pharmacy.",
   "note": "Wechselpräposition: Wo? + Dativ, Wohin? + Akkusativ",
-  "case": "D"
+  "case": "D",
+  "order": 380
  },
  {
   "id": "core:r00381",
-  "n": 379,
+  "n": 382,
   "rank": 381,
   "lemma": "eben",
   "pos": "ADV",
@@ -1103,11 +1226,12 @@
   "target": "eben",
   "en": "I just spoke to the landlord on the phone.",
   "note": "eben = gerade (vor kurzem); auch: Das ist eben so. = That's just how it is.",
-  "case": null
+  "case": null,
+  "order": 381
  },
  {
   "id": "core:r00382",
-  "n": 380,
+  "n": 383,
   "rank": 382,
   "lemma": "während",
   "pos": "SCONJ",
@@ -1117,11 +1241,12 @@
   "target": "Während",
   "en": "While I'm cooking, you can set the table.",
   "note": "Nebensatz: Verb am Ende; als Präposition: während + Genitiv (während der Arbeit)",
-  "case": null
+  "case": null,
+  "order": 382
  },
  {
   "id": "core:r00383",
-  "n": 381,
+  "n": 384,
   "rank": 383,
   "lemma": "stark",
   "pos": "ADJ",
@@ -1131,11 +1256,12 @@
   "target": "stark",
   "en": "The coffee is too strong for me.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 383
  },
  {
   "id": "core:r00384",
-  "n": 382,
+  "n": 385,
   "rank": 384,
   "lemma": "Gesicht",
   "pos": "NOUN",
@@ -1145,11 +1271,12 @@
   "target": "Gesicht",
   "en": "Please wash your face before we leave.",
   "note": "sich (Dat.) das Gesicht waschen",
-  "case": null
+  "case": null,
+  "order": 384
  },
  {
   "id": "core:r00385",
-  "n": 383,
+  "n": 386,
   "rank": 385,
   "lemma": "Spiel",
   "pos": "NOUN",
@@ -1159,11 +1286,12 @@
   "target": "Spiel",
   "en": "Shall we watch the match at the pub tonight?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 385
  },
  {
   "id": "core:r00386",
-  "n": 384,
+  "n": 387,
   "rank": 386,
   "lemma": "Freundin",
   "pos": "NOUN",
@@ -1173,11 +1301,12 @@
   "target": "Freundin",
   "en": "My girlfriend and I are moving in together next month.",
   "note": "meine Freundin = oft Partnerin; eine Freundin von mir = eine Freundin",
-  "case": null
+  "case": null,
+  "order": 386
  },
  {
   "id": "core:r00387",
-  "n": 385,
+  "n": 388,
   "rank": 387,
   "lemma": "Schule",
   "pos": "NOUN",
@@ -1187,11 +1316,12 @@
   "target": "Schule",
   "en": "My son likes going to school.",
   "note": "zur Schule gehen; in der Schule sein",
-  "case": null
+  "case": null,
+  "order": 387
  },
  {
   "id": "core:r00388",
-  "n": 386,
+  "n": 389,
   "rank": 388,
   "lemma": "Krieg",
   "pos": "NOUN",
@@ -1201,11 +1331,12 @@
   "target": "Krieg",
   "en": "My grandpa often talked about the war.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 388
  },
  {
   "id": "core:r00389",
-  "n": 387,
+  "n": 390,
   "rank": 389,
   "lemma": "benutzen",
   "pos": "VERB",
@@ -1215,11 +1346,12 @@
   "target": "benutzen",
   "en": "May I quickly use your toilet?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 389
  },
  {
   "id": "core:r00390",
-  "n": 388,
+  "n": 391,
   "rank": 390,
   "lemma": "Monat",
   "pos": "NOUN",
@@ -1229,11 +1361,12 @@
   "target": "Monaten",
   "en": "I've been in Germany for six months.",
   "note": "seit + Dativ: seit sechs Monaten",
-  "case": "D"
+  "case": "D",
+  "order": 390
  },
  {
   "id": "core:r00391",
-  "n": 389,
+  "n": 392,
   "rank": 391,
   "lemma": "stecken",
   "pos": "VERB",
@@ -1243,11 +1376,12 @@
   "target": "steckt",
   "en": "The key is still in the door.",
   "note": "Wo? stecken + Dativ; Wohin? etwas in etwas stecken + Akk.",
-  "case": "D"
+  "case": "D",
+  "order": 391
  },
  {
   "id": "core:r00392",
-  "n": 390,
+  "n": 393,
   "rank": 392,
   "lemma": "Bett",
   "pos": "NOUN",
@@ -1257,11 +1391,12 @@
   "target": "Bett",
   "en": "I went to bed at ten yesterday.",
   "note": "ins Bett gehen (Wohin? + Akk.); im Bett liegen (Wo? + Dativ)",
-  "case": "A"
+  "case": "A",
+  "order": 392
  },
  {
   "id": "core:r00394",
-  "n": 391,
+  "n": 394,
   "rank": 394,
   "lemma": "verkaufen",
   "pos": "VERB",
@@ -1271,11 +1406,12 @@
   "target": "verkaufen",
   "en": "We're selling our old sofa online.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 394
  },
  {
   "id": "core:r00395",
-  "n": 392,
+  "n": 395,
   "rank": 395,
   "lemma": "Entschuldigung",
   "pos": "NOUN",
@@ -1285,11 +1421,12 @@
   "target": "Entschuldigung",
   "en": "Excuse me, do you know where the post office is around here?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 395
  },
  {
   "id": "core:r00396",
-  "n": 393,
+  "n": 396,
   "rank": 396,
   "lemma": "Wort",
   "pos": "NOUN",
@@ -1299,11 +1436,12 @@
   "target": "Wort",
   "en": "Unfortunately I didn't understand the word.",
   "note": "die Wörter = einzelne Wörter; die Worte = was jemand sagt",
-  "case": null
+  "case": null,
+  "order": 396
  },
  {
   "id": "core:r00397",
-  "n": 394,
+  "n": 397,
   "rank": 397,
   "lemma": "Gefühl",
   "pos": "NOUN",
@@ -1313,11 +1451,12 @@
   "target": "Gefühl",
   "en": "I have a good feeling about the job interview.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 397
  },
  {
   "id": "core:r00399",
-  "n": 395,
+  "n": 398,
   "rank": 399,
   "lemma": "ehrlich",
   "pos": "ADJ",
@@ -1327,11 +1466,12 @@
   "target": "Ehrlich",
   "en": "To be honest, I don't feel like going to the party.",
   "note": "ehrlich gesagt = to be honest",
-  "case": null
+  "case": null,
+  "order": 399
  },
  {
   "id": "core:r00400",
-  "n": 396,
+  "n": 399,
   "rank": 400,
   "lemma": "Nachricht",
   "pos": "NOUN",
@@ -1341,11 +1481,12 @@
   "target": "Nachricht",
   "en": "Did you get my message?",
   "note": "die Nachrichten = auch: the news (im Fernsehen)",
-  "case": null
+  "case": null,
+  "order": 400
  },
  {
   "id": "core:r00402",
-  "n": 397,
+  "n": 400,
   "rank": 402,
   "lemma": "funktionieren",
   "pos": "VERB",
@@ -1355,48 +1496,7 @@
   "target": "funktioniert",
   "en": "The heating in my flat isn't working again.",
   "note": null,
-  "case": null
- },
- {
-  "id": "core:r00403",
-  "n": 398,
-  "rank": 403,
-  "lemma": "fest",
-  "pos": "ADJ",
-  "display": "fest",
-  "gloss": "firm, fixed; permanent",
-  "sentence": "Hast du schon eine feste Stelle gefunden?",
-  "target": "feste",
-  "en": "Have you found a permanent job yet?",
-  "note": "eine feste Stelle = ein unbefristeter Job; ein fester Termin",
-  "case": null
- },
- {
-  "id": "core:r00404",
-  "n": 399,
-  "rank": 404,
-  "lemma": "geschehen",
-  "pos": "VERB",
-  "display": "geschehen · geschah · ist geschehen",
-  "gloss": "to happen",
-  "sentence": "Der Unfall ist direkt vor unserem Haus geschehen.",
-  "target": "geschehen",
-  "en": "The accident happened right in front of our house.",
-  "note": "= passieren (etwas formeller); Perfekt mit sein",
-  "case": null
- },
- {
-  "id": "core:r00405",
-  "n": 400,
-  "rank": 405,
-  "lemma": "falls",
-  "pos": "SCONJ",
-  "display": "falls",
-  "gloss": "in case, if",
-  "sentence": "Falls es regnet, bleiben wir zu Hause.",
-  "target": "Falls",
-  "en": "If it rains, we'll stay at home.",
-  "note": "Nebensatz: Verb am Ende; falls = wenn (vielleicht)",
-  "case": null
+  "case": null,
+  "order": 402
  }
 ]

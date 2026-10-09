@@ -1,7 +1,142 @@
 [
  {
-  "id": "core:r01840",
+  "id": "core:r01831",
   "n": 1601,
+  "rank": 1831,
+  "lemma": "Brot",
+  "pos": "NOUN",
+  "display": "das Brot · die Brote",
+  "gloss": "bread; loaf",
+  "sentence": "Kannst du beim Bäcker ein Brot mitbringen?",
+  "target": "Brot",
+  "en": "Can you pick up a loaf of bread at the bakery?",
+  "note": null,
+  "case": null,
+  "order": 1831
+ },
+ {
+  "id": "core:r01832",
+  "n": 1602,
+  "rank": 1832,
+  "lemma": "gegenseitig",
+  "pos": "ADJ",
+  "display": "gegenseitig",
+  "gloss": "mutual(ly), each other",
+  "sentence": "In unserem Team helfen wir uns gegenseitig.",
+  "target": "gegenseitig",
+  "en": "In our team we help each other.",
+  "note": null,
+  "case": null,
+  "order": 1832
+ },
+ {
+  "id": "core:r01833",
+  "n": 1603,
+  "rank": 1833,
+  "lemma": "Zweck",
+  "pos": "NOUN",
+  "display": "der Zweck · die Zwecke",
+  "gloss": "purpose",
+  "sentence": "Zu welchem Zweck brauchen Sie diese Daten?",
+  "target": "Zweck",
+  "en": "For what purpose do you need this data?",
+  "note": null,
+  "case": null,
+  "order": 1833
+ },
+ {
+  "id": "core:r01834",
+  "n": 1604,
+  "rank": 1834,
+  "lemma": "erfreut",
+  "pos": "ADJ",
+  "display": "erfreut",
+  "gloss": "pleased, delighted",
+  "sentence": "Meine Oma war sehr erfreut über unseren Besuch.",
+  "target": "erfreut",
+  "en": "My grandma was very pleased about our visit.",
+  "note": "erfreut über + Akkusativ",
+  "case": "A",
+  "order": 1834
+ },
+ {
+  "id": "core:r01835",
+  "n": 1605,
+  "rank": 1835,
+  "lemma": "hinterher",
+  "pos": "ADV",
+  "display": "hinterher",
+  "gloss": "afterwards; behind",
+  "sentence": "Erst arbeiten wir, hinterher gehen wir etwas trinken.",
+  "target": "hinterher",
+  "en": "First we work, afterwards we'll go for a drink.",
+  "note": null,
+  "case": null,
+  "order": 1835
+ },
+ {
+  "id": "core:r01836",
+  "n": 1606,
+  "rank": 1836,
+  "lemma": "bilden",
+  "pos": "VERB",
+  "display": "bilden · hat gebildet",
+  "gloss": "to form",
+  "sentence": "Bitte bilden Sie Gruppen von vier Personen.",
+  "target": "bilden",
+  "en": "Please form groups of four people.",
+  "note": null,
+  "case": null,
+  "order": 1836
+ },
+ {
+  "id": "core:r01837",
+  "n": 1607,
+  "rank": 1837,
+  "lemma": "empfehlen",
+  "pos": "VERB",
+  "display": "empfehlen · empfahl · hat empfohlen",
+  "gloss": "to recommend",
+  "sentence": "Können Sie mir ein gutes Restaurant in der Nähe empfehlen?",
+  "target": "empfehlen",
+  "en": "Can you recommend a good restaurant nearby?",
+  "note": "jemandem (Dativ) etwas empfehlen; du empfiehlst",
+  "case": "D",
+  "order": 1837
+ },
+ {
+  "id": "core:r01838",
+  "n": 1608,
+  "rank": 1838,
+  "lemma": "entfernen",
+  "pos": "VERB",
+  "display": "entfernen · hat entfernt",
+  "gloss": "to remove",
+  "sentence": "Der Arzt hat mir gestern einen Leberfleck entfernt.",
+  "target": "entfernt",
+  "en": "Yesterday the doctor removed a mole for me.",
+  "note": null,
+  "case": null,
+  "order": 1838
+ },
+ {
+  "id": "core:r01839",
+  "n": 1609,
+  "rank": 1839,
+  "lemma": "Sendung",
+  "pos": "NOUN",
+  "display": "die Sendung · die Sendungen",
+  "gloss": "programme (TV/radio); shipment",
+  "sentence": "Ihre Sendung wird morgen zugestellt.",
+  "target": "Sendung",
+  "en": "Your parcel will be delivered tomorrow.",
+  "note": "Auch: eine Sendung im Fernsehen",
+  "case": null,
+  "order": 1839
+ },
+ {
+  "id": "core:r01840",
+  "n": 1610,
   "rank": 1840,
   "lemma": "beschließen",
   "pos": "VERB",
@@ -11,11 +146,12 @@
   "target": "beschlossen",
   "en": "We've decided to move to Hamburg.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1840
  },
  {
   "id": "core:r01841",
-  "n": 1602,
+  "n": 1611,
   "rank": 1841,
   "lemma": "Hemd",
   "pos": "NOUN",
@@ -25,11 +161,12 @@
   "target": "Hemd",
   "en": "I bought a new shirt for the job interview.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1841
  },
  {
   "id": "core:r01842",
-  "n": 1603,
+  "n": 1612,
   "rank": 1842,
   "lemma": "wahren",
   "pos": "VERB",
@@ -39,11 +176,12 @@
   "target": "wahren",
   "en": "He always tries to keep up appearances.",
   "note": "gehoben; Alltag: bewahren, halten",
-  "case": null
+  "case": null,
+  "order": 1842
  },
  {
   "id": "core:r01843",
-  "n": 1604,
+  "n": 1613,
   "rank": 1843,
   "lemma": "Zunge",
   "pos": "NOUN",
@@ -53,11 +191,12 @@
   "target": "Zunge",
   "en": "I burned my tongue on the hot soup.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1843
  },
  {
   "id": "core:r01844",
-  "n": 1605,
+  "n": 1614,
   "rank": 1844,
   "lemma": "malen",
   "pos": "VERB",
@@ -67,11 +206,12 @@
   "target": "malt",
   "en": "My daughter likes painting pictures of animals.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1844
  },
  {
   "id": "core:r01845",
-  "n": 1606,
+  "n": 1615,
   "rank": 1845,
   "lemma": "Notfall",
   "pos": "NOUN",
@@ -81,11 +221,12 @@
   "target": "Notfall",
   "en": "In an emergency, please call 112.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1845
  },
  {
   "id": "core:r01846",
-  "n": 1607,
+  "n": 1616,
   "rank": 1846,
   "lemma": "Winter",
   "pos": "NOUN",
@@ -95,11 +236,12 @@
   "target": "Winter",
   "en": "In winter it gets dark here as early as four o'clock.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1846
  },
  {
   "id": "core:r01847",
-  "n": 1608,
+  "n": 1617,
   "rank": 1847,
   "lemma": "blicken",
   "pos": "VERB",
@@ -109,11 +251,12 @@
   "target": "blickte",
   "en": "He glanced nervously at the clock.",
   "note": "blicken auf + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 1847
  },
  {
   "id": "core:r01849",
-  "n": 1609,
+  "n": 1618,
   "rank": 1849,
   "lemma": "dahinter",
   "pos": "ADV",
@@ -123,11 +266,12 @@
   "target": "dahinter",
   "en": "Do you see the red house? Our flat is right behind it.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1849
  },
  {
   "id": "core:r01850",
-  "n": 1610,
+  "n": 1619,
   "rank": 1850,
   "lemma": "stinken",
   "pos": "VERB",
@@ -137,11 +281,12 @@
   "target": "stinkt",
   "en": "The rubbish in the kitchen is already starting to stink.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1850
  },
  {
   "id": "core:r01851",
-  "n": 1611,
+  "n": 1620,
   "rank": 1851,
   "lemma": "spanisch",
   "pos": "ADJ",
@@ -151,11 +296,12 @@
   "target": "spanischen",
   "en": "We went to a Spanish restaurant yesterday.",
   "note": "Die Sprache schreibt man groß: Ich lerne Spanisch.",
-  "case": null
+  "case": null,
+  "order": 1851
  },
  {
   "id": "core:r01852",
-  "n": 1612,
+  "n": 1621,
   "rank": 1852,
   "lemma": "schief",
   "pos": "ADJ",
@@ -165,11 +311,12 @@
   "target": "schief",
   "en": "The picture on the wall is hanging crooked.",
   "note": "schiefgehen = nicht klappen",
-  "case": null
+  "case": null,
+  "order": 1852
  },
  {
   "id": "core:r01853",
-  "n": 1613,
+  "n": 1622,
   "rank": 1853,
   "lemma": "blau",
   "pos": "ADJ",
@@ -179,11 +326,12 @@
   "target": "blau",
   "en": "The sky is a brilliant blue today.",
   "note": "umgangssprachlich auch: blau sein = betrunken sein",
-  "case": null
+  "case": null,
+  "order": 1853
  },
  {
   "id": "core:r01854",
-  "n": 1614,
+  "n": 1623,
   "rank": 1854,
   "lemma": "bestens",
   "pos": "ADV",
@@ -193,11 +341,12 @@
   "target": "bestens",
   "en": "Thanks, I'm doing great!",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1854
  },
  {
   "id": "core:r01855",
-  "n": 1615,
+  "n": 1624,
   "rank": 1855,
   "lemma": "ruhen",
   "pos": "VERB",
@@ -207,11 +356,12 @@
   "target": "ruhen",
   "en": "After the operation you need to rest for a few days.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1855
  },
  {
   "id": "core:r01857",
-  "n": 1616,
+  "n": 1625,
   "rank": 1857,
   "lemma": "Unrecht",
   "pos": "NOUN",
@@ -221,11 +371,12 @@
   "target": "Unrecht",
   "en": "I think you're being unfair to him there.",
   "note": "jemandem Unrecht tun",
-  "case": null
+  "case": null,
+  "order": 1857
  },
  {
   "id": "core:r01858",
-  "n": 1617,
+  "n": 1626,
   "rank": 1858,
   "lemma": "Leck",
   "pos": "NOUN",
@@ -235,11 +386,12 @@
   "target": "Leck",
   "en": "The washing machine has a leak; there's water all over the kitchen.",
   "note": "Verb: lecken (= mit der Zunge berühren; auch: undicht sein)",
-  "case": null
+  "case": null,
+  "order": 1858
  },
  {
   "id": "core:r01859",
-  "n": 1618,
+  "n": 1627,
   "rank": 1859,
   "lemma": "wonach",
   "pos": "ADV",
@@ -249,11 +401,12 @@
   "target": "Wonach",
   "en": "What have you been looking for all this time?",
   "note": "suchen nach → wonach?",
-  "case": null
+  "case": null,
+  "order": 1859
  },
  {
   "id": "core:r01860",
-  "n": 1619,
+  "n": 1628,
   "rank": 1860,
   "lemma": "überwachen",
   "pos": "VERB",
@@ -263,11 +416,12 @@
   "target": "überwacht",
   "en": "The car park is monitored by cameras.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1860
  },
  {
   "id": "core:r01861",
-  "n": 1620,
+  "n": 1629,
   "rank": 1861,
   "lemma": "Bedeutung",
   "pos": "NOUN",
@@ -277,11 +431,12 @@
   "target": "Bedeutung",
   "en": "Do you know the meaning of this word?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1861
  },
  {
   "id": "core:r01862",
-  "n": 1621,
+  "n": 1630,
   "rank": 1862,
   "lemma": "Stoff",
   "pos": "NOUN",
@@ -291,11 +446,12 @@
   "target": "Stoff",
   "en": "The jacket is made of a very light fabric.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1862
  },
  {
   "id": "core:r01863",
-  "n": 1622,
+  "n": 1631,
   "rank": 1863,
   "lemma": "anständig",
   "pos": "ADJ",
@@ -305,11 +461,12 @@
   "target": "Anständiges",
   "en": "After work I finally want to eat something decent.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1863
  },
  {
   "id": "core:r01864",
-  "n": 1623,
+  "n": 1632,
   "rank": 1864,
   "lemma": "Strom",
   "pos": "NOUN",
@@ -319,11 +476,12 @@
   "target": "Strom",
   "en": "Electricity has got more expensive again.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1864
  },
  {
   "id": "core:r01865",
-  "n": 1624,
+  "n": 1633,
   "rank": 1865,
   "lemma": "Krebs",
   "pos": "NOUN",
@@ -333,11 +491,12 @@
   "target": "Krebs",
   "en": "Smoking increases the risk of cancer.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1865
  },
  {
   "id": "core:r01866",
-  "n": 1625,
+  "n": 1634,
   "rank": 1866,
   "lemma": "Minister",
   "pos": "NOUN",
@@ -347,11 +506,12 @@
   "target": "Minister",
   "en": "The minister presented a new law today.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1866
  },
  {
   "id": "core:r01868",
-  "n": 1626,
+  "n": 1635,
   "rank": 1868,
   "lemma": "vermögen",
   "pos": "VERB",
@@ -361,11 +521,12 @@
   "target": "vermag",
   "en": "Nobody can say exactly how much longer the construction work will last.",
   "note": "gehoben; im Alltag: können. Das Vermögen = Geld und Besitz",
-  "case": null
+  "case": null,
+  "order": 1868
  },
  {
   "id": "core:r01869",
-  "n": 1627,
+  "n": 1636,
   "rank": 1869,
   "lemma": "Zahl",
   "pos": "NOUN",
@@ -375,11 +536,12 @@
   "target": "Zahl",
   "en": "The number of unemployed people fell in May.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1869
  },
  {
   "id": "core:r01870",
-  "n": 1628,
+  "n": 1637,
   "rank": 1870,
   "lemma": "Schuss",
   "pos": "NOUN",
@@ -389,11 +551,12 @@
   "target": "Schüsse",
   "en": "During the night the neighbours heard several shots.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1870
  },
  {
   "id": "core:r01871",
-  "n": 1629,
+  "n": 1638,
   "rank": 1871,
   "lemma": "aussagen",
   "pos": "VERB",
@@ -403,11 +566,12 @@
   "target": "aussagen",
   "en": "The witness has to testify in court tomorrow.",
   "note": "trennbar: sie sagt aus",
-  "case": null
+  "case": null,
+  "order": 1871
  },
  {
   "id": "core:r01872",
-  "n": 1630,
+  "n": 1639,
   "rank": 1872,
   "lemma": "Talent",
   "pos": "NOUN",
@@ -417,11 +581,12 @@
   "target": "Talent",
   "en": "You really have a talent for cooking.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1872
  },
  {
   "id": "core:r01873",
-  "n": 1631,
+  "n": 1640,
   "rank": 1873,
   "lemma": "mächtig",
   "pos": "ADJ",
@@ -431,11 +596,12 @@
   "target": "mächtigsten",
   "en": "He's one of the most powerful men in the city.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1873
  },
  {
   "id": "core:r01874",
-  "n": 1632,
+  "n": 1641,
   "rank": 1874,
   "lemma": "Spitze",
   "pos": "NOUN",
@@ -445,11 +611,12 @@
   "target": "Spitze",
   "en": "Our team is at the top of the table.",
   "note": "umgangssprachlich auch: Spitze! = super!",
-  "case": null
+  "case": null,
+  "order": 1874
  },
  {
   "id": "core:r01875",
-  "n": 1633,
+  "n": 1642,
   "rank": 1875,
   "lemma": "Fernseher",
   "pos": "NOUN",
@@ -459,11 +626,12 @@
   "target": "Fernseher",
   "en": "We've bought ourselves a new TV.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1875
  },
  {
   "id": "core:r01876",
-  "n": 1634,
+  "n": 1643,
   "rank": 1876,
   "lemma": "angeblich",
   "pos": "ADV",
@@ -473,11 +641,12 @@
   "target": "Angeblich",
   "en": "Supposedly it's going to snow tomorrow.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1876
  },
  {
   "id": "core:r01878",
-  "n": 1635,
+  "n": 1644,
   "rank": 1878,
   "lemma": "tödlich",
   "pos": "ADJ",
@@ -487,11 +656,12 @@
   "target": "tödlich",
   "en": "Sadly, the accident on the motorway was fatal.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1878
  },
  {
   "id": "core:r01879",
-  "n": 1636,
+  "n": 1645,
   "rank": 1879,
   "lemma": "füllen",
   "pos": "VERB",
@@ -501,11 +671,12 @@
   "target": "füllen",
   "en": "Can you fill the bottle with water, please?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1879
  },
  {
   "id": "core:r01880",
-  "n": 1637,
+  "n": 1646,
   "rank": 1880,
   "lemma": "erstaunlich",
   "pos": "ADJ",
@@ -515,11 +686,12 @@
   "target": "erstaunlich",
   "en": "It's amazing how quickly the children are learning German.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1880
  },
  {
   "id": "core:r01881",
-  "n": 1638,
+  "n": 1647,
   "rank": 1881,
   "lemma": "reizend",
   "pos": "ADJ",
@@ -529,11 +701,12 @@
   "target": "reizend",
   "en": "Your parents are really charming.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1881
  },
  {
   "id": "core:r01882",
-  "n": 1639,
+  "n": 1648,
   "rank": 1882,
   "lemma": "schalten",
   "pos": "VERB",
@@ -543,11 +716,12 @@
   "target": "geschaltet",
   "en": "I've switched my phone to silent.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1882
  },
  {
   "id": "core:r01884",
-  "n": 1640,
+  "n": 1649,
   "rank": 1884,
   "lemma": "Täter",
   "pos": "NOUN",
@@ -557,11 +731,12 @@
   "target": "Täter",
   "en": "The police are still looking for the perpetrator.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1884
  },
  {
   "id": "core:r01885",
-  "n": 1641,
+  "n": 1650,
   "rank": 1885,
   "lemma": "eingehen",
   "pos": "VERB",
@@ -571,11 +746,12 @@
   "target": "eingegangen",
   "en": "We have received your payment.",
   "note": "trennbar; auch: auf etwas eingehen; eine Pflanze geht ein (= stirbt)",
-  "case": null
+  "case": null,
+  "order": 1885
  },
  {
   "id": "core:r01886",
-  "n": 1642,
+  "n": 1651,
   "rank": 1886,
   "lemma": "Dieb",
   "pos": "NOUN",
@@ -585,11 +761,12 @@
   "target": "Dieb",
   "en": "A thief stole my phone on the underground.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1886
  },
  {
   "id": "core:r01887",
-  "n": 1643,
+  "n": 1652,
   "rank": 1887,
   "lemma": "Westen",
   "pos": "NOUN",
@@ -599,11 +776,12 @@
   "target": "Westen",
   "en": "My parents live in the west of Germany.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1887
  },
  {
   "id": "core:r01888",
-  "n": 1644,
+  "n": 1653,
   "rank": 1888,
   "lemma": "dauernd",
   "pos": "ADV",
@@ -613,11 +791,12 @@
   "target": "dauernd",
   "en": "My phone keeps ringing today.",
   "note": "= ständig",
-  "case": null
+  "case": null,
+  "order": 1888
  },
  {
   "id": "core:r01889",
-  "n": 1645,
+  "n": 1654,
   "rank": 1889,
   "lemma": "Geschmack",
   "pos": "NOUN",
@@ -627,11 +806,12 @@
   "target": "Geschmack",
   "en": "The flat is nice, but not quite my taste.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1889
  },
  {
   "id": "core:r01890",
-  "n": 1646,
+  "n": 1655,
   "rank": 1890,
   "lemma": "herrschen",
   "pos": "VERB",
@@ -641,11 +821,12 @@
   "target": "herrscht",
   "en": "There's a good atmosphere in the office today.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1890
  },
  {
   "id": "core:r01891",
-  "n": 1647,
+  "n": 1656,
   "rank": 1891,
   "lemma": "extrem",
   "pos": "ADJ",
@@ -655,11 +836,12 @@
   "target": "extrem",
   "en": "Last summer it was extremely hot.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1891
  },
  {
   "id": "core:r01892",
-  "n": 1648,
+  "n": 1657,
   "rank": 1892,
   "lemma": "Oberst",
   "pos": "NOUN",
@@ -669,11 +851,12 @@
   "target": "Oberst",
   "en": "Her grandfather was a colonel in the German armed forces.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1892
  },
  {
   "id": "core:r01893",
-  "n": 1649,
+  "n": 1658,
   "rank": 1893,
   "lemma": "Reifen",
   "pos": "NOUN",
@@ -683,11 +866,12 @@
   "target": "Reifen",
   "en": "I've got a flat tyre on my bike.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1893
  },
  {
   "id": "core:r01894",
-  "n": 1650,
+  "n": 1659,
   "rank": 1894,
   "lemma": "schmutzig",
   "pos": "ADJ",
@@ -697,11 +881,12 @@
   "target": "schmutzige",
   "en": "Please throw the dirty laundry in the basket.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1894
  },
  {
   "id": "core:r01895",
-  "n": 1651,
+  "n": 1660,
   "rank": 1895,
   "lemma": "Figur",
   "pos": "NOUN",
@@ -711,11 +896,12 @@
   "target": "Figur",
   "en": "The most important character in the novel is a young doctor.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1895
  },
  {
   "id": "core:r01896",
-  "n": 1652,
+  "n": 1661,
   "rank": 1896,
   "lemma": "dreckig",
   "pos": "ADJ",
@@ -725,11 +911,12 @@
   "target": "dreckig",
   "en": "After the football match the children were completely filthy.",
   "note": "umgangssprachlich; = schmutzig",
-  "case": null
+  "case": null,
+  "order": 1896
  },
  {
   "id": "core:r01897",
-  "n": 1653,
+  "n": 1662,
   "rank": 1897,
   "lemma": "Schauspieler",
   "pos": "NOUN",
@@ -739,11 +926,12 @@
   "target": "Schauspieler",
   "en": "Her brother works as an actor at the theatre.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1897
  },
  {
   "id": "core:r01898",
-  "n": 1654,
+  "n": 1663,
   "rank": 1898,
   "lemma": "sperren",
   "pos": "VERB",
@@ -753,11 +941,12 @@
   "target": "sperren",
   "en": "I have to get my bank card blocked right away.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1898
  },
  {
   "id": "core:r01899",
-  "n": 1655,
+  "n": 1664,
   "rank": 1899,
   "lemma": "Publikum",
   "pos": "NOUN",
@@ -767,11 +956,12 @@
   "target": "Publikum",
   "en": "The audience applauded for a long time at the end.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1899
  },
  {
   "id": "core:r01901",
-  "n": 1656,
+  "n": 1665,
   "rank": 1901,
   "lemma": "erschaffen",
   "pos": "VERB",
@@ -781,11 +971,12 @@
   "target": "erschaffen",
   "en": "The author has created a world all of her own.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1901
  },
  {
   "id": "core:r01902",
-  "n": 1657,
+  "n": 1666,
   "rank": 1902,
   "lemma": "weggehen",
   "pos": "VERB",
@@ -795,11 +986,12 @@
   "target": "Gehst",
   "en": "Are you going out tonight?",
   "note": "trennbar: Ich gehe weg. Perfekt mit sein.",
-  "case": null
+  "case": null,
+  "order": 1902
  },
  {
   "id": "core:r01903",
-  "n": 1658,
+  "n": 1667,
   "rank": 1903,
   "lemma": "aktivieren",
   "pos": "VERB",
@@ -809,11 +1001,12 @@
   "target": "aktivieren",
   "en": "You have to activate your new card online first.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1903
  },
  {
   "id": "core:r01906",
-  "n": 1659,
+  "n": 1668,
   "rank": 1906,
   "lemma": "neugierig",
   "pos": "ADJ",
@@ -823,11 +1016,12 @@
   "target": "neugierig",
   "en": "I'm curious to see what the new flat looks like.",
   "note": "neugierig auf + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 1906
  },
  {
   "id": "core:r01907",
-  "n": 1660,
+  "n": 1669,
   "rank": 1907,
   "lemma": "zustimmen",
   "pos": "VERB",
@@ -837,11 +1031,12 @@
   "target": "zustimmen",
   "en": "I can only agree with you there.",
   "note": "jemandem (Dativ) zustimmen; trennbar: ich stimme zu",
-  "case": "D"
+  "case": "D",
+  "order": 1907
  },
  {
   "id": "core:r01909",
-  "n": 1661,
+  "n": 1670,
   "rank": 1909,
   "lemma": "hässlich",
   "pos": "ADJ",
@@ -851,11 +1046,12 @@
   "target": "hässlich",
   "en": "I think the new bridge is pretty ugly.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1909
  },
  {
   "id": "core:r01910",
-  "n": 1662,
+  "n": 1671,
   "rank": 1910,
   "lemma": "Träne",
   "pos": "NOUN",
@@ -865,11 +1061,12 @@
   "target": "Tränen",
   "en": "At the end of the film I had tears in my eyes.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1910
  },
  {
   "id": "core:r01911",
-  "n": 1663,
+  "n": 1672,
   "rank": 1911,
   "lemma": "weich",
   "pos": "ADJ",
@@ -879,11 +1076,12 @@
   "target": "weich",
   "en": "The bed in the hotel was too soft for me.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1911
  },
  {
   "id": "core:r01912",
-  "n": 1664,
+  "n": 1673,
   "rank": 1912,
   "lemma": "Sturm",
   "pos": "NOUN",
@@ -893,11 +1091,12 @@
   "target": "Sturm",
   "en": "The storm knocked down lots of trees during the night.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1912
  },
  {
   "id": "core:r01914",
-  "n": 1665,
+  "n": 1674,
   "rank": 1914,
   "lemma": "einfallen",
   "pos": "VERB",
@@ -907,11 +1106,12 @@
   "target": "fällt",
   "en": "I can't think of his name right now.",
   "note": "jemandem (Dativ) einfallen; trennbar",
-  "case": "D"
+  "case": "D",
+  "order": 1914
  },
  {
   "id": "core:r01915",
-  "n": 1666,
+  "n": 1675,
   "rank": 1915,
   "lemma": "flüstern",
   "pos": "VERB",
@@ -921,11 +1121,12 @@
   "target": "geflüstert",
   "en": "In the cinema she whispered something in my ear.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1915
  },
  {
   "id": "core:r01918",
-  "n": 1667,
+  "n": 1676,
   "rank": 1918,
   "lemma": "Krieger",
   "pos": "NOUN",
@@ -935,11 +1136,12 @@
   "target": "Krieger",
   "en": "In the film he plays an old warrior.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1918
  },
  {
   "id": "core:r01919",
-  "n": 1668,
+  "n": 1677,
   "rank": 1919,
   "lemma": "weitergehen",
   "pos": "VERB",
@@ -949,11 +1151,12 @@
   "target": "weitergehen",
   "en": "Things can't go on like this!",
   "note": "trennbar; Perfekt mit sein",
-  "case": null
+  "case": null,
+  "order": 1919
  },
  {
   "id": "core:r01920",
-  "n": 1669,
+  "n": 1678,
   "rank": 1920,
   "lemma": "herstellen",
   "pos": "VERB",
@@ -963,11 +1166,12 @@
   "target": "hergestellt",
   "en": "This furniture is made in Germany.",
   "note": "trennbar: Die Firma stellt Möbel her.",
-  "case": null
+  "case": null,
+  "order": 1920
  },
  {
   "id": "core:r01921",
-  "n": 1670,
+  "n": 1679,
   "rank": 1921,
   "lemma": "Abteilung",
   "pos": "NOUN",
@@ -977,11 +1181,12 @@
   "target": "Abteilung",
   "en": "Which department do you work in?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1921
  },
  {
   "id": "core:r01922",
-  "n": 1671,
+  "n": 1680,
   "rank": 1922,
   "lemma": "entstehen",
   "pos": "VERB",
@@ -991,11 +1196,12 @@
   "target": "entstehen",
   "en": "This won't incur any additional costs for you.",
   "note": "Kosten entstehen; Perfekt mit sein",
-  "case": null
+  "case": null,
+  "order": 1922
  },
  {
   "id": "core:r01923",
-  "n": 1672,
+  "n": 1681,
   "rank": 1923,
   "lemma": "Dutzend",
   "pos": "NOUN",
@@ -1005,11 +1211,12 @@
   "target": "Dutzend",
   "en": "I bought a dozen eggs.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1923
  },
  {
   "id": "core:r01924",
-  "n": 1673,
+  "n": 1682,
   "rank": 1924,
   "lemma": "gleichzeitig",
   "pos": "ADV",
@@ -1019,11 +1226,12 @@
   "target": "gleichzeitig",
   "en": "I can't cook and talk on the phone at the same time.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1924
  },
  {
   "id": "core:r01925",
-  "n": 1674,
+  "n": 1683,
   "rank": 1925,
   "lemma": "Genie",
   "pos": "NOUN",
@@ -1033,11 +1241,12 @@
   "target": "Genie",
   "en": "You're a genius! How did you fix that?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1925
  },
  {
   "id": "core:r01926",
-  "n": 1675,
+  "n": 1684,
   "rank": 1926,
   "lemma": "Inspektor",
   "pos": "NOUN",
@@ -1047,11 +1256,12 @@
   "target": "Inspektor",
   "en": "In the crime novel an old inspector solves the case.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1926
  },
  {
   "id": "core:r01927",
-  "n": 1676,
+  "n": 1685,
   "rank": 1927,
   "lemma": "Kuh",
   "pos": "NOUN",
@@ -1061,11 +1271,12 @@
   "target": "Kühe",
   "en": "There are lots of cows in the meadow behind the village.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1927
  },
  {
   "id": "core:r01928",
-  "n": 1677,
+  "n": 1686,
   "rank": 1928,
   "lemma": "Süden",
   "pos": "NOUN",
@@ -1075,11 +1286,12 @@
   "target": "Süden",
   "en": "On holiday we're going south.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1928
  },
  {
   "id": "core:r01929",
-  "n": 1678,
+  "n": 1687,
   "rank": 1929,
   "lemma": "Kommando",
   "pos": "NOUN",
@@ -1089,11 +1301,12 @@
   "target": "Kommando",
   "en": "Our dog sits on command.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1929
  },
  {
   "id": "core:r01930",
-  "n": 1679,
+  "n": 1688,
   "rank": 1930,
   "lemma": "Pater",
   "pos": "NOUN",
@@ -1103,11 +1316,12 @@
   "target": "Pater",
   "en": "The old priest has lived in the monastery for forty years.",
   "note": "Titel für katholische Ordenspriester",
-  "case": null
+  "case": null,
+  "order": 1930
  },
  {
   "id": "core:r01931",
-  "n": 1680,
+  "n": 1689,
   "rank": 1931,
   "lemma": "Menschheit",
   "pos": "NOUN",
@@ -1117,11 +1331,12 @@
   "target": "Menschheit",
   "en": "Climate change is a big challenge for humanity.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1931
  },
  {
   "id": "core:r01932",
-  "n": 1681,
+  "n": 1690,
   "rank": 1932,
   "lemma": "Versteck",
   "pos": "NOUN",
@@ -1131,11 +1346,12 @@
   "target": "Versteck",
   "en": "The children found a good hiding place in the garden.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1932
  },
  {
   "id": "core:r01933",
-  "n": 1682,
+  "n": 1691,
   "rank": 1933,
   "lemma": "rechtzeitig",
   "pos": "ADV",
@@ -1145,11 +1361,12 @@
   "target": "rechtzeitig",
   "en": "Please cancel the appointment in good time.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1933
  },
  {
   "id": "core:r01934",
-  "n": 1683,
+  "n": 1692,
   "rank": 1934,
   "lemma": "positiv",
   "pos": "ADJ",
@@ -1159,11 +1376,12 @@
   "target": "positiv",
   "en": "I try to always think positively.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1934
  },
  {
   "id": "core:r01935",
-  "n": 1684,
+  "n": 1693,
   "rank": 1935,
   "lemma": "räumen",
   "pos": "VERB",
@@ -1173,11 +1391,12 @@
   "target": "räumen",
   "en": "Can you please clear your things off the table?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1935
  },
  {
   "id": "core:r01936",
-  "n": 1685,
+  "n": 1694,
   "rank": 1936,
   "lemma": "Dämon",
   "pos": "NOUN",
@@ -1187,11 +1406,12 @@
   "target": "Dämon",
   "en": "In the horror film a family fights against a demon.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1936
  },
  {
   "id": "core:r01937",
-  "n": 1686,
+  "n": 1695,
   "rank": 1937,
   "lemma": "Wut",
   "pos": "NOUN",
@@ -1201,11 +1421,12 @@
   "target": "Wut",
   "en": "He slammed the door in anger.",
   "note": "vor Wut (+ Dativ)",
-  "case": "D"
+  "case": "D",
+  "order": 1937
  },
  {
   "id": "core:r01938",
-  "n": 1687,
+  "n": 1696,
   "rank": 1938,
   "lemma": "Schlange",
   "pos": "NOUN",
@@ -1215,11 +1436,12 @@
   "target": "Schlange",
   "en": "There was a long queue at the checkout.",
   "note": "Schlange stehen = in einer Reihe warten",
-  "case": null
+  "case": null,
+  "order": 1938
  },
  {
   "id": "core:r01939",
-  "n": 1688,
+  "n": 1697,
   "rank": 1939,
   "lemma": "beeindruckend",
   "pos": "ADJ",
@@ -1229,11 +1451,12 @@
   "target": "beeindruckend",
   "en": "The view from the tower was really impressive.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1939
  },
  {
   "id": "core:r01940",
-  "n": 1689,
+  "n": 1698,
   "rank": 1940,
   "lemma": "Medikament",
   "pos": "NOUN",
@@ -1243,11 +1466,12 @@
   "target": "Medikament",
   "en": "Take the medicine three times a day after meals.",
   "note": "ein Medikament nehmen; Medikamente gibt es in der Apotheke",
-  "case": null
+  "case": null,
+  "order": 1940
  },
  {
   "id": "core:r01942",
-  "n": 1690,
+  "n": 1699,
   "rank": 1942,
   "lemma": "beschissen",
   "pos": "ADJ",
@@ -1257,11 +1481,12 @@
   "target": "beschissenen",
   "en": "I had a crappy day today.",
   "note": "vulgär/umgangssprachlich = sehr schlecht",
-  "case": null
+  "case": null,
+  "order": 1942
  },
  {
   "id": "core:r01943",
-  "n": 1691,
+  "n": 1700,
   "rank": 1943,
   "lemma": "Koch",
   "pos": "NOUN",
@@ -1271,132 +1496,7 @@
   "target": "Koch",
   "en": "My flatmate works as a chef in a hotel.",
   "note": null,
-  "case": null
- },
- {
-  "id": "core:r01944",
-  "n": 1692,
-  "rank": 1944,
-  "lemma": "anfassen",
-  "pos": "VERB",
-  "display": "anfassen · hat angefasst",
-  "gloss": "to touch",
-  "sentence": "Bitte fassen Sie die Bilder im Museum nicht an.",
-  "target": "fassen",
-  "en": "Please don't touch the pictures in the museum.",
-  "note": "trennbar: Fass das nicht an!",
-  "case": null
- },
- {
-  "id": "core:r01945",
-  "n": 1693,
-  "rank": 1945,
-  "lemma": "Pizza",
-  "pos": "NOUN",
-  "display": "die Pizza · die Pizzen",
-  "gloss": "pizza",
-  "sentence": "Sollen wir heute Abend eine Pizza bestellen?",
-  "target": "Pizza",
-  "en": "Shall we order a pizza tonight?",
-  "note": "Plural auch: die Pizzas",
-  "case": null
- },
- {
-  "id": "core:r01946",
-  "n": 1694,
-  "rank": 1946,
-  "lemma": "Anteil",
-  "pos": "NOUN",
-  "display": "der Anteil · die Anteile",
-  "gloss": "share, proportion",
-  "sentence": "Der Anteil der Frauen in der Firma ist gestiegen.",
-  "target": "Anteil",
-  "en": "The proportion of women in the company has risen.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r01947",
-  "n": 1695,
-  "rank": 1947,
-  "lemma": "Hütte",
-  "pos": "NOUN",
-  "display": "die Hütte · die Hütten",
-  "gloss": "hut, cabin",
-  "sentence": "Im Urlaub haben wir in einer Hütte in den Bergen übernachtet.",
-  "target": "Hütte",
-  "en": "On holiday we stayed overnight in a hut in the mountains.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r01948",
-  "n": 1696,
-  "rank": 1948,
-  "lemma": "Beeilung",
-  "pos": "NOUN",
-  "display": "die Beeilung · kein Plural",
-  "gloss": "hurry",
-  "sentence": "Beeilung, der Zug fährt gleich ab!",
-  "target": "Beeilung",
-  "en": "Hurry up, the train is about to leave!",
-  "note": "meist als Ausruf; Verb: sich beeilen",
-  "case": null
- },
- {
-  "id": "core:r01949",
-  "n": 1697,
-  "rank": 1949,
-  "lemma": "üblich",
-  "pos": "ADJ",
-  "display": "üblich",
-  "gloss": "usual, customary",
-  "sentence": "Bei uns ist es üblich, sich zur Begrüßung die Hand zu geben.",
-  "target": "üblich",
-  "en": "Here it's customary to shake hands when you greet someone.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r01950",
-  "n": 1698,
-  "rank": 1950,
-  "lemma": "täglich",
-  "pos": "ADJ",
-  "display": "täglich",
-  "gloss": "daily",
-  "sentence": "Ich fahre täglich mit dem Fahrrad zur Arbeit.",
-  "target": "täglich",
-  "en": "I cycle to work every day.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r01951",
-  "n": 1699,
-  "rank": 1951,
-  "lemma": "Mittag",
-  "pos": "NOUN",
-  "display": "der Mittag · die Mittage",
-  "gloss": "midday, noon",
-  "sentence": "Wir treffen uns morgen Mittag in der Kantine.",
-  "target": "Mittag",
-  "en": "We'll meet in the canteen tomorrow at lunchtime.",
-  "note": "heute Mittag, morgen Mittag; zu Mittag essen",
-  "case": null
- },
- {
-  "id": "core:r01952",
-  "n": 1700,
-  "rank": 1952,
-  "lemma": "graben",
-  "pos": "VERB",
-  "display": "graben · grub · hat gegraben",
-  "gloss": "to dig",
-  "sentence": "Der Hund gräbt ein Loch im Garten.",
-  "target": "gräbt",
-  "en": "The dog is digging a hole in the garden.",
-  "note": "er gräbt",
-  "case": null
+  "case": null,
+  "order": 1943
  }
 ]

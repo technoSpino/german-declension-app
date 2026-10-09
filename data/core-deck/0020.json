@@ -1,7 +1,142 @@
 [
  {
-  "id": "core:r02224",
+  "id": "core:r02214",
   "n": 1901,
+  "rank": 2214,
+  "lemma": "nachsehen",
+  "pos": "VERB",
+  "display": "nachsehen · sah nach · hat nachgesehen",
+  "gloss": "to check, to look up",
+  "sentence": "Hast du schon im Kalender nachgesehen?",
+  "target": "nachgesehen",
+  "en": "Have you already checked the calendar?",
+  "note": "trennbar: Ich sehe nach.",
+  "case": null,
+  "order": 2214
+ },
+ {
+  "id": "core:r02215",
+  "n": 1902,
+  "rank": 2215,
+  "lemma": "aussteigen",
+  "pos": "VERB",
+  "display": "aussteigen · stieg aus · ist ausgestiegen",
+  "gloss": "to get off, to get out",
+  "sentence": "Wir müssen an der nächsten Haltestelle aussteigen.",
+  "target": "aussteigen",
+  "en": "We have to get off at the next stop.",
+  "note": "trennbar; Perfekt mit sein",
+  "case": null,
+  "order": 2215
+ },
+ {
+  "id": "core:r02216",
+  "n": 1903,
+  "rank": 2216,
+  "lemma": "Tunnel",
+  "pos": "NOUN",
+  "display": "der Tunnel · die Tunnel",
+  "gloss": "tunnel",
+  "sentence": "Im Tunnel habe ich leider kein Netz.",
+  "target": "Tunnel",
+  "en": "Unfortunately I have no signal in the tunnel.",
+  "note": null,
+  "case": null,
+  "order": 2216
+ },
+ {
+  "id": "core:r02217",
+  "n": 1904,
+  "rank": 2217,
+  "lemma": "einst",
+  "pos": "ADV",
+  "display": "einst",
+  "gloss": "once, formerly",
+  "sentence": "Hier stand einst eine alte Fabrik.",
+  "target": "einst",
+  "en": "An old factory once stood here.",
+  "note": "gehoben = früher, vor langer Zeit",
+  "case": null,
+  "order": 2217
+ },
+ {
+  "id": "core:r02218",
+  "n": 1905,
+  "rank": 2218,
+  "lemma": "Behandlung",
+  "pos": "NOUN",
+  "display": "die Behandlung · die Behandlungen",
+  "gloss": "treatment",
+  "sentence": "Die Behandlung beim Zahnarzt hat fast eine Stunde gedauert.",
+  "target": "Behandlung",
+  "en": "The treatment at the dentist took almost an hour.",
+  "note": null,
+  "case": null,
+  "order": 2218
+ },
+ {
+  "id": "core:r02219",
+  "n": 1906,
+  "rank": 2219,
+  "lemma": "Applaus",
+  "pos": "NOUN",
+  "display": "der Applaus · kein Plural",
+  "gloss": "applause",
+  "sentence": "Nach dem Konzert gab es lauten Applaus.",
+  "target": "Applaus",
+  "en": "There was loud applause after the concert.",
+  "note": null,
+  "case": null,
+  "order": 2219
+ },
+ {
+  "id": "core:r02220",
+  "n": 1907,
+  "rank": 2220,
+  "lemma": "korrekt",
+  "pos": "ADJ",
+  "display": "korrekt",
+  "gloss": "correct",
+  "sentence": "Bitte prüfen Sie, ob Ihre Adresse korrekt ist.",
+  "target": "korrekt",
+  "en": "Please check whether your address is correct.",
+  "note": null,
+  "case": null,
+  "order": 2220
+ },
+ {
+  "id": "core:r02221",
+  "n": 1908,
+  "rank": 2221,
+  "lemma": "besessen",
+  "pos": "ADJ",
+  "display": "besessen",
+  "gloss": "obsessed; possessed",
+  "sentence": "Mein Bruder ist völlig besessen von Fußball.",
+  "target": "besessen",
+  "en": "My brother is completely obsessed with football.",
+  "note": "besessen von + Dativ",
+  "case": "D",
+  "order": 2221
+ },
+ {
+  "id": "core:r02222",
+  "n": 1909,
+  "rank": 2222,
+  "lemma": "verärgern",
+  "pos": "VERB",
+  "display": "verärgern · hat verärgert",
+  "gloss": "to annoy, to anger",
+  "sentence": "Die lange Wartezeit hat viele Kunden verärgert.",
+  "target": "verärgert",
+  "en": "The long wait annoyed many customers.",
+  "note": "oft als Adjektiv: Ich bin verärgert.",
+  "case": null,
+  "order": 2222
+ },
+ {
+  "id": "core:r02224",
+  "n": 1910,
   "rank": 2224,
   "lemma": "respektieren",
   "pos": "VERB",
@@ -11,11 +146,12 @@
   "target": "respektiere",
   "en": "I respect your decision, even if I don't understand it.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2224
  },
  {
   "id": "core:r02225",
-  "n": 1902,
+  "n": 1911,
   "rank": 2225,
   "lemma": "Kommandant",
   "pos": "NOUN",
@@ -25,11 +161,12 @@
   "target": "Kommandant",
   "en": "The fire brigade commander spoke to the press.",
   "note": "n-Deklination: den Kommandanten",
-  "case": null
+  "case": null,
+  "order": 2225
  },
  {
   "id": "core:r02226",
-  "n": 1903,
+  "n": 1912,
   "rank": 2226,
   "lemma": "Osten",
   "pos": "NOUN",
@@ -39,11 +176,12 @@
   "target": "Osten",
   "en": "Tomorrow it will rain mainly in the east.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2226
  },
  {
   "id": "core:r02227",
-  "n": 1904,
+  "n": 1913,
   "rank": 2227,
   "lemma": "chinesisch",
   "pos": "ADJ",
@@ -53,11 +191,12 @@
   "target": "chinesisch",
   "en": "Shall we eat Chinese food tonight?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2227
  },
  {
   "id": "core:r02228",
-  "n": 1905,
+  "n": 1914,
   "rank": 2228,
   "lemma": "sexuell",
   "pos": "ADJ",
@@ -67,11 +206,12 @@
   "target": "Sexuelle",
   "en": "Sexual harassment in the workplace is prohibited.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2228
  },
  {
   "id": "core:r02230",
-  "n": 1906,
+  "n": 1915,
   "rank": 2230,
   "lemma": "clever",
   "pos": "ADJ",
@@ -81,11 +221,12 @@
   "target": "clevere",
   "en": "That was a clever idea of yours.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2230
  },
  {
   "id": "core:r02232",
-  "n": 1907,
+  "n": 1916,
   "rank": 2232,
   "lemma": "Hass",
   "pos": "NOUN",
@@ -95,11 +236,12 @@
   "target": "Hass",
   "en": "Unfortunately you read a lot of hate on the internet.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2232
  },
  {
   "id": "core:r02234",
-  "n": 1908,
+  "n": 1917,
   "rank": 2234,
   "lemma": "Ticket",
   "pos": "NOUN",
@@ -109,11 +251,12 @@
   "target": "Tickets",
   "en": "Have you already bought the tickets for the concert?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2234
  },
  {
   "id": "core:r02235",
-  "n": 1909,
+  "n": 1918,
   "rank": 2235,
   "lemma": "verschieben",
   "pos": "VERB",
@@ -123,11 +266,12 @@
   "target": "verschieben",
   "en": "Can we postpone the appointment to next week?",
   "note": "etwas auf + Akk. verschieben",
-  "case": null
+  "case": null,
+  "order": 2235
  },
  {
   "id": "core:r02236",
-  "n": 1910,
+  "n": 1919,
   "rank": 2236,
   "lemma": "ärgern",
   "pos": "VERB",
@@ -137,11 +281,12 @@
   "target": "geärgert",
   "en": "I was very annoyed with the landlord.",
   "note": "sich ärgern über + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 2236
  },
  {
   "id": "core:r02237",
-  "n": 1911,
+  "n": 1920,
   "rank": 2237,
   "lemma": "gefährden",
   "pos": "VERB",
@@ -151,11 +296,12 @@
   "target": "gefährdet",
   "en": "Anyone who drives too fast also endangers other people.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2237
  },
  {
   "id": "core:r02238",
-  "n": 1912,
+  "n": 1921,
   "rank": 2238,
   "lemma": "linken",
   "pos": "VERB",
@@ -165,11 +311,12 @@
   "target": "gelinkt",
   "en": "The seller conned us, the bike is broken.",
   "note": "umgangssprachlich = betrügen, reinlegen",
-  "case": null
+  "case": null,
+  "order": 2238
  },
  {
   "id": "core:r02239",
-  "n": 1913,
+  "n": 1922,
   "rank": 2239,
   "lemma": "Verdienst",
   "pos": "NOUN",
@@ -179,11 +326,12 @@
   "target": "Verdienst",
   "en": "Unfortunately the pay in this job isn't very good.",
   "note": "der Verdienst = Geld, das man verdient; das Verdienst = Leistung",
-  "case": null
+  "case": null,
+  "order": 2239
  },
  {
   "id": "core:r02240",
-  "n": 1914,
+  "n": 1923,
   "rank": 2240,
   "lemma": "einzeln",
   "pos": "ADJ",
@@ -193,11 +341,12 @@
   "target": "einzeln",
   "en": "You can also buy the eggs individually here.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2240
  },
  {
   "id": "core:r02241",
-  "n": 1915,
+  "n": 1924,
   "rank": 2241,
   "lemma": "Wissenschaft",
   "pos": "NOUN",
@@ -207,11 +356,12 @@
   "target": "Wissenschaft",
   "en": "My daughter is very interested in science.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2241
  },
  {
   "id": "core:r02242",
-  "n": 1916,
+  "n": 1925,
   "rank": 2242,
   "lemma": "Ursache",
   "pos": "NOUN",
@@ -221,11 +371,12 @@
   "target": "Ursache",
   "en": "The police don't know the cause of the accident yet.",
   "note": "Keine Ursache! = Gern geschehen!",
-  "case": null
+  "case": null,
+  "order": 2242
  },
  {
   "id": "core:r02243",
-  "n": 1917,
+  "n": 1926,
   "rank": 2243,
   "lemma": "Nation",
   "pos": "NOUN",
@@ -235,11 +386,12 @@
   "target": "Nationen",
   "en": "Teams from many nations play at the World Cup.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2243
  },
  {
   "id": "core:r02244",
-  "n": 1918,
+  "n": 1927,
   "rank": 2244,
   "lemma": "nützen",
   "pos": "VERB",
@@ -249,11 +401,12 @@
   "target": "nützt",
   "en": "It's no use, we have to submit the application again.",
   "note": "auch: nutzen",
-  "case": null
+  "case": null,
+  "order": 2244
  },
  {
   "id": "core:r02246",
-  "n": 1919,
+  "n": 1928,
   "rank": 2246,
   "lemma": "Bereich",
   "pos": "NOUN",
@@ -263,11 +416,12 @@
   "target": "Bereich",
   "en": "She works in the field of marketing.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2246
  },
  {
   "id": "core:r02247",
-  "n": 1920,
+  "n": 1929,
   "rank": 2247,
   "lemma": "Suppe",
   "pos": "NOUN",
@@ -277,11 +431,12 @@
   "target": "Suppe",
   "en": "When I have a cold, I make myself a hot soup.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2247
  },
  {
   "id": "core:r02248",
-  "n": 1921,
+  "n": 1930,
   "rank": 2248,
   "lemma": "meinetwegen",
   "pos": "ADV",
@@ -291,11 +446,12 @@
   "target": "Meinetwegen",
   "en": "As far as I'm concerned, we can go to the cinema tomorrow too.",
   "note": "= Ich habe nichts dagegen.",
-  "case": null
+  "case": null,
+  "order": 2248
  },
  {
   "id": "core:r02249",
-  "n": 1922,
+  "n": 1931,
   "rank": 2249,
   "lemma": "arrangieren",
   "pos": "VERB",
@@ -305,11 +461,12 @@
   "target": "arrangiert",
   "en": "We've come to an arrangement with the neighbours.",
   "note": "sich mit jemandem arrangieren = eine Lösung finden",
-  "case": null
+  "case": null,
+  "order": 2249
  },
  {
   "id": "core:r02250",
-  "n": 1923,
+  "n": 1932,
   "rank": 2250,
   "lemma": "Verhandlung",
   "pos": "NOUN",
@@ -319,11 +476,12 @@
   "target": "Verhandlungen",
   "en": "The negotiations on the new wages are still ongoing.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2250
  },
  {
   "id": "core:r02251",
-  "n": 1924,
+  "n": 1933,
   "rank": 2251,
   "lemma": "zeichnen",
   "pos": "VERB",
@@ -333,11 +491,12 @@
   "target": "zeichnet",
   "en": "My son likes drawing animals best.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2251
  },
  {
   "id": "core:r02252",
-  "n": 1925,
+  "n": 1934,
   "rank": 2252,
   "lemma": "Diener",
   "pos": "NOUN",
@@ -347,11 +506,12 @@
   "target": "Diener",
   "en": "In the novel he works as a servant in a big house.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2252
  },
  {
   "id": "core:r02253",
-  "n": 1926,
+  "n": 1935,
   "rank": 2253,
   "lemma": "verzweifelt",
   "pos": "ADJ",
@@ -361,11 +521,12 @@
   "target": "verzweifelt",
   "en": "She is desperate because she can't find a flat.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2253
  },
  {
   "id": "core:r02254",
-  "n": 1927,
+  "n": 1936,
   "rank": 2254,
   "lemma": "stets",
   "pos": "ADV",
@@ -375,11 +536,12 @@
   "target": "stets",
   "en": "We are always there for our customers.",
   "note": "gehoben = immer",
-  "case": null
+  "case": null,
+  "order": 2254
  },
  {
   "id": "core:r02255",
-  "n": 1928,
+  "n": 1937,
   "rank": 2255,
   "lemma": "ordentlich",
   "pos": "ADJ",
@@ -389,11 +551,12 @@
   "target": "ordentlich",
   "en": "His flat is always very tidy.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2255
  },
  {
   "id": "core:r02256",
-  "n": 1929,
+  "n": 1938,
   "rank": 2256,
   "lemma": "Viertel",
   "pos": "NOUN",
@@ -403,11 +566,12 @@
   "target": "Viertel",
   "en": "We live in a quiet neighbourhood on the edge of town.",
   "note": "auch Uhrzeit: Viertel nach drei",
-  "case": null
+  "case": null,
+  "order": 2256
  },
  {
   "id": "core:r02257",
-  "n": 1930,
+  "n": 1939,
   "rank": 2257,
   "lemma": "Roman",
   "pos": "NOUN",
@@ -417,11 +581,12 @@
   "target": "Roman",
   "en": "On holiday I read an exciting novel.",
   "note": "Roman = novel (nicht: römisch)",
-  "case": null
+  "case": null,
+  "order": 2257
  },
  {
   "id": "core:r02258",
-  "n": 1931,
+  "n": 1940,
   "rank": 2258,
   "lemma": "überreden",
   "pos": "VERB",
@@ -431,11 +596,12 @@
   "target": "überredet",
   "en": "My friend talked me into coming to the gym with him.",
   "note": "nicht trennbar",
-  "case": null
+  "case": null,
+  "order": 2258
  },
  {
   "id": "core:r02259",
-  "n": 1932,
+  "n": 1941,
   "rank": 2259,
   "lemma": "pünktlich",
   "pos": "ADJ",
@@ -445,11 +611,12 @@
   "target": "pünktlich",
   "en": "For once the train is on time today.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2259
  },
  {
   "id": "core:r02260",
-  "n": 1933,
+  "n": 1942,
   "rank": 2260,
   "lemma": "Basis",
   "pos": "NOUN",
@@ -459,11 +626,12 @@
   "target": "Basis",
   "en": "Good communication is the basis for every team.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2260
  },
  {
   "id": "core:r02261",
-  "n": 1934,
+  "n": 1943,
   "rank": 2261,
   "lemma": "Gegner",
   "pos": "NOUN",
@@ -473,11 +641,12 @@
   "target": "Gegner",
   "en": "Our opponent on Saturday is very strong.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2261
  },
  {
   "id": "core:r02262",
-  "n": 1935,
+  "n": 1944,
   "rank": 2262,
   "lemma": "Schock",
   "pos": "NOUN",
@@ -487,11 +656,12 @@
   "target": "Schock",
   "en": "The utility bill was a real shock.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2262
  },
  {
   "id": "core:r02263",
-  "n": 1936,
+  "n": 1945,
   "rank": 2263,
   "lemma": "Empfang",
   "pos": "NOUN",
@@ -501,11 +671,12 @@
   "target": "Empfang",
   "en": "I have no reception down here in the basement.",
   "note": "auch: die Rezeption im Hotel oder in der Firma",
-  "case": null
+  "case": null,
+  "order": 2263
  },
  {
   "id": "core:r02264",
-  "n": 1937,
+  "n": 1946,
   "rank": 2264,
   "lemma": "Titel",
   "pos": "NOUN",
@@ -515,11 +686,12 @@
   "target": "Titel",
   "en": "Unfortunately I've forgotten the title of the film.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2264
  },
  {
   "id": "core:r02265",
-  "n": 1938,
+  "n": 1947,
   "rank": 2265,
   "lemma": "Stil",
   "pos": "NOUN",
@@ -529,11 +701,12 @@
   "target": "Stil",
   "en": "Her flat is furnished in a modern style.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2265
  },
  {
   "id": "core:r02266",
-  "n": 1939,
+  "n": 1948,
   "rank": 2266,
   "lemma": "Einfluss",
   "pos": "NOUN",
@@ -543,11 +716,12 @@
   "target": "Einfluss",
   "en": "The weather has a big influence on my mood.",
   "note": "Einfluss auf + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 2266
  },
  {
   "id": "core:r02267",
-  "n": 1940,
+  "n": 1949,
   "rank": 2267,
   "lemma": "Anweisung",
   "pos": "NOUN",
@@ -557,11 +731,12 @@
   "target": "Anweisungen",
   "en": "Please follow the staff's instructions.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2267
  },
  {
   "id": "core:r02268",
-  "n": 1941,
+  "n": 1950,
   "rank": 2268,
   "lemma": "anhören",
   "pos": "VERB",
@@ -571,11 +746,12 @@
   "target": "angehört",
   "en": "Have you listened to the new album yet?",
   "note": "sich (Dat.) etwas anhören; Das hört sich gut an. = Das klingt gut.",
-  "case": null
+  "case": null,
+  "order": 2268
  },
  {
   "id": "core:r02269",
-  "n": 1942,
+  "n": 1951,
   "rank": 2269,
   "lemma": "stattfinden",
   "pos": "VERB",
@@ -585,11 +761,12 @@
   "target": "findet",
   "en": "The meeting takes place on Monday at the town hall.",
   "note": "trennbar: findet ... statt",
-  "case": null
+  "case": null,
+  "order": 2269
  },
  {
   "id": "core:r02271",
-  "n": 1943,
+  "n": 1952,
   "rank": 2271,
   "lemma": "operieren",
   "pos": "VERB",
@@ -599,11 +776,12 @@
   "target": "operiert",
   "en": "My father is having knee surgery next week.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2271
  },
  {
   "id": "core:r02272",
-  "n": 1944,
+  "n": 1953,
   "rank": 2272,
   "lemma": "verprügeln",
   "pos": "VERB",
@@ -613,11 +791,12 @@
   "target": "verprügelt",
   "en": "The paper said that two men beat up a taxi driver.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2272
  },
  {
   "id": "core:r02274",
-  "n": 1945,
+  "n": 1954,
   "rank": 2274,
   "lemma": "Farm",
   "pos": "NOUN",
@@ -627,11 +806,12 @@
   "target": "Farm",
   "en": "My uncle has a small farm in Canada.",
   "note": "in Deutschland meist: der Bauernhof",
-  "case": null
+  "case": null,
+  "order": 2274
  },
  {
   "id": "core:r02275",
-  "n": 1946,
+  "n": 1955,
   "rank": 2275,
   "lemma": "Schwachsinn",
   "pos": "NOUN",
@@ -641,11 +821,12 @@
   "target": "Schwachsinn",
   "en": "That's total nonsense!",
   "note": "umgangssprachlich",
-  "case": null
+  "case": null,
+  "order": 2275
  },
  {
   "id": "core:r02276",
-  "n": 1947,
+  "n": 1956,
   "rank": 2276,
   "lemma": "Miete",
   "pos": "NOUN",
@@ -655,11 +836,12 @@
   "target": "Miete",
   "en": "The rent for our flat has gone up again.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2276
  },
  {
   "id": "core:r02277",
-  "n": 1948,
+  "n": 1957,
   "rank": 2277,
   "lemma": "bewachen",
   "pos": "VERB",
@@ -669,11 +851,12 @@
   "target": "bewacht",
   "en": "At night the building is guarded by a security company.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2277
  },
  {
   "id": "core:r02278",
-  "n": 1949,
+  "n": 1958,
   "rank": 2278,
   "lemma": "ausführen",
   "pos": "VERB",
@@ -683,11 +866,12 @@
   "target": "ausführen",
   "en": "I just need to quickly take the dog out.",
   "note": "trennbar: Ich führe den Hund aus.",
-  "case": null
+  "case": null,
+  "order": 2278
  },
  {
   "id": "core:r02279",
-  "n": 1950,
+  "n": 1959,
   "rank": 2279,
   "lemma": "daneben",
   "pos": "ADV",
@@ -697,11 +881,12 @@
   "target": "daneben",
   "en": "The pharmacy is right next to it.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2279
  },
  {
   "id": "core:r02280",
-  "n": 1951,
+  "n": 1960,
   "rank": 2280,
   "lemma": "Wüste",
   "pos": "NOUN",
@@ -711,11 +896,12 @@
   "target": "Wüste",
   "en": "On holiday we did a tour through the desert.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2280
  },
  {
   "id": "core:r02282",
-  "n": 1952,
+  "n": 1961,
   "rank": 2282,
   "lemma": "Gabe",
   "pos": "NOUN",
@@ -725,11 +911,12 @@
   "target": "Gabe",
   "en": "My grandma had the gift of making everyone laugh.",
   "note": "gehoben = Talent",
-  "case": null
+  "case": null,
+  "order": 2282
  },
  {
   "id": "core:r02283",
-  "n": 1953,
+  "n": 1962,
   "rank": 2283,
   "lemma": "nerven",
   "pos": "VERB",
@@ -739,11 +926,12 @@
   "target": "nervt",
   "en": "The noise from the building site is really getting on my nerves.",
   "note": "umgangssprachlich",
-  "case": null
+  "case": null,
+  "order": 2283
  },
  {
   "id": "core:r02284",
-  "n": 1954,
+  "n": 1963,
   "rank": 2284,
   "lemma": "absagen",
   "pos": "VERB",
@@ -753,11 +941,12 @@
   "target": "absagen",
   "en": "Unfortunately I have to cancel the doctor's appointment.",
   "note": "trennbar: Ich sage den Termin ab.",
-  "case": null
+  "case": null,
+  "order": 2284
  },
  {
   "id": "core:r02286",
-  "n": 1955,
+  "n": 1964,
   "rank": 2286,
   "lemma": "Milliarde",
   "pos": "NOUN",
@@ -767,11 +956,12 @@
   "target": "Milliarden",
   "en": "The government wants to invest two billion euros in schools.",
   "note": "Milliarde = billion (nicht: Billion!)",
-  "case": null
+  "case": null,
+  "order": 2286
  },
  {
   "id": "core:r02287",
-  "n": 1956,
+  "n": 1965,
   "rank": 2287,
   "lemma": "vorschlagen",
   "pos": "VERB",
@@ -781,11 +971,12 @@
   "target": "vorgeschlagen",
   "en": "My colleague suggested that we have lunch together.",
   "note": "trennbar: Ich schlage vor ...",
-  "case": null
+  "case": null,
+  "order": 2287
  },
  {
   "id": "core:r02289",
-  "n": 1957,
+  "n": 1966,
   "rank": 2289,
   "lemma": "lohnen",
   "pos": "VERB",
@@ -795,11 +986,12 @@
   "target": "gelohnt",
   "en": "The trip was really worth it.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2289
  },
  {
   "id": "core:r02290",
-  "n": 1958,
+  "n": 1967,
   "rank": 2290,
   "lemma": "Umstand",
   "pos": "NOUN",
@@ -809,11 +1001,12 @@
   "target": "Umständen",
   "en": "Processing may possibly take a little longer.",
   "note": "unter Umständen = vielleicht, möglicherweise",
-  "case": null
+  "case": null,
+  "order": 2290
  },
  {
   "id": "core:r02291",
-  "n": 1959,
+  "n": 1968,
   "rank": 2291,
   "lemma": "Angelegenheit",
   "pos": "NOUN",
@@ -823,11 +1016,12 @@
   "target": "Angelegenheit",
   "en": "I'm calling about a private matter.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2291
  },
  {
   "id": "core:r02292",
-  "n": 1960,
+  "n": 1969,
   "rank": 2292,
   "lemma": "Dienstag",
   "pos": "NOUN",
@@ -837,11 +1031,12 @@
   "target": "Dienstag",
   "en": "On Tuesday I have a dentist appointment.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2292
  },
  {
   "id": "core:r02295",
-  "n": 1961,
+  "n": 1970,
   "rank": 2295,
   "lemma": "versichern",
   "pos": "VERB",
@@ -851,11 +1046,12 @@
   "target": "versichert",
   "en": "Is your bike insured against theft?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2295
  },
  {
   "id": "core:r02296",
-  "n": 1962,
+  "n": 1971,
   "rank": 2296,
   "lemma": "reingehen",
   "pos": "VERB",
@@ -865,11 +1061,12 @@
   "target": "reingehen",
   "en": "It's raining, let's go inside.",
   "note": "umgangssprachlich = hineingehen",
-  "case": null
+  "case": null,
+  "order": 2296
  },
  {
   "id": "core:r02297",
-  "n": 1963,
+  "n": 1972,
   "rank": 2297,
   "lemma": "versorgen",
   "pos": "VERB",
@@ -879,11 +1076,12 @@
   "target": "versorgt",
   "en": "The paramedics quickly treated the injured man.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2297
  },
  {
   "id": "core:r02299",
-  "n": 1964,
+  "n": 1973,
   "rank": 2299,
   "lemma": "ausschließen",
   "pos": "VERB",
@@ -893,11 +1091,12 @@
   "target": "ausschließen",
   "en": "The doctor can't rule out an allergy.",
   "note": "trennbar",
-  "case": null
+  "case": null,
+  "order": 2299
  },
  {
   "id": "core:r02300",
-  "n": 1965,
+  "n": 1974,
   "rank": 2300,
   "lemma": "Tour",
   "pos": "NOUN",
@@ -907,11 +1106,12 @@
   "target": "Tour",
   "en": "At the weekend we're going on a bike tour.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2300
  },
  {
   "id": "core:r02302",
-  "n": 1966,
+  "n": 1975,
   "rank": 2302,
   "lemma": "Gouverneur",
   "pos": "NOUN",
@@ -921,11 +1121,12 @@
   "target": "Gouverneur",
   "en": "In the news an American governor spoke about the forest fires.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2302
  },
  {
   "id": "core:r02303",
-  "n": 1967,
+  "n": 1976,
   "rank": 2303,
   "lemma": "einziehen",
   "pos": "VERB",
@@ -935,11 +1136,12 @@
   "target": "eingezogen",
   "en": "We moved into the new flat in March.",
   "note": "in + Akkusativ (Wohin?); Gegenteil: ausziehen",
-  "case": "A"
+  "case": "A",
+  "order": 2303
  },
  {
   "id": "core:r02304",
-  "n": 1968,
+  "n": 1977,
   "rank": 2304,
   "lemma": "Motiv",
   "pos": "NOUN",
@@ -949,11 +1151,12 @@
   "target": "Motiv",
   "en": "The police are still looking for a motive for the crime.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2304
  },
  {
   "id": "core:r02306",
-  "n": 1969,
+  "n": 1978,
   "rank": 2306,
   "lemma": "füttern",
   "pos": "VERB",
@@ -963,11 +1166,12 @@
   "target": "füttern",
   "en": "Can you feed the cat while I'm on holiday?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2306
  },
  {
   "id": "core:r02307",
-  "n": 1970,
+  "n": 1979,
   "rank": 2307,
   "lemma": "bequem",
   "pos": "ADJ",
@@ -977,11 +1181,12 @@
   "target": "bequem",
   "en": "These shoes are expensive, but very comfortable.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2307
  },
  {
   "id": "core:r02308",
-  "n": 1971,
+  "n": 1980,
   "rank": 2308,
   "lemma": "Gedächtnis",
   "pos": "NOUN",
@@ -991,11 +1196,12 @@
   "target": "Gedächtnis",
   "en": "I have a bad memory for names.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2308
  },
  {
   "id": "core:r02309",
-  "n": 1972,
+  "n": 1981,
   "rank": 2309,
   "lemma": "Technik",
   "pos": "NOUN",
@@ -1005,11 +1211,12 @@
   "target": "Technik",
   "en": "I'm not very good with technology.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2309
  },
  {
   "id": "core:r02310",
-  "n": 1973,
+  "n": 1982,
   "rank": 2310,
   "lemma": "rächen",
   "pos": "VERB",
@@ -1019,11 +1226,12 @@
   "target": "rächen",
   "en": "In the crime novel the woman wants to take revenge on her ex-husband.",
   "note": "sich rächen an + Dativ",
-  "case": "D"
+  "case": "D",
+  "order": 2310
  },
  {
   "id": "core:r02311",
-  "n": 1974,
+  "n": 1983,
   "rank": 2311,
   "lemma": "Wirklichkeit",
   "pos": "NOUN",
@@ -1033,11 +1241,12 @@
   "target": "Wirklichkeit",
   "en": "In reality the flat is much smaller than in the photos.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2311
  },
  {
   "id": "core:r02312",
-  "n": 1975,
+  "n": 1984,
   "rank": 2312,
   "lemma": "doppelt",
   "pos": "ADJ",
@@ -1047,11 +1256,12 @@
   "target": "doppelt",
   "en": "I accidentally paid the bill twice.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2312
  },
  {
   "id": "core:r02313",
-  "n": 1976,
+  "n": 1985,
   "rank": 2313,
   "lemma": "rein (pur)",
   "pos": "ADJ",
@@ -1061,11 +1271,12 @@
   "target": "reiner",
   "en": "The jumper is made of pure wool.",
   "note": "auch: ein reines Gewissen haben",
-  "case": null
+  "case": null,
+  "order": 2313
  },
  {
   "id": "core:r02314",
-  "n": 1977,
+  "n": 1986,
   "rank": 2314,
   "lemma": "bluten",
   "pos": "VERB",
@@ -1075,11 +1286,12 @@
   "target": "blutet",
   "en": "I've cut myself and my finger is bleeding.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2314
  },
  {
   "id": "core:r02316",
-  "n": 1978,
+  "n": 1987,
   "rank": 2316,
   "lemma": "blond",
   "pos": "ADJ",
@@ -1089,11 +1301,12 @@
   "target": "blonde",
   "en": "Her daughter has long blonde hair.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2316
  },
  {
   "id": "core:r02318",
-  "n": 1979,
+  "n": 1988,
   "rank": 2318,
   "lemma": "Staatsanwalt",
   "pos": "NOUN",
@@ -1103,11 +1316,12 @@
   "target": "Staatsanwalt",
   "en": "The prosecutor demanded three years in prison at the trial.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2318
  },
  {
   "id": "core:r02319",
-  "n": 1980,
+  "n": 1989,
   "rank": 2319,
   "lemma": "Ewigkeit",
   "pos": "NOUN",
@@ -1117,11 +1331,12 @@
   "target": "Ewigkeit",
   "en": "I've been waiting for the bus for ages.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2319
  },
  {
   "id": "core:r02320",
-  "n": 1981,
+  "n": 1990,
   "rank": 2320,
   "lemma": "Störung",
   "pos": "NOUN",
@@ -1131,11 +1346,12 @@
   "target": "Störung",
   "en": "Because of a fault the S-Bahn isn't running today.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2320
  },
  {
   "id": "core:r02321",
-  "n": 1982,
+  "n": 1991,
   "rank": 2321,
   "lemma": "eintreten",
   "pos": "VERB",
@@ -1145,11 +1361,12 @@
   "target": "eingetreten",
   "en": "My colleague joined the sports club last year.",
   "note": "in + Akk. eintreten (Verein, Partei)",
-  "case": "A"
+  "case": "A",
+  "order": 2321
  },
  {
   "id": "core:r02322",
-  "n": 1983,
+  "n": 1992,
   "rank": 2322,
   "lemma": "Zigarette",
   "pos": "NOUN",
@@ -1159,11 +1376,12 @@
   "target": "Zigarette",
   "en": "He always smokes a cigarette after eating.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2322
  },
  {
   "id": "core:r02323",
-  "n": 1984,
+  "n": 1993,
   "rank": 2323,
   "lemma": "gelangen",
   "pos": "VERB",
@@ -1173,11 +1391,12 @@
   "target": "gelangt",
   "en": "What's the best way to get to the main station?",
   "note": "gehoben = kommen",
-  "case": null
+  "case": null,
+  "order": 2323
  },
  {
   "id": "core:r02324",
-  "n": 1985,
+  "n": 1994,
   "rank": 2324,
   "lemma": "ergreifen",
   "pos": "VERB",
@@ -1187,11 +1406,12 @@
   "target": "ergreifen",
   "en": "You should seize the chance and take the job.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2324
  },
  {
   "id": "core:r02325",
-  "n": 1986,
+  "n": 1995,
   "rank": 2325,
   "lemma": "aussprechen",
   "pos": "VERB",
@@ -1201,11 +1421,12 @@
   "target": "spricht",
   "en": "How do you pronounce this word correctly?",
   "note": "trennbar: spricht ... aus",
-  "case": null
+  "case": null,
+  "order": 2325
  },
  {
   "id": "core:r02327",
-  "n": 1987,
+  "n": 1996,
   "rank": 2327,
   "lemma": "Not",
   "pos": "NOUN",
@@ -1215,11 +1436,12 @@
   "target": "Not",
   "en": "If need be, we can also stay overnight at my parents'.",
   "note": "zur Not = wenn es nicht anders geht",
-  "case": null
+  "case": null,
+  "order": 2327
  },
  {
   "id": "core:r02328",
-  "n": 1988,
+  "n": 1997,
   "rank": 2328,
   "lemma": "Stellung",
   "pos": "NOUN",
@@ -1229,11 +1451,12 @@
   "target": "Stellung",
   "en": "He has a good position in a large company.",
   "note": "auch: zu etwas Stellung nehmen = seine Meinung sagen",
-  "case": null
+  "case": null,
+  "order": 2328
  },
  {
   "id": "core:r02329",
-  "n": 1989,
+  "n": 1998,
   "rank": 2329,
   "lemma": "Unglück",
   "pos": "NOUN",
@@ -1243,11 +1466,12 @@
   "target": "Unglück",
   "en": "Luckily nobody was hurt in the accident on the motorway.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2329
  },
  {
   "id": "core:r02330",
-  "n": 1990,
+  "n": 1999,
   "rank": 2330,
   "lemma": "hacken",
   "pos": "VERB",
@@ -1257,11 +1481,12 @@
   "target": "gehackt",
   "en": "Someone has hacked my email account.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2330
  },
  {
   "id": "core:r02331",
-  "n": 1991,
+  "n": 2000,
   "rank": 2331,
   "lemma": "Behörde",
   "pos": "NOUN",
@@ -1271,132 +1496,7 @@
   "target": "Behörde",
   "en": "For the application you have to go to the responsible authority.",
   "note": null,
-  "case": null
- },
- {
-  "id": "core:r02332",
-  "n": 1992,
-  "rank": 2332,
-  "lemma": "Wissenschaftler",
-  "pos": "NOUN",
-  "display": "der Wissenschaftler · die Wissenschaftler",
-  "gloss": "scientist",
-  "sentence": "Wissenschaftler warnen vor immer heißeren Sommern.",
-  "target": "Wissenschaftler",
-  "en": "Scientists are warning of ever hotter summers.",
-  "note": "warnen vor + Dativ",
-  "case": "D"
- },
- {
-  "id": "core:r02334",
-  "n": 1993,
-  "rank": 2334,
-  "lemma": "attraktiv",
-  "pos": "ADJ",
-  "display": "attraktiv",
-  "gloss": "attractive",
-  "sentence": "Die Stelle ist auch finanziell sehr attraktiv.",
-  "target": "attraktiv",
-  "en": "The job is also very attractive financially.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r02335",
-  "n": 1994,
-  "rank": 2335,
-  "lemma": "feststellen",
-  "pos": "VERB",
-  "display": "feststellen · hat festgestellt",
-  "gloss": "to find out, to notice, to determine",
-  "sentence": "Der Arzt hat festgestellt, dass ich zu wenig Vitamin D habe.",
-  "target": "festgestellt",
-  "en": "The doctor found that I have too little vitamin D.",
-  "note": "trennbar: Ich stelle fest ...",
-  "case": null
- },
- {
-  "id": "core:r02336",
-  "n": 1995,
-  "rank": 2336,
-  "lemma": "zentral",
-  "pos": "ADJ",
-  "display": "zentral",
-  "gloss": "central(ly)",
-  "sentence": "Unsere neue Wohnung liegt sehr zentral.",
-  "target": "zentral",
-  "en": "Our new flat is very centrally located.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r02337",
-  "n": 1996,
-  "rank": 2337,
-  "lemma": "unterrichten",
-  "pos": "VERB",
-  "display": "unterrichten · hat unterrichtet",
-  "gloss": "to teach",
-  "sentence": "Meine Frau unterrichtet Mathe an einer Grundschule.",
-  "target": "unterrichtet",
-  "en": "My wife teaches maths at a primary school.",
-  "note": "nicht trennbar",
-  "case": null
- },
- {
-  "id": "core:r02338",
-  "n": 1997,
-  "rank": 2338,
-  "lemma": "Identität",
-  "pos": "NOUN",
-  "display": "die Identität · die Identitäten",
-  "gloss": "identity",
-  "sentence": "Bei der Bank musste ich meine Identität mit dem Ausweis nachweisen.",
-  "target": "Identität",
-  "en": "At the bank I had to prove my identity with my ID card.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r02339",
-  "n": 1998,
-  "rank": 2339,
-  "lemma": "erweisen",
-  "pos": "VERB",
-  "display": "erweisen · erwies · hat erwiesen",
-  "gloss": "to prove; to turn out (sich erweisen als)",
-  "sentence": "Der neue Kollege hat sich als sehr hilfsbereit erwiesen.",
-  "target": "erwiesen",
-  "en": "The new colleague has turned out to be very helpful.",
-  "note": "sich als ... erweisen = sich zeigen als",
-  "case": null
- },
- {
-  "id": "core:r02340",
-  "n": 1999,
-  "rank": 2340,
-  "lemma": "Schluck",
-  "pos": "NOUN",
-  "display": "der Schluck · die Schlucke",
-  "gloss": "sip, gulp",
-  "sentence": "Darf ich einen Schluck von deinem Wasser haben?",
-  "target": "Schluck",
-  "en": "Can I have a sip of your water?",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r02341",
-  "n": 2000,
-  "rank": 2341,
-  "lemma": "Gen",
-  "pos": "NOUN",
-  "display": "das Gen · die Gene",
-  "gloss": "gene",
-  "sentence": "Die Augenfarbe hängt von den Genen ab.",
-  "target": "Genen",
-  "en": "Eye colour depends on your genes.",
-  "note": "abhängen von + Dativ",
-  "case": "D"
+  "case": null,
+  "order": 2331
  }
 ]

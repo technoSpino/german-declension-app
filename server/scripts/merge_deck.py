@@ -74,7 +74,12 @@ def main() -> None:
         sys.exit(1 if errors else 0)
 
     cards, seen, errors, skipped = [], set(), 0, 0
-    for path in sorted(RAW.glob("r*.json")):
+    # supplement.json: words the automatic list dropped by mistake. They carry their
+    # corpus count and are slotted in where that count belongs in the frequency order.
+    counts = [int(l.split("\t")[3]) for l in (REPO / "data/freq/lemmas.tsv").read_text(encoding="utf-8").splitlines()[1:]]
+    for path in [*sorted(RAW.glob("r*.json")), RAW / "supplement.json"]:
+        if not path.exists():
+            continue
         for c in load(path):
             errs = check_card(c)
             if errs:
@@ -90,8 +95,9 @@ def main() -> None:
                 skipped += 1
                 continue
             seen.add(key)
+            c["order"] = c["rank"] if "count" not in c else sum(n > c["count"] for n in counts) + 0.5
             cards.append(c)
-    cards.sort(key=lambda c: c["rank"])
+    cards.sort(key=lambda c: c["order"])
     if errors:
         print(f"{errors} problem(s) — fix before merging")
         sys.exit(1)
@@ -105,6 +111,7 @@ def main() -> None:
             # added or removed later (review history in the DB keys on it).
             out = {"id": f"core:r{c['rank']:05d}", "n": i}
             out.update({k: c.get(k) for k in (*REQUIRED, "note", "case")})
+            out["order"] = c["order"]
             batch.append(out)
         name = DECK / f"{start // 100 + 1:04d}.json"
         name.write_text(json.dumps(batch, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

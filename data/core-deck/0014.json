@@ -1,7 +1,127 @@
 [
  {
-  "id": "core:r01456",
+  "id": "core:r01448",
   "n": 1301,
+  "rank": 1448,
+  "lemma": "Schild",
+  "pos": "NOUN",
+  "display": "das Schild · die Schilder",
+  "gloss": "sign",
+  "sentence": "Auf dem Schild steht, dass man hier nicht parken darf.",
+  "target": "Schild",
+  "en": "The sign says you're not allowed to park here.",
+  "note": "das Schild = sign; der Schild = shield",
+  "case": null,
+  "order": 1448
+ },
+ {
+  "id": "core:r01449",
+  "n": 1302,
+  "rank": 1449,
+  "lemma": "zweimal",
+  "pos": "ADV",
+  "display": "zweimal",
+  "gloss": "twice",
+  "sentence": "Ich gehe zweimal pro Woche ins Fitnessstudio.",
+  "target": "zweimal",
+  "en": "I go to the gym twice a week.",
+  "note": null,
+  "case": null,
+  "order": 1449
+ },
+ {
+  "id": "core:r01450",
+  "n": 1303,
+  "rank": 1450,
+  "lemma": "hassen",
+  "pos": "VERB",
+  "display": "hassen · hat gehasst",
+  "gloss": "to hate",
+  "sentence": "Ich hasse es, früh aufzustehen.",
+  "target": "hasse",
+  "en": "I hate getting up early.",
+  "note": null,
+  "case": null,
+  "order": 1450
+ },
+ {
+  "id": "core:r01451",
+  "n": 1304,
+  "rank": 1451,
+  "lemma": "Vorstellung",
+  "pos": "NOUN",
+  "display": "die Vorstellung · die Vorstellungen",
+  "gloss": "idea; performance; introduction",
+  "sentence": "Hast du eine Vorstellung, wie viel das kosten wird?",
+  "target": "Vorstellung",
+  "en": "Do you have any idea how much that will cost?",
+  "note": null,
+  "case": null,
+  "order": 1451
+ },
+ {
+  "id": "core:r01452",
+  "n": 1305,
+  "rank": 1452,
+  "lemma": "Braut",
+  "pos": "NOUN",
+  "display": "die Braut · die Bräute",
+  "gloss": "bride",
+  "sentence": "Die Braut trug ein langes weißes Kleid.",
+  "target": "Braut",
+  "en": "The bride wore a long white dress.",
+  "note": "der Bräutigam = groom",
+  "case": null,
+  "order": 1452
+ },
+ {
+  "id": "core:r01453",
+  "n": 1306,
+  "rank": 1453,
+  "lemma": "prüfen",
+  "pos": "VERB",
+  "display": "prüfen · hat geprüft",
+  "gloss": "to check, to test",
+  "sentence": "Bitte prüfen Sie, ob alle Angaben richtig sind.",
+  "target": "prüfen",
+  "en": "Please check whether all the details are correct.",
+  "note": null,
+  "case": null,
+  "order": 1453
+ },
+ {
+  "id": "core:r01454",
+  "n": 1307,
+  "rank": 1454,
+  "lemma": "gründen",
+  "pos": "VERB",
+  "display": "gründen · hat gegründet",
+  "gloss": "to found, to set up",
+  "sentence": "Mein Freund hat letztes Jahr eine eigene Firma gegründet.",
+  "target": "gegründet",
+  "en": "My friend set up his own company last year.",
+  "note": null,
+  "case": null,
+  "order": 1454
+ },
+ {
+  "id": "core:r01455",
+  "n": 1308,
+  "rank": 1455,
+  "lemma": "öffentlich",
+  "pos": "ADJ",
+  "display": "öffentlich",
+  "gloss": "public",
+  "sentence": "Mit öffentlichen Verkehrsmitteln brauche ich eine Stunde zur Arbeit.",
+  "target": "öffentlichen",
+  "en": "By public transport it takes me an hour to get to work.",
+  "note": null,
+  "case": null,
+  "order": 1455
+ },
+ {
+  "id": "core:r01456",
+  "n": 1309,
   "rank": 1456,
   "lemma": "Pflicht",
   "pos": "NOUN",
@@ -11,11 +131,12 @@
   "target": "Pflicht",
   "en": "In Germany registering at the citizens' office is compulsory.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1456
  },
  {
   "id": "core:r01457",
-  "n": 1302,
+  "n": 1310,
   "rank": 1457,
   "lemma": "Wache",
   "pos": "NOUN",
@@ -25,11 +146,12 @@
   "target": "Wache",
   "en": "After the accident we had to go to the police station.",
   "note": "die Wache = die Polizeiwache",
-  "case": null
+  "case": null,
+  "order": 1457
  },
  {
   "id": "core:r01458",
-  "n": 1303,
+  "n": 1311,
   "rank": 1458,
   "lemma": "neulich",
   "pos": "ADV",
@@ -39,11 +161,12 @@
   "target": "Neulich",
   "en": "I met your brother in town the other day.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1458
  },
  {
   "id": "core:r01459",
-  "n": 1304,
+  "n": 1312,
   "rank": 1459,
   "lemma": "Dusche",
   "pos": "NOUN",
@@ -53,11 +176,12 @@
   "target": "Dusche",
   "en": "The shower in our bathroom is broken again.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1459
  },
  {
   "id": "core:r01461",
-  "n": 1305,
+  "n": 1313,
   "rank": 1461,
   "lemma": "verursachen",
   "pos": "VERB",
@@ -67,11 +191,12 @@
   "target": "verursacht",
   "en": "The storm caused major damage.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1461
  },
  {
   "id": "core:r01462",
-  "n": 1306,
+  "n": 1314,
   "rank": 1462,
   "lemma": "Schutz",
   "pos": "NOUN",
@@ -81,11 +206,12 @@
   "target": "Schutz",
   "en": "In winter a vaccination is good protection against flu.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1462
  },
  {
   "id": "core:r01463",
-  "n": 1307,
+  "n": 1315,
   "rank": 1463,
   "lemma": "weshalb",
   "pos": "ADV",
@@ -95,11 +221,12 @@
   "target": "Weshalb",
   "en": "Why didn't you tell me anything about it?",
   "note": "weshalb = warum",
-  "case": null
+  "case": null,
+  "order": 1463
  },
  {
   "id": "core:r01464",
-  "n": 1308,
+  "n": 1316,
   "rank": 1464,
   "lemma": "auftreten",
   "pos": "VERB",
@@ -109,11 +236,12 @@
   "target": "tritt",
   "en": "The band is performing in the city park on Friday.",
   "note": "trennbar: auf|treten",
-  "case": null
+  "case": null,
+  "order": 1464
  },
  {
   "id": "core:r01465",
-  "n": 1309,
+  "n": 1317,
   "rank": 1465,
   "lemma": "woanders",
   "pos": "ADV",
@@ -123,11 +251,12 @@
   "target": "woanders",
   "en": "It's full here, let's go somewhere else.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1465
  },
  {
   "id": "core:r01467",
-  "n": 1310,
+  "n": 1318,
   "rank": 1467,
   "lemma": "verloben",
   "pos": "VERB",
@@ -137,11 +266,12 @@
   "target": "verlobt",
   "en": "My sister got engaged at the weekend.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1467
  },
  {
   "id": "core:r01468",
-  "n": 1311,
+  "n": 1319,
   "rank": 1468,
   "lemma": "Erklärung",
   "pos": "NOUN",
@@ -151,11 +281,12 @@
   "target": "Erklärung",
   "en": "Thanks for the explanation, now I get it.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1468
  },
  {
   "id": "core:r01469",
-  "n": 1312,
+  "n": 1320,
   "rank": 1469,
   "lemma": "Video",
   "pos": "NOUN",
@@ -165,11 +296,12 @@
   "target": "Video",
   "en": "Send me the video from the party!",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1469
  },
  {
   "id": "core:r01472",
-  "n": 1313,
+  "n": 1321,
   "rank": 1472,
   "lemma": "außerhalb",
   "pos": "ADP",
@@ -179,11 +311,12 @@
   "target": "außerhalb",
   "en": "We live a little outside the city.",
   "note": "außerhalb + Genitiv",
-  "case": "G"
+  "case": "G",
+  "order": 1472
  },
  {
   "id": "core:r01473",
-  "n": 1314,
+  "n": 1322,
   "rank": 1473,
   "lemma": "selbstverständlich",
   "pos": "ADV",
@@ -193,11 +326,12 @@
   "target": "Selbstverständlich",
   "en": "Of course you can also pay by card.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1473
  },
  {
   "id": "core:r01475",
-  "n": 1315,
+  "n": 1323,
   "rank": 1475,
   "lemma": "Gewehr",
   "pos": "NOUN",
@@ -207,11 +341,12 @@
   "target": "Gewehr",
   "en": "The hunter carries his rifle over his shoulder.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1475
  },
  {
   "id": "core:r01476",
-  "n": 1316,
+  "n": 1324,
   "rank": 1476,
   "lemma": "Milch",
   "pos": "NOUN",
@@ -221,11 +356,12 @@
   "target": "Milch",
   "en": "Can you buy some milk on the way home?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1476
  },
  {
   "id": "core:r01479",
-  "n": 1317,
+  "n": 1325,
   "rank": 1479,
   "lemma": "bewahren",
   "pos": "VERB",
@@ -235,11 +371,12 @@
   "target": "bewahren",
   "en": "In a situation like that you have to stay calm.",
   "note": "Ruhe bewahren = ruhig bleiben",
-  "case": null
+  "case": null,
+  "order": 1479
  },
  {
   "id": "core:r01481",
-  "n": 1318,
+  "n": 1326,
   "rank": 1481,
   "lemma": "fremd",
   "pos": "ADJ",
@@ -249,11 +386,12 @@
   "target": "fremd",
   "en": "At first everything here was strange to me.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1481
  },
  {
   "id": "core:r01483",
-  "n": 1319,
+  "n": 1327,
   "rank": 1483,
   "lemma": "einsetzen",
   "pos": "VERB",
@@ -263,11 +401,12 @@
   "target": "setzt",
   "en": "The city is putting on more buses at the weekend.",
   "note": "trennbar; sich einsetzen für + Akk.",
-  "case": null
+  "case": null,
+  "order": 1483
  },
  {
   "id": "core:r01484",
-  "n": 1320,
+  "n": 1328,
   "rank": 1484,
   "lemma": "übergeben",
   "pos": "VERB",
@@ -277,11 +416,12 @@
   "target": "übergeben",
   "en": "When you move out you have to hand all the keys over to the landlord.",
   "note": "nicht trennbar; sich übergeben = erbrechen",
-  "case": null
+  "case": null,
+  "order": 1484
  },
  {
   "id": "core:r01485",
-  "n": 1321,
+  "n": 1329,
   "rank": 1485,
   "lemma": "Schüler",
   "pos": "NOUN",
@@ -291,11 +431,12 @@
   "target": "Schüler",
   "en": "There are 25 pupils in my son's class.",
   "note": "die Schülerin · die Schülerinnen",
-  "case": null
+  "case": null,
+  "order": 1485
  },
  {
   "id": "core:r01486",
-  "n": 1322,
+  "n": 1330,
   "rank": 1486,
   "lemma": "nackt",
   "pos": "ADJ",
@@ -305,11 +446,12 @@
   "target": "nackt",
   "en": "In Germany almost everyone is naked in the sauna.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1486
  },
  {
   "id": "core:r01487",
-  "n": 1323,
+  "n": 1331,
   "rank": 1487,
   "lemma": "Daten",
   "pos": "NOUN",
@@ -319,11 +461,12 @@
   "target": "Daten",
   "en": "Please enter your personal data in the form.",
   "note": "nur Plural; das Datum = date",
-  "case": null
+  "case": null,
+  "order": 1487
  },
  {
   "id": "core:r01488",
-  "n": 1324,
+  "n": 1332,
   "rank": 1488,
   "lemma": "identifizieren",
   "pos": "VERB",
@@ -333,11 +476,12 @@
   "target": "identifizieren",
   "en": "The police were able to identify the offender quickly.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1488
  },
  {
   "id": "core:r01489",
-  "n": 1325,
+  "n": 1333,
   "rank": 1489,
   "lemma": "hinein",
   "pos": "ADV",
@@ -347,11 +491,12 @@
   "target": "hinein",
   "en": "Please go on in, I'll be right there.",
   "note": "hinein = nach drinnen; umgangssprachlich: rein",
-  "case": null
+  "case": null,
+  "order": 1489
  },
  {
   "id": "core:r01490",
-  "n": 1326,
+  "n": 1334,
   "rank": 1490,
   "lemma": "berichten",
   "pos": "VERB",
@@ -361,11 +506,12 @@
   "target": "berichtet",
   "en": "The newspaper reported on the accident.",
   "note": "berichten über + Akk.",
-  "case": "A"
+  "case": "A",
+  "order": 1490
  },
  {
   "id": "core:r01492",
-  "n": 1327,
+  "n": 1335,
   "rank": 1492,
   "lemma": "eifersüchtig",
   "pos": "ADJ",
@@ -375,11 +521,12 @@
   "target": "eifersüchtig",
   "en": "My boyfriend gets jealous easily.",
   "note": "eifersüchtig auf + Akk.",
-  "case": null
+  "case": null,
+  "order": 1492
  },
  {
   "id": "core:r01494",
-  "n": 1328,
+  "n": 1336,
   "rank": 1494,
   "lemma": "russisch",
   "pos": "ADJ",
@@ -389,11 +536,12 @@
   "target": "russischen",
   "en": "There's a Russian supermarket on our street.",
   "note": "die Sprache: Russisch (groß)",
-  "case": null
+  "case": null,
+  "order": 1494
  },
  {
   "id": "core:r01495",
-  "n": 1329,
+  "n": 1337,
   "rank": 1495,
   "lemma": "Ratte",
   "pos": "NOUN",
@@ -403,11 +551,12 @@
   "target": "Ratte",
   "en": "We saw a rat in the backyard.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1495
  },
  {
   "id": "core:r01498",
-  "n": 1330,
+  "n": 1338,
   "rank": 1498,
   "lemma": "Aufmerksamkeit",
   "pos": "NOUN",
@@ -417,11 +566,12 @@
   "target": "Aufmerksamkeit",
   "en": "Thank you very much for your attention!",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1498
  },
  {
   "id": "core:r01499",
-  "n": 1331,
+  "n": 1339,
   "rank": 1499,
   "lemma": "einsperren",
   "pos": "VERB",
@@ -431,11 +581,12 @@
   "target": "einsperren",
   "en": "You shouldn't lock a dog up in the flat all day.",
   "note": "trennbar: ein|sperren",
-  "case": null
+  "case": null,
+  "order": 1499
  },
  {
   "id": "core:r01500",
-  "n": 1332,
+  "n": 1340,
   "rank": 1500,
   "lemma": "pfeifen",
   "pos": "VERB",
@@ -445,11 +596,12 @@
   "target": "pfeift",
   "en": "My grandpa always whistles while gardening.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1500
  },
  {
   "id": "core:r01501",
-  "n": 1333,
+  "n": 1341,
   "rank": 1501,
   "lemma": "umsonst",
   "pos": "ADV",
@@ -459,11 +611,12 @@
   "target": "umsonst",
   "en": "There was free coffee at the supermarket today.",
   "note": "umsonst = 1. kostenlos, 2. ohne Erfolg (Ich bin umsonst gekommen.)",
-  "case": null
+  "case": null,
+  "order": 1501
  },
  {
   "id": "core:r01503",
-  "n": 1334,
+  "n": 1342,
   "rank": 1503,
   "lemma": "nirgendwo",
   "pos": "ADV",
@@ -473,11 +626,12 @@
   "target": "nirgendwo",
   "en": "I've looked for my key everywhere, but I can't find it anywhere.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1503
  },
  {
   "id": "core:r01504",
-  "n": 1335,
+  "n": 1343,
   "rank": 1504,
   "lemma": "Vorschlag",
   "pos": "NOUN",
@@ -487,11 +641,12 @@
   "target": "Vorschlag",
   "en": "Do you have a better suggestion for the weekend?",
   "note": "einen Vorschlag machen",
-  "case": null
+  "case": null,
+  "order": 1504
  },
  {
   "id": "core:r01505",
-  "n": 1336,
+  "n": 1344,
   "rank": 1505,
   "lemma": "schlau",
   "pos": "ADJ",
@@ -501,11 +656,12 @@
   "target": "schlaue",
   "en": "That was a clever idea to book in advance.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1505
  },
  {
   "id": "core:r01506",
-  "n": 1337,
+  "n": 1345,
   "rank": 1506,
   "lemma": "Meile",
   "pos": "NOUN",
@@ -515,11 +671,12 @@
   "target": "Meilen",
   "en": "In England, distances are measured in miles, not kilometres.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1506
  },
  {
   "id": "core:r01508",
-  "n": 1338,
+  "n": 1346,
   "rank": 1508,
   "lemma": "folgend",
   "pos": "ADJ",
@@ -529,11 +686,12 @@
   "target": "folgenden",
   "en": "The following day he apologised to me.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1508
  },
  {
   "id": "core:r01509",
-  "n": 1339,
+  "n": 1347,
   "rank": 1509,
   "lemma": "Mond",
   "pos": "NOUN",
@@ -543,11 +701,12 @@
   "target": "Mond",
   "en": "The moon is especially bright tonight.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1509
  },
  {
   "id": "core:r01510",
-  "n": 1340,
+  "n": 1348,
   "rank": 1510,
   "lemma": "Ergebnis",
   "pos": "NOUN",
@@ -557,11 +716,12 @@
   "target": "Ergebnis",
   "en": "Tomorrow the doctor will discuss the result of the blood test with me.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1510
  },
  {
   "id": "core:r01511",
-  "n": 1341,
+  "n": 1349,
   "rank": 1511,
   "lemma": "verurteilen",
   "pos": "VERB",
@@ -571,11 +731,12 @@
   "target": "verurteilt",
   "en": "According to the news, the man was sentenced to three years in prison.",
   "note": "jemanden zu + Dativ verurteilen",
-  "case": null
+  "case": null,
+  "order": 1511
  },
  {
   "id": "core:r01512",
-  "n": 1342,
+  "n": 1350,
   "rank": 1512,
   "lemma": "Schande",
   "pos": "NOUN",
@@ -585,11 +746,12 @@
   "target": "Schande",
   "en": "It's a shame that so much food gets thrown away.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1512
  },
  {
   "id": "core:r01513",
-  "n": 1343,
+  "n": 1351,
   "rank": 1513,
   "lemma": "Sieg",
   "pos": "NOUN",
@@ -599,11 +761,12 @@
   "target": "Sieg",
   "en": "After the win, the fans celebrated in the city.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1513
  },
  {
   "id": "core:r01514",
-  "n": 1344,
+  "n": 1352,
   "rank": 1514,
   "lemma": "zusehen",
   "pos": "VERB",
@@ -613,11 +776,12 @@
   "target": "sehe",
   "en": "I like watching the children play.",
   "note": "trennbar; jemandem (Dativ) bei etwas zusehen",
-  "case": "D"
+  "case": "D",
+  "order": 1514
  },
  {
   "id": "core:r01515",
-  "n": 1345,
+  "n": 1353,
   "rank": 1515,
   "lemma": "Blödsinn",
   "pos": "NOUN",
@@ -627,11 +791,12 @@
   "target": "Blödsinn",
   "en": "That's nonsense, I don't believe it.",
   "note": "umgangssprachlich",
-  "case": null
+  "case": null,
+  "order": 1515
  },
  {
   "id": "core:r01516",
-  "n": 1346,
+  "n": 1354,
   "rank": 1516,
   "lemma": "Pfund",
   "pos": "NOUN",
@@ -641,11 +806,12 @@
   "target": "Pfund",
   "en": "I'd like a pound of tomatoes, please.",
   "note": "ein Pfund = 500 Gramm",
-  "case": null
+  "case": null,
+  "order": 1516
  },
  {
   "id": "core:r01517",
-  "n": 1347,
+  "n": 1355,
   "rank": 1517,
   "lemma": "komplett",
   "pos": "ADJ",
@@ -655,11 +821,12 @@
   "target": "komplett",
   "en": "I completely forgot the appointment.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1517
  },
  {
   "id": "core:r01518",
-  "n": 1348,
+  "n": 1356,
   "rank": 1518,
   "lemma": "Übersetzung",
   "pos": "NOUN",
@@ -669,11 +836,12 @@
   "target": "Übersetzung",
   "en": "For the authorities I need a certified translation of my birth certificate.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1518
  },
  {
   "id": "core:r01519",
-  "n": 1349,
+  "n": 1357,
   "rank": 1519,
   "lemma": "Kunst",
   "pos": "NOUN",
@@ -683,11 +851,12 @@
   "target": "Kunst",
   "en": "On Sunday we're going to the museum of modern art.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1519
  },
  {
   "id": "core:r01520",
-  "n": 1350,
+  "n": 1358,
   "rank": 1520,
   "lemma": "ablehnen",
   "pos": "VERB",
@@ -697,11 +866,12 @@
   "target": "abgelehnt",
   "en": "Unfortunately the bank rejected my application.",
   "note": "trennbar: Ich lehne ab.",
-  "case": null
+  "case": null,
+  "order": 1520
  },
  {
   "id": "core:r01521",
-  "n": 1351,
+  "n": 1359,
   "rank": 1521,
   "lemma": "desto",
   "pos": "ADV",
@@ -711,11 +881,12 @@
   "target": "desto",
   "en": "The earlier we leave, the less traffic we'll have.",
   "note": "je + Komparativ …, desto + Komparativ …",
-  "case": null
+  "case": null,
+  "order": 1521
  },
  {
   "id": "core:r01522",
-  "n": 1352,
+  "n": 1360,
   "rank": 1522,
   "lemma": "Steuer",
   "pos": "NOUN",
@@ -725,11 +896,12 @@
   "target": "Steuern",
   "en": "How much tax do you actually pay per month?",
   "note": "Achtung: das Steuer = Lenkrad im Auto",
-  "case": null
+  "case": null,
+  "order": 1522
  },
  {
   "id": "core:r01523",
-  "n": 1353,
+  "n": 1361,
   "rank": 1523,
   "lemma": "Krankheit",
   "pos": "NOUN",
@@ -739,11 +911,12 @@
   "target": "Krankheit",
   "en": "Because of an illness she couldn't work for two weeks.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1523
  },
  {
   "id": "core:r01524",
-  "n": 1354,
+  "n": 1362,
   "rank": 1524,
   "lemma": "Schatten",
   "pos": "NOUN",
@@ -753,11 +926,12 @@
   "target": "Schatten",
   "en": "It's so hot, let's go into the shade.",
   "note": "im Schatten (Wo?), in den Schatten (Wohin?)",
-  "case": null
+  "case": null,
+  "order": 1524
  },
  {
   "id": "core:r01525",
-  "n": 1355,
+  "n": 1363,
   "rank": 1525,
   "lemma": "Tatsache",
   "pos": "NOUN",
@@ -767,11 +941,12 @@
   "target": "Tatsache",
   "en": "The fact is that we don't have enough space.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1525
  },
  {
   "id": "core:r01526",
-  "n": 1356,
+  "n": 1364,
   "rank": 1526,
   "lemma": "Stock",
   "pos": "NOUN",
@@ -781,11 +956,12 @@
   "target": "Stock",
   "en": "Our flat is on the third floor, unfortunately without a lift.",
   "note": "der Stock = die Etage. Bedeutung „Stab“: Plural die Stöcke",
-  "case": null
+  "case": null,
+  "order": 1526
  },
  {
   "id": "core:r01527",
-  "n": 1357,
+  "n": 1365,
   "rank": 1527,
   "lemma": "ausmachen",
   "pos": "VERB",
@@ -795,11 +971,12 @@
   "target": "auszumachen",
   "en": "Don't forget to switch off the stove before you leave.",
   "note": "trennbar. Auch: einen Termin ausmachen; Das macht mir nichts aus.",
-  "case": null
+  "case": null,
+  "order": 1527
  },
  {
   "id": "core:r01528",
-  "n": 1358,
+  "n": 1366,
   "rank": 1528,
   "lemma": "Anzug",
   "pos": "NOUN",
@@ -809,11 +986,12 @@
   "target": "Anzug",
   "en": "He bought himself a new suit for the job interview.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1528
  },
  {
   "id": "core:r01529",
-  "n": 1359,
+  "n": 1367,
   "rank": 1529,
   "lemma": "gemein",
   "pos": "ADJ",
@@ -823,11 +1001,12 @@
   "target": "gemein",
   "en": "That was really mean of you.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1529
  },
  {
   "id": "core:r01531",
-  "n": 1360,
+  "n": 1368,
   "rank": 1531,
   "lemma": "rausfinden",
   "pos": "VERB",
@@ -837,11 +1016,12 @@
   "target": "rausfinden",
   "en": "I still have to find out when the bus leaves.",
   "note": "umgangssprachlich für herausfinden; trennbar",
-  "case": null
+  "case": null,
+  "order": 1531
  },
  {
   "id": "core:r01532",
-  "n": 1361,
+  "n": 1369,
   "rank": 1532,
   "lemma": "sich benehmen",
   "pos": "VERB",
@@ -851,11 +1031,12 @@
   "target": "benommen",
   "en": "The children behaved very well during the meal.",
   "note": "er benimmt sich",
-  "case": null
+  "case": null,
+  "order": 1532
  },
  {
   "id": "core:r01533",
-  "n": 1362,
+  "n": 1370,
   "rank": 1533,
   "lemma": "Truppe",
   "pos": "NOUN",
@@ -865,11 +1046,12 @@
   "target": "Truppen",
   "en": "According to the news, the troops will be withdrawn next year.",
   "note": "umgangssprachlich auch: Gruppe, Team (eine lustige Truppe)",
-  "case": null
+  "case": null,
+  "order": 1533
  },
  {
   "id": "core:r01534",
-  "n": 1363,
+  "n": 1371,
   "rank": 1534,
   "lemma": "Freitag",
   "pos": "NOUN",
@@ -879,11 +1061,12 @@
   "target": "Freitag",
   "en": "On Friday I only work until twelve.",
   "note": "am Freitag; freitags = jeden Freitag",
-  "case": null
+  "case": null,
+  "order": 1534
  },
  {
   "id": "core:r01536",
-  "n": 1364,
+  "n": 1372,
   "rank": 1536,
   "lemma": "berühmt",
   "pos": "ADJ",
@@ -893,11 +1076,12 @@
   "target": "berühmt",
   "en": "The town is famous for its Christmas market.",
   "note": "berühmt für + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 1536
  },
  {
   "id": "core:r01537",
-  "n": 1365,
+  "n": 1373,
   "rank": 1537,
   "lemma": "Mühe",
   "pos": "NOUN",
@@ -907,11 +1091,12 @@
   "target": "Mühe",
   "en": "Thank you so much for going to so much trouble!",
   "note": "sich Mühe geben",
-  "case": null
+  "case": null,
+  "order": 1537
  },
  {
   "id": "core:r01538",
-  "n": 1366,
+  "n": 1374,
   "rank": 1538,
   "lemma": "sparen",
   "pos": "VERB",
@@ -921,11 +1106,12 @@
   "target": "sparen",
   "en": "We're saving up for a bigger flat at the moment.",
   "note": "sparen für + Akkusativ",
-  "case": null
+  "case": null,
+  "order": 1538
  },
  {
   "id": "core:r01539",
-  "n": 1367,
+  "n": 1375,
   "rank": 1539,
   "lemma": "wecken",
   "pos": "VERB",
@@ -935,11 +1121,12 @@
   "target": "wecken",
   "en": "Can you wake me up at six tomorrow?",
   "note": "jemanden (Akk.) wecken; selbst wach werden = aufwachen",
-  "case": null
+  "case": null,
+  "order": 1539
  },
  {
   "id": "core:r01540",
-  "n": 1368,
+  "n": 1376,
   "rank": 1540,
   "lemma": "eng",
   "pos": "ADJ",
@@ -949,11 +1136,12 @@
   "target": "eng",
   "en": "The street is so narrow that two cars can hardly get past each other.",
   "note": "auch: eine enge Freundin = sehr gute Freundin",
-  "case": null
+  "case": null,
+  "order": 1540
  },
  {
   "id": "core:r01541",
-  "n": 1369,
+  "n": 1377,
   "rank": 1541,
   "lemma": "Knochen",
   "pos": "NOUN",
@@ -963,11 +1151,12 @@
   "target": "Knochen",
   "en": "He broke a bone in his foot while skiing.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1541
  },
  {
   "id": "core:r01542",
-  "n": 1370,
+  "n": 1378,
   "rank": 1542,
   "lemma": "bestrafen",
   "pos": "VERB",
@@ -977,11 +1166,12 @@
   "target": "bestraft",
   "en": "Anyone who runs a red light gets punished.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1542
  },
  {
   "id": "core:r01543",
-  "n": 1371,
+  "n": 1379,
   "rank": 1543,
   "lemma": "zugeben",
   "pos": "VERB",
@@ -991,11 +1181,12 @@
   "target": "zugeben",
   "en": "I have to admit that I didn't understand the film.",
   "note": "trennbar: er gibt zu",
-  "case": null
+  "case": null,
+  "order": 1543
  },
  {
   "id": "core:r01544",
-  "n": 1372,
+  "n": 1380,
   "rank": 1544,
   "lemma": "Grab",
   "pos": "NOUN",
@@ -1005,11 +1196,12 @@
   "target": "Grab",
   "en": "Every Sunday she takes flowers to her mother's grave.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1544
  },
  {
   "id": "core:r01545",
-  "n": 1373,
+  "n": 1381,
   "rank": 1545,
   "lemma": "ebenso",
   "pos": "ADV",
@@ -1019,11 +1211,12 @@
   "target": "ebenso",
   "en": "My new job is just as stressful as the old one.",
   "note": "ebenso … wie = genauso … wie",
-  "case": null
+  "case": null,
+  "order": 1545
  },
  {
   "id": "core:r01546",
-  "n": 1374,
+  "n": 1382,
   "rank": 1546,
   "lemma": "Nachbar",
   "pos": "NOUN",
@@ -1033,11 +1226,12 @@
   "target": "Nachbarn",
   "en": "Our neighbours listened to loud music until midnight yesterday.",
   "note": "n-Deklination: den/dem Nachbarn; weiblich: die Nachbarin",
-  "case": null
+  "case": null,
+  "order": 1546
  },
  {
   "id": "core:r01547",
-  "n": 1375,
+  "n": 1383,
   "rank": 1547,
   "lemma": "riesig",
   "pos": "ADJ",
@@ -1047,11 +1241,12 @@
   "target": "riesigen",
   "en": "The new flat has a huge balcony.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1547
  },
  {
   "id": "core:r01548",
-  "n": 1376,
+  "n": 1384,
   "rank": 1548,
   "lemma": "aufgeregt",
   "pos": "ADJ",
@@ -1061,11 +1256,12 @@
   "target": "aufgeregt",
   "en": "I was really nervous before the exam.",
   "note": "aufgeregt = nervös oder voller Vorfreude",
-  "case": null
+  "case": null,
+  "order": 1548
  },
  {
   "id": "core:r01549",
-  "n": 1377,
+  "n": 1385,
   "rank": 1549,
   "lemma": "Motor",
   "pos": "NOUN",
@@ -1075,11 +1271,12 @@
   "target": "Motor",
   "en": "The engine is making strange noises, I'm taking it to the garage.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1549
  },
  {
   "id": "core:r01552",
-  "n": 1378,
+  "n": 1386,
   "rank": 1552,
   "lemma": "dennoch",
   "pos": "ADV",
@@ -1089,11 +1286,12 @@
   "target": "dennoch",
   "en": "It was raining; nevertheless we went for a walk.",
   "note": "dennoch = trotzdem; danach Verb auf Position 2",
-  "case": null
+  "case": null,
+  "order": 1552
  },
  {
   "id": "core:r01553",
-  "n": 1379,
+  "n": 1387,
   "rank": 1553,
   "lemma": "Stuhl",
   "pos": "NOUN",
@@ -1103,11 +1301,12 @@
   "target": "Stühle",
   "en": "We still need a few chairs for the party.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1553
  },
  {
   "id": "core:r01555",
-  "n": 1380,
+  "n": 1388,
   "rank": 1555,
   "lemma": "romantisch",
   "pos": "ADJ",
@@ -1117,11 +1316,12 @@
   "target": "romantisches",
   "en": "We spent a romantic weekend on the Baltic coast.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1555
  },
  {
   "id": "core:r01556",
-  "n": 1381,
+  "n": 1389,
   "rank": 1556,
   "lemma": "trotz",
   "pos": "ADP",
@@ -1131,11 +1331,12 @@
   "target": "Trotz",
   "en": "Despite the bad weather, the market was full.",
   "note": "trotz + Genitiv (gesprochen oft + Dativ)",
-  "case": "G"
+  "case": "G",
+  "order": 1556
  },
  {
   "id": "core:r01557",
-  "n": 1382,
+  "n": 1390,
   "rank": 1557,
   "lemma": "Gast",
   "pos": "NOUN",
@@ -1145,11 +1346,12 @@
   "target": "Gäste",
   "en": "We have guests for dinner on Saturday.",
   "note": "bei jemandem zu Gast sein",
-  "case": null
+  "case": null,
+  "order": 1557
  },
  {
   "id": "core:r01559",
-  "n": 1383,
+  "n": 1391,
   "rank": 1559,
   "lemma": "betrügen",
   "pos": "VERB",
@@ -1159,11 +1361,12 @@
   "target": "betrügen",
   "en": "A man on the phone tried to cheat my grandma.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1559
  },
  {
   "id": "core:r01560",
-  "n": 1384,
+  "n": 1392,
   "rank": 1560,
   "lemma": "Hexe",
   "pos": "NOUN",
@@ -1173,11 +1376,12 @@
   "target": "Hexe",
   "en": "My daughter wants to dress up as a witch for carnival.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1560
  },
  {
   "id": "core:r01561",
-  "n": 1385,
+  "n": 1393,
   "rank": 1561,
   "lemma": "deutlich",
   "pos": "ADJ",
@@ -1187,11 +1391,12 @@
   "target": "deutlicher",
   "en": "Could you please speak a bit more clearly?",
   "note": "auch: deutlich teurer = viel teurer",
-  "case": null
+  "case": null,
+  "order": 1561
  },
  {
   "id": "core:r01562",
-  "n": 1386,
+  "n": 1394,
   "rank": 1562,
   "lemma": "verschwenden",
   "pos": "VERB",
@@ -1201,11 +1406,12 @@
   "target": "verschwenden",
   "en": "I don't want to waste my time on long discussions.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 1562
  },
  {
   "id": "core:r01563",
-  "n": 1387,
+  "n": 1395,
   "rank": 1563,
   "lemma": "Stich",
   "pos": "NOUN",
@@ -1215,11 +1421,12 @@
   "target": "Stich",
   "en": "Suddenly I felt a sharp pain in my chest.",
   "note": "von stechen; auch: der Mückenstich",
-  "case": null
+  "case": null,
+  "order": 1563
  },
  {
   "id": "core:r01564",
-  "n": 1388,
+  "n": 1396,
   "rank": 1564,
   "lemma": "Fahrer",
   "pos": "NOUN",
@@ -1229,11 +1436,12 @@
   "target": "Fahrer",
   "en": "The driver forgot to stop at my stop.",
   "note": "weiblich: die Fahrerin",
-  "case": null
+  "case": null,
+  "order": 1564
  },
  {
   "id": "core:r01565",
-  "n": 1389,
+  "n": 1397,
   "rank": 1565,
   "lemma": "interessieren",
   "pos": "VERB",
@@ -1243,11 +1451,12 @@
   "target": "Interessierst",
   "en": "Are you interested in football?",
   "note": "sich interessieren für + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 1565
  },
  {
   "id": "core:r01566",
-  "n": 1390,
+  "n": 1398,
   "rank": 1566,
   "lemma": "Aussage",
   "pos": "NOUN",
@@ -1257,11 +1466,12 @@
   "target": "Aussage",
   "en": "The witness gave a statement to the police.",
   "note": "eine Aussage machen",
-  "case": null
+  "case": null,
+  "order": 1566
  },
  {
   "id": "core:r01567",
-  "n": 1391,
+  "n": 1399,
   "rank": 1567,
   "lemma": "irgendein",
   "pos": "DET",
@@ -1271,11 +1481,12 @@
   "target": "irgendein",
   "en": "Is there any café around here that's open on Sundays?",
   "note": "Endungen wie ein: irgendein, irgendeine, irgendeinen",
-  "case": null
+  "case": null,
+  "order": 1567
  },
  {
   "id": "core:r01568",
-  "n": 1392,
+  "n": 1400,
   "rank": 1568,
   "lemma": "sich verabschieden",
   "pos": "VERB",
@@ -1285,118 +1496,7 @@
   "target": "verabschieden",
   "en": "I still have to say goodbye to my colleagues.",
   "note": "sich verabschieden von + Dativ",
-  "case": "D"
- },
- {
-  "id": "core:r01569",
-  "n": 1393,
-  "rank": 1569,
-  "lemma": "vergehen",
-  "pos": "VERB",
-  "display": "vergehen · verging · ist vergangen",
-  "gloss": "to pass (time); to go away",
-  "sentence": "Im Urlaub vergeht die Zeit immer viel zu schnell.",
-  "target": "vergeht",
-  "en": "On holiday time always passes far too quickly.",
-  "note": "Perfekt mit sein",
-  "case": null
- },
- {
-  "id": "core:r01570",
-  "n": 1394,
-  "rank": 1570,
-  "lemma": "Theorie",
-  "pos": "NOUN",
-  "display": "die Theorie · die Theorien",
-  "gloss": "theory",
-  "sentence": "In der Theorie klingt das gut, aber in der Praxis funktioniert es nicht.",
-  "target": "Theorie",
-  "en": "In theory that sounds good, but in practice it doesn't work.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r01571",
-  "n": 1395,
-  "rank": 1571,
-  "lemma": "streichen",
-  "pos": "VERB",
-  "display": "streichen · strich · hat gestrichen",
-  "gloss": "to paint; to spread; to cancel",
-  "sentence": "Bevor wir ausziehen, müssen wir die Wände streichen.",
-  "target": "streichen",
-  "en": "Before we move out, we have to paint the walls.",
-  "note": "auch: Butter aufs Brot streichen; ein Zug wird gestrichen",
-  "case": null
- },
- {
-  "id": "core:r01574",
-  "n": 1396,
-  "rank": 1574,
-  "lemma": "Theater",
-  "pos": "NOUN",
-  "display": "das Theater · die Theater",
-  "gloss": "theatre",
-  "sentence": "Wir haben Karten fürs Theater am Freitagabend.",
-  "target": "Theater",
-  "en": "We've got tickets for the theatre on Friday evening.",
-  "note": "umgangssprachlich auch: Ärger, Aufregung (Mach kein Theater!)",
-  "case": null
- },
- {
-  "id": "core:r01575",
-  "n": 1397,
-  "rank": 1575,
-  "lemma": "Regen",
-  "pos": "NOUN",
-  "display": "der Regen · kein Plural",
-  "gloss": "rain",
-  "sentence": "Für morgen ist starker Regen angesagt.",
-  "target": "Regen",
-  "en": "Heavy rain is forecast for tomorrow.",
-  "note": "Verb: regnen (Es regnet.)",
-  "case": null
- },
- {
-  "id": "core:r01578",
-  "n": 1398,
-  "rank": 1578,
-  "lemma": "treu",
-  "pos": "ADJ",
-  "display": "treu",
-  "gloss": "loyal, faithful",
-  "sentence": "Sie ist seit zwanzig Jahren eine treue Kundin in unserem Laden.",
-  "target": "treue",
-  "en": "She has been a loyal customer in our shop for twenty years.",
-  "note": null,
-  "case": null
- },
- {
-  "id": "core:r01579",
-  "n": 1399,
-  "rank": 1579,
-  "lemma": "Bauer",
-  "pos": "NOUN",
-  "display": "der Bauer · die Bauern",
-  "gloss": "farmer",
-  "sentence": "Am Samstag kaufen wir Eier direkt beim Bauern.",
-  "target": "Bauern",
-  "en": "On Saturday we buy eggs directly from the farmer.",
-  "note": "n-Deklination: den/dem Bauern; weiblich: die Bäuerin",
-  "case": null
- },
- {
-  "id": "core:r01580",
-  "n": 1400,
-  "rank": 1580,
-  "lemma": "Panik",
-  "pos": "NOUN",
-  "display": "die Panik · kein Plural",
-  "gloss": "panic",
-  "sentence": "Keine Panik, wir schaffen den Zug noch!",
-  "target": "Panik",
-  "en": "Don't panic, we'll still make the train!",
-  "note": "in Panik geraten",
-  "case": null
+  "case": "D",
+  "order": 1568
  }
 ]

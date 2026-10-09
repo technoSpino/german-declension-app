@@ -11,7 +11,8 @@
   "target": "Der",
   "en": "Unfortunately the bus is coming ten minutes late today.",
   "note": "der/die/das – bestimmter Artikel; hier Nominativ maskulin: der Bus",
-  "case": "N"
+  "case": "N",
+  "order": 1
  },
  {
   "id": "core:r00002",
@@ -25,7 +26,8 @@
   "target": "Ich",
   "en": "I've been working in a bakery for two years.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 2
  },
  {
   "id": "core:r00003",
@@ -39,7 +41,8 @@
   "target": "ist",
   "en": "My boss isn't in the office today.",
   "note": "ich bin, du bist, er ist, wir sind, ihr seid, sie sind",
-  "case": null
+  "case": null,
+  "order": 3
  },
  {
   "id": "core:r00004",
@@ -53,7 +56,8 @@
   "target": "du",
   "en": "Do you have time this evening?",
   "note": "du = informell (Freunde, Familie); Sie = formell",
-  "case": null
+  "case": null,
+  "order": 4
  },
  {
   "id": "core:r00005",
@@ -67,7 +71,8 @@
   "target": "sie",
   "en": "My sister lives in Cologne, but she works in Bonn.",
   "note": "sie = she/they; Sie (groß) = formelles „you“",
-  "case": null
+  "case": null,
+  "order": 5
  },
  {
   "id": "core:r00006",
@@ -81,7 +86,8 @@
   "target": "eine",
   "en": "I'm looking for a flat with a balcony.",
   "note": "unbestimmter Artikel; hier Akkusativ feminin: eine Wohnung",
-  "case": "A"
+  "case": "A",
+  "order": 6
  },
  {
   "id": "core:r00007",
@@ -95,7 +101,8 @@
   "target": "haben",
   "en": "We have two children and a dog.",
   "note": "ich habe, du hast, er hat; auch Hilfsverb im Perfekt",
-  "case": null
+  "case": null,
+  "order": 7
  },
  {
   "id": "core:r00008",
@@ -109,7 +116,8 @@
   "target": "nicht",
   "en": "Unfortunately I can't come today.",
   "note": "nicht verneint Verben und Adjektive; kein verneint Nomen",
-  "case": null
+  "case": null,
+  "order": 8
  },
  {
   "id": "core:r00009",
@@ -123,7 +131,8 @@
   "target": "Es",
   "en": "It's been raining all day.",
   "note": "es als Subjekt beim Wetter: Es regnet, es schneit.",
-  "case": null
+  "case": null,
+  "order": 9
  },
  {
   "id": "core:r00010",
@@ -137,7 +146,8 @@
   "target": "und",
   "en": "I buy bread and milk at the supermarket.",
   "note": "und verändert die Wortstellung nicht (Position 0)",
-  "case": null
+  "case": null,
+  "order": 10
  },
  {
   "id": "core:r00011",
@@ -151,7 +161,8 @@
   "target": "Wir",
   "en": "We're going out to eat together tonight.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 11
  },
  {
   "id": "core:r00012",
@@ -165,7 +176,8 @@
   "target": "Er",
   "en": "He's my colleague from accounting.",
   "note": "er = he, aber auch „it“ für maskuline Nomen: der Tisch → er",
-  "case": null
+  "case": null,
+  "order": 12
  },
  {
   "id": "core:r00013",
@@ -179,7 +191,8 @@
   "target": "zum",
   "en": "I'm going to the doctor tomorrow morning.",
   "note": "zu + Dativ; zu dem = zum, zu der = zur",
-  "case": "D"
+  "case": "D",
+  "order": 13
  },
  {
   "id": "core:r00014",
@@ -193,7 +206,8 @@
   "target": "in",
   "en": "We live in a small flat.",
   "note": "Wechselpräposition: Wo? + Dativ, Wohin? + Akkusativ",
-  "case": "D"
+  "case": "D",
+  "order": 14
  },
  {
   "id": "core:r00015",
@@ -207,7 +221,8 @@
   "target": "Was",
   "en": "What are you doing at the weekend?",
   "note": "umgangssprachlich auch = etwas: Ich muss noch was kaufen.",
-  "case": null
+  "case": null,
+  "order": 15
  },
  {
   "id": "core:r00016",
@@ -221,7 +236,8 @@
   "target": "wird",
   "en": "It's going to be cold again tomorrow.",
   "note": "werden + Adjektiv = to become; werden + Infinitiv = Futur",
-  "case": null
+  "case": null,
+  "order": 16
  },
  {
   "id": "core:r00017",
@@ -235,7 +251,8 @@
   "target": "ihr",
   "en": "Do you (guys) have any plans for the weekend yet?",
   "note": "ihr = mehrere Personen, informell. Auch Possessivartikel: ihr/Ihr (her/their/your)",
-  "case": null
+  "case": null,
+  "order": 17
  },
  {
   "id": "core:r00018",
@@ -249,7 +266,8 @@
   "target": "Mein",
   "en": "My brother has been living in Berlin for a year.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 18
  },
  {
   "id": "core:r00019",
@@ -263,7 +281,8 @@
   "target": "Können",
   "en": "Can you help me, please?",
   "note": "Modalverb: ich kann, du kannst, er kann; Infinitiv am Ende",
-  "case": null
+  "case": null,
+  "order": 19
  },
  {
   "id": "core:r00020",
@@ -277,7 +296,8 @@
   "target": "ja",
   "en": "That's a great idea!",
   "note": "ja = yes; im Satz oft Partikel für Überraschung",
-  "case": null
+  "case": null,
+  "order": 20
  },
  {
   "id": "core:r00021",
@@ -291,7 +311,8 @@
   "target": "mit",
   "en": "I cycle to work every day.",
   "note": "mit + Dativ",
-  "case": "D"
+  "case": "D",
+  "order": 21
  },
  {
   "id": "core:r00022",
@@ -305,7 +326,8 @@
   "target": "Wie",
   "en": "How long does the journey to Munich take?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 22
  },
  {
   "id": "core:r00023",
@@ -319,7 +341,8 @@
   "target": "auf",
   "en": "I've been waiting for the bus for twenty minutes.",
   "note": "warten auf + Akkusativ. Wechselpräposition: Wo? + Dativ, Wohin? + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 23
  },
  {
   "id": "core:r00024",
@@ -333,7 +356,8 @@
   "target": "dass",
   "en": "I think that the shop is closed today.",
   "note": "Nebensatz: Verb am Ende; Komma vor dass",
-  "case": null
+  "case": null,
+  "order": 24
  },
  {
   "id": "core:r00025",
@@ -347,7 +371,8 @@
   "target": "aber",
   "en": "The flat is nice, but unfortunately too expensive.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 25
  },
  {
   "id": "core:r00026",
@@ -361,7 +386,8 @@
   "target": "gut",
   "en": "The food in that restaurant was really good.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 26
  },
  {
   "id": "core:r00027",
@@ -375,7 +401,8 @@
   "target": "so",
   "en": "Why are you so tired today?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 27
  },
  {
   "id": "core:r00028",
@@ -389,7 +416,8 @@
   "target": "wollen",
   "en": "We want to go to Italy in the summer.",
   "note": "Modalverb: ich will, du willst, er will",
-  "case": null
+  "case": null,
+  "order": 28
  },
  {
   "id": "core:r00029",
@@ -403,7 +431,8 @@
   "target": "an",
   "en": "The picture is hanging on the wall in the living room.",
   "note": "Wechselpräposition: Wo? + Dativ, Wohin? + Akkusativ",
-  "case": "D"
+  "case": "D",
+  "order": 29
  },
  {
   "id": "core:r00030",
@@ -417,7 +446,8 @@
   "target": "von",
   "en": "I got a message from my landlord.",
   "note": "von + Dativ",
-  "case": "D"
+  "case": "D",
+  "order": 30
  },
  {
   "id": "core:r00031",
@@ -431,7 +461,8 @@
   "target": "Weißt",
   "en": "Do you know when the supermarket closes today?",
   "note": "ich weiß, du weißt, er weiß; wissen = Fakten, kennen = Personen/Orte",
-  "case": null
+  "case": null,
+  "order": 31
  },
  {
   "id": "core:r00032",
@@ -445,7 +476,8 @@
   "target": "hier",
   "en": "Can you pay by card here?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 32
  },
  {
   "id": "core:r00033",
@@ -459,7 +491,8 @@
   "target": "für",
   "en": "I bought a present for my mother.",
   "note": "für + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 33
  },
  {
   "id": "core:r00034",
@@ -473,7 +506,8 @@
   "target": "gesagt",
   "en": "What did the doctor say?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 34
  },
  {
   "id": "core:r00035",
@@ -487,7 +521,8 @@
   "target": "gehe",
   "en": "I'm going to the cinema with friends tonight.",
   "note": "Wie geht es dir? = How are you?",
-  "case": null
+  "case": null,
+  "order": 35
  },
  {
   "id": "core:r00036",
@@ -501,7 +536,8 @@
   "target": "kommst",
   "en": "When are you coming home today?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 36
  },
  {
   "id": "core:r00037",
@@ -515,7 +551,8 @@
   "target": "wenn",
   "en": "Call me when you're home.",
   "note": "Nebensatz: Verb am Ende",
-  "case": null
+  "case": null,
+  "order": 37
  },
  {
   "id": "core:r00038",
@@ -529,7 +566,8 @@
   "target": "machen",
   "en": "At the weekend we're taking a trip to the lake.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 38
  },
  {
   "id": "core:r00039",
@@ -543,7 +581,8 @@
   "target": "keine",
   "en": "Unfortunately I have no time today.",
   "note": "kein verneint Nomen: ein Auto → kein Auto",
-  "case": null
+  "case": null,
+  "order": 39
  },
  {
   "id": "core:r00040",
@@ -557,7 +596,8 @@
   "target": "Nein",
   "en": "No, thanks, I don't need a bag.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 40
  },
  {
   "id": "core:r00041",
@@ -571,7 +611,8 @@
   "target": "Diese",
   "en": "This jacket is on sale at the moment.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 41
  },
  {
   "id": "core:r00042",
@@ -585,7 +626,8 @@
   "target": "gesehen",
   "en": "Have you seen the film yet?",
   "note": "du siehst, er sieht",
-  "case": null
+  "case": null,
+  "order": 42
  },
  {
   "id": "core:r00043",
@@ -599,7 +641,8 @@
   "target": "noch",
   "en": "I still have to go shopping quickly.",
   "note": "noch nicht = not yet; noch einmal = once more",
-  "case": null
+  "case": null,
+  "order": 43
  },
  {
   "id": "core:r00044",
@@ -613,7 +656,8 @@
   "target": "nur",
   "en": "I only have ten euros on me.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 44
  },
  {
   "id": "core:r00045",
@@ -627,7 +671,8 @@
   "target": "da",
   "en": "Is the boss in today?",
   "note": "da sein = anwesend sein",
-  "case": null
+  "case": null,
+  "order": 45
  },
  {
   "id": "core:r00046",
@@ -641,7 +686,8 @@
   "target": "tun",
   "en": "What can I do for you?",
   "note": "tun = machen (etwas formeller)",
-  "case": null
+  "case": null,
+  "order": 46
  },
  {
   "id": "core:r00047",
@@ -655,7 +701,8 @@
   "target": "sich",
   "en": "My son is already looking forward to the holidays.",
   "note": "Reflexivpronomen: ich – mich, du – dich, er/sie/es – sich",
-  "case": null
+  "case": null,
+  "order": 47
  },
  {
   "id": "core:r00048",
@@ -669,7 +716,8 @@
   "target": "dein",
   "en": "Is that your bike in front of the door?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 48
  },
  {
   "id": "core:r00049",
@@ -683,7 +731,8 @@
   "target": "viel",
   "en": "I have a lot of work this week.",
   "note": "viel + Singular (viel Zeit), viele + Plural (viele Leute)",
-  "case": null
+  "case": null,
+  "order": 49
  },
  {
   "id": "core:r00050",
@@ -697,7 +746,8 @@
   "target": "soll",
   "en": "The doctor says I should drink more water.",
   "note": "sollen: jemand anderes will es (Auftrag, Rat)",
-  "case": null
+  "case": null,
+  "order": 50
  },
  {
   "id": "core:r00051",
@@ -711,7 +761,8 @@
   "target": "auch",
   "en": "Are you coming to the cinema too?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 51
  },
  {
   "id": "core:r00052",
@@ -725,7 +776,8 @@
   "target": "schon",
   "en": "Are you already done with work?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 52
  },
  {
   "id": "core:r00053",
@@ -739,7 +791,8 @@
   "target": "als",
   "en": "I work as a nurse in a hospital.",
   "note": "als + Beruf/Rolle; nach Komparativ: größer als",
-  "case": null
+  "case": null,
+  "order": 53
  },
  {
   "id": "core:r00054",
@@ -753,7 +806,8 @@
   "target": "mal",
   "en": "Could you just open the window for a moment?",
   "note": "mal macht Bitten freundlicher (umgangssprachlich)",
-  "case": null
+  "case": null,
+  "order": 54
  },
  {
   "id": "core:r00055",
@@ -767,7 +821,8 @@
   "target": "jetzt",
   "en": "It's already late, I'm going home now.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 55
  },
  {
   "id": "core:r00056",
@@ -781,7 +836,8 @@
   "target": "Gibt",
   "en": "Is there a canteen in your office?",
   "note": "es gibt + Akkusativ = there is/are; du gibst, er gibt",
-  "case": "A"
+  "case": "A",
+  "order": 56
  },
  {
   "id": "core:r00057",
@@ -795,7 +851,8 @@
   "target": "dann",
   "en": "First we go shopping, then we cook together.",
   "note": "dann auf Position 1 → Verb direkt danach",
-  "case": null
+  "case": null,
+  "order": 57
  },
  {
   "id": "core:r00058",
@@ -809,7 +866,8 @@
   "target": "aus",
   "en": "My colleague is from Poland.",
   "note": "aus + Dativ",
-  "case": "D"
+  "case": "D",
+  "order": 58
  },
  {
   "id": "core:r00059",
@@ -823,7 +881,8 @@
   "target": "um",
   "en": "The course starts at half past seven.",
   "note": "um + Akkusativ; Uhrzeit: um 8 Uhr",
-  "case": "A"
+  "case": "A",
+  "order": 59
  },
  {
   "id": "core:r00060",
@@ -837,7 +896,8 @@
   "target": "Alle",
   "en": "All the colleagues were at the party yesterday.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 60
  },
  {
   "id": "core:r00061",
@@ -851,7 +911,8 @@
   "target": "Doch",
   "en": "Aren't you hungry? – Yes, I'm very hungry.",
   "note": "Doch! = Ja, als Antwort auf eine negative Frage",
-  "case": null
+  "case": null,
+  "order": 61
  },
  {
   "id": "core:r00062",
@@ -865,7 +926,8 @@
   "target": "lasse",
   "en": "I'm having my car repaired at the garage tomorrow.",
   "note": "etwas machen lassen = jemand anderes macht es",
-  "case": null
+  "case": null,
+  "order": 62
  },
  {
   "id": "core:r00063",
@@ -879,7 +941,8 @@
   "target": "oder",
   "en": "Would you like tea or coffee?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 63
  },
  {
   "id": "core:r00064",
@@ -893,7 +956,8 @@
   "target": "muss",
   "en": "I have to get up at six tomorrow morning.",
   "note": "Modalverb: ich muss, du musst, er muss",
-  "case": null
+  "case": null,
+  "order": 64
  },
  {
   "id": "core:r00065",
@@ -907,7 +971,8 @@
   "target": "beim",
   "en": "I was at the dentist this morning.",
   "note": "bei + Dativ; bei dem = beim",
-  "case": "D"
+  "case": "D",
+  "order": 65
  },
  {
   "id": "core:r00066",
@@ -921,7 +986,8 @@
   "target": "Nach",
   "en": "After work I'm going to the gym.",
   "note": "nach + Dativ; auch: nach Hause, nach Berlin",
-  "case": "D"
+  "case": "D",
+  "order": 66
  },
  {
   "id": "core:r00067",
@@ -935,7 +1001,8 @@
   "target": "nichts",
   "en": "I haven't eaten anything yet today.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 67
  },
  {
   "id": "core:r00068",
@@ -949,11 +1016,27 @@
   "target": "denke",
   "en": "I often think of my family back home.",
   "note": "denken an + Akkusativ",
-  "case": "A"
+  "case": "A",
+  "order": 68
+ },
+ {
+  "id": "core:r90001",
+  "n": 69,
+  "rank": 90001,
+  "lemma": "man",
+  "pos": "PRON",
+  "display": "man",
+  "gloss": "one, you (people in general)",
+  "sentence": "Hier darf man leider nicht parken.",
+  "target": "man",
+  "en": "Unfortunately you can't park here.",
+  "note": "man + Verb wie bei er/sie/es: man kann, man muss, man darf",
+  "case": null,
+  "order": 68.5
  },
  {
   "id": "core:r00069",
-  "n": 69,
+  "n": 70,
   "rank": 69,
   "lemma": "wo",
   "pos": "ADV",
@@ -963,11 +1046,12 @@
   "target": "Wo",
   "en": "Where is the nearest bus stop around here?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 69
  },
  {
   "id": "core:r00070",
-  "n": 70,
+  "n": 71,
   "rank": 70,
   "lemma": "etwas",
   "pos": "PRON",
@@ -977,11 +1061,12 @@
   "target": "etwas",
   "en": "Would you like something else to drink?",
   "note": "umgangssprachlich oft: was",
-  "case": null
+  "case": null,
+  "order": 70
  },
  {
   "id": "core:r00071",
-  "n": 71,
+  "n": 72,
   "rank": 71,
   "lemma": "also",
   "pos": "ADV",
@@ -991,11 +1076,12 @@
   "target": "also",
   "en": "The shop is closed, so we'll do the shopping tomorrow.",
   "note": "Falscher Freund: also = so/therefore, nicht „also“ (= auch)",
-  "case": null
+  "case": null,
+  "order": 71
  },
  {
   "id": "core:r00072",
-  "n": 72,
+  "n": 73,
   "rank": 72,
   "lemma": "Mann",
   "pos": "NOUN",
@@ -1005,11 +1091,12 @@
   "target": "Mann",
   "en": "The man at the checkout was very friendly.",
   "note": "mein Mann = my husband",
-  "case": null
+  "case": null,
+  "order": 72
  },
  {
   "id": "core:r00074",
-  "n": 73,
+  "n": 74,
   "rank": 74,
   "lemma": "bitte",
   "pos": "ADV",
@@ -1019,11 +1106,12 @@
   "target": "bitte",
   "en": "Can you help me for a moment, please?",
   "note": "Bitte! = You're welcome! Wie bitte? = Pardon?",
-  "case": null
+  "case": null,
+  "order": 74
  },
  {
   "id": "core:r00075",
-  "n": 74,
+  "n": 75,
   "rank": 75,
   "lemma": "immer",
   "pos": "ADV",
@@ -1033,11 +1121,12 @@
   "target": "immer",
   "en": "The train is almost always late.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 75
  },
  {
   "id": "core:r00076",
-  "n": 75,
+  "n": 76,
   "rank": 76,
   "lemma": "ganz",
   "pos": "ADV",
@@ -1047,11 +1136,12 @@
   "target": "ganz",
   "en": "The film was quite good, but a bit long.",
   "note": "ganz gut = ziemlich gut; den ganzen Tag = the whole day",
-  "case": null
+  "case": null,
+  "order": 76
  },
  {
   "id": "core:r00077",
-  "n": 76,
+  "n": 77,
   "rank": 77,
   "lemma": "unser",
   "pos": "DET",
@@ -1061,11 +1151,12 @@
   "target": "Unsere",
   "en": "Our flat is right by the station.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 77
  },
  {
   "id": "core:r00078",
-  "n": 77,
+  "n": 78,
   "rank": 78,
   "lemma": "warum",
   "pos": "ADV",
@@ -1075,11 +1166,12 @@
   "target": "Warum",
   "en": "Why didn't you call me?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 78
  },
  {
   "id": "core:r00079",
-  "n": 78,
+  "n": 79,
   "rank": 79,
   "lemma": "vor",
   "pos": "ADP",
@@ -1089,11 +1181,12 @@
   "target": "vor",
   "en": "We're meeting at eight in front of the cinema.",
   "note": "Wechselpräposition: Wo? + Dativ, Wohin? + Akk.; Zeit: vor + Dativ (vor einer Woche)",
-  "case": "D"
+  "case": "D",
+  "order": 79
  },
  {
   "id": "core:r00080",
-  "n": 79,
+  "n": 80,
   "rank": 80,
   "lemma": "los",
   "pos": "ADV",
@@ -1103,11 +1196,12 @@
   "target": "los",
   "en": "What's wrong? You look sad.",
   "note": "Was ist los? = What's going on? Los geht's! = Let's go!",
-  "case": null
+  "case": null,
+  "order": 80
  },
  {
   "id": "core:r00081",
-  "n": 80,
+  "n": 81,
   "rank": 81,
   "lemma": "wieder",
   "pos": "ADV",
@@ -1117,11 +1211,12 @@
   "target": "wieder",
   "en": "The heating is broken again.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 81
  },
  {
   "id": "core:r00082",
-  "n": 81,
+  "n": 82,
   "rank": 82,
   "lemma": "hören",
   "pos": "VERB",
@@ -1131,11 +1226,12 @@
   "target": "höre",
   "en": "I like listening to the radio while cooking.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 82
  },
  {
   "id": "core:r00083",
-  "n": 82,
+  "n": 83,
   "rank": 83,
   "lemma": "danke",
   "pos": "PART",
@@ -1145,11 +1241,12 @@
   "target": "Danke",
   "en": "Thanks for your help with the move!",
   "note": "danke für + Akkusativ; Vielen Dank!",
-  "case": "A"
+  "case": "A",
+  "order": 83
  },
  {
   "id": "core:r00084",
-  "n": 83,
+  "n": 84,
   "rank": 84,
   "lemma": "glauben",
   "pos": "VERB",
@@ -1159,11 +1256,12 @@
   "target": "glaube",
   "en": "I don't think the bus is running today.",
   "note": "glauben + Dativ (Person): Ich glaube dir.",
-  "case": null
+  "case": null,
+  "order": 84
  },
  {
   "id": "core:r00085",
-  "n": 84,
+  "n": 85,
   "rank": 85,
   "lemma": "sehr",
   "pos": "ADV",
@@ -1173,11 +1271,12 @@
   "target": "sehr",
   "en": "Thank you very much, that's very kind of you.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 85
  },
  {
   "id": "core:r00086",
-  "n": 85,
+  "n": 86,
   "rank": 86,
   "lemma": "denn",
   "pos": "CCONJ",
@@ -1187,11 +1286,12 @@
   "target": "denn",
   "en": "I'm staying at home today because I'm ill.",
   "note": "denn = Position 0, Verb auf Position 2 (bei weil: Verb am Ende)",
-  "case": null
+  "case": null,
+  "order": 86
  },
  {
   "id": "core:r00087",
-  "n": 86,
+  "n": 87,
   "rank": 87,
   "lemma": "finden",
   "pos": "VERB",
@@ -1201,11 +1301,12 @@
   "target": "finde",
   "en": "I can't find my key.",
   "note": "auch Meinung: Wie findest du das?",
-  "case": null
+  "case": null,
+  "order": 87
  },
  {
   "id": "core:r00088",
-  "n": 87,
+  "n": 88,
   "rank": 88,
   "lemma": "vielleicht",
   "pos": "ADV",
@@ -1215,11 +1316,12 @@
   "target": "Vielleicht",
   "en": "Maybe it won't rain tomorrow.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 88
  },
  {
   "id": "core:r00089",
-  "n": 88,
+  "n": 89,
   "rank": 89,
   "lemma": "wer",
   "pos": "PRON",
@@ -1229,11 +1331,12 @@
   "target": "Wer",
   "en": "Who all is coming to the party tonight?",
   "note": "wer (Nom.), wen (Akk.), wem (Dat.)",
-  "case": null
+  "case": null,
+  "order": 89
  },
  {
   "id": "core:r00090",
-  "n": 89,
+  "n": 90,
   "rank": 90,
   "lemma": "leben",
   "pos": "VERB",
@@ -1243,11 +1346,12 @@
   "target": "leben",
   "en": "My parents have been living in Germany for thirty years.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 90
  },
  {
   "id": "core:r00091",
-  "n": 90,
+  "n": 91,
   "rank": 91,
   "lemma": "über",
   "pos": "ADP",
@@ -1257,11 +1361,12 @@
   "target": "über",
   "en": "We talked about the problem for a long time.",
   "note": "sprechen über + Akkusativ; Wechselpräposition: Wo? + Dativ, Wohin? + Akk.",
-  "case": "A"
+  "case": "A",
+  "order": 91
  },
  {
   "id": "core:r00092",
-  "n": 91,
+  "n": 92,
   "rank": 92,
   "lemma": "anderer",
   "pos": "ADJ",
@@ -1271,11 +1376,12 @@
   "target": "anderen",
   "en": "Do you also have the jacket in a different colour?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 92
  },
  {
   "id": "core:r00093",
-  "n": 92,
+  "n": 93,
   "rank": 93,
   "lemma": "brauchen",
   "pos": "VERB",
@@ -1285,11 +1391,12 @@
   "target": "Brauchst",
   "en": "Do you need help carrying?",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 93
  },
  {
   "id": "core:r00094",
-  "n": 93,
+  "n": 94,
   "rank": 94,
   "lemma": "wirklich",
   "pos": "ADV",
@@ -1299,11 +1406,12 @@
   "target": "wirklich",
   "en": "The concert was really great.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 94
  },
  {
   "id": "core:r00095",
-  "n": 94,
+  "n": 95,
   "rank": 95,
   "lemma": "nie",
   "pos": "ADV",
@@ -1313,11 +1421,12 @@
   "target": "nie",
   "en": "I've never been to Switzerland.",
   "note": "noch nie = never (before)",
-  "case": null
+  "case": null,
+  "order": 95
  },
  {
   "id": "core:r00096",
-  "n": 95,
+  "n": 96,
   "rank": 96,
   "lemma": "nehmen",
   "pos": "VERB",
@@ -1327,11 +1436,12 @@
   "target": "nehme",
   "en": "I'll have a coffee and a piece of cake.",
   "note": "du nimmst, er nimmt",
-  "case": null
+  "case": null,
+  "order": 96
  },
  {
   "id": "core:r00097",
-  "n": 96,
+  "n": 97,
   "rank": 97,
   "lemma": "Frau",
   "pos": "NOUN",
@@ -1341,11 +1451,12 @@
   "target": "Frau",
   "en": "The woman at the counter helped me a lot.",
   "note": "meine Frau = my wife; Frau + Nachname = Mrs/Ms",
-  "case": null
+  "case": null,
+  "order": 97
  },
  {
   "id": "core:r00098",
-  "n": 97,
+  "n": 98,
   "rank": 98,
   "lemma": "einfach",
   "pos": "ADJ",
@@ -1355,11 +1466,12 @@
   "target": "einfach",
   "en": "The task isn't that easy.",
   "note": "als Partikel: Mach es einfach! = Just do it!",
-  "case": null
+  "case": null,
+  "order": 98
  },
  {
   "id": "core:r00099",
-  "n": 98,
+  "n": 99,
   "rank": 99,
   "lemma": "weg",
   "pos": "ADV",
@@ -1369,11 +1481,12 @@
   "target": "weg",
   "en": "When I came back, my bike was gone.",
   "note": null,
-  "case": null
+  "case": null,
+  "order": 99
  },
  {
   "id": "core:r00100",
-  "n": 99,
+  "n": 100,
   "rank": 100,
   "lemma": "Zeit",
   "pos": "NOUN",
@@ -1383,20 +1496,7 @@
   "target": "Zeit",
   "en": "Do you have time for a coffee on Friday?",
   "note": null,
-  "case": null
- },
- {
-  "id": "core:r00101",
-  "n": 100,
-  "rank": 101,
-  "lemma": "weil",
-  "pos": "SCONJ",
-  "display": "weil",
-  "gloss": "because",
-  "sentence": "Ich komme später, weil mein Zug Verspätung hat.",
-  "target": "weil",
-  "en": "I'll be late because my train is delayed.",
-  "note": "Nebensatz: Verb am Ende",
-  "case": null
+  "case": null,
+  "order": 100
  }
 ]
