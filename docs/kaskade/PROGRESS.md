@@ -31,6 +31,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M6 Extras (Piper-Audio, Fahrplan → http://100.64.43.3:5173/fahrplan, 320 px)
 - [x] M7 Kerndeck-Korrektur (vorgezogen)
 - [x] M8 Lesebibliothek → http://100.64.43.3:5173/lesen
+- [x] M9 Leser mit Kasus-Linse + Satz minen
 
 ## Betrieb
 
@@ -129,3 +130,11 @@ cd ~/kaskade/app && npm run build && npm run test:e2e:kaskade   # E2E (eigene Te
 - `/lesen`: Bibliothek mit Filter; Leser mit markierten neuen Wörtern (antippen → Bedeutung), „Hilfen ausblenden“ fürs freie Lesen, Vorlesen (Piper), 3 Verständnisfragen, „Fertig gelesen“.
 - Heute schlägt für 09:30 und 10:35 automatisch den nächsten ungelesenen Text vor; „Starten“ öffnet ihn und startet den Timer.
 - Tests: Frontend 267 ✅ · Backend 227 ✅ · E2E 10 ✅. Gefixt beim Testen: Glossar wurde in der API von einer Zahl überschrieben.
+
+### M9 Leser mit Kasus-Linse ✅
+- Jeder Bibliothekstext und **eigene Texte** (`/lesen/eigener-text`, einfügen) werden mit spaCy analysiert: Lemma, Wortart, Kasus.
+- **Kasus-Linse:** Nominalgruppen unterstrichen in N/A/D/G-Farbe, immer mit Buchstabe. Wort antippen → Artikel + Plural, Bedeutung, Kasus + Grund („mit + Dativ“, „über + Akkusativ · Wechselpräposition …“, „Dativobjekt von ‚geben‘“, „Subjekt → Nominativ“). Hinweis „automatisch erkannt, kann sich irren“ (kleines Modell, ~90 % richtig).
+- **Wortstatus** aus deinen Karten: neu (gelb) · lernend (unterstrichen) · bekannt. Noch nicht gesehene Kernwörter innerhalb deines gemessenen Bereichs (Wortschatz-Test, sonst Top 500) gelten als bekannt — sonst wäre anfangs alles gelb.
+- **Wörterbuch:** Wiktionary (kaikki.org, CC BY-SA) als kompaktes Glossar in `~/kaskade-data/dict/` (86.000 Wörter + 248.000 Formen), nicht im Git. Quellen: `docs/kaskade/SOURCES.md`.
+- **Satz minen** → neue Satzkarte (mit Kasus-Badge und Quelle), kommt in Karten vor den neuen Kernwörtern.
+- Tests: Frontend 271 ✅ · Backend 238 ✅ · E2E 11 ✅ (Leser mit Linse, eigener Text → minen → erscheint in Karten).

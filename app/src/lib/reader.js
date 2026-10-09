@@ -36,4 +36,10 @@ export function markGlossary(paragraph, glossary) {
   return out
 }
 
-export const paragraphs = (text) => text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
+/** The sentence (from an analysis) that contains token index `i`. */
+export function sentenceOf(analysis, i) {
+  const s = analysis.sentences.find((x) => i >= x.start && i < x.end)
+  return s ? s.text : ''
+}
+
+export const paragraphs =(text) => text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)

@@ -59,6 +59,12 @@ const routes = [
     meta: { title: 'Lesen' }
   },
   {
+    path: '/lesen/eigener-text',
+    name: 'EigenerText',
+    component: () => import('../views/kaskade/EigenerTextView.vue'),
+    meta: { title: 'Eigener Text' }
+  },
+  {
     path: '/lesen/:id',
     name: 'Reader',
     component: () => import('../views/kaskade/ReaderView.vue'),

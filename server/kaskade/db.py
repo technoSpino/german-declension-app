@@ -84,6 +84,19 @@ CREATE TABLE IF NOT EXISTS activity (
   ended_at TEXT,
   seconds INTEGER NOT NULL DEFAULT 0
 );
+CREATE TABLE IF NOT EXISTS mined (
+  id INTEGER PRIMARY KEY,
+  created_at TEXT NOT NULL,
+  sentence TEXT NOT NULL,
+  target TEXT NOT NULL,
+  lemma TEXT NOT NULL,
+  display TEXT NOT NULL,
+  gloss TEXT NOT NULL,
+  en TEXT,
+  note TEXT,
+  kasus TEXT,                    -- N | A | D | G | NULL
+  source TEXT
+);
 CREATE TABLE IF NOT EXISTS text_reads (
   id INTEGER PRIMARY KEY,
   text_id TEXT NOT NULL,

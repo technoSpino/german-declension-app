@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from . import config, db
-from .routes import cards, media, placement, satzcheck, texts, today, vocab
+from .routes import cards, media, placement, reader, satzcheck, texts, today, vocab
 
 
 @asynccontextmanager
@@ -23,6 +23,7 @@ app.include_router(placement.router)
 app.include_router(cards.router)
 app.include_router(today.router)
 app.include_router(texts.router)
+app.include_router(reader.router)
 
 
 @app.get("/api/status")

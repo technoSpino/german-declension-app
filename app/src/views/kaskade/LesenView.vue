@@ -27,6 +27,7 @@ const SLOT = { input: '09:30 · mit Hilfen', lesen: '10:35 · freies Lesen' }
     </div>
     <p v-if="error" class="k-error m-0" role="alert">{{ error }}</p>
     <div class="flex flex-wrap gap-2" role="group" aria-label="Filter">
+      <router-link to="/lesen/eigener-text" class="k-btn k-btn-sm" data-testid="eigener-text-link">+ Eigener Text</router-link>
       <button v-for="f in ['alle', 'input', 'lesen']" :key="f" class="k-btn k-btn-sm" :class="{ 'k-btn-ghost': filter !== f }" @click="filter = f">
         {{ f === 'alle' ? 'Alle' : f === 'input' ? 'Mit Hilfen (09:30)' : 'Freies Lesen (10:35)' }}
       </button>

@@ -120,7 +120,7 @@ const buttons = [
 
         <article v-if="card" class="k-card kc-card" data-testid="karte">
           <div class="flex items-center justify-between gap-3">
-            <span class="k-eyebrow">{{ card.isNew ? 'Neu' : 'Wiederholung' }} · Kernwort {{ card.n }}</span>
+            <span class="k-eyebrow">{{ card.isNew ? 'Neu' : 'Wiederholung' }} · {{ card.n ? `Kernwort ${card.n}` : `Gemined · ${card.source || 'Lesen'}` }}</span>
             <button type="button" class="kc-audio" data-testid="karte-audio" aria-label="Satz vorlesen (Taste A)" @click="playAudio">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /></svg>
               Audio <kbd class="k-kbd">A</kbd>
@@ -132,7 +132,7 @@ const buttons = [
             <div class="flex flex-col gap-1.5">
               <p class="m-0" style="font-size: 24px; font-weight: 800">{{ card.display }}</p>
               <p class="m-0 k-read" style="font-size: 18px; color: var(--text-2)">„{{ card.gloss }}“</p>
-              <p class="m-0 mt-2" style="font-size: 15px; color: var(--muted)">{{ card.en }}</p>
+              <p v-if="card.en" class="m-0 mt-2" style="font-size: 15px; color: var(--muted)">{{ card.en }}</p>
             </div>
             <div v-if="card.note" class="kc-note">
               <span v-if="card.case" :class="['k-case', `k-case-${card.case}`]" :aria-label="`Kasus ${card.case}`">{{ card.case }}</span>

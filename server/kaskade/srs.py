@@ -30,6 +30,23 @@ def deck_index() -> dict[str, dict]:
     return {c["id"]: c for c in deck()}
 
 
+def mined_cards() -> list[dict]:
+    """Sentences mined in the reader — cards like the core deck, id 'mine:N'."""
+    with db.tx() as conn:
+        rows = conn.execute("SELECT * FROM mined ORDER BY id").fetchall()
+    return [{
+        "id": f"mine:{r['id']}", "n": None, "lemma": r["lemma"], "display": r["display"], "gloss": r["gloss"],
+        "sentence": r["sentence"], "target": r["target"], "en": r["en"] or "", "note": r["note"],
+        "case": r["kasus"], "source": r["source"], "pos": None,
+    } for r in rows]
+
+
+def card_content(card_id: str) -> dict | None:
+    if card_id.startswith("mine:"):
+        return next((c for c in mined_cards() if c["id"] == card_id), None)
+    return deck_index().get(card_id)
+
+
 def now_utc() -> datetime:
     # KASKADE_NOW pins the clock for the E2E test instance (never set in production).
     fixed = os.environ.get("KASKADE_NOW")
@@ -83,7 +100,8 @@ def counts(conn, at: datetime) -> dict:
         "SELECT COUNT(*) FROM review_log WHERE local_date = ? AND rating > 0", (today,)
     ).fetchone()[0]
     seen = conn.execute("SELECT COUNT(*) FROM cards").fetchone()[0]
-    new_left = min(max(0, new_per_day() - introduced), max(0, len(deck()) - seen))
+    total = len(deck()) + conn.execute("SELECT COUNT(*) FROM mined").fetchone()[0]
+    new_left = min(max(0, new_per_day() - introduced), max(0, total - seen))
     return {"due": due, "new": new_left, "doneToday": done}
 
 
@@ -98,7 +116,9 @@ def next_card(at: datetime | None = None, sched: Scheduler = scheduler) -> dict:
         card_id = row["id"] if row else None
         if card_id is None and c["new"] > 0:
             seen = {r[0] for r in conn.execute("SELECT id FROM cards")}
-            card_id = next((d["id"] for d in deck() if d["id"] not in seen), None)
+            # mined sentences first (you chose them from real input), then the core deck in order
+            pool = [*(f"mine:{r[0]}" for r in conn.execute("SELECT id FROM mined ORDER BY id")), *(d["id"] for d in deck())]
+            card_id = next((cid for cid in pool if cid not in seen), None)
         if card_id is None:
             row = conn.execute(
                 "SELECT * FROM cards WHERE status = 'learning' AND due <= ? ORDER BY due LIMIT 1",
@@ -108,7 +128,7 @@ def next_card(at: datetime | None = None, sched: Scheduler = scheduler) -> dict:
         if card_id is None:
             return {"card": None, "counts": c}
         row = _row(conn, card_id)
-    content = deck_index()[card_id]
+    content = card_content(card_id)
     return {
         "card": {**content, "isNew": row is None},
         "intervals": previews(_fsrs(row), at, sched),
@@ -121,7 +141,7 @@ def _snapshot(row) -> str | None:
 
 
 def review(card_id: str, rating: int, at: datetime | None = None, sched: Scheduler = scheduler) -> dict:
-    if card_id not in deck_index():
+    if card_content(card_id) is None:
         raise KeyError(card_id)
     if rating not in (1, 2, 3, 4):
         raise ValueError("rating must be 1–4")
@@ -149,7 +169,7 @@ def review(card_id: str, rating: int, at: datetime | None = None, sched: Schedul
 
 def mark_known(card_id: str, at: datetime | None = None) -> dict:
     """'Kenne ich schon': bury permanently. Does not use up the daily new-card quota."""
-    if card_id not in deck_index():
+    if card_content(card_id) is None:
         raise KeyError(card_id)
     at = at or now_utc()
     with db.tx() as conn:
@@ -204,7 +224,8 @@ def stats(at: datetime | None = None) -> dict:
         "learning": by_status.get("learning", 0),
         "suspended": by_status.get("suspended", 0),
         "mature": mature,
-        "unseen": len(deck()) - sum(by_status.values()),
+        "unseen": len(deck()) + len(mined_cards()) - sum(by_status.values()),
+        "mined": len(mined_cards()),
         "retention30": round(recall, 3) if recall is not None else None,
         **c,
     }
