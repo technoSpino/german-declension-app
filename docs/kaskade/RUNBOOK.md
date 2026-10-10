@@ -40,6 +40,7 @@ Tailscale IP 100.64.43.3.
 | `dict/` | Wiktionary glossary | no (regenerate) |
 | `freq/` | raw frequency list | no (re-download) |
 | `.env` | `ANTHROPIC_API_KEY=…` (optional) | no (secret) |
+| `youtube-cookies.txt` | optional YouTube login for yt-dlp (chmod 600, delete in Satz-Check → YouTube) | no (secret) |
 
 ### Backup and restore
 
@@ -97,6 +98,6 @@ before major upgrades.
 | Page not reachable | Tailscale on? `systemctl --user status kaskade-web`; web binds to 100.64.43.3 and retries until Tailscale is up |
 | No audio | `ls ~/kaskade-data/tts/voices/` — without the voice the browser voice is used |
 | No glosses in the reader | `ls ~/kaskade-data/dict/de-en.json` |
-| YouTube download fails | expected from datacenter IPs — download clip + subtitles yourself and upload |
+| YouTube download fails | YouTube blocks datacenter IPs: upload a `cookies.txt` (Satz-Check → Von YouTube holen) or download on the Mac with the one-liner shown there and upload. ARD/ZDF Mediathek works directly |
 | Big upload stalls | uploads go up in 8 MB pieces (the web server ends requests after 5 min); unfinished pieces sit in `~/kaskade-data/media/.partial/` and are deleted after 24 h |
 | Writing not graded | no `ANTHROPIC_API_KEY` in `~/kaskade-data/.env` (optional) |

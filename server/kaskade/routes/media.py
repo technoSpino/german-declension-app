@@ -264,10 +264,16 @@ class YoutubeIn(BaseModel):
     url: str
 
 
-def fetch_youtube(url: str, dest: Path, stem: str) -> dict:
-    """Download low-res media + German subtitles with yt-dlp. Returns info dict."""
-    import yt_dlp  # imported lazily: heavy and only needed here
+def cookies_path() -> Path:
+    """Optional YouTube cookies (Netscape cookies.txt) so yt-dlp passes YouTube's bot check."""
+    return config.DATA_DIR / "youtube-cookies.txt"
 
+
+MAC_ONE_LINER = ('yt-dlp -f "b[height<=540][vcodec^=avc1]/b[height<=540]" --write-subs --write-auto-subs '
+                 '--sub-langs "de.*" --convert-subs srt -o "%(title)s.%(ext)s" "LINK"')
+
+
+def youtube_opts(dest: Path, stem: str) -> dict:
     opts = {
         "format": "worst[ext=mp4][height>=240]/worst[ext=mp4]/worst",
         "outtmpl": str(dest / f"{stem}.%(ext)s"),
@@ -281,7 +287,16 @@ def fetch_youtube(url: str, dest: Path, stem: str) -> dict:
         "socket_timeout": 20,
         "retries": 1,
     }
-    with yt_dlp.YoutubeDL(opts) as ydl:
+    if cookies_path().exists():
+        opts["cookiefile"] = str(cookies_path())
+    return opts
+
+
+def fetch_youtube(url: str, dest: Path, stem: str) -> dict:
+    """Download low-res media + German subtitles with yt-dlp. Returns info dict."""
+    import yt_dlp  # imported lazily: heavy and only needed here
+
+    with yt_dlp.YoutubeDL(youtube_opts(dest, stem)) as ydl:
         return ydl.extract_info(url, download=True)
 
 
@@ -294,7 +309,7 @@ def youtube(body: YoutubeIn, tasks: BackgroundTasks):
     with db.tx() as conn:
         next_id = (conn.execute("SELECT COALESCE(MAX(id), 0) + 1 FROM media").fetchone()[0])
     stem = f"yt-{next_id}"
-    fallback = " Bitte Video und Untertitel selbst herunterladen und oben hochladen."
+    fallback = " Bitte Video und Untertitel auf dem Mac laden (Befehl unten) und oben hochladen."
     try:
         info = fetch_youtube(url, config.MEDIA_DIR, stem)
     except Exception as e:  # yt-dlp raises many types; all mean "didn't work"
@@ -302,7 +317,10 @@ def youtube(body: YoutubeIn, tasks: BackgroundTasks):
             f.unlink(missing_ok=True)
         msg = str(e)
         if "Sign in" in msg or "bot" in msg.lower() or "403" in msg:
-            reason = "YouTube blockiert Downloads von diesem Server."
+            if cookies_path().exists():
+                reason = "YouTube blockiert trotz Cookies — vielleicht sind sie abgelaufen. Neue cookies.txt hochladen, oder:"
+            else:
+                reason = "YouTube blockiert Downloads von diesem Server („Sign in to confirm you're not a bot“). Mit einer cookies.txt geht es meist, oder:"
         else:
             reason = "Download fehlgeschlagen."
         raise HTTPException(502, reason + fallback)
@@ -384,4 +402,34 @@ def job(job_id: str):
     if j is None:
         raise HTTPException(404, "Download nicht gefunden (Server neu gestartet?)")
     return j
+
+
+@router.get("/youtube/help")
+def youtube_help():
+    p = cookies_path()
+    return {"cookies": p.exists(), "cookiesUpdatedAt": p.stat().st_mtime if p.exists() else None, "macCommand": MAC_ONE_LINER}
+
+
+@router.post("/youtube/cookies")
+def upload_cookies(file: UploadFile = File(...)):
+    raw = file.file.read(2 * 1024 * 1024 + 1)
+    text = raw.decode("utf-8", errors="replace")
+    lines = [l for l in text.splitlines() if l.strip() and not l.startswith("#")]
+    looks_netscape = text.lstrip().startswith(("# Netscape HTTP Cookie File", "# HTTP Cookie File")) or \
+        any(l.count("\t") >= 6 for l in lines)
+    if len(raw) > 2 * 1024 * 1024 or not looks_netscape:
+        raise HTTPException(422, "Das ist keine cookies.txt im Netscape-Format (z. B. mit der Erweiterung „Get cookies.txt LOCALLY“ exportieren).")
+    if not any("youtube.com" in l for l in lines):
+        raise HTTPException(422, "In der Datei sind keine Cookies von youtube.com.")
+    path = cookies_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+    path.chmod(0o600)  # it's a login: only this user may read it
+    return youtube_help()
+
+
+@router.delete("/youtube/cookies")
+def delete_cookies():
+    cookies_path().unlink(missing_ok=True)
+    return youtube_help()
 

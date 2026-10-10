@@ -116,6 +116,42 @@ async function pollJob(jobId) {
 }
 onBeforeUnmount(() => clearInterval(poll))
 
+// YouTube blocks this server (datacenter IP): cookies.txt helps; otherwise download on the Mac.
+const yt = ref(null)
+const cookiesInput = ref(null)
+const copied = ref(false)
+async function loadYoutubeHelp() {
+  try {
+    yt.value = await api.get('/media/youtube/help')
+  } catch {
+    yt.value = null
+  }
+}
+onMounted(loadYoutubeHelp)
+async function uploadCookies() {
+  const f = cookiesInput.value?.files?.[0]
+  if (!f) return
+  const form = new FormData()
+  form.append('file', f)
+  error.value = null
+  try {
+    yt.value = await api.post('/media/youtube/cookies', form)
+  } catch (e) {
+    error.value = e.message
+  }
+}
+async function deleteCookies() {
+  yt.value = await api.del('/media/youtube/cookies')
+}
+async function copyCommand() {
+  try {
+    await navigator.clipboard.writeText(yt.value.macCommand)
+    copied.value = true
+  } catch {
+    copied.value = false
+  }
+}
+
 async function fetchYoutube() {
   busy.value = true
   error.value = null
@@ -201,9 +237,24 @@ function start() {
       <details class="flex flex-col gap-3">
         <summary class="k-btn k-btn-ghost k-btn-sm" style="width: fit-content">Von YouTube holen</summary>
         <div class="flex flex-col gap-3 mt-3">
-          <p class="k-hint m-0">Holt deutsche Untertitel und das Video in niedriger Qualität. YouTube blockiert Server oft — dann bitte hochladen.</p>
-          <input v-model="youtubeUrl" type="url" class="k-input" placeholder="https://www.youtube.com/watch?v=…" />
-          <button class="k-btn" :disabled="busy || !youtubeUrl" @click="fetchYoutube">{{ busy ? 'Lädt … (bis 1 min)' : 'Holen' }}</button>
+          <p class="k-hint m-0">YouTube lässt Server ohne Anmeldung meist nicht laden („Sign in to confirm you're not a bot“). Zwei Wege, die funktionieren:</p>
+          <div class="sc-yt-way">
+            <p class="m-0 k-small" style="font-weight: 700">1 · Mit Cookies vom Server holen</p>
+            <p class="k-hint m-0">Im Browser bei YouTube angemeldet sein (am besten mit einem Zweit-Konto), mit der Erweiterung „Get cookies.txt LOCALLY“ die <code>cookies.txt</code> für youtube.com exportieren und hier hochladen. Sie bleibt nur auf diesem Server (nur für dich lesbar).</p>
+            <p v-if="yt?.cookies" class="m-0 k-small" data-testid="yt-cookies-on">✓ Cookies hinterlegt · <button type="button" class="sc-linkbtn" @click="deleteCookies">entfernen</button></p>
+            <div class="flex flex-wrap items-end gap-3">
+              <FilePicker ref="cookiesInput" label="cookies.txt" accept=".txt,text/plain" testid="yt-cookies" />
+              <button class="k-btn k-btn-ghost k-btn-sm" data-testid="yt-cookies-upload" @click="uploadCookies">{{ yt?.cookies ? 'Ersetzen' : 'Hochladen' }}</button>
+            </div>
+            <input v-model="youtubeUrl" type="url" class="k-input" placeholder="https://www.youtube.com/watch?v=…" aria-label="YouTube-Link" />
+            <button class="k-btn" :disabled="busy || !youtubeUrl" @click="fetchYoutube">{{ busy ? 'Lädt … (bis 1 min)' : 'Holen' }}</button>
+          </div>
+          <div class="sc-yt-way">
+            <p class="m-0 k-small" style="font-weight: 700">2 · Auf dem Mac laden, dann oben hochladen</p>
+            <p class="k-hint m-0">Im Terminal (yt-dlp per <code>brew install yt-dlp ffmpeg</code>), LINK ersetzen. Ergibt ein Video und eine <code>.srt</code> — beide bei „Neuen Clip hochladen“ auswählen.</p>
+            <pre v-if="yt" class="sc-cmd" data-testid="yt-mac-command">{{ yt.macCommand }}</pre>
+            <button v-if="yt" class="k-btn k-btn-ghost k-btn-sm" style="width: fit-content" @click="copyCommand">{{ copied ? '✓ Kopiert' : 'Befehl kopieren' }}</button>
+          </div>
         </div>
       </details>
     </section>
@@ -258,5 +309,8 @@ function start() {
 .sc-pick { flex: none; font-family: var(--font-ui); font-size: 14px; font-weight: 700; color: var(--text-2); }
 .k-option[aria-checked='true'] .sc-pick { color: var(--text); }
 .sc-step2 { scroll-margin-top: 16px; }
+.sc-yt-way { display: flex; flex-direction: column; gap: 8px; padding: 12px 0 0; border-top: 1px solid var(--surface-2); }
+.sc-cmd { margin: 0; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface-2); color: var(--text); font-size: 13px; white-space: pre-wrap; word-break: break-all; }
+.sc-linkbtn { border: 0; padding: 0; background: none; color: var(--link); font: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; }
 .sc-preview { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-sm); background: var(--stage-bg); }
 </style>

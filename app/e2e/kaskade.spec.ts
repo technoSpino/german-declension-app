@@ -527,3 +527,17 @@ test('Aus der Mediathek holen: progress, then the new clip is selected (API fake
   await expect(page.getByTestId('mediathek-progress')).toContainText('Fertig.')
   expect(errors).toEqual([])
 })
+
+test('YouTube: Mac one-liner and cookies.txt upload', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/satz-check')
+  await page.getByText('Von YouTube holen').click()
+  await expect(page.getByTestId('yt-mac-command')).toContainText('--convert-subs srt')
+  const cookies = '# Netscape HTTP Cookie File\n.youtube.com\tTRUE\t/\tTRUE\t1893456000\tSID\tx\n'
+  await page.getByTestId('yt-cookies').setInputFiles({ name: 'cookies.txt', mimeType: 'text/plain', buffer: Buffer.from(cookies) })
+  await page.getByTestId('yt-cookies-upload').click()
+  await expect(page.getByTestId('yt-cookies-on')).toContainText('Cookies hinterlegt')
+  await page.getByTestId('yt-cookies-on').getByRole('button', { name: 'entfernen' }).click()
+  await expect(page.getByTestId('yt-cookies-on')).toHaveCount(0)
+  expect(errors).toEqual([])
+})
