@@ -383,6 +383,11 @@ test('Satz-Check accepts an SRT + clip, pauses per cue and records ratings', asy
   await page.getByTestId('upload-title').fill('E2E-Clip')
   await page.getByTestId('upload-submit').click()
   await expect(page.getByText('4 Sätze in diesen 3 Minuten')).toBeVisible()
+  // The new clip is selected (radio + "✓ Ausgewählt"), step 2 has focus and a preview player.
+  await expect(page.getByRole('radio', { name: /E2E-Clip/ })).toHaveAttribute('aria-checked', 'true')
+  await expect(page.getByRole('radio', { name: /E2E-Clip/ })).toContainText('✓ Ausgewählt')
+  await expect(page.getByTestId('sc-start')).toBeFocused()
+  await expect(page.getByTestId('sc-preview')).toBeVisible()
   await page.getByTestId('sc-start').click()
 
   await page.getByTestId('sc-play').click()
