@@ -26,6 +26,8 @@
   --accent-text: #14161b;
   --callout: #fff4c2;
   --word-new-bg: #ffe27a;
+  --word-new-tint: #fff5d1;       /* reader: calm new-word tint … */
+  --word-new-underline: #a37b00;  /* … plus a thin underline */
   --word-learning: #5b3fd6;
   --focus: #5b3fd6;
   --focus-width: 3px;
@@ -99,6 +101,8 @@
   --accent-text: #14161b;
   --callout: #2a2410;
   --word-new-bg: #4a3b00;
+  --word-new-tint: #2e2814;       /* reader: calm new-word tint … */
+  --word-new-underline: #e0b43a;  /* … plus a thin underline */
   --word-learning: #a996ff;
   --focus: #a996ff;
   --focus-width: 3px;
@@ -172,6 +176,8 @@
   --accent-text: #231f1a;
   --callout: #f7ecc9;
   --word-new-bg: #f5df94;
+  --word-new-tint: #f9eecb;       /* reader: calm new-word tint … */
+  --word-new-underline: #9a7419;  /* … plus a thin underline */
   --word-learning: #1e4d4d;
   --focus: #1e4d4d;
   --focus-width: 2px;
@@ -245,6 +251,8 @@
   --accent-text: #000000;
   --callout: #ffd000;
   --word-new-bg: #ffd000;
+  --word-new-tint: #fff6c2;       /* reader: calm new-word tint … */
+  --word-new-underline: #000000;  /* … plus a thin underline */
   --word-learning: #000000;
   --focus: #000000;
   --focus-width: 3px;
@@ -318,6 +326,8 @@
   --accent-text: #1a1a1a;
   --callout: #fff6d6;
   --word-new-bg: #fff6d6;
+  --word-new-tint: #fff6d6;       /* reader: calm new-word tint … */
+  --word-new-underline: #9c7a00;  /* … plus a thin underline */
   --word-learning: #555555;
   --focus: #1a1a1a;
   --focus-width: 3px;
@@ -340,9 +350,9 @@
   --radius-pill: 999px;
   --radius-lg: 10px;
   --shadow: none;
-  --font-ui: 'Atkinson Hyperlegible', system-ui, sans-serif;
-  --font-heading: 'Atkinson Hyperlegible', system-ui, sans-serif;
-  --font-read: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-ui: 'Kaskade Digits', 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-heading: 'Kaskade Digits', 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-read: 'Kaskade Digits', 'Atkinson Hyperlegible', system-ui, sans-serif;
   --font-size-base: 18px;
   --line-height: 1.7;
   --heading-weight: 700;
@@ -367,8 +377,8 @@
   --timeline-done-text: #555555;
   --timeline-pause: #f0f0eb;
   --timeline-pause-line: #b5b5ae;
-  --chart-active: #1a1a1a;
-  --chart-passive: #8a6800;
+  --chart-active: #b88a00;
+  --chart-passive: #6b6b66;
 }
 
 /* ── Magazin: news-magazine style ─────────────────────────────── */
@@ -392,6 +402,8 @@
   --accent-text: #ffffff;
   --callout: #f4f4f2;
   --word-new-bg: #ffe7a3;
+  --word-new-tint: #fff4d6;       /* reader: calm new-word tint … */
+  --word-new-underline: #a87d00;  /* … plus a thin underline */
   --word-learning: #111111;
   --focus: #111111;
   --focus-width: 2px;
@@ -441,7 +453,7 @@
   --timeline-done-text: #3a3a3a;
   --timeline-pause: #f4f4f2;
   --timeline-pause-line: #b5b5b0;
-  --chart-active: #111111;
+  --chart-active: #e64415;
   --chart-passive: #8a8a86;
 }
 
@@ -475,6 +487,7 @@
 
 /* Fokus: larger, calmer, highlights as thick underlines */
 :root[data-theme='fokus'] .k-main { zoom: 1.08; gap: 32px; }
+:root[data-theme='fokus'] body { font-variant-numeric: lining-nums tabular-nums; }
 :root[data-theme='fokus'] .k-mark { background: var(--word-new-bg); border-bottom: 3px solid var(--accent); border-radius: 0; }
 :root[data-theme='fokus'] .k-chip-accent { background: transparent; color: var(--text); border-bottom: 3px solid var(--accent); border-radius: 0; }
 :root[data-theme='fokus'] .k-btn { min-height: var(--touch); }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { groupTokens, markGlossary, paragraphs } from '../../lib/reader'
+import { defaultView, groupTokens, markGlossary, paragraphs, storedView, storeView, viewFlags } from '../../lib/reader'
 
 const G = [
   { term: 'Heizung', gloss: 'heating' },
@@ -56,5 +56,31 @@ describe('token joiner (no line break inside a word + its punctuation)', () => {
   it('keeps every token exactly once, in order', () => {
     expect(groupTokens(tokens).flat().map((t) => t.i)).toEqual(tokens.map((t) => t.i))
     expect(groupTokens([])).toEqual([])
+  })
+})
+
+describe('reader view toggle', () => {
+  it('defaults to new words only in phase 2B, both otherwise; a stored choice wins', () => {
+    expect(defaultView(null, '2B')).toBe('neu')
+    expect(defaultView(null, '2A')).toBe('beides')
+    expect(defaultView(null, null)).toBe('beides')
+    expect(defaultView('kasus', '2B')).toBe('kasus')
+    expect(defaultView('quatsch', '2B')).toBe('neu')
+  })
+
+  it('maps views to word states and case lens', () => {
+    expect(viewFlags('neu')).toEqual({ states: true, lens: false })
+    expect(viewFlags('kasus')).toEqual({ states: false, lens: true })
+    expect(viewFlags('beides')).toEqual({ states: true, lens: true })
+  })
+
+  it('remembers the choice and survives blocked storage', () => {
+    const mem = new Map()
+    const storage = { getItem: (k) => mem.get(k) ?? null, setItem: (k, v) => mem.set(k, v) }
+    storeView('kasus', storage)
+    expect(storedView(storage)).toBe('kasus')
+    const blocked = { getItem: () => { throw new Error('denied') }, setItem: () => { throw new Error('denied') } }
+    expect(() => storeView('neu', blocked)).not.toThrow()
+    expect(storedView(blocked)).toBeNull()
   })
 })

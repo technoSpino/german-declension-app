@@ -1,16 +1,19 @@
 <script setup>
 import { computed } from 'vue'
+import { NO_HOURS_YET } from '../../lib/heute'
 
 // Active + passive hours per week (stacked), last weeks oldest → newest.
 const props = defineProps({ weeks: { type: Array, required: true } })
 
+const empty = computed(() => props.weeks.every((w) => !w.aktiv && !w.passiv))
 const top = computed(() => Math.max(11.7, ...props.weeks.map((w) => w.aktiv + w.passiv)))
 const label = (iso) => new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'numeric' }).format(new Date(iso))
 const h = (x) => x.toLocaleString('de-DE', { maximumFractionDigits: 1 })
 </script>
 
 <template>
-  <div>
+  <p v-if="empty" class="k-small m-0" data-testid="chart-empty">{{ NO_HOURS_YET }}</p>
+  <div v-else>
     <div class="wc" role="img" :aria-label="`Stunden pro Woche, letzte ${weeks.length} Wochen`">
       <div class="wc-goal" :style="{ bottom: (11.7 / top) * 100 + '%' }"><span>11,7 h</span></div>
       <div v-for="w in weeks" :key="w.week" class="wc-col" :title="`Woche ab ${label(w.week)}: ${h(w.aktiv)} h aktiv · ${h(w.passiv)} h passiv`">

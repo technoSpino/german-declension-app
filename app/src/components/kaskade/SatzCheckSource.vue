@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
 import { cuesInWindow } from '../../lib/satzcheck'
 import { formatClock } from '../../lib/format'
+import FilePicker from './FilePicker.vue'
 
 // Step 1 of a Satz-Check: pick or add a clip, the content type and a 3-minute window.
 const props = defineProps({ defaultType: { type: String, default: 'adult' } })
@@ -114,12 +115,8 @@ function start() {
       <details :open="!library.length" class="flex flex-col gap-3">
         <summary class="k-btn k-btn-ghost k-btn-sm" style="width: fit-content">Neuen Clip hochladen</summary>
         <div class="flex flex-col gap-3 mt-3">
-          <label class="flex flex-col gap-1 k-small">Video oder Audio (optional: .mp4, .webm, .mp3 …)
-            <input ref="mediaInput" type="file" accept="video/*,audio/*" class="k-input" data-testid="upload-media" />
-          </label>
-          <label class="flex flex-col gap-1 k-small">Deutsche Untertitel (.srt oder .vtt)
-            <input ref="subsInput" type="file" accept=".srt,.vtt" class="k-input" data-testid="upload-subs" />
-          </label>
+          <FilePicker ref="mediaInput" label="Video oder Audio (optional: .mp4, .webm, .mp3 …)" accept="video/*,audio/*" testid="upload-media" />
+          <FilePicker ref="subsInput" label="Deutsche Untertitel (.srt oder .vtt)" accept=".srt,.vtt" testid="upload-subs" />
           <label class="flex flex-col gap-1 k-small">Titel
             <input v-model="title" type="text" class="k-input" placeholder="z. B. Serie, Folge 3" data-testid="upload-title" />
           </label>

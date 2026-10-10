@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '../../lib/api'
 import { formatClock, formatDate, formatNumber } from '../../lib/format'
-import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, PHASE2_TARGET, previewHint, weekStack } from '../../lib/heute'
+import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, NO_HOURS_YET, PHASE2_TARGET, previewHint, weekStack } from '../../lib/heute'
 import ImmersionForm from '../../components/kaskade/ImmersionForm.vue'
 import { useNow } from '../../lib/useNow'
 import { useStatusStore } from '../../stores/statusStore'
@@ -333,6 +333,8 @@ const timelineLabel = computed(() => {
             <div :style="{ width: t.immersion.share * 100 + '%' }"></div>
           </div>
           <p class="m-0 mt-5 mb-2 k-small" style="font-weight: 700">Diese Woche · {{ hours(activeH + passiveH) }} h <span style="font-weight: 500">· Block-Ziel 11,7 h aktiv</span></p>
+          <p v-if="activeH + passiveH === 0" class="k-small m-0" data-testid="heute-hours-empty">{{ NO_HOURS_YET }}</p>
+          <template v-else>
           <div class="grid grid-cols-7 gap-2 items-end" style="height: 120px; border-bottom: 1px solid var(--border-strong)" role="img" aria-label="Stunden pro Tag diese Woche, aktiv und passiv">
             <div
               v-for="(b, i) in bars"
@@ -347,6 +349,7 @@ const timelineLabel = computed(() => {
           <div class="grid grid-cols-7 gap-2 mt-1.5 text-center k-hint">
             <span v-for="(d, i) in WEEKDAYS" :key="d" :style="i === todayIndex ? { fontWeight: 800, color: 'var(--text)' } : {}">{{ d }}</span>
           </div>
+          </template>
           <div class="flex flex-wrap gap-x-4 gap-y-2 mt-3.5 k-small">
             <span class="inline-flex items-center gap-1.5"><span class="hb-sw" style="background: var(--chart-active)"></span>Aktiv <strong style="color: var(--text)">{{ hours(activeH) }} h</strong></span>
             <span class="inline-flex items-center gap-1.5"><span class="hb-sw" style="background: var(--chart-passive)"></span>Passiv <strong style="color: var(--text)">{{ hours(passiveH) }} h</strong></span>

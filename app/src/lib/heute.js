@@ -85,3 +85,6 @@ export function weekStack(active, passive, maxPx = 110) {
   const top = Math.max(2.5 * 3600, ...totals)
   return active.map((a, i) => ({ aktiv: Math.round((a / top) * maxPx), passiv: Math.round(((passive[i] ?? 0) / top) * maxPx) }))
 }
+
+/** Shown instead of an hours chart that would be empty. */
+export const NO_HOURS_YET = 'Noch keine Zeit erfasst — starte einen Block oder trag Serien und Podcasts ein.'

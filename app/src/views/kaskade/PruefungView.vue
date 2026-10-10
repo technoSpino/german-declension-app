@@ -45,7 +45,7 @@ const pct = (x) => (x == null ? '—' : `${Math.round(x * 100)} %`)
         <div class="k-card">
           <p class="k-eyebrow">Sprechen</p>
           <p class="m-0 mt-1.5" style="font-size: 32px; font-weight: 800">—</p>
-          <p class="k-small m-0">Täglich im Lernblock (Di/Do), mit Aufnahme. Bewertung kommt später.</p>
+          <p class="k-small m-0">Im Lernblock am Di/Do, mit Aufnahme. Bewertung kommt später.</p>
         </div>
       </section>
 

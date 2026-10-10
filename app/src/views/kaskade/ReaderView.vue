@@ -1,8 +1,9 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { api } from '../../lib/api'
-import { markGlossary, paragraphs } from '../../lib/reader'
+import { defaultView, markGlossary, paragraphs, READER_VIEWS, storedView, storeView, viewFlags } from '../../lib/reader'
+import { useStatusStore } from '../../stores/statusStore'
 import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
 import WordPanel from '../../components/kaskade/WordPanel.vue'
 import CaseLegend from '../../components/kaskade/CaseLegend.vue'
@@ -12,7 +13,10 @@ const t = ref(null)
 const analysis = ref(null)
 const error = ref(null)
 const showHelp = ref(true)
-const lens = ref(true)
+const status = useStatusStore()
+const view = ref(defaultView(storedView(), status.phase))
+const flags = computed(() => viewFlags(view.value))
+const lens = computed(() => flags.value.lens)
 const token = ref(null)
 const active = ref(null)
 const answers = ref({})
@@ -25,7 +29,6 @@ onMounted(async () => {
   try {
     t.value = await api.get(`/texts/${route.params.id}`)
     showHelp.value = t.value.slot === 'input'
-    lens.value = t.value.slot === 'input'
     done.value = !!t.value.readAt
   } catch (e) {
     error.value = e.message
@@ -38,6 +41,13 @@ onMounted(async () => {
   }
 })
 onBeforeUnmount(() => audio.value?.pause())
+
+// Without a remembered choice, follow the phase once it is known (2B → new words only).
+watch(() => status.phase, (p) => { if (!storedView()) view.value = defaultView(null, p) })
+function setView(v) {
+  view.value = v
+  storeView(v)
+}
 
 const paras = computed(() => (t.value ? paragraphs(t.value.text).map((p) => markGlossary(p, showHelp.value ? t.value.glossary : [])) : []))
 const score = computed(() => (t.value ? t.value.questions.filter((q, i) => answers.value[i] === q.correct).length : 0))
@@ -77,20 +87,31 @@ async function finish() {
           <button class="k-btn k-btn-ghost k-btn-sm" :aria-pressed="showHelp" data-testid="reader-help" @click="showHelp = !showHelp; active = null">
             {{ showHelp ? 'Hilfen ausblenden' : 'Neue Wörter zeigen' }}
           </button>
-          <button v-if="analysis" class="k-btn k-btn-ghost k-btn-sm" :aria-pressed="lens" data-testid="reader-lens" @click="lens = !lens">
-            Kasus-Linse {{ lens ? 'aus' : 'an' }}
-          </button>
         </div>
       </div>
-      <CaseLegend v-if="analysis && lens" />
+      <div v-if="analysis && showHelp" class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div class="rd-seg" role="radiogroup" aria-label="Markieren">
+          <button
+            v-for="v in READER_VIEWS"
+            :key="v.id"
+            type="button"
+            role="radio"
+            :aria-checked="view === v.id"
+            :class="['rd-seg-btn', { 'rd-seg-on': view === v.id }]"
+            :data-testid="`reader-view-${v.id}`"
+            @click="setView(v.id)"
+          >{{ v.label }}</button>
+        </div>
+        <CaseLegend v-if="lens" />
+      </div>
 
       <div class="flex flex-wrap gap-6 items-start">
         <article class="k-card min-w-0" style="flex: 999 1 560px">
           <AnalyzedText
             v-if="analysis"
             :analysis="analysis"
-            :lens="lens"
-            :states="showHelp"
+            :lens="showHelp && lens"
+            :states="showHelp && flags.states"
             :selected="token?.i ?? null"
             @select="token = $event"
           />
@@ -139,9 +160,14 @@ async function finish() {
 </template>
 
 <style scoped>
+.rd-seg { display: inline-flex; border: var(--border-width) solid var(--border-strong); border-radius: var(--radius-sm); overflow: hidden; }
+.rd-seg-btn { min-height: var(--touch); padding: 0 14px; border: 0; background: var(--surface); color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.rd-seg-btn + .rd-seg-btn { border-left: var(--border-width) solid var(--border-strong); }
+.rd-seg-btn:hover { background: var(--surface-2); }
+.rd-seg-on, .rd-seg-on:hover { background: var(--primary); color: var(--primary-text); }
 .rd-text { font-size: clamp(19px, 2.4vw, 21px); line-height: 1.75; max-width: 66ch; }
 .rd-text p { margin: 0 0 1em; }
-.rd-word { font: inherit; color: inherit; background: var(--word-new-bg); border: 0; border-radius: 4px; padding: 0 3px; cursor: pointer; }
+.rd-word { font: inherit; color: inherit; background: var(--word-new-tint); box-shadow: inset 0 -2px 0 var(--word-new-underline); border: 0; border-radius: 4px; padding: 0 3px; cursor: pointer; }
 .rd-word[aria-pressed='true'] { outline: 2px solid var(--focus); }
 .rd-right { color: var(--success); font-weight: 700; }
 .rd-wrong { color: var(--danger); text-decoration: line-through; }

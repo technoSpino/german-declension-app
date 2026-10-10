@@ -123,7 +123,7 @@ status.followSystem()
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 6px 24px;
+  gap: 6px 16px;
 }
 .k-logo {
   display: flex;
@@ -148,7 +148,7 @@ status.followSystem()
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
-  padding: 12px;
+  padding: 12px 10px;
   border-radius: 8px;
   line-height: 20px;
   cursor: pointer;

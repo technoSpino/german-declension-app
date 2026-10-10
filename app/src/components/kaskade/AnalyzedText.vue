@@ -59,7 +59,7 @@ const groups = computed(() => groupTokens(props.analysis.tokens))
   border-radius: 3px;
 }
 .at-word:hover { background: var(--surface-2); }
-.at-neu { background: var(--word-new-bg); }
+.at-neu { background: var(--word-new-tint); box-shadow: inset 0 -2px 0 var(--word-new-underline); }
 .at-lernend { text-decoration: underline 2px var(--word-learning); text-underline-offset: 5px; }
 .at-case { border-bottom: 3px solid transparent; }
 .at-case-N { border-bottom-color: var(--case-n); }
@@ -67,7 +67,7 @@ const groups = computed(() => groupTokens(props.analysis.tokens))
 .at-case-D { border-bottom-color: var(--case-d); }
 .at-case-G { border-bottom-color: var(--case-g); }
 .at-selected { outline: 2px solid var(--focus); outline-offset: 1px; }
-.at-sup { font-family: var(--font-ui); font-size: 11px; font-weight: 800; margin-left: 1px; }
+.at-sup { font-family: var(--font-ui); font-size: 10px; font-weight: 600; margin-left: 1px; }
 .at-sup-N { color: var(--case-n); }
 .at-sup-A { color: var(--case-a); }
 .at-sup-D { color: var(--case-d); }

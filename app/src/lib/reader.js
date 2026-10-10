@@ -62,3 +62,35 @@ export function groupTokens(tokens) {
   if (cur.length) groups.push(cur)
   return groups
 }
+
+/** Reader view: highlight new words, the case lens, or both. */
+export const READER_VIEWS = [
+  { id: 'neu', label: 'Neue Wörter' },
+  { id: 'kasus', label: 'Kasus' },
+  { id: 'beides', label: 'Beides' }
+]
+const VIEW_KEY = 'kaskade-reader-view'
+
+/** The remembered choice, else phase 2B → new words only (calm), otherwise both. */
+export function defaultView(stored, phase) {
+  if (READER_VIEWS.some((v) => v.id === stored)) return stored
+  return phase === '2B' ? 'neu' : 'beides'
+}
+
+export const viewFlags = (view) => ({ states: view !== 'kasus', lens: view !== 'neu' })
+
+export function storedView(storage = globalThis.localStorage) {
+  try {
+    return storage?.getItem(VIEW_KEY) ?? null
+  } catch {
+    return null
+  }
+}
+
+export function storeView(view, storage = globalThis.localStorage) {
+  try {
+    storage?.setItem(VIEW_KEY, view)
+  } catch {
+    /* private mode: the choice just isn't remembered */
+  }
+}
