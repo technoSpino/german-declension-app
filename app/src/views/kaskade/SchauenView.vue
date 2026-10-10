@@ -128,11 +128,21 @@ function onPause() {
   saveProgress()
 }
 
+const CANT_PLAY = 'Dieser Browser kann das Video nicht abspielen. Wird der Clip gerade umgewandelt, in ein paar Minuten neu laden — sonst den Clip im Satz-Check neu hochladen (er wird dann als H.264/MP4 gespeichert). Untertitel, Wörter und „Satz minen“ gehen trotzdem.'
+
+function onVideoError() {
+  error.value = CANT_PLAY
+}
+
 function toggle() {
   const v = video.value
   if (!v) return
-  if (v.paused) v.play().catch((e) => { error.value = e.message })
-  else v.pause()
+  if (v.paused) {
+    v.play().catch((e) => {
+      // AbortError = a seek interrupted play(): harmless. Everything else: explain in German.
+      if (e?.name !== 'AbortError') error.value = v.error || e?.name === 'NotSupportedError' ? CANT_PLAY : `Abspielen nicht möglich (${e?.name ?? 'Fehler'}).`
+    })
+  } else v.pause()
 }
 
 function seekLine(i, play = true) {
@@ -269,6 +279,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
               playsinline
               data-testid="watch-video"
               @loadedmetadata="onLoaded"
+              @error="onVideoError"
               @play="onPlay"
               @pause="onPause"
               @click="toggle"

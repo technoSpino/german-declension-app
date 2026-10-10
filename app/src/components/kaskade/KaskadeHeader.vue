@@ -88,16 +88,18 @@ status.followSystem()
             <option v-for="t in THEMES" :key="t.id" :value="t.id">{{ t.label }}</option>
           </select>
         </label>
-        <button
-          v-if="status.running"
-          type="button"
-          class="k-timer"
-          data-testid="header-timer"
-          :aria-label="`Zeit läuft: ${BLOCK_LABELS[status.running.block]} — stoppen`"
-          @click="status.stopTimer()"
-        >● {{ BLOCK_LABELS[status.running.block] }} {{ elapsed }} <span aria-hidden="true">■</span></button>
         <span v-if="status.phase" class="k-chip k-chip-accent" data-testid="phase">Phase {{ status.phase }}</span>
       </div>
+    </div>
+    <!-- A running block timer gets its own slim row, so the nav never wraps because of it. -->
+    <div v-if="status.running" class="k-runbar">
+      <button
+        type="button"
+        class="k-timer"
+        data-testid="header-timer"
+        :aria-label="`Zeit läuft: ${BLOCK_LABELS[status.running.block]} — stoppen`"
+        @click="status.stopTimer()"
+      ><span class="k-runbar-dot" aria-hidden="true"></span>Läuft: {{ BLOCK_LABELS[status.running.block] }} · {{ elapsed }} <span class="k-runbar-stop">■ Stopp</span></button>
     </div>
   </header>
 </template>
@@ -193,8 +195,13 @@ status.followSystem()
   cursor: pointer;
 }
 .k-timer:hover { background: var(--nav-hover); }
+.k-runbar { max-width: 1200px; margin: 0 auto; padding: 0 24px 8px; display: flex; justify-content: flex-end; }
+.k-runbar .k-timer { display: inline-flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; }
+.k-runbar-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.k-runbar-stop { font-weight: 700; padding-left: 8px; border-left: 1px solid var(--nav-muted); }
 @media (max-width: 640px) {
   .k-header-in { padding: 6px 12px; gap: 4px 12px; }
+  .k-runbar { padding: 0 12px 8px; justify-content: flex-start; }
   .k-nav a, .k-ref > button { padding: 10px 8px; }
 }
 </style>

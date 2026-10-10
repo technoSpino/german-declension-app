@@ -11,7 +11,7 @@ export function useNow(ms = 1000) {
 
 export const BLOCK_LABELS = {
   karten: 'Karten',
-  input: 'Schauen/Lesen',
+  input: 'Schauen',
   pause: 'Pause',
   lesen: 'Freies Lesen',
   pruefung: 'Prüfungsteil',

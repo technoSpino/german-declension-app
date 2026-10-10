@@ -133,3 +133,13 @@ def test_stats(isolated):
     s = srs.stats(T0)
     assert s["known"] == 1 and s["learning"] == 1 and s["unseen"] == len(c) - 2
     assert s["doneToday"] == 1
+
+
+def test_pinned_clock_can_run_faster(monkeypatch):
+    import time as _time
+    from kaskade import srs
+    monkeypatch.setenv("KASKADE_NOW", "2026-10-12T07:00:00+00:00")
+    assert srs.now_utc().isoformat() == "2026-10-12T07:00:00+00:00"
+    monkeypatch.setenv("KASKADE_CLOCK_SPEED", "60")
+    monkeypatch.setattr(srs, "_BOOT", _time.monotonic() - 10)  # 10 s since start → 10 min later
+    assert 599 <= (srs.now_utc() - srs.datetime.fromisoformat("2026-10-12T07:00:00+00:00")).total_seconds() <= 610

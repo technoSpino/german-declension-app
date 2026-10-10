@@ -1,6 +1,7 @@
 """Core-deck spaced repetition with FSRS. All scheduling lives here; state in SQLite."""
 import json
 import os
+import time
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
 from zoneinfo import ZoneInfo
@@ -48,10 +49,19 @@ def card_content(card_id: str) -> dict | None:
     return deck_index().get(card_id)
 
 
+_BOOT = time.monotonic()
+
+
 def now_utc() -> datetime:
     # KASKADE_NOW pins the clock for the E2E test instance (never set in production).
+    # With KASKADE_CLOCK_SPEED the pinned time runs on from there (e.g. 30 = a minute every 2 s),
+    # for walk-throughs where block timers should log minutes.
     fixed = os.environ.get("KASKADE_NOW")
-    return datetime.fromisoformat(fixed) if fixed else datetime.now(timezone.utc)
+    if not fixed:
+        return datetime.now(timezone.utc)
+    start = datetime.fromisoformat(fixed)
+    speed = float(os.environ.get("KASKADE_CLOCK_SPEED", "0") or 0)
+    return start + timedelta(seconds=(time.monotonic() - _BOOT) * speed) if speed > 0 else start
 
 
 def local_date(at: datetime) -> str:

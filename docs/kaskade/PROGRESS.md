@@ -2,6 +2,14 @@
 
 _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.md)._
 
+## Für Montag, 12. Oktober — Stand Sa 10.10. abends
+
+**Alle Follow-ups aus der ersten Nutzung sind erledigt** (#10, #13, #5, #11, #12, #14, #1, #3, #2, #8, #9, #4, #6; #7 mit #5; #15 gilt ab jetzt: Signal ist die Referenz). Tests: **Backend 323 · Frontend 354 · E2E 21 + 31 (alt)**, alle grün; Dienste laufen mit dem neuen Stand.
+
+**Montag 09:00 einmal komplett durchgespielt** — auf einer Kopie deiner echten Daten, Uhr auf Mo 12.10. 09:00 (Berlin) gestellt, in Firefox und Chromium: Heute zeigt Woche 1 · Phase 2B mit dem 2B-Block, alle vier „Starten“ aktiv, „Karten“ ist der aktuelle Block. Karten → bewerten, K, Rückgängig ✓ · „Fertig“ stoppt den Timer, Minuten werden gezählt ✓ · Schauen & minen öffnet *Tatort: Schweigen*, Zeilen ←/→, Wort antippen, Satz minen mit Original-Ton ✓, Position wird gemerkt ✓ · Frei lesen → Text, „Fertig gelesen“ ✓ · Prüfungsteil → *Ein Beet im Hof* schreiben und abgeben ✓ · am Ende 4 von 4 erledigt, Montag im Wochendiagramm, keine Konsolenfehler. Dabei behoben: laufender Timer bekommt eine eigene schmale Zeile (die Navigation brach sonst um), und falls ein Browser ein Video nicht abspielen kann, steht dort jetzt eine deutsche Erklärung statt der englischen Browser-Meldung.
+
+**Einziger offener Punkt:** Das Video selbst konnte ich nicht abspielen lassen — die Test-Browser hier haben keinen H.264-Decoder (Firefox auf dem Mac hat ihn). Die Clips sind geprüft H.264/AAC mit faststart und werden korrekt ausgeliefert (Range-Anfragen über den Proxy funktionieren). Bitte am Montag kurz bestätigen, dass *Tatort: Schweigen* in Schauen & minen abspielt.
+
 ## Guten Morgen, Matt — Zusammenfassung der Nacht
 
 **Alles aus TASK.md ist fertig: M0–M6, M5b und der ganze Backlog M7–M13.** 15 Commits auf `kaskade`, alle Tests grün:
