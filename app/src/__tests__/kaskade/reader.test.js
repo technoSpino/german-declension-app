@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { markGlossary, paragraphs } from '../../lib/reader'
+import { groupTokens, markGlossary, paragraphs } from '../../lib/reader'
 
 const G = [
   { term: 'Heizung', gloss: 'heating' },
@@ -32,5 +32,29 @@ describe('markGlossary', () => {
 describe('paragraphs', () => {
   it('splits on blank lines', () => {
     expect(paragraphs('Eins.\n\nZwei.\n \nDrei.')).toEqual(['Eins.', 'Zwei.', 'Drei.'])
+  })
+})
+
+describe('token joiner (no line break inside a word + its punctuation)', () => {
+  // spaCy tokens for: Die Heizung ist kalt. „Nicht schon wieder!“, denkt Frau Kaya. Sie sagt: ‚Na gut‘ (leise).
+  const raw = [['Die', ' '], ['Heizung', ' '], ['ist', ' '], ['kalt', ''], ['.', ' '], ['„', ''], ['Nicht', ' '], ['schon', ' '],
+    ['wieder', ''], ['!', ''], ['“', ''], [',', ' '], ['denkt', ' '], ['Frau', ' '], ['Kaya', ''], ['.', ' '], ['Sie', ' '],
+    ['sagt', ''], [':', ' '], ['‚', ''], ['Na', ' '], ['gut', ''], ['‘', ' '], ['(', ''], ['leise', ''], [')', ''], ['.', '']]
+  const tokens = raw.map(([text, ws], i) => ({ i, text, ws }))
+  const joined = groupTokens(tokens).map((g) => g.map((t) => t.text).join(''))
+
+  it('glues opening quotes to the next word and closing marks to the previous one', () => {
+    expect(joined).toContain('„Nicht')
+    expect(joined).toContain('wieder!“,')
+    expect(joined).toContain('‚Na')
+    expect(joined).toContain('gut‘')
+    expect(joined).toContain('(leise).')
+    expect(joined).toContain('kalt.')
+    expect(joined).toContain('Kaya.')
+  })
+
+  it('keeps every token exactly once, in order', () => {
+    expect(groupTokens(tokens).flat().map((t) => t.i)).toEqual(tokens.map((t) => t.i))
+    expect(groupTokens([])).toEqual([])
   })
 })

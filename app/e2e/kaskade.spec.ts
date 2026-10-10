@@ -466,3 +466,18 @@ test('Week 5: the AI-key to-do shows on Heute and can be ticked off', async ({ p
   await expect(page.getByTestId('fp-upcoming')).toContainText('Erste Probeprüfung')
   expect(errors).toEqual([])
 })
+
+test('Reader: quotes, punctuation and case letters never wrap away from their word', async ({ page }) => {
+  for (const width of [360, 600, 1280]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/lesen/t01')
+    await expect(page.locator('.at-group').first()).toBeVisible()
+    const broken = await page.locator('.at-group').evaluateAll((els) =>
+      els.filter((e) => e.getClientRects().length > 1).map((e) => e.textContent))
+    expect(broken, `width ${width}`).toEqual([])
+    // „ is always glued to the following word
+    const lonely = await page.locator('.at-group').evaluateAll((els) =>
+      els.map((e) => e.textContent ?? '').filter((t) => /^[„‚(«]$/.test(t.trim())))
+    expect(lonely).toEqual([])
+  }
+})

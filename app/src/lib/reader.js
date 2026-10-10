@@ -43,3 +43,22 @@ export function sentenceOf(analysis, i) {
 }
 
 export const paragraphs =(text) => text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
+
+/**
+ * Tokens joined into groups that must not break across lines: a group ends at a token
+ * followed by whitespace. So opening marks („ ‚ « ( [) stick to the next word, closing
+ * marks (“ ‘ » ) ] . , ! ? : ;) and case superscripts to the previous one.
+ */
+export function groupTokens(tokens) {
+  const groups = []
+  let cur = []
+  for (const t of tokens) {
+    cur.push(t)
+    if (t.ws) {
+      groups.push(cur)
+      cur = []
+    }
+  }
+  if (cur.length) groups.push(cur)
+  return groups
+}

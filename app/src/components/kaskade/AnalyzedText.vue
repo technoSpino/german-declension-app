@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { groupTokens } from '../../lib/reader'
 
 // Renders analysed tokens: word states (neu/lernend) and the case lens
 // (noun phrases underlined in the case colour, always with the letter N/A/D/G).
@@ -26,10 +27,12 @@ function classes(t) {
   return out
 }
 const isWord = (t) => /\p{L}/u.test(t.text)
+// Words with their punctuation and case letter never wrap apart (see groupTokens).
+const groups = computed(() => groupTokens(props.analysis.tokens))
 </script>
 
 <template>
-  <div class="k-read at-text" data-testid="analyzed-text"><template v-for="t in analysis.tokens" :key="t.i"><button
+  <div class="k-read at-text" data-testid="analyzed-text"><template v-for="(g, gi) in groups" :key="gi"><span class="at-group"><template v-for="t in g" :key="t.i"><button
         v-if="isWord(t)"
         type="button"
         :class="['at-word', ...classes(t)]"
@@ -39,10 +42,11 @@ const isWord = (t) => /\p{L}/u.test(t.text)
         v-if="lens && lastOfChunk.has(t.i)"
         :class="['at-sup', `at-sup-${analysis.chunks[lastOfChunk.get(t.i)].case}`]"
         :title="analysis.chunks[lastOfChunk.get(t.i)].explain"
-      >{{ analysis.chunks[lastOfChunk.get(t.i)].case }}</sup>{{ t.ws }}</template></div>
+      >{{ analysis.chunks[lastOfChunk.get(t.i)].case }}</sup></template></span>{{ g[g.length - 1].ws }}</template></div>
 </template>
 
 <style scoped>
+.at-group { white-space: nowrap; }
 .at-text { white-space: pre-wrap; font-size: clamp(19px, 2.4vw, 21px); line-height: 1.85; max-width: 66ch; }
 .at-word {
   font: inherit;
