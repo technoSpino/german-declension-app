@@ -140,3 +140,4 @@ Placement result: vocab ≈ 3,550 (85 % of core 2,000), Lesen B1, Satz-Check 83 
     5. **File inputs** show the browser's English "Choose File / No file chosen". Replace with a German picker ("Datei wählen" + file name or "keine Datei"), themed, keyboard accessible.
     6. **Copy:** Prüfung → Sprechen card says "Täglich im Lernblock (Di/Do)" — contradictory. Use "Im Lernblock am Di/Do, mit Aufnahme. Bewertung kommt später."
     7. **Second screenshot run with a realistic profile** (placement done → phase 2B, ~50 cards learned, some hours logged, one Satz-Check) so filled states get reviewed too; save as `docs/kaskade/screenshots/filled/<theme>-<page>.png`.
+15. **Signal is Matt's favourite theme** (2026-10-10). Treat Signal as the reference: every new screen and fix must look best in Signal first; the other five must stay correct and pass the contrast test. Keep the default (Signal light / Nacht for dark-mode systems).
