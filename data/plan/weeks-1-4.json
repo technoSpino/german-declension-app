@@ -511,6 +511,22 @@
       ]
     }
   ],
+  "week5": {
+    "todos": [
+      {
+        "id": "ai-key",
+        "title": "KI-Schlüssel einrichten",
+        "text": "Vor dem ersten Probetest (Woche 6): KI-Schlüssel einrichten — dann wird Schreiben automatisch bewertet.",
+        "steps": [
+          "Auf console.anthropic.com anmelden und unter „API Keys“ einen neuen Schlüssel erstellen.",
+          "Den Schlüssel in ~/kaskade-data/.env eintragen: ANTHROPIC_API_KEY=…",
+          "Den Server neu starten: systemctl --user restart kaskade-api"
+        ],
+        "note": "Das ist getrennt vom Max-Abo: Bezahlt wird pro Nutzung, ein bewerteter Text kostet ein paar Cent.",
+        "doneWhen": "ai"
+      }
+    ]
+  },
   "week6": {
     "title": "Erste Probeprüfung",
     "note": "In Woche 6 machst du eine komplette Probeprüfung: Lesen, Hören, Schreiben und Sprechen, mit den Zeiten einer echten Prüfung. Die Inhalte folgen später."

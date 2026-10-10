@@ -6,7 +6,7 @@ from typing import Literal
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from .. import db, plan, srs, texts
+from .. import config, db, plan, srs, texts
 from .media import last_clip
 from .satzcheck import mineable_lines
 from .texts import read_ids
@@ -41,6 +41,13 @@ def _activity_rows(conn, since: str | None = None):
     return [dict(r) for r in rows]
 
 
+def _todo_done(todo: dict) -> bool:
+    """Ticked off by hand, or done by itself (the AI key is set → /api/health says ai: true)."""
+    if todo.get("doneWhen") == "ai" and config.anthropic_key():
+        return True
+    return todo["id"] in db.get_setting("todosDone", [])
+
+
 @router.get("/today")
 def today():
     now = srs.now_utc()
@@ -53,6 +60,7 @@ def today():
         while nxt.weekday() >= 5:
             nxt += timedelta(days=1)
         info["preview"] = plan.plan_day(plan_start(d), nxt, data)
+    info["todos"] = [t for t in info["todos"] if not _todo_done(t)]
     days = plan.week_days(d)
     with db.tx() as conn:
         week_rows = _activity_rows(conn, days[0])
@@ -133,6 +141,8 @@ def fahrplan():
         "satzchecks": [{"date": r["created_at"], "contentType": r["content_type"], **json.loads(r["result"])} for r in checks],
         "nextCheck": (date.fromisoformat(last_check) + timedelta(days=28)).isoformat() if last_check else None,
         "weeks": plan.weekly_hours(by_day, d),
+        "upcoming": [{**u, "done": u["id"] != "mock-exam" and _todo_done(u)}
+                     for u in plan.upcoming(plan_start(d), plan.plan(db.get_setting("phase")))],
     }
 
 
@@ -255,3 +265,19 @@ def set_start(body: StartIn):
         raise HTTPException(422, "Der Plan beginnt immer an einem Montag.")
     db.set_setting("planStart", body.planStart.isoformat())
     return {"planStart": body.planStart.isoformat()}
+
+
+class TodoIn(BaseModel):
+    done: bool = True
+
+
+@router.post("/todos/{todo_id}")
+def tick_todo(todo_id: str, body: TodoIn):
+    known = {t["id"] for t in plan.plan().get("week5", {}).get("todos", [])}
+    if todo_id not in known:
+        raise HTTPException(404, "Unbekannte Aufgabe")
+    done = set(db.get_setting("todosDone", []))
+    done = done | {todo_id} if body.done else done - {todo_id}
+    db.set_setting("todosDone", sorted(done))
+    return {"id": todo_id, "done": body.done}
+

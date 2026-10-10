@@ -445,3 +445,24 @@ test('Schauen & minen: play → auto-pause → tap a word → mine → card with
   expect(media.position).toBeGreaterThan(0)
   expect(errors).toEqual([])
 })
+
+test('Week 5: the AI-key to-do shows on Heute and can be ticked off', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  const plan = await (await request.get('http://127.0.0.1:8001/api/plan')).json()
+  // Pretend it's week 5 for the first load only; after ticking, the real /api/today has no to-dos.
+  await page.route('**/api/today', async (route) => {
+    const res = await route.fetch()
+    await route.fulfill({ response: res, json: { ...(await res.json()), week: 5, todos: plan.week5.todos } })
+    await page.unroute('**/api/today')
+  })
+  await page.goto('/')
+  const card = page.getByTestId('todo-ai-key')
+  await expect(card).toContainText('KI-Schlüssel einrichten')
+  await expect(card).toContainText('ANTHROPIC_API_KEY')
+  await page.getByTestId('todo-done-ai-key').click()
+  await expect(card).toHaveCount(0)
+  await page.goto('/fahrplan')
+  await expect(page.getByTestId('fp-upcoming')).toContainText('✓ KI-Schlüssel einrichten')
+  await expect(page.getByTestId('fp-upcoming')).toContainText('Erste Probeprüfung')
+  expect(errors).toEqual([])
+})

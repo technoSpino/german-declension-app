@@ -125,6 +125,15 @@ async function stop() {
   await load()
 }
 
+async function tickTodo(todo) {
+  try {
+    await api.post(`/todos/${todo.id}`, { done: true })
+    await load()
+  } catch (e) {
+    error.value = e.message
+  }
+}
+
 async function toggleDone(b) {
   try {
     if (isRunning(b)) await status.stopTimer()
@@ -189,6 +198,20 @@ const timelineLabel = computed(() => {
       <router-link v-if="t && !t.placement" to="/einstufung" class="k-btn" data-testid="heute-einstufung">Zuerst: Einstufung →</router-link>
       <button v-else-if="suggestion && !isRunning(suggestion)" class="k-btn" @click="start(suggestion)">Weiter: {{ kindLabel(suggestion) }} →</button>
     </div>
+
+    <section v-for="todo in t?.todos ?? []" :key="todo.id" class="k-card k-card-strong hb-todo" :aria-labelledby="`todo-${todo.id}`" :data-testid="`todo-${todo.id}`">
+      <p class="k-eyebrow mb-1">Zu erledigen · Woche {{ t.week }}</p>
+      <h2 :id="`todo-${todo.id}`" class="k-h2">{{ todo.title }}</h2>
+      <p class="m-0 mt-1.5">{{ todo.text }}</p>
+      <ol class="m-0 mt-3 pl-5 flex flex-col gap-1 k-small" style="list-style: decimal">
+        <li v-for="step in todo.steps" :key="step">{{ step }}</li>
+      </ol>
+      <p v-if="todo.note" class="k-hint m-0 mt-2">{{ todo.note }}</p>
+      <div class="flex flex-wrap items-center gap-3 mt-3">
+        <button class="k-btn k-btn-sm" :data-testid="`todo-done-${todo.id}`" @click="tickTodo(todo)">✓ Erledigt</button>
+        <span v-if="todo.doneWhen === 'ai'" class="k-hint">Verschwindet auch von selbst, sobald der Schlüssel gesetzt ist.</span>
+      </div>
+    </section>
 
     <div v-if="t" class="flex flex-wrap gap-6 items-start">
       <section class="k-card min-w-0" style="flex: 999 1 560px; padding-bottom: 8px" aria-labelledby="plan-h">

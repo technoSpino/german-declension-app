@@ -176,3 +176,37 @@ def test_satzcheck_lines_can_be_mined_as_cards(client, monkeypatch):
     client.post("/api/mined", json={"sentence": "Glaubst du mir nicht?", "target": "Glaubst", "lemma": "glauben", "source": "Satz-Check"})
     assert [x["mined"] for x in client.get("/api/satzcheck/lines").json()] == [False, True]
     assert client.get("/api/today").json()["mineable"] == 1
+
+
+WEEK5_MONDAY = datetime(2026, 11, 9, 8, 0, tzinfo=timezone.utc)  # Mon 9 Nov 2026, plan week 5
+
+
+def test_week5_shows_the_ai_key_todo_until_ticked(client, monkeypatch):
+    client.put("/api/plan/start", json={"planStart": "2026-10-12"})
+    at(monkeypatch, WEEK5_MONDAY - timedelta(days=7))
+    assert client.get("/api/today").json()["todos"] == []  # week 4: nothing yet
+    at(monkeypatch, WEEK5_MONDAY)
+    t = client.get("/api/today").json()
+    assert t["week"] == 5 and [x["id"] for x in t["todos"]] == ["ai-key"]
+    assert "KI-Schlüssel" in t["todos"][0]["text"] and len(t["todos"][0]["steps"]) == 3
+    assert client.post("/api/todos/ai-key", json={"done": True}).json()["done"] is True
+    assert client.get("/api/today").json()["todos"] == []
+    client.post("/api/todos/ai-key", json={"done": False})
+    assert len(client.get("/api/today").json()["todos"]) == 1
+    assert client.post("/api/todos/nope", json={"done": True}).status_code == 404
+
+
+def test_week5_todo_disappears_once_the_key_is_set(client, monkeypatch):
+    client.put("/api/plan/start", json={"planStart": "2026-10-12"})
+    at(monkeypatch, WEEK5_MONDAY)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
+    assert client.get("/api/health").json()["ai"] is True
+    assert client.get("/api/today").json()["todos"] == []
+
+
+def test_fahrplan_lists_upcoming_steps(client, monkeypatch):
+    client.put("/api/plan/start", json={"planStart": "2026-10-12"})
+    at(monkeypatch, WEEK5_MONDAY)
+    up = client.get("/api/fahrplan").json()["upcoming"]
+    assert [(u["week"], u["date"], u["id"], u["done"]) for u in up] == [
+        (5, "2026-11-09", "ai-key", False), (6, "2026-11-16", "mock-exam", False)]

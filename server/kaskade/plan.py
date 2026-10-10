@@ -26,7 +26,7 @@ def plan(phase: str | None = None) -> dict:
     name = PHASE_FILES.get(phase or "")
     if not name:
         return base
-    return {"prompts": base["prompts"], "week6": base["week6"], **_load(name)}
+    return {"prompts": base["prompts"], "week5": base["week5"], "week6": base["week6"], **_load(name)}
 
 
 def block_ids() -> set[str]:
@@ -47,7 +47,9 @@ def plan_day(start: date, today: date, data: dict | None = None) -> dict:
     weekday = today.weekday()
     out = {"date": today.isoformat(), "weekday": WEEKDAYS[weekday], "week": week,
            "weekend": weekday >= 5, "beforeStart": offset < 0, "day": None, "theme": None,
-           "goal": None, "exam": None, "mockExam": None}
+           "goal": None, "exam": None, "mockExam": None,
+           # week 5 to-dos (e.g. set up the AI key before the week-6 mock exam), also on its weekend
+           "todos": data.get(f"week{week}", {}).get("todos", []) if week == 5 else []}
     if offset < 0 or weekday >= 5:
         return out
     weeks = data["weeks"]
@@ -60,6 +62,15 @@ def plan_day(start: date, today: date, data: dict | None = None) -> dict:
         out["exam"] = next(p for p in data["prompts"] if p["id"] == day["exam"])
     if week > len(weeks):
         out["repeat"] = True
+    return out
+
+
+def upcoming(start: date, data: dict) -> list[dict]:
+    """Fahrplan "next steps": week-5 to-dos and the week-6 mock exam, with their dates."""
+    out = [{"week": 5, "date": (start + timedelta(weeks=4)).isoformat(), "id": t["id"], "title": t["title"],
+            "text": t["text"], "doneWhen": t.get("doneWhen")} for t in data.get("week5", {}).get("todos", [])]
+    out.append({"week": 6, "date": (start + timedelta(weeks=5)).isoformat(), "id": "mock-exam",
+                "title": data["week6"]["title"], "text": data["week6"]["note"], "doneWhen": None})
     return out
 
 
