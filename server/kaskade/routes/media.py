@@ -6,7 +6,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from .. import config, db, satzcheck
 
@@ -17,13 +17,21 @@ SUB_EXT = {".srt", ".vtt"}
 YT_RE = re.compile(r"^https?://(www\.|m\.)?(youtube\.com|youtu\.be)/", re.I)
 
 
-def _row(r, with_cues=False) -> dict:
+def _progress() -> dict[int, dict]:
+    with db.tx() as conn:
+        rows = conn.execute("SELECT media_id, position, updated_at FROM media_progress").fetchall()
+    return {r["media_id"]: {"position": r["position"], "watchedAt": r["updated_at"]} for r in rows}
+
+
+def _row(r, with_cues=False, progress: dict | None = None) -> dict:
     cues = json.loads(r["cues"])
+    p = (progress if progress is not None else _progress()).get(r["id"], {})
     out = {
         "id": r["id"], "createdAt": r["created_at"], "kind": r["kind"], "title": r["title"],
         "sourceUrl": r["source_url"], "hasMedia": bool(r["media_file"]),
         "isAudio": bool(r["media_file"]) and Path(r["media_file"]).suffix in {".mp3", ".m4a", ".ogg", ".oga", ".wav", ".opus", ".aac"},
         "cueCount": len(cues), "duration": cues[-1]["end"] if cues else 0,
+        "position": p.get("position", 0), "watchedAt": p.get("watchedAt"),
     }
     if with_cues:
         out["cues"] = cues
@@ -51,7 +59,36 @@ def _get(media_id: int):
 def list_media():
     with db.tx() as conn:
         rows = conn.execute("SELECT * FROM media ORDER BY id DESC").fetchall()
-    return [_row(r) for r in rows]
+    progress = _progress()
+    return [_row(r, progress=progress) for r in rows]
+
+
+def last_clip() -> dict | None:
+    """The clip to continue in "Schauen & minen": the one watched most recently,
+    else the newest clip with a video/audio file."""
+    clips = [c for c in list_media() if c["hasMedia"]]
+    watched = sorted((c for c in clips if c["watchedAt"]), key=lambda c: c["watchedAt"], reverse=True)
+    return (watched or clips or [None])[0]
+
+
+@router.get("/last")
+def last():
+    return last_clip()
+
+
+class ProgressIn(BaseModel):
+    position: float = Field(ge=0)
+
+
+@router.put("/{media_id}/progress")
+def save_progress(media_id: int, body: ProgressIn):
+    _get(media_id)
+    with db.tx() as conn:
+        conn.execute(
+            "INSERT INTO media_progress(media_id, position, updated_at) VALUES (?, ?, ?)"
+            " ON CONFLICT(media_id) DO UPDATE SET position = excluded.position, updated_at = excluded.updated_at",
+            (media_id, round(body.position, 2), db.now_iso()))
+    return {"id": media_id, "position": round(body.position, 2)}
 
 
 @router.get("/{media_id}")
@@ -77,6 +114,7 @@ def delete_media(media_id: int):
         (config.MEDIA_DIR / r["media_file"]).unlink(missing_ok=True)
     with db.tx() as conn:
         conn.execute("DELETE FROM media WHERE id = ?", (media_id,))
+        conn.execute("DELETE FROM media_progress WHERE media_id = ?", (media_id,))
     return {"ok": True}
 
 

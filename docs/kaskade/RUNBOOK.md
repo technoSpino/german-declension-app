@@ -35,6 +35,7 @@ Tailscale IP 100.64.43.3.
 | `kaskade.db` | all progress: cards/FSRS, tests, placement, timers, immersion, settings | yes |
 | `media/` | Satz-Check clips | yes |
 | `recordings/` | Sprechen recordings | yes |
+| `snippets/` | audio of lines mined in Schauen & minen | yes |
 | `tts/` | Piper voice + generated audio | no (regenerate) |
 | `dict/` | Wiktionary glossary | no (regenerate) |
 | `freq/` | raw frequency list | no (re-download) |
@@ -46,7 +47,7 @@ Tailscale IP 100.64.43.3.
 cd ~/kaskade/server && .venv/bin/python scripts/backup.py     # manual backup → ~/kaskade-backups/
 # restore (stop the API first):
 systemctl --user stop kaskade-api
-tar -xzf ~/kaskade-backups/kaskade-YYYYMMDD-HHMMSS.tar.gz -C ~      # restores ~/kaskade-data/{kaskade.db,media,recordings}
+tar -xzf ~/kaskade-backups/kaskade-YYYYMMDD-HHMMSS.tar.gz -C ~      # restores ~/kaskade-data/{kaskade.db,media,recordings,snippets}
 systemctl --user start kaskade-api
 ```
 

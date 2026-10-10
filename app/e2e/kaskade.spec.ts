@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdirSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const TMP = join(process.cwd(), '.e2e-data', 'fixtures')
@@ -394,5 +394,54 @@ test('Satz-Check accepts an SRT + clip, pauses per cue and records ratings', asy
   await mine.getByTestId('mine').click()
   await expect(mine).toContainText('Gemined — kommt als neue Karte.')
   await expect(mine).toContainText('Sätze zum Minen · 1')
+  expect(errors).toEqual([])
+})
+
+test('Schauen & minen: play → auto-pause → tap a word → mine → card with clip audio', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  const up = await request.post('http://127.0.0.1:8001/api/media/upload', {
+    multipart: {
+      title: 'E2E-Krimi',
+      subtitles: { name: 'k.srt', mimeType: 'application/x-subrip', buffer: Buffer.from(SRT) },
+      media: { name: 'k.webm', mimeType: 'video/webm', buffer: readFileSync(testClip()) }
+    }
+  })
+  expect(up.ok()).toBeTruthy()
+  const clip = await up.json()
+
+  await page.goto('/schauen')
+  await page.getByTestId(`watch-${clip.id}`).click()
+  await expect(page).toHaveURL(new RegExp(`/schauen/${clip.id}$`))
+  await page.getByTestId('watch-play').click()
+  const line = page.getByTestId('watch-line')
+  await expect(line).toContainText('Guten Morgen, wie geht es dir?')
+  // Auto-pause at the end of the first line.
+  await expect.poll(() => page.getByTestId('watch-video').evaluate((v: HTMLVideoElement) => v.paused), { timeout: 8000 }).toBe(true)
+
+  // → next line, R replays it.
+  await page.keyboard.press('ArrowRight')
+  await expect(line).toContainText('Danke, mir geht es gut.')
+  await page.keyboard.press('ArrowLeft')
+  await expect(line).toContainText('Guten Morgen')
+
+  // Tap a word → word panel → mine the whole line with its audio.
+  await page.getByTestId('watch-video').evaluate((v: HTMLVideoElement) => v.pause())
+  await line.locator('.at-word', { hasText: /^Morgen$/ }).click()
+  await expect(page.getByTestId('word-panel')).toContainText('Guten Morgen, wie geht es dir?')
+  await page.getByTestId('mine').click()
+  await expect(page.getByTestId('word-panel')).toContainText('Gemined — kommt als neue Karte.')
+  await expect(page.getByTestId('watch-mined')).toContainText('1 Satz gemined')
+
+  const mined = await (await request.get('http://127.0.0.1:8001/api/mined')).json()
+  const card = mined.find((c: { sentence: string }) => c.sentence === 'Guten Morgen, wie geht es dir?')
+  expect(card.mediaId).toBe(clip.id)
+  const audio = await request.get(`http://127.0.0.1:8001/api/cards/${card.id}/audio`)
+  expect(audio.headers()['content-type']).toBe('audio/mp4')
+
+  // Resume position is saved; mined cards come first in Karten (earlier tests may have mined others).
+  await page.goto('/karten')
+  await expect(page.getByTestId('karte')).toContainText('Gemined')
+  const media = await (await request.get(`http://127.0.0.1:8001/api/media/${clip.id}`)).json()
+  expect(media.position).toBeGreaterThan(0)
   expect(errors).toEqual([])
 })

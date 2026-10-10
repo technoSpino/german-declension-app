@@ -7,6 +7,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from .. import db, plan, srs, texts
+from .media import last_clip
 from .satzcheck import mineable_lines
 from .texts import read_ids
 
@@ -94,6 +95,7 @@ def today():
         "cards": srs.stats(now),
         "texts": {slot: texts.next_unread(slot, set(read_ids())) for slot in ("input", "lesen")},
         "mineable": sum(1 for line in mineable_lines() if not line["mined"]),
+        "watch": last_clip(),
     }
 
 

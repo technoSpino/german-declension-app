@@ -38,6 +38,7 @@ def mined_cards() -> list[dict]:
         "id": f"mine:{r['id']}", "n": None, "lemma": r["lemma"], "display": r["display"], "gloss": r["gloss"],
         "sentence": r["sentence"], "target": r["target"], "en": r["en"] or "", "note": r["note"],
         "case": r["kasus"], "source": r["source"], "pos": None,
+        "audio": r["audio"], "mediaId": r["media_id"], "clipStart": r["clip_start"], "clipEnd": r["clip_end"],
     } for r in rows]
 
 

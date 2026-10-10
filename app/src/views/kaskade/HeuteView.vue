@@ -7,6 +7,7 @@ import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker
 import ImmersionForm from '../../components/kaskade/ImmersionForm.vue'
 import { useNow } from '../../lib/useNow'
 import { useStatusStore } from '../../stores/statusStore'
+import { formatTime } from '../../lib/watch'
 
 const router = useRouter()
 const status = useStatusStore()
@@ -78,12 +79,18 @@ function textHint(b) {
   return text ? ` Vorschlag aus der Bibliothek: „${text.title}“ (${text.level}).` : ''
 }
 
+function watchHint() {
+  const w = t.value?.watch
+  if (!w) return textHint({ kind: 'input' })
+  return w.position > 2 ? ` Weiter mit „${w.title}“ ab ${formatTime(w.position)}.` : ` Clip: „${w.title}“.`
+}
+
 function describe(b) {
   const d = day.value
   if (!d) return ''
   switch (b.kind) {
     case 'karten': return `${d.karten}${t.value?.cards ? ` · heute ${t.value.cards.due} fällig + ${t.value.cards.new} neu` : ''}`
-    case 'input': return d.input + textHint(b)
+    case 'input': return d.input + watchHint()
     case 'pause': return 'Aufstehen, Wasser trinken, kurz ans Fenster oder raus.'
     case 'lesen': return d.lesen + textHint(b)
     case 'pruefung': {
@@ -104,6 +111,7 @@ async function start(b) {
   try {
     await status.startTimer(b.id)
     if (b.kind === 'karten') return router.push('/karten')
+    if (b.kind === 'input' && t.value?.watch) return router.push(`/schauen/${t.value.watch.id}`)
     if ((b.kind === 'input' || b.kind === 'lesen') && t.value?.texts?.[b.kind]) return router.push(`/lesen/${t.value.texts[b.kind].id}`)
     if (b.kind === 'pruefung' && planInfo.value?.exam) return router.push(`/aufgabe/${planInfo.value.exam.id}`)
     await load()

@@ -97,6 +97,11 @@ CREATE TABLE IF NOT EXISTS mined (
   kasus TEXT,                    -- N | A | D | G | NULL
   source TEXT
 );
+CREATE TABLE IF NOT EXISTS media_progress (
+  media_id INTEGER PRIMARY KEY,  -- resume position per clip (Schauen & minen)
+  position REAL NOT NULL,
+  updated_at TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS practice_attempts (
   id INTEGER PRIMARY KEY,
   created_at TEXT NOT NULL,
@@ -144,6 +149,11 @@ def connect() -> sqlite3.Connection:
 
 MIGRATIONS = [
     "ALTER TABLE review_log ADD COLUMN prev TEXT",
+    # mined from a clip (Schauen & minen): where the line is, and its audio snippet
+    "ALTER TABLE mined ADD COLUMN media_id INTEGER",
+    "ALTER TABLE mined ADD COLUMN clip_start REAL",
+    "ALTER TABLE mined ADD COLUMN clip_end REAL",
+    "ALTER TABLE mined ADD COLUMN audio TEXT",
 ]
 
 

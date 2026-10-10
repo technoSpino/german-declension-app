@@ -1,7 +1,7 @@
 """Back up ~/kaskade-data to ~/kaskade-backups/kaskade-YYYYMMDD-HHMM.tar.gz.
 
 Includes a consistent snapshot of kaskade.db (SQLite backup API, safe while the
-API runs), media/ and recordings/. Skips what can be regenerated (tts/, dict/, freq/)
+API runs), media/, recordings/ and snippets/. Skips what can be regenerated (tts/, dict/, freq/)
 and .env (secrets). Keeps the newest 14 archives.
 
 Usage: .venv/bin/python scripts/backup.py [--dest DIR] [--keep N]
@@ -16,7 +16,7 @@ from pathlib import Path
 
 DATA = Path.home() / "kaskade-data"
 DEST = Path.home() / "kaskade-backups"
-INCLUDE_DIRS = ("media", "recordings")
+INCLUDE_DIRS = ("media", "recordings", "snippets")
 
 
 def backup(data: Path = DATA, dest: Path = DEST, keep: int = 14, now: datetime | None = None,

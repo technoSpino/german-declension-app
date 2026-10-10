@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from .. import db, srs, tts
+from .. import config, db, srs, tts
 
 router = APIRouter(prefix="/api/cards")
 
@@ -48,9 +48,14 @@ def undo():
 
 @router.get("/{card_id}/audio")
 def audio(card_id: str):
-    card = srs.deck_index().get(card_id)
+    card = srs.card_content(card_id)
     if card is None:
         raise HTTPException(404, "Karte nicht gefunden")
+    if card.get("audio"):
+        # Mined from a clip: the original voice beats TTS.
+        snip = config.SNIPPETS_DIR / card["audio"]
+        if snip.exists():
+            return FileResponse(snip, media_type="audio/mp4", headers={"Cache-Control": "max-age=31536000"})
     path = tts.audio_for(card["sentence"])
     if path is None:
         raise HTTPException(404, "Keine Sprachausgabe auf dem Server (Piper fehlt)")

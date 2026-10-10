@@ -23,6 +23,12 @@ const routes = [
     meta: { title: 'Wortschatz-Test' }
   },
   {
+    path: '/schauen/:id?',
+    name: 'Schauen',
+    component: () => import('../views/kaskade/SchauenView.vue'),
+    meta: { title: 'Schauen & minen' }
+  },
+  {
     path: '/satz-check',
     name: 'SatzCheck',
     component: () => import('../views/kaskade/SatzCheckView.vue'),
