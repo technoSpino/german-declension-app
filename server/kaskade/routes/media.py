@@ -8,7 +8,7 @@ from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, Uploa
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from .. import config, db, satzcheck, transcode
+from .. import config, db, mediathek, satzcheck, transcode
 
 router = APIRouter(prefix="/api/media")
 
@@ -239,3 +239,68 @@ def youtube(body: YoutubeIn, tasks: BackgroundTasks):
     if media_files:
         schedule_conversion(media_id, tasks)
     return _row(_get(media_id))
+
+
+class MediathekIn(BaseModel):
+    url: str
+
+
+def _mediathek_title(info: dict) -> str:
+    title = (info.get("title") or "").strip() or "Mediathek"
+    series = (info.get("series") or "").strip()
+    return f"{series}: {title}" if series and series.lower() not in title.lower() else title
+
+
+def run_mediathek(job_id: str, url: str) -> None:
+    """Thread body of a Mediathek job: download, subtitles → cues, register the clip, convert."""
+    stem = f"mt-{job_id}"
+    leftovers = lambda: list(config.MEDIA_DIR.glob(f"{stem}*"))  # noqa: E731
+
+    def fail(message: str) -> None:
+        for f in leftovers():
+            f.unlink(missing_ok=True)
+        mediathek.update(job_id, status="error", message=message)
+
+    config.MEDIA_DIR.mkdir(parents=True, exist_ok=True)
+    try:
+        info = mediathek.fetch(url, config.MEDIA_DIR, stem, mediathek.progress_hook(job_id))
+    except Exception as e:  # yt-dlp raises many types; all mean "didn't work"
+        msg = str(e)
+        if "geo" in msg.lower() or "not available in your country" in msg.lower():
+            return fail("Dieses Video ist von hier aus gesperrt (Geo-Sperre).")
+        return fail("Download fehlgeschlagen. Ist der Link eine einzelne Sendung in der ARD- oder ZDF-Mediathek?")
+    subs = sorted(config.MEDIA_DIR.glob(f"{stem}*.srt")) or sorted(config.MEDIA_DIR.glob(f"{stem}*.vtt"))
+    files = [f for f in leftovers() if f.suffix.lower() in MEDIA_EXT]
+    if not files:
+        return fail("Es wurde keine Videodatei geladen.")
+    if not subs:
+        return fail("Zu diesem Video gibt es keine deutschen Untertitel (UT).")
+    cues = satzcheck.parse_subtitles(subs[0].read_text(encoding="utf-8", errors="replace"))
+    for f in subs:
+        f.unlink(missing_ok=True)  # cues live in the DB; keep no subtitle files around
+    if not cues:
+        return fail("Die Untertitel waren leer.")
+    media_id = _insert("mediathek", _mediathek_title(info), url, files[0].name, cues)
+    mediathek.update(job_id, mediaId=media_id, phase="convert", progress=0.99)
+    if transcode.enabled():
+        with db.tx() as conn:
+            conn.execute("UPDATE media SET status = 'converting' WHERE id = ?", (media_id,))
+        convert_media(media_id)
+    mediathek.update(job_id, status="done", phase="done", progress=1.0)
+
+
+@router.post("/mediathek", status_code=202)
+def from_mediathek(body: MediathekIn):
+    url = body.url.strip()
+    if not mediathek.valid_url(url):
+        raise HTTPException(422, "Bitte einen Link aus der ARD- oder ZDF-Mediathek einfügen.")
+    return {"jobId": mediathek.start(url, run_mediathek)}
+
+
+@router.get("/jobs/{job_id}")
+def job(job_id: str):
+    j = mediathek.get(job_id)
+    if j is None:
+        raise HTTPException(404, "Download nicht gefunden (Server neu gestartet?)")
+    return j
+

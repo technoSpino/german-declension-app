@@ -500,3 +500,30 @@ test('Reader: quotes, punctuation and case letters never wrap away from their wo
     expect(lonely).toEqual([])
   }
 })
+
+test('Aus der Mediathek holen: progress, then the new clip is selected (API faked, no network)', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  const up = await request.post('http://127.0.0.1:8001/api/media/upload', {
+    multipart: { title: 'Tatort: Demo', subtitles: { name: 'd.srt', mimeType: 'application/x-subrip', buffer: Buffer.from(SRT) } }
+  })
+  const clip = await up.json()
+  let polls = 0
+  await page.route('**/api/media/mediathek', (r) => r.fulfill({ status: 202, json: { jobId: 'j1' } }))
+  await page.route('**/api/media/jobs/j1', (r) => {
+    polls++
+    const MB = 1024 * 1024
+    return r.fulfill({
+      json: polls < 3
+        ? { status: 'running', phase: 'download', progress: 0.4, downloaded: 58 * MB, total: 145 * MB, speed: 8 * MB }
+        : { status: 'done', phase: 'done', progress: 1, mediaId: clip.id }
+    })
+  })
+  await page.goto('/satz-check')
+  await page.getByText('Aus der Mediathek holen').click()
+  await page.getByTestId('mediathek-url').fill('https://www.ardmediathek.de/video/tatort/demo')
+  await page.getByTestId('mediathek-fetch').click()
+  await expect(page.getByTestId('mediathek-progress')).toContainText('58 von 145 MB · 8 MB/s')
+  await expect(page.getByRole('radio', { name: /Tatort: Demo/ })).toHaveAttribute('aria-checked', 'true', { timeout: 8000 })
+  await expect(page.getByTestId('mediathek-progress')).toContainText('Fertig.')
+  expect(errors).toEqual([])
+})

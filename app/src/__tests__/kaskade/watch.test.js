@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { clipStatus, formatTime, inside, isNonSpeech, lineAt, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
+import { clipStatus, formatTime, jobLabel, inside, isNonSpeech, lineAt, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
 
 const CUES = [
   { start: 1, end: 2.5, text: 'Wo waren Sie gestern Abend?' },
@@ -64,5 +64,17 @@ describe('clip conversion status', () => {
     expect(clipStatus({ status: 'converting' })).toMatch(/umgewandelt/)
     expect(clipStatus({ status: 'original' })).toMatch(/Originaldatei/)
     expect(clipStatus({ status: 'ready' })).toBe('')
+  })
+})
+
+describe('Mediathek job progress', () => {
+  const MB = 1024 * 1024
+  it('describes each phase in German', () => {
+    expect(jobLabel({ status: 'running', phase: 'start', downloaded: 0 })).toBe('Verbinde mit der Mediathek …')
+    expect(jobLabel({ status: 'running', phase: 'download', downloaded: 38 * MB, total: 145 * MB, speed: 7.9 * MB })).toBe('38 von 145 MB · 7,9 MB/s')
+    expect(jobLabel({ status: 'running', phase: 'download', downloaded: 2.5 * MB, total: null })).toBe('2,5 MB')
+    expect(jobLabel({ status: 'running', phase: 'convert', downloaded: 1 })).toMatch(/vorbereitet/)
+    expect(jobLabel({ status: 'error', message: 'Geo-Sperre' })).toBe('Geo-Sperre')
+    expect(jobLabel({ status: 'done' })).toBe('Fertig.')
   })
 })

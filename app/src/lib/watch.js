@@ -71,3 +71,17 @@ export function clipStatus(clip) {
   if (clip?.status === 'original') return 'Originaldatei (Umwandlung fehlgeschlagen — spielt evtl. nicht in Safari)'
   return ''
 }
+
+const MB = 1024 * 1024
+const mb = (b) => new Intl.NumberFormat('de-DE', { maximumFractionDigits: b < 10 * MB ? 1 : 0 }).format(b / MB)
+
+/** Progress line of a Mediathek download job, e.g. "38 von 145 MB · 7,9 MB/s". */
+export function jobLabel(job) {
+  if (!job) return ''
+  if (job.status === 'done') return 'Fertig.'
+  if (job.status === 'error') return job.message || 'Fehlgeschlagen.'
+  if (job.phase === 'convert') return 'Wird für alle Browser vorbereitet …'
+  if (!job.downloaded) return 'Verbinde mit der Mediathek …'
+  const size = job.total ? `${mb(job.downloaded)} von ${mb(job.total)} MB` : `${mb(job.downloaded)} MB`
+  return job.speed ? `${size} · ${mb(job.speed)} MB/s` : size
+}

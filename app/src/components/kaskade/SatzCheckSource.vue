@@ -1,8 +1,8 @@
 <script setup>
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { api } from '../../lib/api'
 import { cuesInWindow } from '../../lib/satzcheck'
-import { clipStatus } from '../../lib/watch'
+import { clipStatus, jobLabel } from '../../lib/watch'
 import { formatClock } from '../../lib/format'
 import FilePicker from './FilePicker.vue'
 
@@ -79,6 +79,37 @@ async function uploadClip() {
   }
 }
 
+// ARD/ZDF Mediathek: a background download with progress (polled every second).
+const mediathekUrl = ref('')
+const job = ref(null)
+let poll = 0
+async function fetchMediathek() {
+  error.value = null
+  try {
+    const { jobId } = await api.post('/media/mediathek', { url: mediathekUrl.value })
+    job.value = { status: 'running', phase: 'start', progress: 0 }
+    clearInterval(poll)
+    poll = setInterval(() => pollJob(jobId), 1000)
+  } catch (e) {
+    error.value = e.message
+  }
+}
+async function pollJob(jobId) {
+  try {
+    job.value = await api.get(`/media/jobs/${jobId}`)
+  } catch (e) {
+    job.value = { status: 'error', message: e.message }
+  }
+  if (job.value.status === 'running') return
+  clearInterval(poll)
+  if (job.value.status === 'done') {
+    mediathekUrl.value = ''
+    await loadLibrary()
+    await choose(job.value.mediaId)
+  }
+}
+onBeforeUnmount(() => clearInterval(poll))
+
 async function fetchYoutube() {
   busy.value = true
   error.value = null
@@ -141,6 +172,19 @@ function start() {
             <input v-model="title" type="text" class="k-input" placeholder="z. B. Serie, Folge 3" data-testid="upload-title" />
           </label>
           <button class="k-btn" :disabled="busy" data-testid="upload-submit" @click="uploadClip">{{ busy ? 'Lädt …' : 'Hochladen' }}</button>
+        </div>
+      </details>
+
+      <details class="flex flex-col gap-3" data-testid="mediathek">
+        <summary class="k-btn k-btn-ghost k-btn-sm" style="width: fit-content">Aus der Mediathek holen</summary>
+        <div class="flex flex-col gap-3 mt-3">
+          <p class="k-hint m-0">Link zu einer Sendung in der ARD- oder ZDF-Mediathek mit Untertiteln („UT“), z. B. ein Tatort. Lädt das Video in 540p (gut 150 MB pro Stunde) und die deutschen Untertitel.</p>
+          <input v-model="mediathekUrl" type="url" class="k-input" placeholder="https://www.ardmediathek.de/video/…" aria-label="Link aus der Mediathek" data-testid="mediathek-url" />
+          <button class="k-btn" :disabled="!mediathekUrl || job?.status === 'running'" data-testid="mediathek-fetch" @click="fetchMediathek">{{ job?.status === 'running' ? 'Lädt …' : 'Holen' }}</button>
+          <div v-if="job" class="flex flex-col gap-1.5" aria-live="polite" data-testid="mediathek-progress">
+            <div v-if="job.status === 'running'" class="k-progress" role="progressbar" :aria-valuenow="Math.round((job.progress || 0) * 100)" aria-valuemin="0" aria-valuemax="100"><div :style="{ width: (job.progress || 0) * 100 + '%' }"></div></div>
+            <p :class="['m-0 k-small', { 'k-error': job.status === 'error' }]">{{ jobLabel(job) }}</p>
+          </div>
         </div>
       </details>
 
