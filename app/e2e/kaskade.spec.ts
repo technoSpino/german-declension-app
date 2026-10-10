@@ -48,6 +48,8 @@ function watchConsole(page: Page) {
 
 test('Heute loads with the day plan, block timer and done toggle', async ({ page }) => {
   const errors = watchConsole(page)
+  // Browser clock = the API's pinned clock (Tue 09:30 Berlin).
+  await page.clock.setFixedTime(new Date('2026-10-13T07:30:00Z'))
   await page.goto('/')
   await expect(page.getByTestId('heute')).toBeVisible()
   await expect(page.getByRole('navigation', { name: 'Hauptnavigation' })).toBeVisible()
@@ -56,6 +58,12 @@ test('Heute loads with the day plan, block timer and done toggle', async ({ page
   await expect(page.getByTestId('block-pruefung')).toContainText('Ein Hoffest für das Haus')
 
   await expect(page.getByTestId('block-lesen')).toContainText('Vorschlag aus der Bibliothek')
+  // Timeline: labelled segments, exactly one highlighted (09:30 → Schauen), the rest upcoming.
+  const timeline = page.getByTestId('timeline')
+  await expect(timeline).toContainText('Karten')
+  await expect(timeline).toContainText('Prüfung')
+  await expect(timeline.locator('[data-state="current"]')).toHaveCount(1)
+  await expect(timeline.locator('[data-state="current"]')).toContainText('Schauen')
   // Starting the free-reading block opens the suggested text; the timer keeps running in the header.
   await page.getByTestId('start-lesen').click()
   await expect(page).toHaveURL(/\/lesen\/t\d+/)
@@ -67,6 +75,7 @@ test('Heute loads with the day plan, block timer and done toggle', async ({ page
   await expect(page.getByTestId('feed-row')).toContainText('/api/feed.xml')
   await page.getByTestId('done-input').click()
   await expect(page.getByTestId('done-input')).toContainText('Erledigt')
+  await expect(timeline.locator('[data-state="done"]')).toContainText('✓ Schauen')
   expect(errors).toEqual([])
 })
 

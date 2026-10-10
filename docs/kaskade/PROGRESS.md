@@ -52,6 +52,7 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 ### Follow-ups aus der ersten Nutzung (ab Sa 10.10.)
 
 - [x] #10 Vorschau-Tage (Wochenende, vor Planstart): alle „Starten“-Knöpfe sichtbar, aber `aria-disabled` mit Hinweis bei Hover/Fokus („Wochenende — der Lernblock läuft Mo–Fr …“ / „Dein Plan startet am Mo, 12. Oktober …“); Klick tut nichts. Tests: Backend 279 · Frontend 290 · E2E 16/16.
+- [x] #13 Zeitleiste neu (alle 6 Stile): eigene Tokens `--timeline-*` (offen = Tönung + Rand, aktuell = Akzentfarbe, erledigt = gedämpft + ✓, Pause = schraffiert), Beschriftung in den Segmenten, keine Opacity-Tricks; nur der aktuelle Block hat einen gefüllten „Starten“-Knopf; Datum aus dem Server; Fahrplan-Balken in Akzentfarbe; `kaskade.css` jetzt in `@layer components` (Tailwind-Abstände wirkten nicht). Review-Set: `docs/kaskade/screenshots/<stil>-<seite>.png` (6 Seiten × 6 Stile + Zeitleiste), neu erzeugen mit `npm run screenshots:kaskade`. Tests: Backend 279 · Frontend 320 (inkl. Kontrast Zeitleiste) · E2E 16/16 · Alt-E2E 31/31.
 
 ## Betrieb
 

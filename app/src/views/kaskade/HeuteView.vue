@@ -51,8 +51,11 @@ const hint = computed(() => previewHint(t.value))
 const layout = computed(() => (t.value ? layoutBlocks(t.value.block) : null))
 const marker = computed(() => (t.value && !isPreview.value ? nowMarker(t.value.block, minutes.value) : null))
 const suggestion = computed(() => (t.value && !isPreview.value ? nextBlock(t.value.block, t.value.done, minutes.value) : null))
+// The server's date (Berlin), so the label always matches the plan day shown below.
 const dateLabel = computed(() =>
-  new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Europe/Berlin' }).format(now.value)
+  new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(
+    t.value?.date ? new Date(`${t.value.date}T12:00:00Z`) : now.value
+  )
 )
 const bars = computed(() => (t.value ? weekStack(t.value.weekTotals.seconds, t.value.weekTotals.passive) : []))
 const sumH = (arr) => arr.reduce((a, b) => a + b, 0) / 3600
@@ -132,6 +135,25 @@ const SKILLS = [
 ]
 const WEEKDAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', pause: 'Pause', lesen: 'Freies Lesen · ohne Tools', pruefung: 'B1-Prüfungsteil' }
+const SHORT_LABEL = { karten: 'Karten', input: 'Schauen', lesen: 'Lesen', pruefung: 'Prüfung' }
+
+/** The highlighted block: the running one, else the suggested one (plan days only). */
+const currentId = computed(() => (isPreview.value ? null : status.running?.block ?? suggestion.value?.id ?? null))
+function segState(b) {
+  if (b.kind === 'pause') return 'pause'
+  if (!isPreview.value && isDone(b)) return 'done'
+  return b.id === currentId.value ? 'current' : 'upcoming'
+}
+// Labels are hidden in segments too narrow for them (see the container queries below).
+const segWidthClass = (b) => (b.minutes < 30 ? 'hb-w-s' : b.minutes < 50 ? 'hb-w-m' : '')
+const timelineLabel = computed(() => {
+  if (!layout.value) return ''
+  const parts = layout.value.items.filter((b) => b.kind !== 'pause').map((b) => {
+    const state = { done: 'erledigt', current: 'aktuell', upcoming: 'offen' }[segState(b)]
+    return `${b.start} ${SHORT_LABEL[b.kind]} (${b.minutes} min, ${state})`
+  })
+  return `Zeitleiste 09:00 bis 11:30: ${parts.join(', ')}`
+})
 </script>
 
 <template>
@@ -167,15 +189,18 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
           </p>
         </div>
 
-        <div role="img" :aria-label="`Zeitleiste 09:00 bis 11:30${marker != null ? ', jetzt ' + Math.round(minutes / 60) + ' Uhr' : ''}`" class="my-4">
-          <div class="relative flex gap-0.5" style="height: 28px">
+        <div role="img" :aria-label="timelineLabel" class="my-4" data-testid="timeline">
+          <div class="hb-track">
             <div
-              v-for="(b, i) in layout.items"
+              v-for="b in layout.items"
               :key="b.id"
               :title="`${b.start} ${KIND_LABEL[b.kind]} · ${b.minutes} min`"
-              :class="['hb-seg', `hb-${b.kind}`, { 'hb-done': isDone(b) }]"
-              :style="{ flex: `${b.minutes} 1 0`, borderRadius: i === 0 ? '6px 0 0 6px' : i === layout.items.length - 1 ? '0 6px 6px 0' : '0' }"
-            ></div>
+              :class="['hb-seg', `hb-seg-${segState(b)}`, segWidthClass(b)]"
+              :style="{ flex: `${b.minutes} 1 0` }"
+              :data-state="segState(b)"
+            >
+              <span v-if="b.kind !== 'pause'" class="hb-seg-label">{{ segState(b) === 'done' ? '✓ ' : '' }}{{ SHORT_LABEL[b.kind] }}</span>
+            </div>
             <div v-if="marker != null" class="hb-now" :style="{ left: marker + '%' }"></div>
           </div>
           <div class="relative k-hint" style="height: 18px; margin-top: 6px">
@@ -190,7 +215,7 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
           <li v-for="b in t.block" :key="b.id" class="hb-row" :data-testid="`block-${b.id}`">
             <div class="hb-time" :class="{ 'hb-muted': isDone(b) }">{{ b.start }}<span>{{ b.minutes }} min</span></div>
             <div class="min-w-0">
-              <p class="hb-kind"><span :class="['hb-dot', `hb-${b.kind}`]"></span>{{ KIND_LABEL[b.kind] }}</p>
+              <p class="hb-kind"><span :class="['hb-dot', `hb-seg-${segState(b)}`]"></span>{{ KIND_LABEL[b.kind] }}<span v-if="segState(b) === 'current'" class="hb-now-tag">· jetzt</span></p>
               <p class="hb-title" :class="{ 'hb-strike': isDone(b) }">{{ b.kind === 'pruefung' && planInfo?.exam ? planInfo.exam.title : b.title }}</p>
               <p class="k-small m-0 mt-0.5">{{ describe(b) }}</p>
               <p v-if="logged(b) && !isPreview" class="k-hint m-0 mt-0.5">{{ logged(b) }} min erfasst</p>
@@ -211,7 +236,12 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
             </div>
             <div v-else-if="b.kind !== 'pause'" class="hb-actions flex flex-col items-end gap-1.5">
               <button v-if="isRunning(b)" class="k-btn k-btn-sm" :data-testid="`stop-${b.id}`" @click="stop">■ {{ formatClock(runningFor) }}</button>
-              <button v-else-if="!isDone(b)" class="k-btn k-btn-sm" :data-testid="`start-${b.id}`" @click="start(b)">Starten</button>
+              <button
+                v-else-if="!isDone(b)"
+                :class="['k-btn k-btn-sm', { 'k-btn-ghost': segState(b) !== 'current' }]"
+                :data-testid="`start-${b.id}`"
+                @click="start(b)"
+              >Starten</button>
               <button
                 :class="isDone(b) ? 'k-chip k-chip-success hb-chipbtn' : 'k-btn k-btn-ghost k-btn-sm'"
                 :data-testid="`done-${b.id}`"
@@ -311,11 +341,30 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
 </template>
 
 <style scoped>
-.hb-seg { background: var(--chart-active); }
-.hb-karten { background: var(--word-learning); opacity: 0.55; }
-.hb-pause { background: var(--surface-2); opacity: 1; }
-.hb-done { opacity: 0.35; }
+/* Timeline: segments coloured by state (upcoming / current / done / pause), labelled, no opacity tricks. */
+.hb-track { position: relative; display: flex; gap: 3px; height: 32px; container-type: inline-size; }
+.hb-seg {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0 8px;
+  overflow: hidden;
+  border: 1px solid var(--timeline-upcoming-border);
+  border-radius: min(var(--radius-sm), 6px);
+  background: var(--timeline-upcoming);
+  color: var(--timeline-text);
+}
+.hb-seg-current { background: var(--timeline-current); border-color: var(--timeline-current-border); color: var(--timeline-current-text); }
+.hb-seg-done { background: var(--timeline-done); border-color: var(--timeline-done); color: var(--timeline-done-text); }
+.hb-seg-pause {
+  border: 1px dashed var(--timeline-pause-line);
+  background: repeating-linear-gradient(-45deg, var(--timeline-pause) 0 5px, var(--timeline-pause-line) 5px 6px);
+}
+.hb-seg-label { font-size: 12px; font-weight: 700; line-height: 1; white-space: nowrap; }
+@container (max-width: 520px) { .hb-w-s .hb-seg-label { display: none; } }
+@container (max-width: 340px) { .hb-w-m .hb-seg-label { display: none; } }
 .hb-now { position: absolute; top: -6px; bottom: -6px; border-left: 3px solid var(--text); }
+.hb-now-tag { color: var(--text); text-transform: none; letter-spacing: 0; }
 .hb-row {
   display: grid;
   grid-template-columns: 64px minmax(0, 1fr) auto;
@@ -338,7 +387,10 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
   align-items: center;
   gap: 6px;
 }
-.hb-dot { width: 8px; height: 8px; border-radius: 2px; background: var(--chart-active); }
+.hb-dot { width: 10px; height: 10px; flex: none; border-radius: 2px; }
+.hb-dot.hb-seg-upcoming { background: var(--timeline-upcoming); border: 1px solid var(--timeline-upcoming-border); }
+.hb-dot.hb-seg-current { background: var(--timeline-current); border: 1px solid var(--timeline-current-border); }
+.hb-dot.hb-seg-done { background: var(--timeline-done-text); }
 .hb-title { margin: 3px 0 0; font-size: 17px; font-weight: 700; }
 .hb-strike { text-decoration: line-through; color: var(--muted); }
 .hb-chipbtn { border: 0; cursor: pointer; font: inherit; font-size: 13px; font-weight: 700; }

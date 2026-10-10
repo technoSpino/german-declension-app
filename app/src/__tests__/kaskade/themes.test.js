@@ -11,7 +11,9 @@ const REQUIRED = [
   'bg', 'surface', 'surface-2', 'border', 'border-width', 'text', 'text-2', 'muted', 'primary', 'primary-text',
   'accent', 'accent-text', 'word-new-bg', 'word-learning', 'focus', 'radius-sm', 'radius-lg', 'shadow',
   'font-ui', 'font-heading', 'font-read', 'font-size-base', 'case-n', 'case-a', 'case-d', 'case-g',
-  'case-n-bg', 'case-a-bg', 'case-d-bg', 'case-g-bg', 'chart-active', 'chart-passive'
+  'case-n-bg', 'case-a-bg', 'case-d-bg', 'case-g-bg', 'chart-active', 'chart-passive',
+  'timeline-upcoming', 'timeline-upcoming-border', 'timeline-text', 'timeline-current', 'timeline-current-text', 'timeline-current-border',
+  'timeline-done', 'timeline-done-text', 'timeline-pause', 'timeline-pause-line'
 ]
 
 /** { themeId: { token: value } } parsed from the :root[data-theme='x'] blocks. */
@@ -71,6 +73,9 @@ describe('themes.css', () => {
         ['text', 'word-new-bg', 4.5], ['text-2', 'callout', 4.5], ['kicker', 'surface', 4.5],
         ['link', 'surface', 4.5], ['nav-text', 'nav-bg', 4.5], ['nav-muted', 'nav-bg', 4.5],
         ['stage-text', 'stage-bg', 4.5], ['success', 'success-bg', 4.5],
+        // Heute timeline: label on each segment state, and the segments themselves as UI marks
+        ['timeline-text', 'timeline-upcoming', 4.5], ['timeline-current-text', 'timeline-current', 4.5],
+        ['timeline-done-text', 'timeline-done', 4.5], ['timeline-upcoming-border', 'surface', 3], ['timeline-current-border', 'surface', 3],
         ['focus', 'bg', 3], ['word-learning', 'surface', 3], ['chart-active', 'surface', 3], ['chart-passive', 'surface', 3],
         ...['n', 'a', 'd', 'g'].flatMap((c) => [[`case-${c}`, `case-${c}-bg`, 4.5], [`case-${c}`, 'surface', 4.5]])
       ]

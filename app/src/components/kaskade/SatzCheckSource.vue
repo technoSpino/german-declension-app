@@ -145,7 +145,7 @@ function start() {
           <input v-model="contentType" type="radio" value="adult" /> Für Erwachsene (Serie, Film, Talk) · Tor 80 %
         </label>
         <label class="flex items-center gap-3 k-small" style="min-height: 40px">
-          <input v-model="contentType" type="radio" value="simple" /> Einfach (Kinder- oder Lernsendung) · Tor 75 %
+          <input v-model="contentType" type="radio" value="simple" /> Einfach (Lernsendung, langsam gesprochen) · Tor 75 %
         </label>
       </fieldset>
       <template v-if="selected">

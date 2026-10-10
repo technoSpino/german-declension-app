@@ -78,11 +78,11 @@ const GOALS = [
         <div class="fp-you-line" :style="{ left: youPct + '%' }"></div>
         <div class="flex gap-0.5" style="height: 36px">
           <div
-            v-for="(p, i) in f.phases"
+            v-for="p in f.phases"
             :key="p.name"
             :title="`Phase ${p.name} · ${p.from}–${p.to} h`"
             class="fp-seg"
-            :style="{ flex: `${p.to - p.from} 1 0`, borderRadius: i === 0 ? '6px 0 0 6px' : i === f.phases.length - 1 ? '0 6px 6px 0' : '0' }"
+            :style="{ flex: `${p.to - p.from} 1 0` }"
           ><div class="fp-fill" :style="{ width: phaseFill(p) + '%' }"></div></div>
         </div>
         <div class="flex gap-0.5 mt-2 k-small" style="font-size: 12px; font-weight: 700">
@@ -163,7 +163,9 @@ const GOALS = [
 .fp-tile-accent { background: var(--accent); }
 .fp-tile-accent p { color: var(--accent-text) !important; }
 .fp-seg { position: relative; overflow: hidden; background: var(--surface-2); }
-.fp-fill { position: absolute; inset: 0 auto 0 0; background: var(--primary); }
+.fp-seg:first-child { border-radius: min(var(--radius-sm), 6px) 0 0 min(var(--radius-sm), 6px); }
+.fp-seg:last-child { border-radius: 0 min(var(--radius-sm), 6px) min(var(--radius-sm), 6px) 0; }
+.fp-fill { position: absolute; inset: 0 auto 0 0; background: var(--timeline-current); box-shadow: inset 0 0 0 1px var(--timeline-current-border); }
 .fp-you-label {
   position: absolute; top: -34px; transform: translateX(-50%); white-space: nowrap;
   font-size: 12px; font-weight: 800; background: var(--accent); color: var(--accent-text);
