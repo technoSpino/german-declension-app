@@ -49,6 +49,10 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] M12 Immersions-Log + Fahrplan → http://100.64.43.3:5173/immersion
 - [x] M13 Härtung (Fehlerzustände, Backups, Runbook, 320 px)
 
+### Follow-ups aus der ersten Nutzung (ab Sa 10.10.)
+
+- [x] #10 Vorschau-Tage (Wochenende, vor Planstart): alle „Starten“-Knöpfe sichtbar, aber `aria-disabled` mit Hinweis bei Hover/Fokus („Wochenende — der Lernblock läuft Mo–Fr …“ / „Dein Plan startet am Mo, 12. Oktober …“); Klick tut nichts. Tests: Backend 279 · Frontend 290 · E2E 16/16.
+
 ## Betrieb
 
 | Dienst | Was | Adresse |

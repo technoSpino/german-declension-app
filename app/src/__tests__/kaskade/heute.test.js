@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, weekBars, weekStack } from '../../lib/heute'
+import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, previewHint, shortDate, weekBars, weekStack } from '../../lib/heute'
 
 const BLOCK = [
   { id: 'karten', start: '09:00', minutes: 30, kind: 'karten' },
@@ -57,5 +57,24 @@ describe('levels and charts', () => {
   it('reads Berlin time', () => {
     expect(berlinMinutes(new Date('2026-10-13T07:30:00Z'))).toBe(9 * 60 + 30)
     expect(berlinMinutes(new Date('2026-01-13T08:30:00Z'))).toBe(9 * 60 + 30) // winter time
+  })
+})
+
+describe('preview days', () => {
+  it('formats the plan start as a short German date', () => {
+    expect(shortDate('2026-10-12')).toBe('Mo, 12. Oktober')
+    expect(shortDate('2027-03-28')).toBe('So, 28. März')
+  })
+
+  it('explains why Start is disabled before the plan start and on weekends', () => {
+    expect(previewHint({ day: null, beforeStart: true, weekend: true, planStart: '2026-10-12' }))
+      .toBe('Dein Plan startet am Mo, 12. Oktober. Karten und Lesen gehen trotzdem über das Menü.')
+    expect(previewHint({ day: null, beforeStart: false, weekend: true, planStart: '2026-10-12' }))
+      .toMatch(/^Wochenende — der Lernblock läuft Mo–Fr\./)
+  })
+
+  it('has no hint on plan days', () => {
+    expect(previewHint({ day: { focus: 'x' }, weekend: false })).toBeNull()
+    expect(previewHint(null)).toBeNull()
   })
 })

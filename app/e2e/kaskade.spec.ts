@@ -70,6 +70,52 @@ test('Heute loads with the day plan, block timer and done toggle', async ({ page
   expect(errors).toEqual([])
 })
 
+/** Turn the pinned plan day into a preview day (weekend or before the start) by rewriting /api/today. */
+async function asPreviewDay(page: Page, kind: 'weekend' | 'beforeStart') {
+  await page.route('**/api/today', async (route) => {
+    const res = await route.fetch()
+    const t = await res.json()
+    const preview = { date: '2026-10-19', weekday: 'Mo', week: 2, day: t.day, theme: t.theme, goal: t.goal, exam: t.exam, mockExam: null }
+    await route.fulfill({
+      response: res,
+      json: { ...t, day: null, theme: null, exam: null, weekday: 'Sa', weekend: true, beforeStart: kind === 'beforeStart', preview }
+    })
+  })
+}
+
+test('Heute on a weekend: Start buttons are disabled with a hint and do nothing', async ({ page }) => {
+  const errors = watchConsole(page)
+  await asPreviewDay(page, 'weekend')
+  await page.goto('/')
+  await expect(page.getByText('Wochenende — kein Lernblock.')).toBeVisible()
+  for (const id of ['karten', 'input', 'lesen', 'pruefung']) {
+    await expect(page.getByTestId(`start-${id}`)).toHaveAttribute('aria-disabled', 'true')
+  }
+  await expect(page.getByTestId('done-karten')).toHaveCount(0)
+
+  // Keyboard focus shows the hint (aria-describedby), clicking does nothing.
+  await page.getByTestId('start-karten').focus()
+  await expect(page.getByTestId('tip-karten')).toBeVisible()
+  await expect(page.getByTestId('tip-karten')).toHaveText(/^Wochenende — der Lernblock läuft Mo–Fr\./)
+  await page.getByTestId('start-karten').press('Escape')
+  await expect(page.getByTestId('tip-karten')).toBeHidden()
+  await page.getByTestId('start-input').hover()
+  await expect(page.getByTestId('tip-input')).toBeVisible()
+  // Playwright won't click aria-disabled elements on its own (good) — force it, and press Enter too.
+  await page.getByTestId('start-input').click({ force: true })
+  await page.getByTestId('start-input').press('Enter')
+  await expect(page).toHaveURL(/127\.0\.0\.1:5174\/$/)
+  await expect(page.getByTestId('header-timer')).toHaveCount(0)
+  expect(errors).toEqual([])
+})
+
+test('Heute before the plan start names the start date', async ({ page }) => {
+  await asPreviewDay(page, 'beforeStart')
+  await page.goto('/')
+  await page.getByTestId('start-lesen').focus()
+  await expect(page.getByTestId('tip-lesen')).toHaveText(/^Dein Plan startet am Mo, 12\. Oktober\./)
+})
+
 test('Aufgabe: plan writing task can be submitted', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/aufgabe/s01')

@@ -121,6 +121,35 @@
 }
 .k-btn:hover { background: var(--primary-hover); }
 .k-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+/* aria-disabled instead of disabled: stays focusable, so its tooltip shows on hover and keyboard focus (also in Firefox). */
+.k-btn[aria-disabled='true'] { opacity: 0.45; cursor: not-allowed; }
+.k-btn[aria-disabled='true']:hover { background: var(--primary); }
+
+/* Tooltip for a control: shows on hover and focus. */
+.k-tip { position: relative; display: inline-flex; }
+.k-tip-bubble {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  z-index: 20;
+  width: max-content;
+  max-width: 260px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--text);
+  color: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+  box-shadow: var(--shadow);
+}
+.k-tip:hover .k-tip-bubble,
+.k-tip:focus-within .k-tip-bubble { display: block; }
+@media (max-width: 480px) {
+  .k-tip-bubble { right: auto; left: 0; max-width: min(260px, calc(100vw - 48px)); }
+}
 .k-btn-ghost {
   background: var(--surface);
   color: var(--text) !important;

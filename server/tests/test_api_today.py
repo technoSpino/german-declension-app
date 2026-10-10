@@ -25,6 +25,16 @@ def test_weekend_shows_preview_of_monday(client, monkeypatch):
     assert t["weekend"] and t["day"] is None
     assert t["planStart"] == "2026-10-12"
     assert t["preview"]["date"] == "2026-10-12" and t["preview"]["exam"]["id"] == "s01"
+    # Saturday before the start: both flags, so Heute can name the start date in its hint.
+    assert t["beforeStart"] is True
+
+
+def test_weekend_after_start_is_a_preview_of_next_monday(client, monkeypatch):
+    client.put("/api/plan/start", json={"planStart": "2026-10-12"})
+    at(monkeypatch, datetime(2026, 10, 17, 8, 0, tzinfo=timezone.utc))  # Saturday of week 1
+    t = client.get("/api/today").json()
+    assert t["weekend"] and not t["beforeStart"] and t["day"] is None
+    assert t["preview"]["date"] == "2026-10-19" and t["preview"]["week"] == 2
 
 
 def test_status_reports_running_timer(client, monkeypatch):

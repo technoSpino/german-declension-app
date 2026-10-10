@@ -55,6 +55,24 @@ export function weekBars(seconds, maxPx = 110) {
   return seconds.map((s) => Math.round((s / top) * maxPx))
 }
 
+const WEEKDAY_SHORT = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+
+/** "Mo, 12. Oktober" for an ISO calendar date. */
+export function shortDate(iso) {
+  const [y, m, d] = iso.split('-').map(Number)
+  const date = new Date(Date.UTC(y, m - 1, d))
+  const month = new Intl.DateTimeFormat('de-DE', { month: 'long', timeZone: 'UTC' }).format(date)
+  return `${WEEKDAY_SHORT[date.getUTCDay()]}, ${d}. ${month}`
+}
+
+/** Why the Start buttons are disabled on a preview day (weekend or before the plan start); null on plan days. */
+export function previewHint(today) {
+  if (!today || today.day) return null
+  const menu = 'Karten und Lesen gehen trotzdem über das Menü.'
+  if (today.beforeStart) return `Dein Plan startet am ${shortDate(today.planStart)}. ${menu}`
+  return `Wochenende — der Lernblock läuft Mo–Fr. ${menu}`
+}
+
 export function greeting(minutesNow) {
   if (minutesNow < 11 * 60) return 'Guten Morgen'
   if (minutesNow < 18 * 60) return 'Hallo'

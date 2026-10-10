@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '../../lib/api'
 import { formatClock, formatDate, formatNumber } from '../../lib/format'
-import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, PHASE2_TARGET, weekStack } from '../../lib/heute'
+import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, PHASE2_TARGET, previewHint, weekStack } from '../../lib/heute'
 import ImmersionForm from '../../components/kaskade/ImmersionForm.vue'
 import { useNow } from '../../lib/useNow'
 import { useStatusStore } from '../../stores/statusStore'
@@ -47,6 +47,7 @@ const minutes = computed(() => berlinMinutes(now.value))
 const day = computed(() => t.value?.day ?? t.value?.preview?.day ?? null)
 const planInfo = computed(() => (t.value?.day ? t.value : t.value?.preview ?? null))
 const isPreview = computed(() => !!t.value && !t.value.day)
+const hint = computed(() => previewHint(t.value))
 const layout = computed(() => (t.value ? layoutBlocks(t.value.block) : null))
 const marker = computed(() => (t.value && !isPreview.value ? nowMarker(t.value.block, minutes.value) : null))
 const suggestion = computed(() => (t.value && !isPreview.value ? nextBlock(t.value.block, t.value.done, minutes.value) : null))
@@ -145,9 +146,11 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
           Woche {{ t.week }} · {{ t.theme }} · Lernblock 09:00–11:30, 2 h 20 min aktiv, 10 min Pause.
           Heute: <strong style="color: var(--text)">{{ day.focus }}</strong>
         </p>
+        <p v-else-if="t && t.beforeStart" class="k-lead">
+          Der Plan startet bald. Woche 1 beginnt am <strong style="color: var(--text)">{{ formatDate(t.preview.date) }}</strong>. Wenn du magst: Einstufung machen und die ersten Karten sortieren.
+        </p>
         <p v-else-if="t" class="k-lead">
-          {{ t.weekend ? 'Wochenende — kein Lernblock.' : 'Der Plan startet bald.' }}
-          Woche 1 beginnt am <strong style="color: var(--text)">{{ formatDate(t.preview.date) }}</strong>. Wenn du magst: Einstufung machen und die ersten Karten sortieren.
+          Wochenende — kein Lernblock. Weiter geht es am <strong style="color: var(--text)">{{ formatDate(t.preview.date) }}</strong> (Woche {{ t.preview.week }}). Karten und Lesen gehen trotzdem über das Menü.
         </p>
       </div>
       <router-link v-if="t && !t.placement" to="/einstufung" class="k-btn" data-testid="heute-einstufung">Zuerst: Einstufung →</router-link>
@@ -192,7 +195,21 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
               <p class="k-small m-0 mt-0.5">{{ describe(b) }}</p>
               <p v-if="logged(b) && !isPreview" class="k-hint m-0 mt-0.5">{{ logged(b) }} min erfasst</p>
             </div>
-            <div v-if="!isPreview && b.kind !== 'pause'" class="hb-actions flex flex-col items-end gap-1.5">
+            <div v-if="isPreview && b.kind !== 'pause'" class="hb-actions flex flex-col items-end gap-1.5">
+              <span class="k-tip">
+                <button
+                  class="k-btn k-btn-sm"
+                  aria-disabled="true"
+                  :aria-describedby="`tip-${b.id}`"
+                  :data-testid="`start-${b.id}`"
+                  @click.prevent
+                  @keydown.esc="$event.target.blur()"
+                >Starten</button>
+                <span :id="`tip-${b.id}`" role="tooltip" class="k-tip-bubble" :data-testid="`tip-${b.id}`">{{ hint }}</span>
+              </span>
+              <router-link v-if="b.kind === 'pruefung' && planInfo?.exam" :to="`/aufgabe/${planInfo.exam.id}`" class="k-btn k-btn-ghost k-btn-sm">Ansehen</router-link>
+            </div>
+            <div v-else-if="b.kind !== 'pause'" class="hb-actions flex flex-col items-end gap-1.5">
               <button v-if="isRunning(b)" class="k-btn k-btn-sm" :data-testid="`stop-${b.id}`" @click="stop">■ {{ formatClock(runningFor) }}</button>
               <button v-else-if="!isDone(b)" class="k-btn k-btn-sm" :data-testid="`start-${b.id}`" @click="start(b)">Starten</button>
               <button
@@ -201,7 +218,6 @@ const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', paus
                 @click="toggleDone(b)"
               >{{ isDone(b) ? '✓ Erledigt' : 'Fertig' }}</button>
             </div>
-            <router-link v-else-if="isPreview && b.kind === 'pruefung' && planInfo?.exam" :to="`/aufgabe/${planInfo.exam.id}`" class="hb-actions k-btn k-btn-ghost k-btn-sm">Ansehen</router-link>
           </li>
         </ol>
         <div class="hb-after" data-testid="feed-row">
