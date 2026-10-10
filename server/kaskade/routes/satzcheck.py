@@ -51,16 +51,21 @@ def save_run(run: Run):
     return {"id": run_id, "createdAt": db.now_iso(), "contentType": run.contentType, **result}
 
 
+def run_result(row) -> dict:
+    """A stored run's result, recounted on speech lines only (see satzcheck.speech_only)."""
+    return satzcheck.speech_only(json.loads(row["result"]), json.loads(row["ratings"]), row["content_type"])
+
+
 @router.get("/history")
 def history():
     with db.tx() as conn:
         rows = conn.execute(
-            "SELECT r.id, r.created_at, r.content_type, r.result, m.title FROM satzcheck_runs r"
+            "SELECT r.id, r.created_at, r.content_type, r.ratings, r.result, m.title FROM satzcheck_runs r"
             " LEFT JOIN media m ON m.id = r.media_id ORDER BY r.id DESC"
         ).fetchall()
     return [
         {"id": r["id"], "createdAt": r["created_at"], "contentType": r["content_type"],
-         "title": r["title"], **json.loads(r["result"])}
+         "title": r["title"], **run_result(r)}
         for r in rows
     ]
 

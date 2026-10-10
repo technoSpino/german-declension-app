@@ -62,7 +62,7 @@ function restart() {
       <h2 id="hist-h" class="k-h2">Bisherige Satz-Checks</h2>
       <ul class="list-none m-0 mt-3 p-0">
         <li v-for="h in history" :key="h.id" class="flex flex-wrap justify-between gap-2 py-3" style="border-top: 1px solid var(--surface-2)">
-          <span><strong>{{ h.coverage }} %</strong> · {{ h.verdict.title }}<span class="k-hint block">{{ h.title || 'Clip' }} · {{ h.contentType === 'simple' ? 'einfach' : 'für Erwachsene' }}</span></span>
+          <span><strong>{{ h.coverage }} %</strong><template v-if="h.coverageAll != null"> <span class="k-small">(mit Geräusch-Zeilen {{ h.coverageAll }} %)</span></template> · {{ h.verdict.title }}<span class="k-hint block">{{ h.title || 'Clip' }} · {{ h.contentType === 'simple' ? 'einfach' : 'für Erwachsene' }}</span></span>
           <span class="k-small">{{ formatDate(h.createdAt) }}</span>
         </li>
       </ul>

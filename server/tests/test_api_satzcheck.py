@@ -106,3 +106,13 @@ def test_run_rejects_empty_and_bad_rating(client):
     assert client.post("/api/satzcheck", json={**base, "ratings": []}).status_code == 422
     bad = [{"cue": 0, "text": "x", "rating": "q"}]
     assert client.post("/api/satzcheck", json={**base, "ratings": bad}).status_code == 422
+
+
+def test_history_shows_speech_only_coverage_next_to_the_old_number(client):
+    ratings = [{"cue": i, "text": f"Satz {i}", "rating": "v"} for i in range(8)] + \
+              [{"cue": 8, "text": "Zu schnell.", "rating": "s"}, {"cue": 9, "text": "* Musik *", "rating": "v"}]
+    client.post("/api/satzcheck", json={"contentType": "adult", "windowStart": 0, "windowEnd": 180, "ratings": ratings})
+    h = client.get("/api/satzcheck/history").json()[0]
+    assert h["coverage"] == 89 and h["coverageAll"] == 90
+    assert client.get("/api/today").json()["satzcheck"]["coverage"] == 89
+    assert client.get("/api/fahrplan").json()["satzchecks"][0]["coverageAll"] == 90

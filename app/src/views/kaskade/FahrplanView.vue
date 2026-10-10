@@ -136,7 +136,7 @@ const GOALS = [
           </li>
           <li v-for="s in f.satzchecks" :key="s.date" class="fp-check">
             <span><strong style="color: var(--text)">Satz-Check</strong><span class="block" style="font-size: 13px">{{ formatDate(s.date) }} · {{ s.contentType === 'simple' ? 'einfach' : 'für Erwachsene' }}</span></span>
-            <span class="self-center" style="font-weight: 700; color: var(--text)">{{ s.coverage }} %</span>
+            <span class="self-center" style="font-weight: 700; color: var(--text)" :title="s.coverageAll != null ? `mit Geräusch-Zeilen ${s.coverageAll} %` : undefined">{{ s.coverage }} %<template v-if="s.coverageAll != null"><span class="block k-hint" style="font-weight: 500">vorher {{ s.coverageAll }} %</span></template></span>
           </li>
           <li v-for="p in f.placements" :key="p.id" class="fp-check">
             <span><router-link to="/einstufung" style="font-weight: 800">Einstufung</router-link><span class="block" style="font-size: 13px">{{ formatDate(p.date) }} · alle Fähigkeiten</span></span>

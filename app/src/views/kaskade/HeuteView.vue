@@ -8,6 +8,7 @@ import ImmersionForm from '../../components/kaskade/ImmersionForm.vue'
 import { useNow } from '../../lib/useNow'
 import { useStatusStore } from '../../stores/statusStore'
 import { formatTime } from '../../lib/watch'
+import { coverageLabel } from '../../lib/satzcheck'
 
 const router = useRouter()
 const status = useStatusStore()
@@ -318,7 +319,7 @@ const timelineLabel = computed(() => {
             </template>
           </div>
           <p class="k-small m-0 mt-4 pt-3.5" style="border-top: 1px solid var(--surface-2)">
-            <template v-if="t.satzcheck">Nächster <router-link to="/satz-check" style="font-weight: 700">Satz-Check</router-link>: {{ formatDate(nextSatzcheck) }} · zuletzt {{ t.satzcheck.coverage }} %, Tor zu 2B: 80 %</template>
+            <template v-if="t.satzcheck">Nächster <router-link to="/satz-check" style="font-weight: 700">Satz-Check</router-link>: {{ formatDate(nextSatzcheck) }} · zuletzt {{ coverageLabel(t.satzcheck) }}, Tor zu 2B: 80 %</template>
             <template v-else>Noch kein <router-link to="/satz-check" style="font-weight: 700">Satz-Check</router-link> — einmal im Monat.</template>
           </p>
         </section>

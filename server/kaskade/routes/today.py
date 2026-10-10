@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 
 from .. import config, db, plan, srs, texts
 from .media import last_clip
-from .satzcheck import mineable_lines
+from .satzcheck import mineable_lines, run_result
 from .texts import read_ids
 
 router = APIRouter(prefix="/api")
@@ -69,7 +69,8 @@ def today():
         running = conn.execute("SELECT block, started_at FROM activity WHERE ended_at IS NULL").fetchone()
         placement = conn.execute(
             "SELECT result FROM placements WHERE status = 'done' ORDER BY id DESC LIMIT 1").fetchone()
-        last_sc = conn.execute("SELECT created_at, result FROM satzcheck_runs ORDER BY id DESC LIMIT 1").fetchone()
+        last_sc = conn.execute(
+            "SELECT created_at, content_type, ratings, result FROM satzcheck_runs ORDER BY id DESC LIMIT 1").fetchone()
         vocab = conn.execute("SELECT result FROM vocab_tests ORDER BY id DESC LIMIT 1").fetchone()
 
     per_block: dict[str, int] = {}
@@ -98,7 +99,7 @@ def today():
         },
         "immersion": plan.immersion(start_hours, total),
         "placement": p,
-        "satzcheck": {"createdAt": last_sc["created_at"], **json.loads(last_sc["result"])} if last_sc else None,
+        "satzcheck": {"createdAt": last_sc["created_at"], **run_result(last_sc)} if last_sc else None,
         "vocab": json.loads(vocab["result"]) if vocab else None,
         "cards": srs.stats(now),
         "texts": {slot: texts.next_unread(slot, set(read_ids())) for slot in ("input", "lesen")},
@@ -116,7 +117,7 @@ def fahrplan():
         placements = conn.execute(
             "SELECT id, updated_at, result FROM placements WHERE status = 'done' ORDER BY id DESC").fetchall()
         checks = conn.execute(
-            "SELECT created_at, content_type, result FROM satzcheck_runs ORDER BY id DESC LIMIT 12").fetchall()
+            "SELECT created_at, content_type, ratings, result FROM satzcheck_runs ORDER BY id DESC LIMIT 12").fetchall()
     total = sum(v["aktiv"] + v["passiv"] for v in by_day.values())
     hours = plan.immersion(db.get_setting("startHours", 150), total)["hours"]
     # measured pace over the last 28 days (only once there is some data)
@@ -138,7 +139,7 @@ def fahrplan():
             "blockPerWeek": round(plan.BLOCK_HOURS_PER_WEEK, 1),
         },
         "placements": [{"id": r["id"], "date": r["updated_at"], **json.loads(r["result"])} for r in placements],
-        "satzchecks": [{"date": r["created_at"], "contentType": r["content_type"], **json.loads(r["result"])} for r in checks],
+        "satzchecks": [{"date": r["created_at"], "contentType": r["content_type"], **run_result(r)} for r in checks],
         "nextCheck": (date.fromisoformat(last_check) + timedelta(days=28)).isoformat() if last_check else None,
         "weeks": plan.weekly_hours(by_day, d),
         "upcoming": [{**u, "done": u["id"] != "mock-exam" and _todo_done(u)}

@@ -100,3 +100,27 @@ def test_non_speech_cues_are_recognised():
         assert is_non_speech(cue), cue
     for cue in ["Na?", "(leise) Komm her.", "Ich sag's dir *jetzt*.", "Was [ist] das?"]:
         assert not is_non_speech(cue), cue
+
+
+def test_window_skips_non_speech_cues():
+    from kaskade.satzcheck import window
+    cues = [{"start": 1, "end": 2, "text": "♪ Musik ♪"}, {"start": 3, "end": 4, "text": "Na?"},
+            {"start": 5, "end": 6, "text": "[Klopfen]"}, {"start": 7, "end": 8, "text": "Komm rein."}]
+    assert [c["text"] for c in window(cues, 0)] == ["Na?", "Komm rein."]
+
+
+def test_old_runs_are_recounted_on_speech_only():
+    from kaskade.satzcheck import speech_only, summarize, verdict
+    # 24 rated lines like run #1: 20 v/h of 24 = 83 %; 4 of the "verstanden" were sound cues → 16/20 = 80 %
+    ratings = [{"text": f"Satz {i}", "rating": "v"} for i in range(16)] + \
+              [{"text": f"Zeile {i}", "rating": "s"} for i in range(4)] + \
+              [{"text": t, "rating": "v"} for t in ["* Musik *", "[Lachen]", "(dumpf)", "♪ La ♪"]]
+    stored = {**summarize([r["rating"] for r in ratings]), "words": 3550}
+    stored["verdict"] = verdict(stored["coverage"], "adult", 3550)
+    assert stored["coverage"] == 83
+    out = speech_only(stored, ratings, "adult")
+    assert out["coverage"] == 80 and out["coverageAll"] == 83 and out["nonSpeech"] == 4
+    assert out["verdict"]["phase"] == "2B"  # 80 % still passes the adult gate
+    # nothing to recount → unchanged
+    clean = ratings[:20]
+    assert speech_only({"coverage": 80}, clean, "adult") == {"coverage": 80}

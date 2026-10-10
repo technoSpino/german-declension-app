@@ -1,6 +1,8 @@
 // Satz-Check coverage + verdict for the live sidebar. Mirrors
 // server/kaskade/satzcheck.py (the server's verdict is the one that is stored).
 
+import { isNonSpeech } from './watch'
+
 export const SIMPLE_GATE = 75
 export const ADULT_GATE = 80
 export const LOWER_2A = 60
@@ -30,9 +32,13 @@ export function verdict(coverage, contentType, words) {
   return { phase: '2A', key: 'too-hard', title: 'Noch zu schwer' }
 }
 
-/** Cues that start inside [start, start + length). Returns [{...cue, index}]. */
+/** Speech cues that start inside [start, start + length) — sound and music cues are skipped.
+ * Returns [{...cue, index}] with the index into the full cue list. */
 export function cuesInWindow(cues, start, length = 180) {
   return cues
     .map((c, index) => ({ ...c, index }))
-    .filter((c) => c.start >= start && c.start < start + length)
+    .filter((c) => c.start >= start && c.start < start + length && !isNonSpeech(c.text))
 }
+
+/** "80 %" or, for older runs that still counted sound cues, "80 % (mit Geräusch-Zeilen 83 %)". */
+export const coverageLabel = (r) => (r.coverageAll != null ? `${r.coverage} % (mit Geräusch-Zeilen ${r.coverageAll} %)` : `${r.coverage} %`)

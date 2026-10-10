@@ -56,8 +56,8 @@ def is_non_speech(text: str) -> bool:
 
 
 def window(cues: list[dict], start: float, length: float = 180) -> list[dict]:
-    """Cues that begin inside [start, start + length)."""
-    return [c for c in cues if start <= c["start"] < start + length]
+    """Speech cues that begin inside [start, start + length) — sound and music cues don't count."""
+    return [c for c in cues if start <= c["start"] < start + length and not is_non_speech(c["text"])]
 
 
 def summarize(ratings: list[str]) -> dict:
@@ -87,3 +87,15 @@ def verdict(coverage: int, content_type: str, words: int | None) -> dict:
                 "advice": "Weiter Kernwörter (30 min) und interaktiv schauen. Nächster Satz-Check in 4 Wochen."}
     return {"phase": "2A", "key": "too-hard", "title": "Noch zu schwer",
             "advice": "Für den Moment leichteren Inhalt wählen, zum Beispiel klar gesprochene Serien (Der Bergdoktor) oder Lernserien für Erwachsene."}
+
+
+def speech_only(result: dict, ratings: list[dict], content_type: str) -> dict:
+    """A stored run recounted without sound/music lines (runs before follow-up #1 rated them).
+    When the number changes, the old one stays visible as coverageAll."""
+    speech = [r["rating"] for r in ratings if not is_non_speech(r["text"])]
+    if not speech or len(speech) == len(ratings):
+        return result
+    s = summarize(speech)
+    return {**result, **s, "coverageAll": result["coverage"], "nonSpeech": len(ratings) - len(speech),
+            "verdict": verdict(s["coverage"], content_type, result.get("words"))}
+
