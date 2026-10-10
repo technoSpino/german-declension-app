@@ -1,10 +1,13 @@
 """Media library for Satz-Check: uploads and YouTube downloads in ~/kaskade-data/media."""
 import json
+import os
 import re
+import secrets
 import shutil
+import time
 from pathlib import Path
 
-from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
@@ -141,11 +144,81 @@ def schedule_conversion(media_id: int, tasks: BackgroundTasks) -> None:
     tasks.add_task(convert_media, media_id)
 
 
+# ── Chunked uploads (follow-up #9) ───────────────────────────────────────────
+# The web server in front of the API (vite preview, Node) aborts requests that take longer
+# than 5 minutes — a big video from a home connection does. So the app sends the video in
+# small pieces first and then registers it like a normal upload.
+CHUNK_MAX = 16 * 1024 * 1024
+STALE_SECONDS = 24 * 3600
+
+
+def _partial_dir() -> Path:
+    d = config.MEDIA_DIR / ".partial"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def _partial(upload_id: str) -> Path:
+    if not re.fullmatch(r"[0-9a-f]{16}", upload_id):
+        raise HTTPException(404, "Upload nicht gefunden")
+    path = _partial_dir() / upload_id
+    if not path.exists():
+        raise HTTPException(404, "Upload nicht gefunden")
+    return path
+
+
+class UploadStartIn(BaseModel):
+    filename: str = Field(min_length=1, max_length=255)
+    size: int = Field(gt=0, le=8 * 1024 ** 3)
+
+
+@router.post("/uploads")
+def start_upload(body: UploadStartIn):
+    ext = Path(body.filename).suffix.lower()
+    if ext not in MEDIA_EXT:
+        raise HTTPException(422, f"Dateityp {ext or '?'} wird nicht unterstützt (z. B. .mp4, .webm, .mp3).")
+    now = time.time()
+    for old in _partial_dir().iterdir():  # forget abandoned uploads
+        if now - old.stat().st_mtime > STALE_SECONDS:
+            old.unlink(missing_ok=True)
+    upload_id = secrets.token_hex(8)
+    (_partial_dir() / upload_id).touch()
+    (_partial_dir() / f"{upload_id}.json").write_text(json.dumps({"filename": body.filename, "size": body.size}))
+    return {"uploadId": upload_id, "chunkSize": 8 * 1024 * 1024}
+
+
+@router.put("/uploads/{upload_id}")
+async def upload_chunk(upload_id: str, offset: int, request: Request):
+    path = _partial(upload_id)
+    have = path.stat().st_size
+    if offset != have:  # e.g. a retried chunk that already arrived: tell the client where we are
+        return {"received": have}
+    written = 0
+    with path.open("ab") as out:
+        async for piece in request.stream():
+            written += len(piece)
+            if written > CHUNK_MAX:
+                out.truncate(have)
+                raise HTTPException(413, "Stück zu groß")
+            out.write(piece)
+    return {"received": have + written}
+
+
+def _take_partial(upload_id: str) -> tuple[Path, str]:
+    """The finished chunked upload and its original file name (checks the size)."""
+    path = _partial(upload_id)
+    meta = json.loads((_partial_dir() / f"{upload_id}.json").read_text())
+    if path.stat().st_size != meta["size"]:
+        raise HTTPException(409, "Die Datei ist noch nicht vollständig hochgeladen.")
+    return path, meta["filename"]
+
+
 @router.post("/upload")
 def upload(
     tasks: BackgroundTasks,
     subtitles: UploadFile = File(...),
     media: UploadFile | None = File(None),
+    uploadId: str | None = Form(None),
     title: str = Form(""),
 ):
     sub_ext = Path(subtitles.filename or "").suffix.lower()
@@ -161,7 +234,11 @@ def upload(
         raise HTTPException(422, "In der Untertiteldatei wurden keine Sätze gefunden.")
 
     media_ext = None
-    if media is not None and media.filename:
+    partial = None
+    if uploadId:
+        partial, original_name = _take_partial(uploadId)
+        media_ext = Path(original_name).suffix.lower()
+    elif media is not None and media.filename:
         media_ext = Path(media.filename).suffix.lower()
         if media_ext not in MEDIA_EXT:
             raise HTTPException(422, f"Dateityp {media_ext or '?'} wird nicht unterstützt (z. B. .mp4, .webm, .mp3).")
@@ -171,8 +248,12 @@ def upload(
     if media_ext:
         config.MEDIA_DIR.mkdir(parents=True, exist_ok=True)
         filename = f"upload-{media_id}{media_ext}"
-        with (config.MEDIA_DIR / filename).open("wb") as out:
-            shutil.copyfileobj(media.file, out, length=1024 * 1024)
+        if partial:
+            os.replace(partial, config.MEDIA_DIR / filename)
+            (_partial_dir() / f"{uploadId}.json").unlink(missing_ok=True)
+        else:
+            with (config.MEDIA_DIR / filename).open("wb") as out:
+                shutil.copyfileobj(media.file, out, length=1024 * 1024)
         with db.tx() as conn:
             conn.execute("UPDATE media SET media_file = ? WHERE id = ?", (filename, media_id))
         schedule_conversion(media_id, tasks)

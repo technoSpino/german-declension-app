@@ -98,4 +98,5 @@ before major upgrades.
 | No audio | `ls ~/kaskade-data/tts/voices/` — without the voice the browser voice is used |
 | No glosses in the reader | `ls ~/kaskade-data/dict/de-en.json` |
 | YouTube download fails | expected from datacenter IPs — download clip + subtitles yourself and upload |
+| Big upload stalls | uploads go up in 8 MB pieces (the web server ends requests after 5 min); unfinished pieces sit in `~/kaskade-data/media/.partial/` and are deleted after 24 h |
 | Writing not graded | no `ANTHROPIC_API_KEY` in `~/kaskade-data/.env` (optional) |

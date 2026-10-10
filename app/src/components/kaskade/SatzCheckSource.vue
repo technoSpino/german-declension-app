@@ -5,6 +5,7 @@ import { cuesInWindow } from '../../lib/satzcheck'
 import { clipStatus, jobLabel } from '../../lib/watch'
 import { formatClock } from '../../lib/format'
 import FilePicker from './FilePicker.vue'
+import { uploadInChunks } from '../../lib/upload'
 
 // Step 1 of a Satz-Check: pick or add a clip, the content type and a 3-minute window.
 const props = defineProps({ defaultType: { type: String, default: 'adult' } })
@@ -23,6 +24,8 @@ const subsInput = ref(null)
 const stepTwo = ref(null)
 const startBtn = ref(null)
 const preview = ref(null)
+const uploadProgress = ref(null)
+const mbText = (b) => new Intl.NumberFormat('de-DE', { maximumFractionDigits: 0 }).format(b / 1048576)
 
 async function loadLibrary() {
   try {
@@ -63,12 +66,14 @@ async function uploadClip() {
   }
   const form = new FormData()
   form.append('subtitles', subs)
-  const media = mediaInput.value?.files?.[0]
-  if (media) form.append('media', media)
   form.append('title', title.value)
+  const media = mediaInput.value?.files?.[0]
   busy.value = true
   error.value = null
   try {
+    // The video goes up in pieces first (with progress), then the clip is registered.
+    if (media) form.append('uploadId', await uploadInChunks(media, (sent, total) => { uploadProgress.value = { sent, total } }))
+    uploadProgress.value = null
     const m = await api.post('/media/upload', form)
     await loadLibrary()
     await choose(m.id)
@@ -76,6 +81,7 @@ async function uploadClip() {
     error.value = e.message
   } finally {
     busy.value = false
+    uploadProgress.value = null
   }
 }
 
@@ -172,6 +178,10 @@ function start() {
             <input v-model="title" type="text" class="k-input" placeholder="z. B. Serie, Folge 3" data-testid="upload-title" />
           </label>
           <button class="k-btn" :disabled="busy" data-testid="upload-submit" @click="uploadClip">{{ busy ? 'Lädt …' : 'Hochladen' }}</button>
+          <div v-if="uploadProgress" class="flex flex-col gap-1.5" aria-live="polite" data-testid="upload-progress">
+            <div class="k-progress" role="progressbar" :aria-valuenow="Math.round((uploadProgress.sent / uploadProgress.total) * 100)" aria-valuemin="0" aria-valuemax="100"><div :style="{ width: (uploadProgress.sent / uploadProgress.total) * 100 + '%' }"></div></div>
+            <p class="m-0 k-small">Video: {{ mbText(uploadProgress.sent) }} von {{ mbText(uploadProgress.total) }} MB hochgeladen</p>
+          </div>
         </div>
       </details>
 
