@@ -5,6 +5,7 @@ import { formatDate } from '../../lib/format'
 import SatzCheckSource from '../../components/kaskade/SatzCheckSource.vue'
 import SatzCheckRun from '../../components/kaskade/SatzCheckRun.vue'
 import MineLines from '../../components/kaskade/MineLines.vue'
+import TempoLines from '../../components/kaskade/TempoLines.vue'
 
 const setup = ref(null)
 const words = ref(null)
@@ -64,6 +65,10 @@ function restart() {
         <li v-for="h in history" :key="h.id" class="flex flex-wrap justify-between gap-2 py-3" style="border-top: 1px solid var(--surface-2)">
           <span><strong>{{ h.coverage }} %</strong><template v-if="h.coverageAll != null"> <span class="k-small">(mit Geräusch-Zeilen {{ h.coverageAll }} %)</span></template> · {{ h.verdict.title }}<span class="k-hint block">{{ h.title || 'Clip' }} · {{ h.contentType === 'simple' ? 'einfach' : 'für Erwachsene' }}</span></span>
           <span class="k-small">{{ formatDate(h.createdAt) }}</span>
+          <details v-if="h.tempo?.length" class="w-full">
+            <summary class="k-small" style="cursor: pointer; font-weight: 700">Hören bei normalem Tempo · {{ h.tempo.length }} {{ h.tempo.length === 1 ? 'Zeile' : 'Zeilen' }}</summary>
+            <TempoLines class="mt-2" :lines="h.tempo" :media-id="h.mediaId" />
+          </details>
         </li>
       </ul>
     </section>

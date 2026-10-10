@@ -3,6 +3,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
 import { cuesInWindow, summarize, verdict } from '../../lib/satzcheck'
 import { formatClock } from '../../lib/format'
+import TempoLines from './TempoLines.vue'
 
 // Step 3: the clip pauses after every sentence; rate 1/2/3, R replays.
 const props = defineProps({
@@ -227,6 +228,7 @@ const pct = (n) => (summary.value.rated ? Math.round((n / summary.value.rated) *
           {{ saving ? 'Speichert …' : allRated ? 'Ergebnis speichern' : `Noch ${cues.length - summary.rated} Sätze` }}
         </button>
         <p v-else class="k-chip k-chip-success mt-4">✓ Gespeichert</p>
+        <TempoLines v-if="saved?.tempo?.length" class="mt-4" :lines="saved.tempo" :media-id="saved.mediaId" />
       </section>
       <section class="k-card" aria-labelledby="gate-h">
         <h2 id="gate-h" class="k-h2" style="font-size: 17px">Refolds Tore</h2>

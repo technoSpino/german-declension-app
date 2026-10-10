@@ -404,6 +404,11 @@ test('Satz-Check accepts an SRT + clip, pauses per cue and records ratings', asy
   await expect(page.getByText('✓ Gespeichert')).toBeVisible()
   await expect(page.getByTestId('sc-verdict')).toContainText('Phase 2A')
   await expect(page.getByText('Bisherige Satz-Checks')).toBeVisible()
+  // The "zu schwer" line is short and made of known words → listening speed, practise it in a loop.
+  const tempo = page.getByTestId('tempo-lines').first()
+  await expect(tempo).toContainText('Leider nicht, ich muss arbeiten.')
+  const loopHref = await tempo.getByRole('link', { name: /in Schleife üben/ }).getAttribute('href')
+  expect(loopHref).toMatch(/\/schauen\/\d+\?t=6\.5&loop=1$/)
 
   // Lines rated "mit Hilfe" / "zu schwer" can be mined as sentence cards.
   const mine = page.getByTestId('mine-lines')
@@ -413,6 +418,10 @@ test('Satz-Check accepts an SRT + clip, pauses per cue and records ratings', asy
   await mine.getByTestId('mine').click()
   await expect(mine).toContainText('Gemined — kommt als neue Karte.')
   await expect(mine).toContainText('Sätze zum Minen · 1')
+
+  await page.goto(loopHref!)
+  await expect(page.getByTestId('watch-loop')).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByTestId('watch-line')).toContainText('Leider nicht, ich muss arbeiten.')
   expect(errors).toEqual([])
 })
 
@@ -450,6 +459,16 @@ test('Schauen & minen: play → auto-pause → tap a word → mine → card with
   await page.getByTestId('mine').click()
   await expect(page.getByTestId('word-panel')).toContainText('Gemined — kommt als neue Karte.')
   await expect(page.getByTestId('watch-mined')).toContainText('1 Satz gemined')
+
+  // L = loop the line: playback keeps jumping back to its start instead of pausing.
+  await page.keyboard.press('l')
+  await expect(page.getByTestId('watch-loop')).toHaveAttribute('aria-pressed', 'true')
+  await page.getByTestId('watch-replay').click()
+  await page.waitForTimeout(3500)
+  const looped = await page.getByTestId('watch-video').evaluate((v: HTMLVideoElement) => ({ t: v.currentTime, paused: v.paused }))
+  expect(looped.paused).toBe(false)
+  expect(looped.t).toBeLessThan(2.4)
+  await page.getByTestId('watch-video').evaluate((v: HTMLVideoElement) => v.pause())
 
   const mined = await (await request.get('http://127.0.0.1:8001/api/mined')).json()
   const card = mined.find((c: { sentence: string }) => c.sentence === 'Guten Morgen, wie geht es dir?')

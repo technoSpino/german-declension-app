@@ -17,6 +17,7 @@ const video = ref(null)
 const t = ref(0)
 const playing = ref(false)
 const autoPause = ref(readPref('kaskade-autopause', true))
+const loop = ref(false) // repeat the current line (listening practice)
 const rate = ref(1)
 const analysis = ref(null)
 const token = ref(null)
@@ -24,6 +25,7 @@ const mined = ref(0)
 const LEAD = 0.15
 let pausedFor = null
 let touched = false // only save a position once the clip was actually played or moved
+let loopLine = -1 // the line being looped (fixed when the loop starts or a line is chosen)
 let raf = 0
 let lastSaved = 0
 const analyses = new Map()
@@ -58,7 +60,10 @@ async function load() {
       return
     }
     media.value = await api.get(`/media/${route.params.id}`)
-    t.value = resumeAt(media.value.position, media.value.duration)
+    // ?t=… jumps to a line (e.g. from the Satz-Check result), ?loop=1 repeats it
+    const at = Number(route.query.t)
+    t.value = Number.isFinite(at) && at > 0 ? at : resumeAt(media.value.position, media.value.duration)
+    loop.value = route.query.loop === '1'
   } catch (e) {
     error.value = e.message
   }
@@ -95,7 +100,10 @@ function tick() {
   const v = video.value
   if (!v) return
   t.value = v.currentTime
-  if (autoPause.value && !v.paused) {
+  const cur = cues.value[loopLine]
+  if (loop.value && !v.paused && cur && v.currentTime >= cur.end + 0.15) {
+    v.currentTime = Math.max(0, cur.start - 0.1) // loop: back to the start of the line
+  } else if (autoPause.value && !loop.value && !v.paused) {
     const i = shouldPause(cues.value, v.currentTime, pausedFor)
     if (i >= 0) {
       pausedFor = i
@@ -108,6 +116,7 @@ function tick() {
 
 function onPlay() {
   touched = true
+  if (loopLine < 0 || !loop.value) loopLine = lineAt(cues.value, (video.value?.currentTime ?? 0) + LEAD)
   playing.value = true
   cancelAnimationFrame(raf)
   raf = requestAnimationFrame(tick)
@@ -131,6 +140,7 @@ function seekLine(i, play = true) {
   const c = cues.value[i]
   if (!v || !c) return
   touched = true
+  loopLine = i
   pausedFor = i - 1 // the lead-in belongs to the previous line: don't pause for it
   v.currentTime = Math.max(0, c.start - 0.1)
   t.value = c.start
@@ -139,6 +149,11 @@ function seekLine(i, play = true) {
 const prev = () => seekLine(stepLine(cues.value, t.value, -1))
 const next = () => seekLine(stepLine(cues.value, t.value, 1))
 const replay = () => index.value >= 0 && seekLine(index.value)
+
+function toggleLoop() {
+  loop.value = !loop.value
+  loopLine = index.value
+}
 
 function setRate(r) {
   rate.value = r
@@ -179,6 +194,8 @@ function onKey(e) {
     next()
   } else if (k === 'r') {
     replay()
+  } else if (k === 'l') {
+    toggleLoop()
   }
 }
 // Space on a focused button would also "click" it on keyup — swallow that.
@@ -272,13 +289,14 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
             <button class="k-btn k-btn-sm" data-testid="watch-play" @click="toggle">{{ playing ? '❚❚ Pause' : '▶ Play' }}</button>
             <button class="k-btn k-btn-ghost k-btn-sm" aria-label="Nächste Zeile (Pfeil rechts)" data-testid="watch-next" @click="next">Zeile →</button>
             <button class="k-btn k-btn-ghost k-btn-sm" aria-label="Zeile wiederholen (R)" data-testid="watch-replay" @click="replay">↻ Nochmal</button>
-            <label class="k-small inline-flex items-center gap-2 sw-auto"><input v-model="autoPause" type="checkbox" data-testid="watch-autopause" /> nach jeder Zeile pausieren</label>
+            <button :class="['k-btn k-btn-sm', { 'k-btn-ghost': !loop }]" :aria-pressed="loop" aria-label="Zeile in Schleife (L)" data-testid="watch-loop" @click="toggleLoop">⟲ Schleife</button>
+            <label class="k-small inline-flex items-center gap-2 sw-auto"><input v-model="autoPause" type="checkbox" :disabled="loop" data-testid="watch-autopause" /> nach jeder Zeile pausieren</label>
             <span class="k-small inline-flex items-center gap-1.5">
               Tempo
               <button v-for="r in [1, 0.85]" :key="r" :class="['k-btn k-btn-sm sw-rate', { 'k-btn-ghost': rate !== r }]" :aria-pressed="rate === r" @click="setRate(r)">{{ r === 1 ? '1×' : '0,85×' }}</button>
             </span>
           </div>
-          <p class="k-hint m-0">Tasten: Leertaste Play/Pause · ← → Zeile zurück/vor · R Zeile wiederholen · {{ formatTime(t) }} / {{ formatTime(media.duration) }}</p>
+          <p class="k-hint m-0">Tasten: Leertaste Play/Pause · ← → Zeile zurück/vor · R Zeile wiederholen · L Schleife · {{ formatTime(t) }} / {{ formatTime(media.duration) }}</p>
         </div>
 
         <div class="flex flex-col gap-4 min-w-0">

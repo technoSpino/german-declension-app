@@ -1,10 +1,11 @@
 import json
+import re
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from .. import db, satzcheck
+from .. import analyze, db, satzcheck, textcov
 
 router = APIRouter(prefix="/api/satzcheck")
 
@@ -35,6 +36,45 @@ def evaluate(content_type: str, ratings: list[str]) -> dict:
     return {**s, "words": words, "verdict": satzcheck.verdict(s["coverage"], content_type, words)}
 
 
+SHORT_LINE = 8  # words
+# Spoken reductions and fillers: known words, just said fast.
+COLLOQUIAL = set("""ner nen nem ne n nee nö nix nich is hab haste biste gibts isses weißte kannste willste
+musste guck na äh ähm hm okay ok tja jo joa jep nö mhm""".split())
+
+
+def line_kind(text: str) -> str:
+    """'tempo' when a hard line is short and every word is among the 2,000 core words (it was the
+    speed, not the vocabulary), else 'wortschatz'. Names and spoken reductions ('ner, nee) don't count."""
+    cov = textcov.coverage(text, extra_known=COLLOQUIAL)
+    d = analyze.dictionary()
+    in_dict = lambda w: w in d["entries"] or w in d["forms"] or w.lower() in d["forms"]  # noqa: E731
+    unknown = [w for w in cov["unknown"] if not (w[:1].isupper() and not in_dict(w))]  # capitalised + unknown word = a name
+    distinct = {w.lower() for w in re.findall(r"[^\W\d_]+(?:'[^\W\d_]+)?", text)}  # repeats don't make a line long
+    return "tempo" if len(distinct) <= SHORT_LINE and not unknown else "wortschatz"
+
+
+def diagnose(ratings: list[dict], media_id: int | None) -> list[dict]:
+    """The "zu schwer" lines that were about listening speed, with their time in the clip."""
+    cues = []
+    if media_id:
+        with db.tx() as conn:
+            row = conn.execute("SELECT cues FROM media WHERE id = ?", (media_id,)).fetchone()
+        cues = json.loads(row["cues"]) if row else []
+    out = []
+    for r in ratings:
+        if r["rating"] != "s" or satzcheck.is_non_speech(r["text"]):
+            continue
+        try:
+            kind = line_kind(r["text"])
+        except OSError:  # spaCy model missing: no diagnosis
+            return []
+        if kind == "tempo":
+            cue = cues[r["cue"]] if 0 <= r["cue"] < len(cues) else None
+            out.append({"cue": r["cue"], "text": r["text"], "start": cue["start"] if cue else None,
+                        "end": cue["end"] if cue else None})
+    return out
+
+
 @router.post("")
 def save_run(run: Run):
     if not run.ratings:
@@ -48,7 +88,9 @@ def save_run(run: Run):
              json.dumps([r.model_dump() for r in run.ratings], ensure_ascii=False), json.dumps(result, ensure_ascii=False)),
         )
         run_id = cur.lastrowid
-    return {"id": run_id, "createdAt": db.now_iso(), "contentType": run.contentType, **result}
+    tempo = diagnose([r.model_dump() for r in run.ratings], run.mediaId)
+    return {"id": run_id, "createdAt": db.now_iso(), "contentType": run.contentType, **result,
+            "mediaId": run.mediaId, "tempo": tempo}
 
 
 def run_result(row) -> dict:
@@ -60,12 +102,12 @@ def run_result(row) -> dict:
 def history():
     with db.tx() as conn:
         rows = conn.execute(
-            "SELECT r.id, r.created_at, r.content_type, r.ratings, r.result, m.title FROM satzcheck_runs r"
+            "SELECT r.id, r.created_at, r.content_type, r.ratings, r.result, r.media_id, m.title FROM satzcheck_runs r"
             " LEFT JOIN media m ON m.id = r.media_id ORDER BY r.id DESC"
         ).fetchall()
     return [
-        {"id": r["id"], "createdAt": r["created_at"], "contentType": r["content_type"],
-         "title": r["title"], **run_result(r)}
+        {"id": r["id"], "createdAt": r["created_at"], "contentType": r["content_type"], "title": r["title"],
+         "mediaId": r["media_id"], **run_result(r), "tempo": diagnose(json.loads(r["ratings"]), r["media_id"])}
         for r in rows
     ]
 

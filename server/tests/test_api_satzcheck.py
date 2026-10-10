@@ -116,3 +116,25 @@ def test_history_shows_speech_only_coverage_next_to_the_old_number(client):
     assert h["coverage"] == 89 and h["coverageAll"] == 90
     assert client.get("/api/today").json()["satzcheck"]["coverage"] == 89
     assert client.get("/api/fahrplan").json()["satzchecks"][0]["coverageAll"] == 90
+
+
+def test_short_fast_lines_are_flagged_as_listening_speed(client):
+    from kaskade.routes.satzcheck import line_kind
+    assert line_kind("Na?") == "tempo"
+    assert line_kind("Glaubst du mir nicht, oder?") == "tempo"         # sentence-initial verb, still known
+    assert line_kind("Ich bin seit 'ner Stunde zu Hause.") == "tempo"   # spoken reduction
+    assert line_kind("Er hat die Obduktion gestern angeordnet.") == "wortschatz"
+    assert line_kind("Wir sind gestern Abend mit dem Zug nach Hause gefahren, weil es so spät war.") == "wortschatz"  # long
+
+
+def test_run_result_lists_tempo_lines_with_clip_times(client):
+    srt = b"1\n00:00:01,000 --> 00:00:01,800\nNa?\n\n2\n00:00:02,000 --> 00:00:04,000\nEr hat die Obduktion angeordnet.\n\n3\n00:00:05,000 --> 00:00:06,000\nKomm schon!\n"
+    m = client.post("/api/media/upload", files={"subtitles": ("s.srt", srt)}, data={"title": "Krimi"}).json()
+    ratings = [{"cue": 0, "text": "Na?", "rating": "s"},
+               {"cue": 1, "text": "Er hat die Obduktion angeordnet.", "rating": "s"},
+               {"cue": 2, "text": "Komm schon!", "rating": "v"}]
+    r = client.post("/api/satzcheck", json={"mediaId": m["id"], "contentType": "adult", "windowStart": 0,
+                                            "windowEnd": 180, "ratings": ratings}).json()
+    assert r["tempo"] == [{"cue": 0, "text": "Na?", "start": 1.0, "end": 1.8}]
+    assert r["mediaId"] == m["id"]
+    assert client.get("/api/satzcheck/history").json()[0]["tempo"][0]["text"] == "Na?"
