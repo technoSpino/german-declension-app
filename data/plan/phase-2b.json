@@ -1,0 +1,201 @@
+{
+  "about": "Kaskade 4-week plan for Phase 2B: core deck only for the remaining gaps, most of the time interactive watching with sentence mining from adult series, free reading/listening, B1 exam task unchanged (prompts and week 6 come from weeks-1-4.json).",
+  "phase": "2B",
+  "block": [
+    { "id": "karten",   "start": "09:00", "minutes": 15, "title": "Karten: nur die Lücken",  "kind": "karten",   "label": "Karten · nur Lücken",             "short": "Karten" },
+    { "id": "input",    "start": "09:15", "minutes": 65, "title": "Schauen & minen",         "kind": "input",    "label": "Schauen & minen",                 "short": "Schauen" },
+    { "id": "pause",    "start": "10:20", "minutes": 10, "title": "Pause",                   "kind": "pause",    "label": "Pause",                           "short": "Pause" },
+    { "id": "lesen",    "start": "10:30", "minutes": 35, "title": "Frei lesen oder hören",   "kind": "lesen",    "label": "Frei lesen / hören · ohne Tools", "short": "Frei" },
+    { "id": "pruefung", "start": "11:05", "minutes": 25, "title": "B1-Prüfungsteil",         "kind": "pruefung", "label": "B1-Prüfungsteil",                 "short": "Prüfung" }
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "theme": "Krimi: eine Folge in Etappen",
+      "goal": "Diese Woche schaust du einen Krimi in Etappen und minest die Sätze, die du wirklich wieder hören willst.",
+      "days": [
+        {
+          "day": "Mo",
+          "focus": "Start in Phase 2B: Schauen & minen mit einem Krimi.",
+          "karten": "Nur die Lücken: fällige Karten und geminte Sätze, dann neue Kernwörter mit K sortieren — was du kennst, kommt sofort weg. Höchstens 15 Minuten.",
+          "input": "Tatort (z. B. „Schweigen“ aus deiner Bibliothek) mit deutschen Untertiteln: die ersten 20 Minuten. Nach jeder Zeile kurz pausieren, unbekannte Wörter antippen, 5 bis 10 gute Sätze minen.",
+          "lesen": "Frei lesen oder hören, ohne Wörterbuch: ein Text aus der Bibliothek, ein Hörbuch oder ein Podcast. Einfach weiter, auch wenn ein Wort fehlt.",
+          "exam": "s01"
+        },
+        {
+          "day": "Di",
+          "focus": "Dranbleiben: dieselbe Folge weiter.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Den Krimi ab deiner Position weiterschauen. Ziel: der Handlung folgen. Nur Sätze minen, die oft vorkommen oder die du selbst sagen möchtest.",
+          "lesen": "Nachrichten lesen (z. B. tagesschau.de oder nachrichtenleicht.de): drei Artikel, ohne nachzuschlagen.",
+          "exam": "p01"
+        },
+        {
+          "day": "Mi",
+          "focus": "Schnelle Umgangssprache: kurze Zeilen hören lernen.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Krimi weiter. Kurze, schnelle Zeilen („Na?“, „Komm schon!“, „seit 'ner Stunde“) mit R so oft wiederholen, bis du jedes Wort hörst.",
+          "lesen": "Einen Podcast für Erwachsene hören (z. B. Easy German Podcast) — einfach laufen lassen, nicht pausieren.",
+          "exam": "s02"
+        },
+        {
+          "day": "Do",
+          "focus": "Wie reden Ermittler? Fragen, Vermutungen, Vorwürfe.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Den Krimi zu Ende schauen oder mit einer neuen Folge beginnen (Tatort, SOKO, Der Pass). Fragen und Vermutungen minen: „Wo waren Sie gestern Abend?“",
+          "lesen": "Frei lesen: ein Krimi in einfacher Sprache oder ein Text aus der Bibliothek, ohne Wörterbuch.",
+          "exam": "p02"
+        },
+        {
+          "day": "Fr",
+          "focus": "Wochenrückblick: die geminten Sätze der Woche.",
+          "karten": "Keine neuen Kernwörter, nur Wiederholungen und die geminten Sätze der Woche.",
+          "input": "Eine Szene der Woche ohne Untertitel noch einmal schauen. Wie viel verstehst du jetzt?",
+          "lesen": "Frei wählen: lesen oder hören, was dir Spaß macht, ohne Tools.",
+          "exam": null
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "theme": "Arbeit und Alltag: Comedy und Reportage",
+      "goal": "Diese Woche schaust du Comedy und Reportagen über Arbeit und minest Redewendungen aus dem Berufsalltag.",
+      "days": [
+        {
+          "day": "Mo",
+          "focus": "Büro-Comedy: Sprüche und Redewendungen.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Stromberg oder Der Tatortreiniger mit deutschen Untertiteln. Sprüche und Redewendungen minen, die im Alltag nützlich sind.",
+          "lesen": "Stellenanzeigen oder einen Artikel über Arbeit lesen, ohne Wörterbuch: Worum geht es?",
+          "exam": "s03"
+        },
+        {
+          "day": "Di",
+          "focus": "Termine und Absprachen im Job.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Weiter mit deiner Serie. Sätze zu Terminen und Absprachen minen („Können wir das verschieben?“).",
+          "lesen": "Einen Podcast oder eine Radiosendung über Arbeit hören, ohne zu pausieren.",
+          "exam": "p03"
+        },
+        {
+          "day": "Mi",
+          "focus": "Von der Arbeit erzählen, im Perfekt.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Eine Reportage über einen Beruf (z. B. 37 Grad in der ZDF Mediathek) mit Untertiteln. Sätze im Perfekt minen.",
+          "lesen": "Ein Kapitel in einem Buch deiner Wahl lesen. Unbekannte Wörter einfach überspringen.",
+          "exam": "s04"
+        },
+        {
+          "day": "Do",
+          "focus": "Meinung sagen und widersprechen.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Straßeninterviews (z. B. Easy German) oder eine Talkrunde mit Untertiteln. Redemittel minen: „Ich sehe das anders, weil …“",
+          "lesen": "Nachrichten lesen: alle Artikel über Arbeit und Wirtschaft, ohne nachzuschlagen.",
+          "exam": "p04"
+        },
+        {
+          "day": "Fr",
+          "focus": "Wochenrückblick: Lieblingssätze laut nachsprechen.",
+          "karten": "Keine neuen Kernwörter, nur Wiederholungen und die geminten Sätze der Woche.",
+          "input": "Eine Folge der Woche ohne Untertitel schauen. Danach eine schwierige Szene mit Untertiteln wiederholen.",
+          "lesen": "Frei wählen: lesen oder hören, was dir Spaß macht, ohne Tools.",
+          "exam": null
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "theme": "Gesundheit und Behörden: Drama und Doku",
+      "goal": "Diese Woche schaust du ein Drama im Krankenhaus und Reportagen über Ämter und minest Sätze aus Gesprächen.",
+      "days": [
+        {
+          "day": "Mo",
+          "focus": "Behörden und Papierkram.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Eine Reportage über Ämter oder Bürokratie aus der ARD- oder ZDF-Mediathek mit Untertiteln. Sätze minen, die du auf einem Amt brauchst.",
+          "lesen": "Eine echte Infoseite einer Behörde lesen (z. B. zur Anmeldung der Wohnung), ohne Wörterbuch.",
+          "exam": "s05"
+        },
+        {
+          "day": "Di",
+          "focus": "Beim Arzt und im Krankenhaus.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Charité oder Der Bergdoktor (klar gesprochen) mit Untertiteln. Sätze aus Gesprächen zwischen Ärzten und Patienten minen.",
+          "lesen": "Gesundheitsartikel lesen, z. B. über Schlaf oder Erkältung, ohne nachzuschlagen.",
+          "exam": "p05"
+        },
+        {
+          "day": "Mi",
+          "focus": "Begründen: weil, deshalb, trotzdem.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Weiter mit deiner Krankenhausserie. Sätze minen, in denen jemand etwas begründet.",
+          "lesen": "Ein Kapitel in deinem Buch lesen, ohne Wörterbuch.",
+          "exam": "s06"
+        },
+        {
+          "day": "Do",
+          "focus": "Hilfe anbieten und Aufgaben verteilen.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Eine Wissensdoku über Gesundheit (z. B. Terra X) mit Untertiteln. Erklärungen und Fachwörter minen, die oft vorkommen.",
+          "lesen": "Einen Podcast hören, ohne zu pausieren.",
+          "exam": "p06"
+        },
+        {
+          "day": "Fr",
+          "focus": "Wochenrückblick: die geminten Sätze der Woche.",
+          "karten": "Keine neuen Kernwörter, nur Wiederholungen und die geminten Sätze der Woche.",
+          "input": "Eine Szene der Woche ohne Untertitel noch einmal schauen.",
+          "lesen": "Frei wählen: lesen oder hören, was dir Spaß macht, ohne Tools.",
+          "exam": null
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "theme": "Freizeit, Reisen und Nachrichten",
+      "goal": "Diese Woche schaust du Reisedokus und Nachrichten und machst am Freitag den nächsten Satz-Check.",
+      "days": [
+        {
+          "day": "Mo",
+          "focus": "Freizeit und Ausflüge.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Eine Reise- oder Naturdoku aus der ARD- oder ZDF-Mediathek mit Untertiteln. Ausdrücke für unterwegs minen.",
+          "lesen": "Einen Reisebericht oder Blog lesen, ohne Wörterbuch.",
+          "exam": "s07"
+        },
+        {
+          "day": "Di",
+          "focus": "Nachrichten verstehen: Meldung für Meldung.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Die Tagesschau (mit UT) in Etappen: jede Meldung einzeln schauen, Sätze minen, die immer wieder vorkommen.",
+          "lesen": "Nachrichten hören: tagesschau in 100 Sekunden, zwei- oder dreimal hintereinander.",
+          "exam": "p07"
+        },
+        {
+          "day": "Mi",
+          "focus": "Medien und deine Meinung.",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Eine neue Serie oder einen Film deiner Wahl beginnen (z. B. Babylon Berlin, Der Pass) mit Untertiteln.",
+          "lesen": "Ein Kapitel lesen. Nicht stoppen, wenn ein Wort fehlt.",
+          "exam": "s08"
+        },
+        {
+          "day": "Do",
+          "focus": "Frei sprechen: Wie reden Menschen spontan?",
+          "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
+          "input": "Straßeninterviews (z. B. Easy German): Füllwörter und spontane Redewendungen minen („Na ja, also …“).",
+          "lesen": "Nachrichten lesen: Artikel über Kultur und Medien.",
+          "exam": "p08"
+        },
+        {
+          "day": "Fr",
+          "focus": "Monatsrückblick und nächster Satz-Check.",
+          "karten": "Keine neuen Kernwörter, nur Wiederholungen und die geminten Sätze.",
+          "input": "Satz-Check mit einem neuen Clip für Erwachsene (3 Minuten), danach weiterschauen.",
+          "lesen": "Frei wählen: lesen oder hören, was dir Spaß macht, ohne Tools.",
+          "exam": null
+        }
+      ]
+    }
+  ]
+}

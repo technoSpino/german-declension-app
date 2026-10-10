@@ -2,11 +2,11 @@
   "about": "Kaskade 4-week plan for Phase 2A, original prompts modelled on common B1 task types.",
   "phase": "2A",
   "block": [
-    { "id": "karten",   "start": "09:00", "minutes": 30, "title": "Karten",                        "kind": "karten" },
-    { "id": "input",    "start": "09:30", "minutes": 55, "title": "Interaktiv schauen oder lesen", "kind": "input" },
-    { "id": "pause",    "start": "10:25", "minutes": 10, "title": "Pause",                         "kind": "pause" },
-    { "id": "lesen",    "start": "10:35", "minutes": 30, "title": "Freies Lesen",                  "kind": "lesen" },
-    { "id": "pruefung", "start": "11:05", "minutes": 25, "title": "B1-Prüfungsteil",               "kind": "pruefung" }
+    { "id": "karten",   "start": "09:00", "minutes": 30, "title": "Karten",                        "kind": "karten",   "label": "Karten",                     "short": "Karten" },
+    { "id": "input",    "start": "09:30", "minutes": 55, "title": "Interaktiv schauen oder lesen", "kind": "input",    "label": "Interaktiv schauen / lesen", "short": "Schauen" },
+    { "id": "pause",    "start": "10:25", "minutes": 10, "title": "Pause",                         "kind": "pause",    "label": "Pause",                      "short": "Pause" },
+    { "id": "lesen",    "start": "10:35", "minutes": 30, "title": "Freies Lesen",                  "kind": "lesen",    "label": "Freies Lesen · ohne Tools",  "short": "Lesen" },
+    { "id": "pruefung", "start": "11:05", "minutes": 25, "title": "B1-Prüfungsteil",               "kind": "pruefung", "label": "B1-Prüfungsteil",            "short": "Prüfung" }
   ],
   "weeks": [
     {
@@ -27,15 +27,15 @@
           "focus": "Wörter rund um Haus, Hof und Nachbarschaft.",
           "karten": "20 neue Kernwörter + Wiederholungen. Weiter mit K sortieren: Was du sicher kennst, kommt sofort weg.",
           "input": "Ein Video über eine Wohnungstour in Deutschland. Oft pausieren, Wörter nachschlagen, Sätze speichern.",
-          "lesen": "Ein Kinderbuch oder einen Comic auf Deutsch lesen, ohne Wörterbuch.",
+          "lesen": "Eine Lektüre für Erwachsene in einfacher Sprache (z. B. einen kurzen Krimi) lesen, ohne Wörterbuch.",
           "exam": "p01"
         },
         {
           "day": "Mi",
           "focus": "Ein Problem in der Wohnung höflich beschreiben.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Eine Kinderserie ohne Untertitel schauen. Danach eine schwierige Stelle mit Untertiteln wiederholen.",
-          "lesen": "Im Kinderbuch oder Comic von Dienstag weiterlesen.",
+          "input": "Eine klar gesprochene Serie für Erwachsene (z. B. Der Bergdoktor) ohne Untertitel schauen. Danach eine schwierige Stelle mit Untertiteln wiederholen.",
+          "lesen": "In der Lektüre von Dienstag weiterlesen.",
           "exam": "s02"
         },
         {
@@ -74,7 +74,7 @@
           "focus": "Termine vereinbaren, verschieben und absagen.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
           "input": "Ein Video über den Berufsalltag einer Person, z. B. in der Pflege, im Handwerk oder im Büro. Pausieren und nachschlagen.",
-          "lesen": "Ein leichtes Jugendbuch beginnen und das erste Kapitel lesen.",
+          "lesen": "Einen leichten Roman für Erwachsene beginnen (z. B. einen Krimi in einfacher Sprache) und das erste Kapitel lesen.",
           "exam": "p03"
         },
         {
@@ -82,7 +82,7 @@
           "focus": "Von der Arbeit erzählen, im Perfekt.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
           "input": "Einen Podcast für Deutschlernende zum Thema Arbeit hören und das Transkript mitlesen.",
-          "lesen": "Im Jugendbuch weiterlesen: ein Kapitel ohne Wörterbuch.",
+          "lesen": "Im Roman weiterlesen: ein Kapitel ohne Wörterbuch.",
           "exam": "s04"
         },
         {
@@ -98,7 +98,7 @@
           "focus": "Wochenrückblick: Lieblingssätze der Woche wiederholen und laut vorlesen.",
           "karten": "Keine neuen Karten, nur Wiederholungen. Schwierige Wörter der Woche noch einmal ansehen.",
           "input": "Frei wählen: eine Folge deiner Lieblingsserie mit deutschen Untertiteln.",
-          "lesen": "Im Jugendbuch weiterlesen.",
+          "lesen": "Im Roman weiterlesen.",
           "exam": null
         }
       ]
@@ -113,7 +113,7 @@
           "focus": "Behörden: Briefe und Formulare verstehen.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
           "input": "Ein Erklärvideo über Behörden in Deutschland, z. B. zur Anmeldung der Wohnung. Pausieren, nachschlagen, Sätze speichern.",
-          "lesen": "Im Jugendbuch weiterlesen oder einen neuen Text in einfacher Sprache beginnen.",
+          "lesen": "Im Roman weiterlesen oder einen neuen Text in einfacher Sprache beginnen.",
           "exam": "s05"
         },
         {
@@ -168,7 +168,7 @@
           "focus": "Reisen: Zug oder Flugzeug?",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
           "input": "Eine Doku-Folge über eine Zugreise mit deutschen Untertiteln. Pausieren, nachschlagen, Sätze speichern.",
-          "lesen": "Ein neues Buch beginnen oder im Jugendbuch weiterlesen.",
+          "lesen": "Ein neues Buch beginnen oder im Roman weiterlesen.",
           "exam": "p07"
         },
         {
@@ -183,7 +183,7 @@
           "day": "Do",
           "focus": "Eine Präsentation frei halten.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Nachrichten für Kinder oder in einfacher Sprache als Video schauen. Wörter nachschlagen, Sätze speichern.",
+          "input": "Nachrichten in einfacher Sprache oder die tagesschau in 100 Sekunden als Video schauen. Wörter nachschlagen, Sätze speichern.",
           "lesen": "Nachrichten in einfacher Sprache: Artikel über Freizeit, Kultur oder Medien lesen.",
           "exam": "p08"
         },

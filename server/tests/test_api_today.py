@@ -131,3 +131,48 @@ def test_immersion_validation(client, monkeypatch):
     assert client.post("/api/immersion", json={"title": "x", "minutes": 5, "kind": "halb"}).status_code == 422
     assert client.post("/api/immersion", json={"title": "x", "minutes": 5, "kind": "aktiv", "date": "2030-01-01"}).status_code == 422
     assert client.delete("/api/immersion/999").status_code == 404
+
+
+MONDAY_0900 = datetime(2026, 10, 12, 7, 0, tzinfo=timezone.utc)  # Mon 12 Oct, 09:00 Berlin
+
+
+def test_phase_2b_switches_to_the_2b_block(client, monkeypatch):
+    from kaskade import db
+    db.set_setting("phase", "2B")
+    at(monkeypatch, MONDAY_0900)
+    t = client.get("/api/today").json()
+    assert t["planPhase"] == "2B" and t["week"] == 1 and t["weekday"] == "Mo"
+    assert [(b["id"], b["minutes"]) for b in t["block"]] == [
+        ("karten", 15), ("input", 65), ("pause", 10), ("lesen", 35), ("pruefung", 25)]
+    assert "Tatort" in t["day"]["input"]
+    assert t["exam"]["id"] == "s01"  # B1 exam task unchanged
+    # timers and "Fertig" work with the 2B block
+    assert client.post("/api/activity/start", json={"block": "input"}).status_code == 200
+    assert client.post("/api/plan/done", json={"block": "input"}).json()["done"] is True
+    assert client.get("/api/plan").json()["phase"] == "2B"
+
+
+def test_phase_2a_keeps_the_2a_block(client, monkeypatch):
+    from kaskade import db
+    db.set_setting("phase", "2A")
+    at(monkeypatch, MONDAY_0900)
+    t = client.get("/api/today").json()
+    assert t["planPhase"] == "2A" and t["block"][0]["minutes"] == 30
+
+
+def test_satzcheck_lines_can_be_mined_as_cards(client, monkeypatch):
+    at(monkeypatch, MONDAY_0900)
+    ratings = [
+        {"cue": 1, "text": "Na?", "rating": "s"},
+        {"cue": 2, "text": "* Musik spielt *", "rating": "h"},
+        {"cue": 3, "text": "Glaubst du mir nicht?", "rating": "h"},
+        {"cue": 4, "text": "Ich bin seit 'ner Stunde hier.", "rating": "v"},
+        {"cue": 5, "text": "♪ La la la ♪", "rating": "s"},
+    ]
+    client.post("/api/satzcheck", json={"contentType": "adult", "windowStart": 0, "windowEnd": 180, "ratings": ratings})
+    lines = client.get("/api/satzcheck/lines").json()
+    assert [(x["text"], x["rating"], x["mined"]) for x in lines] == [("Na?", "s", False), ("Glaubst du mir nicht?", "h", False)]
+    assert client.get("/api/today").json()["mineable"] == 2
+    client.post("/api/mined", json={"sentence": "Glaubst du mir nicht?", "target": "Glaubst", "lemma": "glauben", "source": "Satz-Check"})
+    assert [x["mined"] for x in client.get("/api/satzcheck/lines").json()] == [False, True]
+    assert client.get("/api/today").json()["mineable"] == 1

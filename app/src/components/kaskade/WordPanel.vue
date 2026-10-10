@@ -8,8 +8,13 @@ const props = defineProps({
   analysis: { type: Object, required: true },
   token: { type: Object, default: null },
   glossary: { type: Array, default: () => [] },
-  source: { type: String, default: 'Lesen' }
+  source: { type: String, default: 'Lesen' },
+  // A subtitle line is mined as a whole (not just the spaCy sentence around the word).
+  sentence: { type: String, default: null },
+  // Extra fields for the mine request (e.g. the clip and time range for an audio snippet).
+  extra: { type: Object, default: null }
 })
+const emit = defineEmits(['mined'])
 
 const mined = ref(null)
 const error = ref(null)
@@ -19,7 +24,7 @@ const chunk = computed(() => (props.token?.chunk != null ? props.analysis.chunks
 const authorGloss = computed(() => props.glossary.find((g) => g.term === props.token?.text))
 const gloss = computed(() => authorGloss.value?.gloss ?? props.token?.entry?.gloss ?? null)
 const display = computed(() => props.token?.entry?.display ?? props.token?.lemma)
-const sentence = computed(() => (props.token ? sentenceOf(props.analysis, props.token.i) : ''))
+const sentence = computed(() => props.sentence ?? (props.token ? sentenceOf(props.analysis, props.token.i) : ''))
 const STATE = { neu: 'neu', lernend: 'am Lernen', bekannt: 'bekannt' }
 
 async function mine() {
@@ -33,9 +38,11 @@ async function mine() {
       gloss: gloss.value ?? '',
       note: chunk.value?.explain ?? authorGloss.value?.note ?? null,
       case: chunk.value?.case ?? null,
-      source: props.source
+      source: props.source,
+      ...(props.extra ?? {})
     })
     mined.value = r.duplicate ? 'Schon gemined.' : 'Gemined — kommt als neue Karte.'
+    emit('mined', r)
   } catch (e) {
     error.value = e.message
   }

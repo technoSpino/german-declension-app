@@ -46,6 +46,15 @@ def parse_subtitles(text: str) -> list[dict]:
     return out
 
 
+NON_SPEECH_RE = re.compile(r"^\s*(?:\*[^*]*\*|\[[^\]]*\]|\([^)]*\))\s*$")
+
+
+def is_non_speech(text: str) -> bool:
+    """Sound/music cues, not speech: lines fully wrapped in *…*, […] or (…), or starting with ♪."""
+    t = text.strip()
+    return not t or t.startswith(("♪", "♫", "#")) or bool(NON_SPEECH_RE.match(t))
+
+
 def window(cues: list[dict], start: float, length: float = 180) -> list[dict]:
     """Cues that begin inside [start, start + length)."""
     return [c for c in cues if start <= c["start"] < start + length]
@@ -66,7 +75,7 @@ def verdict(coverage: int, content_type: str, words: int | None) -> dict:
             return {"phase": "2A", "key": "phase1-done", "title": "Phase 1 geschafft",
                     "advice": "Einfacher Inhalt sitzt. Jetzt die 2.000 Kernwörter und Inhalt für Erwachsene mit Untertiteln."}
         return {"phase": "1", "key": "phase1", "title": "Noch Phase 1",
-                "advice": "Weiter mit einfachem Inhalt (Lernserien, Kindersendungen) und Grundwortschatz."}
+                "advice": "Weiter mit einfachem Inhalt für Erwachsene (Lernserien wie Nicos Weg, Easy German) und Grundwortschatz."}
     if coverage >= ADULT_GATE:
         if words is not None and words >= WORDS_2B:
             return {"phase": "2B", "key": "ready-2b", "title": "Bereit für Phase 2B",
@@ -77,4 +86,4 @@ def verdict(coverage: int, content_type: str, words: int | None) -> dict:
         return {"phase": "2A", "key": "2a", "title": "Phase 2A — fast da",
                 "advice": "Weiter Kernwörter (30 min) und interaktiv schauen. Nächster Satz-Check in 4 Wochen."}
     return {"phase": "2A", "key": "too-hard", "title": "Noch zu schwer",
-            "advice": "Für den Moment leichteren Inhalt wählen, zum Beispiel Lernserien oder Kindersendungen."}
+            "advice": "Für den Moment leichteren Inhalt wählen, zum Beispiel klar gesprochene Serien (Der Bergdoktor) oder Lernserien für Erwachsene."}

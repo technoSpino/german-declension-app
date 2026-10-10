@@ -7,6 +7,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from .. import db, plan, srs, texts
+from .satzcheck import mineable_lines
 from .texts import read_ids
 
 router = APIRouter(prefix="/api")
@@ -43,13 +44,14 @@ def _activity_rows(conn, since: str | None = None):
 def today():
     now = srs.now_utc()
     d = _today()
-    info = plan.plan_day(plan_start(d), d)
+    data = plan.plan(db.get_setting("phase"))
+    info = plan.plan_day(plan_start(d), d, data)
     if info["day"] is None:
         # Weekend or before the start: show the next plan day as a preview.
         nxt = max(plan_start(d), d + timedelta(days=1))
         while nxt.weekday() >= 5:
             nxt += timedelta(days=1)
-        info["preview"] = plan.plan_day(plan_start(d), nxt)
+        info["preview"] = plan.plan_day(plan_start(d), nxt, data)
     days = plan.week_days(d)
     with db.tx() as conn:
         week_rows = _activity_rows(conn, days[0])
@@ -75,7 +77,8 @@ def today():
         "name": db.get_setting("name", "Matt"),
         "phase": db.get_setting("phase"),
         "planStart": plan_start(d).isoformat(),
-        "block": plan.plan()["block"],
+        "block": data["block"],
+        "planPhase": data["phase"],
         "blockSeconds": per_block,
         "done": sorted(done),
         "running": {"block": running["block"], "startedAt": running["started_at"]} if running else None,
@@ -90,6 +93,7 @@ def today():
         "vocab": json.loads(vocab["result"]) if vocab else None,
         "cards": srs.stats(now),
         "texts": {slot: texts.next_unread(slot, set(read_ids())) for slot in ("input", "lesen")},
+        "mineable": sum(1 for line in mineable_lines() if not line["mined"]),
     }
 
 
@@ -178,7 +182,7 @@ class BlockIn(BaseModel):
 
 
 def _check_block(block: str):
-    if block not in {b["id"] for b in plan.plan()["block"]} | {"extra"}:
+    if block not in plan.block_ids() | {"extra"}:
         raise HTTPException(422, "Unbekannter Block")
 
 
@@ -227,7 +231,8 @@ def mark_done(body: DoneIn):
 @router.get("/plan")
 def full_plan():
     d = _today()
-    return {**plan.plan(), "planStart": plan_start(d).isoformat(), "today": plan.plan_day(plan_start(d), d)}
+    data = plan.plan(db.get_setting("phase"))
+    return {**data, "planStart": plan_start(d).isoformat(), "today": plan.plan_day(plan_start(d), d, data)}
 
 
 @router.get("/plan/prompt/{prompt_id}")

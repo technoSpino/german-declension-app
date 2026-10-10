@@ -63,3 +63,29 @@ def history():
          "title": r["title"], **json.loads(r["result"])}
         for r in rows
     ]
+
+
+def mineable_lines() -> list[dict]:
+    """Lines rated "mit Hilfe" or "zu schwer" in any Satz-Check (newest first, each text once),
+    flagged when a card from that line already exists — candidates for sentence cards."""
+    with db.tx() as conn:
+        runs = conn.execute(
+            "SELECT r.id, r.ratings, m.title, r.media_id FROM satzcheck_runs r"
+            " LEFT JOIN media m ON m.id = r.media_id ORDER BY r.id DESC").fetchall()
+        mined = {r[0] for r in conn.execute("SELECT sentence FROM mined")}
+    out, seen = [], set()
+    for run in runs:
+        for r in json.loads(run["ratings"]):
+            text = r["text"].strip()
+            if r["rating"] == "v" or text in seen or satzcheck.is_non_speech(text):
+                continue
+            seen.add(text)
+            out.append({"runId": run["id"], "mediaId": run["media_id"], "title": run["title"], "cue": r["cue"],
+                        "text": text, "rating": r["rating"], "mined": text in mined})
+    return out
+
+
+@router.get("/lines")
+def lines():
+    return mineable_lines()
+

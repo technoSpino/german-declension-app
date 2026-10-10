@@ -385,5 +385,14 @@ test('Satz-Check accepts an SRT + clip, pauses per cue and records ratings', asy
   await expect(page.getByText('✓ Gespeichert')).toBeVisible()
   await expect(page.getByTestId('sc-verdict')).toContainText('Phase 2A')
   await expect(page.getByText('Bisherige Satz-Checks')).toBeVisible()
+
+  // Lines rated "mit Hilfe" / "zu schwer" can be mined as sentence cards.
+  const mine = page.getByTestId('mine-lines')
+  await expect(mine).toContainText('Sätze zum Minen · 2')
+  await mine.getByText('Leider nicht, ich muss arbeiten.').click()
+  await mine.locator('.at-word', { hasText: /^arbeiten$/ }).click()
+  await mine.getByTestId('mine').click()
+  await expect(mine).toContainText('Gemined — kommt als neue Karte.')
+  await expect(mine).toContainText('Sätze zum Minen · 1')
   expect(errors).toEqual([])
 })

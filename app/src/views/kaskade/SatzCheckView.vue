@@ -4,11 +4,13 @@ import { api } from '../../lib/api'
 import { formatDate } from '../../lib/format'
 import SatzCheckSource from '../../components/kaskade/SatzCheckSource.vue'
 import SatzCheckRun from '../../components/kaskade/SatzCheckRun.vue'
+import MineLines from '../../components/kaskade/MineLines.vue'
 
 const setup = ref(null)
 const words = ref(null)
 const history = ref([])
 const run = ref(0)
+const linesKey = ref(0)
 
 async function loadHistory() {
   try {
@@ -50,9 +52,11 @@ function restart() {
       :content-type="setup.contentType"
       :window-start="setup.windowStart"
       :words="words"
-      @done="loadHistory"
+      @done="loadHistory(); linesKey++"
     />
     <SatzCheckSource v-else :key="run" @start="setup = $event" />
+
+    <MineLines :key="linesKey" />
 
     <section v-if="history.length" class="k-card" aria-labelledby="hist-h">
       <h2 id="hist-h" class="k-h2">Bisherige Satz-Checks</h2>

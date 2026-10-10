@@ -10,9 +10,27 @@ HOURS_TO_B2 = 1150          # Refold estimate
 MAX_SESSION = 3 * 3600      # a forgotten timer counts at most 3 h
 
 
-@lru_cache(maxsize=1)
-def plan() -> dict:
-    return json.loads((config.CONTENT_DIR / "plan/weeks-1-4.json").read_text(encoding="utf-8"))
+# Phase-specific plans; anything else (1, 2A, unknown) uses weeks 1–4.
+PHASE_FILES = {"2B": "plan/phase-2b.json"}
+
+
+def _load(name: str) -> dict:
+    return json.loads((config.CONTENT_DIR / name).read_text(encoding="utf-8"))
+
+
+@lru_cache(maxsize=4)
+def plan(phase: str | None = None) -> dict:
+    """The plan for `phase`. Exam prompts and week 6 are shared, so a phase file only
+    brings its own block and weeks."""
+    base = _load("plan/weeks-1-4.json")
+    name = PHASE_FILES.get(phase or "")
+    if not name:
+        return base
+    return {"prompts": base["prompts"], "week6": base["week6"], **_load(name)}
+
+
+def block_ids() -> set[str]:
+    return {b["id"] for p in (None, *PHASE_FILES) for b in plan(p)["block"]}
 
 
 def default_start(today: date) -> date:

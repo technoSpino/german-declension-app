@@ -136,6 +136,9 @@ const SKILLS = [
 const WEEKDAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 const KIND_LABEL = { karten: 'Karten', input: 'Interaktiv schauen / lesen', pause: 'Pause', lesen: 'Freies Lesen · ohne Tools', pruefung: 'B1-Prüfungsteil' }
 const SHORT_LABEL = { karten: 'Karten', input: 'Schauen', lesen: 'Lesen', pruefung: 'Prüfung' }
+// Labels come from the plan data (they differ between 2A and 2B); the maps are fallbacks.
+const kindLabel = (b) => b.label ?? KIND_LABEL[b.kind]
+const shortLabel = (b) => b.short ?? SHORT_LABEL[b.kind]
 
 /** The highlighted block: the running one, else the suggested one (plan days only). */
 const currentId = computed(() => (isPreview.value ? null : status.running?.block ?? suggestion.value?.id ?? null))
@@ -150,7 +153,7 @@ const timelineLabel = computed(() => {
   if (!layout.value) return ''
   const parts = layout.value.items.filter((b) => b.kind !== 'pause').map((b) => {
     const state = { done: 'erledigt', current: 'aktuell', upcoming: 'offen' }[segState(b)]
-    return `${b.start} ${SHORT_LABEL[b.kind]} (${b.minutes} min, ${state})`
+    return `${b.start} ${shortLabel(b)} (${b.minutes} min, ${state})`
   })
   return `Zeitleiste 09:00 bis 11:30: ${parts.join(', ')}`
 })
@@ -176,7 +179,7 @@ const timelineLabel = computed(() => {
         </p>
       </div>
       <router-link v-if="t && !t.placement" to="/einstufung" class="k-btn" data-testid="heute-einstufung">Zuerst: Einstufung →</router-link>
-      <button v-else-if="suggestion && !isRunning(suggestion)" class="k-btn" @click="start(suggestion)">Weiter: {{ KIND_LABEL[suggestion.kind] }} →</button>
+      <button v-else-if="suggestion && !isRunning(suggestion)" class="k-btn" @click="start(suggestion)">Weiter: {{ kindLabel(suggestion) }} →</button>
     </div>
 
     <div v-if="t" class="flex flex-wrap gap-6 items-start">
@@ -194,12 +197,12 @@ const timelineLabel = computed(() => {
             <div
               v-for="b in layout.items"
               :key="b.id"
-              :title="`${b.start} ${KIND_LABEL[b.kind]} · ${b.minutes} min`"
+              :title="`${b.start} ${kindLabel(b)} · ${b.minutes} min`"
               :class="['hb-seg', `hb-seg-${segState(b)}`, segWidthClass(b)]"
               :style="{ flex: `${b.minutes} 1 0` }"
               :data-state="segState(b)"
             >
-              <span v-if="b.kind !== 'pause'" class="hb-seg-label">{{ segState(b) === 'done' ? '✓ ' : '' }}{{ SHORT_LABEL[b.kind] }}</span>
+              <span v-if="b.kind !== 'pause'" class="hb-seg-label">{{ segState(b) === 'done' ? '✓ ' : '' }}{{ shortLabel(b) }}</span>
             </div>
             <div v-if="marker != null" class="hb-now" :style="{ left: marker + '%' }"></div>
           </div>
@@ -215,9 +218,10 @@ const timelineLabel = computed(() => {
           <li v-for="b in t.block" :key="b.id" class="hb-row" :data-testid="`block-${b.id}`">
             <div class="hb-time" :class="{ 'hb-muted': isDone(b) }">{{ b.start }}<span>{{ b.minutes }} min</span></div>
             <div class="min-w-0">
-              <p class="hb-kind"><span :class="['hb-dot', `hb-seg-${segState(b)}`]"></span>{{ KIND_LABEL[b.kind] }}<span v-if="segState(b) === 'current'" class="hb-now-tag">· jetzt</span></p>
+              <p class="hb-kind"><span :class="['hb-dot', `hb-seg-${segState(b)}`]"></span>{{ kindLabel(b) }}<span v-if="segState(b) === 'current'" class="hb-now-tag">· jetzt</span></p>
               <p class="hb-title" :class="{ 'hb-strike': isDone(b) }">{{ b.kind === 'pruefung' && planInfo?.exam ? planInfo.exam.title : b.title }}</p>
               <p class="k-small m-0 mt-0.5">{{ describe(b) }}</p>
+              <router-link v-if="b.kind === 'karten' && t.mineable" to="/satz-check#minen" class="k-small" style="font-weight: 600" data-testid="heute-mineable">{{ t.mineable }} {{ t.mineable === 1 ? 'Satz' : 'Sätze' }} aus dem Satz-Check minen →</router-link>
               <p v-if="logged(b) && !isPreview" class="k-hint m-0 mt-0.5">{{ logged(b) }} min erfasst</p>
             </div>
             <div v-if="isPreview && b.kind !== 'pause'" class="hb-actions flex flex-col items-end gap-1.5">
