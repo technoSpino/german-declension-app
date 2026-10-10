@@ -4,11 +4,11 @@ import re
 import shutil
 from pathlib import Path
 
-from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from .. import config, db, satzcheck
+from .. import config, db, satzcheck, transcode
 
 router = APIRouter(prefix="/api/media")
 
@@ -32,6 +32,7 @@ def _row(r, with_cues=False, progress: dict | None = None) -> dict:
         "isAudio": bool(r["media_file"]) and Path(r["media_file"]).suffix in {".mp3", ".m4a", ".ogg", ".oga", ".wav", ".opus", ".aac"},
         "cueCount": len(cues), "duration": cues[-1]["end"] if cues else 0,
         "position": p.get("position", 0), "watchedAt": p.get("watchedAt"),
+        "status": r["status"] or "ready",
     }
     if with_cues:
         out["cues"] = cues
@@ -118,8 +119,31 @@ def delete_media(media_id: int):
     return {"ok": True}
 
 
+def convert_media(media_id: int) -> None:
+    """Background task: make the clip's file H.264/AAC MP4 (+faststart); keep the original if that fails."""
+    with db.tx() as conn:
+        row = conn.execute("SELECT media_file FROM media WHERE id = ?", (media_id,)).fetchone()
+    if not row or not row["media_file"]:
+        return
+    result = transcode.convert(config.MEDIA_DIR / row["media_file"])
+    with db.tx() as conn:
+        if result is None:
+            conn.execute("UPDATE media SET status = 'original' WHERE id = ?", (media_id,))
+        else:
+            conn.execute("UPDATE media SET media_file = ?, status = 'ready' WHERE id = ?", (result.name, media_id))
+
+
+def schedule_conversion(media_id: int, tasks: BackgroundTasks) -> None:
+    if not transcode.enabled():
+        return
+    with db.tx() as conn:
+        conn.execute("UPDATE media SET status = 'converting' WHERE id = ?", (media_id,))
+    tasks.add_task(convert_media, media_id)
+
+
 @router.post("/upload")
 def upload(
+    tasks: BackgroundTasks,
     subtitles: UploadFile = File(...),
     media: UploadFile | None = File(None),
     title: str = Form(""),
@@ -151,6 +175,7 @@ def upload(
             shutil.copyfileobj(media.file, out, length=1024 * 1024)
         with db.tx() as conn:
             conn.execute("UPDATE media SET media_file = ? WHERE id = ?", (filename, media_id))
+        schedule_conversion(media_id, tasks)
     return _row(_get(media_id))
 
 
@@ -180,7 +205,7 @@ def fetch_youtube(url: str, dest: Path, stem: str) -> dict:
 
 
 @router.post("/youtube")
-def youtube(body: YoutubeIn):
+def youtube(body: YoutubeIn, tasks: BackgroundTasks):
     url = body.url.strip()
     if not YT_RE.match(url):
         raise HTTPException(422, "Das ist keine YouTube-Adresse.")
@@ -211,4 +236,6 @@ def youtube(body: YoutubeIn):
     for s in subs:
         s.unlink(missing_ok=True)  # cues live in the DB; keep no third-party subtitle files around
     media_id = _insert("youtube", info.get("title") or url, url, media_files[0].name if media_files else None, cues)
+    if media_files:
+        schedule_conversion(media_id, tasks)
     return _row(_get(media_id))

@@ -154,6 +154,8 @@ MIGRATIONS = [
     "ALTER TABLE mined ADD COLUMN clip_start REAL",
     "ALTER TABLE mined ADD COLUMN clip_end REAL",
     "ALTER TABLE mined ADD COLUMN audio TEXT",
+    # clip conversion to H.264/AAC MP4: NULL/ready | converting | original (conversion failed, original kept)
+    "ALTER TABLE media ADD COLUMN status TEXT",
 ]
 
 

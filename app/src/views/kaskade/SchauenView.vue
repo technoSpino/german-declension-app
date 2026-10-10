@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../../lib/api'
-import { formatTime, inside, lineAt, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
+import { clipStatus, formatTime, inside, lineAt, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
 import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
 import WordPanel from '../../components/kaskade/WordPanel.vue'
 
@@ -223,7 +223,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
           <li v-for="c in clips ?? []" :key="c.id" class="sw-clip">
             <div class="min-w-0">
               <p class="m-0" style="font-weight: 700">{{ c.title }}</p>
-              <p class="k-hint m-0">{{ formatTime(c.duration) }} · {{ c.cueCount }} Zeilen<template v-if="c.position > 2"> · weiter ab {{ formatTime(c.position) }} (noch ≈ {{ minutesLeft(c) }} min)</template></p>
+              <p class="k-hint m-0">{{ formatTime(c.duration) }} · {{ c.cueCount }} Zeilen<template v-if="c.position > 2"> · weiter ab {{ formatTime(c.position) }} (noch ≈ {{ minutesLeft(c) }} min)</template><template v-if="clipStatus(c)"> · {{ clipStatus(c) }}</template></p>
             </div>
             <router-link :to="`/schauen/${c.id}`" class="k-btn k-btn-sm" :data-testid="`watch-${c.id}`">{{ c.position > 2 ? 'Weiterschauen' : 'Schauen' }}</router-link>
           </li>

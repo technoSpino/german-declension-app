@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatTime, inside, isNonSpeech, lineAt, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
+import { clipStatus, formatTime, inside, isNonSpeech, lineAt, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
 
 const CUES = [
   { start: 1, end: 2.5, text: 'Wo waren Sie gestern Abend?' },
@@ -56,5 +56,13 @@ describe('cue navigation', () => {
     expect(formatTime(754)).toBe('12:34')
     expect(formatTime(5361)).toBe('1:29:21')
     expect(formatTime(0)).toBe('0:00')
+  })
+})
+
+describe('clip conversion status', () => {
+  it('explains converting and failed clips, nothing for ready ones', () => {
+    expect(clipStatus({ status: 'converting' })).toMatch(/umgewandelt/)
+    expect(clipStatus({ status: 'original' })).toMatch(/Originaldatei/)
+    expect(clipStatus({ status: 'ready' })).toBe('')
   })
 })

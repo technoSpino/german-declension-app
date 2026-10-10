@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
 import { cuesInWindow } from '../../lib/satzcheck'
+import { clipStatus } from '../../lib/watch'
 import { formatClock } from '../../lib/format'
 import FilePicker from './FilePicker.vue'
 
@@ -107,7 +108,7 @@ function start() {
           <span class="k-key">{{ m.hasMedia ? (m.isAudio ? '♪' : '▶') : 'T' }}</span>
           <span class="flex-1 min-w-0" style="font-family: var(--font-ui); font-size: 16px">
             {{ m.title }}
-            <span class="k-hint block">{{ m.cueCount }} Sätze · {{ formatClock(m.duration) }}{{ m.hasMedia ? '' : ' · nur Text' }}</span>
+            <span class="k-hint block">{{ m.cueCount }} Sätze · {{ formatClock(m.duration) }}{{ m.hasMedia ? '' : ' · nur Text' }}<template v-if="clipStatus(m)"> · {{ clipStatus(m) }}</template></span>
           </span>
         </button>
       </div>

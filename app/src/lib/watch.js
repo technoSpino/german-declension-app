@@ -64,3 +64,10 @@ export function formatTime(sec) {
   const pad = (n) => String(n).padStart(2, '0')
   return h ? `${h}:${pad(m)}:${pad(s % 60)}` : `${m}:${pad(s % 60)}`
 }
+
+/** Note for a clip whose file is being converted to H.264/AAC MP4, or whose conversion failed. */
+export function clipStatus(clip) {
+  if (clip?.status === 'converting') return 'wird für alle Browser umgewandelt …'
+  if (clip?.status === 'original') return 'Originaldatei (Umwandlung fehlgeschlagen — spielt evtl. nicht in Safari)'
+  return ''
+}
