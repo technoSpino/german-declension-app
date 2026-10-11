@@ -598,8 +598,15 @@ test('Material für heute und morgen: Sunday shows Monday with the Tatort ready'
   await expect(tatort).toContainText('Quelle: ARD Mediathek · NDR')
   await expect(page.getByTestId('mat-tomorrow-pruefung')).toContainText('nur Selbstcheck, keine KI-Bewertung')
   await expect(page.getByTestId('mat-tomorrow-pruefung')).toContainText('KI-geschrieben')
-  // Language Reactor is needed from week 2 (Netflix, YouTube): notice with a date, tick it off
-  await expect(page.getByTestId('notice-language-reactor')).toContainText('Einrichten bis Mo, 19.10.')
+  // Bald fällig: the week-2 book, due date first; Material itself has no purchase cards
+  const due = page.getByTestId('due-schirach-verbrechen')
+  await expect(due).toContainText('Fällig Mo 12.10. · morgen')
+  await expect(due).toContainText('Ferdinand von Schirach: Verbrechen kaufen')
+  await expect(due).toContainText('ab 19.10. im Plan, Woche 2')
+  await expect(due).toContainText('E-Book reicht bis Sa 17.10.')
+  await expect(page.getByTestId('due-language-reactor')).toContainText('Fällig Mo 19.10. · in 8 Tagen')
+  await expect(page.getByTestId('materials')).not.toContainText('kaufen')
+  await expect(page.getByText('Känguru')).toHaveCount(0)
   expect(errors).toEqual([])
 })
 
@@ -631,13 +638,14 @@ test('Material on Friday: the next plan day is Monday', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByTestId('materials').getByText('Nächster Lerntag: Mo 19.10.')).toBeVisible()
   await expect(page.getByTestId('mat-next-input')).toContainText('Merz gegen Merz, Folge 1')
-  await expect(page.getByTestId('mat-next-lesen')).toContainText('Die Känguru-Chroniken')
-  // the book: notice a week ahead, ticked off as bought
-  const notice = page.getByTestId('notice-kaenguru-chroniken')
-  await expect(notice).toContainText('Kaufen bis')
-  await expect(notice).toContainText('ISBN 978-3-548-37257-0')
-  await page.getByTestId('notice-done-kaenguru-chroniken').click()
-  await expect(page.getByTestId('notice-kaenguru-chroniken')).toHaveCount(0)
+  await expect(page.getByTestId('mat-next-lesen')).toContainText('Ferdinand von Schirach: Verbrechen')
+  await expect(page.getByTestId('mat-next-lesen')).toContainText('„Fähner“ und „Tanatas Teeschale“')
+  // not bought by Monday: overdue, marked — tick it off as bought
+  const due = page.getByTestId('due-schirach-verbrechen')
+  await expect(due).toContainText('Überfällig seit Mo 12.10.')
+  await expect(due).toContainText('ISBN 978-3-442-77066-3')
+  await page.getByTestId('due-done-schirach-verbrechen').click()
+  await expect(page.getByTestId('due-schirach-verbrechen')).toHaveCount(0)
 })
 
 test('Schauen with a plan range: starts there and says "Ziel für heute erreicht" at the end', async ({ page, request }) => {

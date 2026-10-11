@@ -35,6 +35,25 @@ export function noticeTitle(n) {
   return `${n.type === 'book' ? 'Kaufen' : 'Einrichten'} bis ${wd}, ${d}.${m}.`
 }
 
+const daysBetween = (from, to) => Math.round((Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / 86400000)
+
+/**
+ * "Bald fällig" (#16 Update 6): the due date first — "Fällig Mo 12.10. · morgen",
+ * "Fällig Sa 17.10. · in 6 Tagen", "Überfällig seit Mo 12.10.".
+ */
+export function dueLabel(by, today) {
+  const n = daysBetween(today, by)
+  if (n < 0) return { text: `Überfällig seit ${dayLabel(by)}`, overdue: true }
+  const when = n === 0 ? 'heute' : n === 1 ? 'morgen' : `in ${n} Tagen`
+  return { text: `Fällig ${dayLabel(by)} · ${when}`, overdue: false }
+}
+
+/** What it's for: "ab 19.10. im Plan, Woche 2" */
+export function dueFor(n) {
+  const [, m, d] = n.firstDay.split('-').map(Number)
+  return `ab ${d}.${m}. im Plan, Woche ${n.week}`
+}
+
 /** One line of what an item is: "Tatort: Schweigen · 0:00–30:14 · 30 min" */
 export function itemLine(item) {
   return [item.title, item.part, item.minutes ? `${item.minutes} min` : null].filter(Boolean).join(' · ')

@@ -183,6 +183,16 @@
       "availableTo": "2027-06-12"
     },
     {
+      "key": "dlf-krimi-paradise-city",
+      "kind": "audio",
+      "title": "Kriminalhörspiel: Paradise City – SciFi-Krimi im Gesundheitssystem",
+      "tag": "krimi",
+      "source": "Deutschlandfunk Kultur · Kriminalhörspiel",
+      "url": "https://www.hoerspielundfeature.de/kriminalhoerspiel-paradise-city-100.html",
+      "audio": "https://podcast-mp3.dradio.de/podcast/2026/06/15/paradise_city_drk_20260615_2205_2bf707cf.mp3?refId=krimi-hoerspiel-100",
+      "availableTo": "2027-06-15"
+    },
+    {
       "key": "yt-easygerman-gehalt",
       "kind": "youtube",
       "title": "Easy German: Can You Live Well on This Salary in Germany? (Straßeninterviews)",
@@ -216,32 +226,6 @@
   ],
   "books": [
     {
-      "id": "kaenguru-chroniken",
-      "author": "Marc-Uwe Kling",
-      "title": "Die Känguru-Chroniken",
-      "publisher": "Ullstein Taschenbuch",
-      "isbn": "978-3-548-37257-0",
-      "format": "paper",
-      "pages": 272,
-      "price": "14,99 €",
-      "note": "Satire aus Berlin-Kreuzberg: ein Kleinkünstler und ein kommunistisches Känguru. 81 kurze Kapitel, viel Dialog; manche Wortspiele gehen verloren — egal beim freien Lesen.",
-      "alternatives": "E-Book (Ullstein, ISBN 978-3-548-92077-1, 9,99 €) · Hörbuch, vom Autor gelesen (Hörbuch Hamburg, 4 h 52 min)",
-      "shops": [
-        {
-          "name": "Ullstein",
-          "url": "https://www.ullstein.de/werke/die-kaenguru-chroniken/taschenbuch/9783548372570"
-        },
-        {
-          "name": "Hugendubel",
-          "url": "https://www.hugendubel.de/de/taschenbuch/marc_uwe_kling-die_kaenguru_chroniken-7960933-produkt-details.html"
-        },
-        {
-          "name": "Thalia",
-          "url": "https://www.thalia.de/shop/home/artikeldetails/ID16335148.html"
-        }
-      ]
-    },
-    {
       "id": "schirach-verbrechen",
       "author": "Ferdinand von Schirach",
       "title": "Verbrechen",
@@ -250,7 +234,7 @@
       "format": "paper",
       "pages": 208,
       "price": "12,00 €",
-      "note": "Elf wahre Kriminalfälle eines Strafverteidigers, klare kurze Sätze. Harte Fälle (Gewalt) — eine Geschichte darf man überspringen.",
+      "note": "Elf wahre Kriminalfälle eines Berliner Strafverteidigers: nüchterne, klare Sätze, jede Geschichte für sich. Harte Fälle (Gewalt) — eine Geschichte darf man überspringen.",
       "alternatives": "E-Book (btb, ISBN 978-3-641-26778-0, 10,99 €) · Hörbuch-Auswahl mit 8 Geschichten (Der Hörverlag, 3 h 28 min)",
       "shops": [
         {
@@ -265,7 +249,12 @@
           "name": "Thalia",
           "url": "https://www.thalia.de/shop/home/artikeldetails/A1057322056"
         }
-      ]
+      ],
+      "edition": "Taschenbuch, 13.04.2020",
+      "ebook": {
+        "isbn": "978-3-641-26778-0",
+        "price": "10,99 €"
+      }
     },
     {
       "id": "gut-gegen-nordwind",
@@ -291,7 +280,21 @@
           "name": "Amazon",
           "url": "https://www.amazon.de/Gut-gegen-Nordwind-Daniel-Glattauer/dp/3446286381"
         }
-      ]
+      ],
+      "ebook": {
+        "isbn": "978-3-552-06103-3",
+        "price": "12,99 €"
+      }
+    }
+  ],
+  "later": [
+    {
+      "id": "kaenguru-hoerbuch",
+      "title": "Marc-Uwe Kling: Die Känguru-Chroniken — Hörbuch, vom Autor gelesen",
+      "publisher": "Hörbuch Hamburg",
+      "length": "4 h 52 min",
+      "use": "später, optional, für den Hörblock (nicht im 4-Wochen-Plan, keine Kaufkarte)",
+      "url": "https://www.hoerbuch-hamburg.de/hoerbuch/die-kaenguru-chroniken-die-kaenguru-werke-1-9783869091082/"
     }
   ]
 }

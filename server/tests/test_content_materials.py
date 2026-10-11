@@ -98,3 +98,9 @@ def test_every_stock_item_is_used():
 def test_plan_prompts_are_tagged_ai():
     for p in load("plan/weeks-1-4.json")["prompts"]:
         assert p["origin"] == "ai"
+
+
+def test_every_book_is_read_in_a_plan():
+    """A book in the catalog means a purchase card — only for books a plan actually uses."""
+    used = {m["book"] for name in PLANS for _, d in days(name) for m in d["materials"] if m["kind"] == "book"}
+    assert set(BOOKS) == used

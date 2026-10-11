@@ -332,14 +332,19 @@ def next_plan_day(start: date, today: date, data: dict) -> tuple[date, str]:
 
 
 def notices(start: date, today: date, data: dict, ctx: Ctx) -> list[dict]:
-    """Things Matt must do ahead: buy a book ("Kaufen bis"), install Language Reactor."""
+    """Dated to-dos ahead of the plan ("Bald fällig"): buy a book, install Language Reactor.
+    `by` is the due date (paper a week ahead; `byEbook` two days ahead), sorted by it."""
+    week = lambda d: (d - start).days // 7 + 1  # noqa: E731
     out = []
     for book_id, first in sorted(first_days(start, data).items(), key=lambda kv: kv[1]):
         b = stock.book(book_id)
         if not b or book_id in ctx.bought or first < today:
             continue
-        out.append({"type": "book", "id": book_id, "by": stock.notice(first, b.get("format", "paper")).isoformat(),
-                    "firstDay": first.isoformat(), "title": f"{b['author']}: {b['title']}", "book": b})
+        item = {"type": "book", "id": book_id, "by": stock.notice(first, b.get("format", "paper")).isoformat(),
+                "firstDay": first.isoformat(), "week": week(first), "title": f"{b['author']}: {b['title']}", "book": b}
+        if b.get("ebook"):
+            item["byEbook"] = stock.notice(first, "ebook").isoformat()
+        out.append(item)
     kinds_used: dict[str, date] = {}
     for wi, w in enumerate(data["weeks"]):
         for di, d in enumerate(w["days"]):
@@ -353,7 +358,7 @@ def notices(start: date, today: date, data: dict, ctx: Ctx) -> list[dict]:
             continue
         first = min(kinds_used[k] for k in kinds)
         out.append({"type": "setup", "id": s["id"], "by": (first - timedelta(days=s.get("noticeDays", 2))).isoformat(),
-                    "firstDay": first.isoformat(), "title": s["title"], "text": s.get("text"), "url": s.get("url")})
+                    "firstDay": first.isoformat(), "week": week(first), "title": s["title"], "text": s.get("text"), "url": s.get("url")})
     return sorted(out, key=lambda n: n["by"])
 
 

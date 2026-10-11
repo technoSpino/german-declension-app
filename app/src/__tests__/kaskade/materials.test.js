@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { dayLabel, groupTitle, itemLine, noticeTitle, STATUS_LABEL, withinDays, withSecureCheck } from '../../lib/materials'
+import { dayLabel, dueFor, dueLabel, groupTitle, itemLine, noticeTitle, STATUS_LABEL, withinDays, withSecureCheck } from '../../lib/materials'
 
 describe('Material für heute und morgen', () => {
   it('titles the groups: today, tomorrow, next plan day', () => {
@@ -36,5 +36,18 @@ describe('notices on Heute', () => {
     expect(withinDays('2026-10-25', '2026-10-11', 14)).toBe(true)
     expect(withinDays('2026-10-26', '2026-10-11', 14)).toBe(false)
     expect(withinDays('2026-10-05', '2026-10-11', 14)).toBe(true)
+  })
+})
+
+describe('Bald fällig', () => {
+  it('puts the due date first, relative to today', () => {
+    expect(dueLabel('2026-10-12', '2026-10-11')).toEqual({ text: 'Fällig Mo 12.10. · morgen', overdue: false })
+    expect(dueLabel('2026-10-17', '2026-10-11')).toEqual({ text: 'Fällig Sa 17.10. · in 6 Tagen', overdue: false })
+    expect(dueLabel('2026-10-11', '2026-10-11').text).toBe('Fällig So 11.10. · heute')
+    expect(dueLabel('2026-10-12', '2026-10-16')).toEqual({ text: 'Überfällig seit Mo 12.10.', overdue: true })
+  })
+
+  it('says what it is for', () => {
+    expect(dueFor({ firstDay: '2026-10-19', week: 2 })).toBe('ab 19.10. im Plan, Woche 2')
   })
 })

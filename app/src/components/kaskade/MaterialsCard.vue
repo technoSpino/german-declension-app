@@ -1,70 +1,27 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
-import { api } from '../../lib/api'
-import { groupTitle, itemLine, noticeTitle, STATUS_LABEL, withinDays, withSecureCheck } from '../../lib/materials'
+import { computed } from 'vue'
+import { groupTitle, itemLine, STATUS_LABEL, withSecureCheck } from '../../lib/materials'
 import OriginBadge from './OriginBadge.vue'
 
-// "Material für heute und morgen" (#16): what each block needs today and on the next plan day,
-// "✓ bereit" or "→ zu tun" — plus books to buy and setup to do, with notice.
-const props = defineProps({ blocks: { type: Array, default: () => [] } })
-const data = ref(null)
-const error = ref(null)
+// "Material für heute und morgen" (#16): only what today's and the next plan day's blocks use,
+// "✓ bereit" or "→ zu tun". Purchases and other dated to-dos live in "Bald fällig" (DueSoon).
+const props = defineProps({ blocks: { type: Array, default: () => [] }, data: { type: Object, default: null } })
 const secure = typeof window !== 'undefined' && window.isSecureContext
-
-async function load() {
-  try {
-    data.value = await api.get('/materials')
-    error.value = null
-  } catch (e) {
-    error.value = e.message
-  }
-}
-onMounted(load)
-defineExpose({ load })
-
-// Heute lists what is due within two weeks; the Fahrplan lists every notice.
-const soon = computed(() => (data.value?.notices ?? []).filter((n) => withinDays(n.by, data.value.today.date, 14)))
 
 const blockLabel = (id) => {
   const b = props.blocks.find((x) => x.id === id)
   return b?.label ?? b?.title ?? id
 }
 const groups = computed(() =>
-  data.value
-    ? [data.value.today, data.value.next].map((g) => ({ ...g, items: g.items.map((it) => withSecureCheck(it, secure, data.value.httpsUrl)) }))
+  props.data
+    ? [props.data.today, props.data.next].map((g) => ({ ...g, items: g.items.map((it) => withSecureCheck(it, secure, props.data.httpsUrl)) }))
     : []
 )
-
-async function tick(n) {
-  try {
-    if (n.type === 'book') await api.post(`/books/${n.id}/bought`, { done: true })
-    else await api.post(`/setup/${n.id}`, { done: true })
-    await load()
-  } catch (e) {
-    error.value = e.message
-  }
-}
 </script>
 
 <template>
   <section class="k-card" aria-labelledby="mat-h" data-testid="materials">
     <h2 id="mat-h" class="k-h2">Material für heute und morgen</h2>
-    <p v-if="error" class="k-error m-0 mt-2" role="alert">{{ error }}</p>
-
-    <ul v-if="soon.length" class="list-none m-0 mt-3 p-0 flex flex-col gap-2" data-testid="mat-notices">
-      <li v-for="n in soon" :key="n.id" class="mt-notice" :data-testid="`notice-${n.id}`">
-        <div class="min-w-0" style="flex: 1 1 320px">
-          <p class="m-0" style="font-weight: 800">{{ noticeTitle(n) }}: {{ n.title }}</p>
-          <p v-if="n.type === 'book'" class="k-small m-0 mt-0.5">
-            {{ n.book.format === 'paper' ? 'Taschenbuch' : n.book.format === 'ebook' ? 'E-Book' : 'Hörbuch' }}<template v-if="n.book.isbn"> · ISBN {{ n.book.isbn }}</template><template v-if="n.book.price"> · {{ n.book.price }}</template> · ab {{ n.firstDay.slice(8, 10) }}.{{ Number(n.firstDay.slice(5, 7)) }}. im Plan
-            <template v-for="s in n.book.shops ?? []" :key="s.url"> · <a :href="s.url" target="_blank" rel="noopener">{{ s.name }}</a></template>
-          </p>
-          <p v-else class="k-small m-0 mt-0.5">{{ n.text }} <a v-if="n.url" :href="n.url" target="_blank" rel="noopener">Zur Seite</a></p>
-        </div>
-        <button class="k-btn k-btn-ghost k-btn-sm" style="flex: none" :data-testid="`notice-done-${n.id}`" @click="tick(n)">{{ n.type === 'book' ? '✓ gekauft' : '✓ erledigt' }}</button>
-      </li>
-    </ul>
-
     <div v-for="g in groups" :key="g.kind" class="mt-group" :data-testid="`mat-${g.kind}`">
       <h3 class="mt-day">{{ groupTitle(g) }}</h3>
       <p v-if="!g.planDay" class="k-small m-0">Kein Lernblock.</p>
@@ -92,16 +49,6 @@ async function tick(n) {
 </template>
 
 <style scoped>
-.mt-notice {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px 16px;
-  padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  background: var(--callout);
-}
 .mt-group { margin-top: 18px; }
 .mt-day { margin: 0 0 4px; font-size: 15px; font-weight: 800; color: var(--text); }
 .mt-row {

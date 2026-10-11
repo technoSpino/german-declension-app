@@ -6,6 +6,7 @@ import { formatClock, formatDate, formatNumber } from '../../lib/format'
 import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, NO_HOURS_YET, PHASE2_TARGET, previewHint, weekStack } from '../../lib/heute'
 import ImmersionForm from '../../components/kaskade/ImmersionForm.vue'
 import MaterialsCard from '../../components/kaskade/MaterialsCard.vue'
+import DueSoon from '../../components/kaskade/DueSoon.vue'
 import OriginBadge from '../../components/kaskade/OriginBadge.vue'
 import { itemLine } from '../../lib/materials'
 import { useNow } from '../../lib/useNow'
@@ -22,6 +23,15 @@ const copied = ref(false)
 // The feed link points at Kaskade's HTTPS address (#17) — podcast apps want HTTPS.
 const feedUrl = computed(() => `${t.value?.httpsUrl ?? window.location.origin}/api/feed.xml`)
 
+const mat = ref(null) // Material für heute und morgen + Bald fällig (#16)
+async function loadMaterials() {
+  try {
+    mat.value = await api.get('/materials')
+  } catch (e) {
+    error.value = e.message
+  }
+}
+
 async function load() {
   try {
     t.value = await api.get('/today')
@@ -31,6 +41,7 @@ async function load() {
   }
 }
 onMounted(async () => {
+  loadMaterials()
   await load()
   try {
     feed.value = await api.get('/feed/info')
@@ -304,7 +315,8 @@ const timelineLabel = computed(() => {
           <button class="k-btn k-btn-ghost k-btn-sm" @click="copyFeed">{{ copied ? '✓ Kopiert' : 'Link kopieren' }}</button>
         </div>
       </section>
-      <MaterialsCard :blocks="t.block" />
+      <MaterialsCard :blocks="t.block" :data="mat" />
+      <DueSoon v-if="mat" :notices="mat.notices" :today="mat.today.date" @changed="loadMaterials" />
       </div>
 
       <div class="flex flex-col gap-6 min-w-0" style="flex: 1 1 340px">

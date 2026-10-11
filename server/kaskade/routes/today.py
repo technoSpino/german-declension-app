@@ -208,6 +208,7 @@ def fahrplan():
                      for u in plan.upcoming(plan_start(d), data)],
         # books to buy and setup to do ahead of their first plan day (#16)
         "notices": notices,
+        "today": d.isoformat(),
     }
 
 

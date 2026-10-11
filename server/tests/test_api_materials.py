@@ -240,3 +240,21 @@ def test_materialcheck_lists_real_gaps_only(b2, monkeypatch):
     assert ("2026-10-12", "lesen") in gaps              # the podcast isn't (in this test library)
     written = materials.write_check(date(2026, 10, 11))
     assert (config.DATA_DIR / "materialcheck.json").exists() and "gaps" in written
+
+
+def test_bald_faellig_schirach_first_no_kaenguru(b2, monkeypatch):
+    """Update 5/6: the week-2 book is Schirach (paper by Mon 12.10., ebook by Sat 17.10.); Känguru has no card."""
+    at(monkeypatch, SUNDAY)
+    n = b2.get("/api/materials").json()["notices"]
+    assert [x["by"] for x in n] == sorted(x["by"] for x in n)
+    v = next(x for x in n if x["id"] == "schirach-verbrechen")
+    assert (v["by"], v["byEbook"], v["firstDay"], v["week"]) == ("2026-10-12", "2026-10-17", "2026-10-19", 2)
+    assert v["book"]["isbn"] == "978-3-442-77066-3" and v["book"]["price"] == "12,00 €"
+    assert not any("kaenguru" in x["id"] for x in n)
+    g = next(x for x in n if x["id"] == "gut-gegen-nordwind")
+    assert g["week"] == 4 and g["by"] == "2026-10-26"
+    f = b2.get("/api/fahrplan").json()
+    assert f["today"] == "2026-10-11" and any(x["id"] == "schirach-verbrechen" for x in f["notices"])
+    # Monday of week 2: whole stories
+    mon = by_block(b2.get("/api/materials", params={"today": "2026-10-19"}).json()["today"])
+    assert mon["lesen"]["kind"] == "book" and mon["lesen"]["part"] == "„Fähner“ und „Tanatas Teeschale“"

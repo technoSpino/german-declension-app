@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
-import { noticeTitle } from '../../lib/materials'
+import { dueFor, dueLabel } from '../../lib/materials'
 import { formatDate, formatDecimal, formatNumber } from '../../lib/format'
 import WeeksChart from '../../components/kaskade/WeeksChart.vue'
 
@@ -155,9 +155,9 @@ const GOALS = [
             <li v-for="n in f.notices ?? []" :key="n.id" class="fp-check" :data-testid="`fp-notice-${n.id}`">
               <span>
                 <strong style="color: var(--text)">{{ n.title }}</strong>
-                <span class="block" style="font-size: 13px">{{ n.type === 'book' ? `Taschenbuch · ISBN ${n.book.isbn} · ${n.book.price}` : n.text }} · im Plan ab {{ formatDate(n.firstDay) }}</span>
+                <span class="block" style="font-size: 13px">{{ n.type === 'book' ? `Taschenbuch · ISBN ${n.book.isbn} · ${n.book.price}` : n.text }} · {{ dueFor(n) }}</span>
               </span>
-              <span class="self-center k-small" style="font-weight: 700">{{ noticeTitle(n) }}</span>
+              <span class="self-center k-small" style="font-weight: 700">{{ dueLabel(n.by, f.today ?? n.by).text }}</span>
             </li>
             <li v-for="u in f.upcoming" :key="u.id" class="fp-check">
               <span>
