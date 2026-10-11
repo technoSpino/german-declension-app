@@ -104,3 +104,12 @@ def test_every_book_is_read_in_a_plan():
     """A book in the catalog means a purchase card — only for books a plan actually uses."""
     used = {m["book"] for name in PLANS for _, d in days(name) for m in d["materials"] if m["kind"] == "book"}
     assert set(BOOKS) == used
+
+
+def test_book_parts_are_whole_stories_with_pages():
+    """Update 5: a day's part of Verbrechen is one or two whole stories with their page range."""
+    parts = [m["part"] for _, d in days("plan/phase-2b.json") for m in d["materials"] if m.get("book") == "schirach-verbrechen"]
+    assert parts[0].startswith("S. 7–42") and parts[-1] == "S. 185–205: „Der Äthiopier“"
+    for part in parts:
+        a, b = map(int, re.match(r"S\. (\d+)–(\d+): „", part).groups())
+        assert 0 < b - a < 41, part  # at most ~40 pages in a 35-minute block

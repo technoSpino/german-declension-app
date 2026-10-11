@@ -257,4 +257,4 @@ def test_bald_faellig_schirach_first_no_kaenguru(b2, monkeypatch):
     assert f["today"] == "2026-10-11" and any(x["id"] == "schirach-verbrechen" for x in f["notices"])
     # Monday of week 2: whole stories
     mon = by_block(b2.get("/api/materials", params={"today": "2026-10-19"}).json()["today"])
-    assert mon["lesen"]["kind"] == "book" and mon["lesen"]["part"] == "„Fähner“ und „Tanatas Teeschale“"
+    assert mon["lesen"]["kind"] == "book" and mon["lesen"]["part"] == "S. 7–42: „Fähner“ und „Tanatas Teeschale“"
