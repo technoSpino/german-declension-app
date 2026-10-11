@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
-import { groupTitle, itemLine, noticeTitle, STATUS_LABEL, withSecureCheck } from '../../lib/materials'
+import { groupTitle, itemLine, noticeTitle, STATUS_LABEL, withinDays, withSecureCheck } from '../../lib/materials'
 import OriginBadge from './OriginBadge.vue'
 
 // "Material für heute und morgen" (#16): what each block needs today and on the next plan day,
@@ -21,6 +21,9 @@ async function load() {
 }
 onMounted(load)
 defineExpose({ load })
+
+// Heute lists what is due within two weeks; the Fahrplan lists every notice.
+const soon = computed(() => (data.value?.notices ?? []).filter((n) => withinDays(n.by, data.value.today.date, 14)))
 
 const blockLabel = (id) => {
   const b = props.blocks.find((x) => x.id === id)
@@ -48,9 +51,9 @@ async function tick(n) {
     <h2 id="mat-h" class="k-h2">Material für heute und morgen</h2>
     <p v-if="error" class="k-error m-0 mt-2" role="alert">{{ error }}</p>
 
-    <ul v-if="data?.notices?.length" class="list-none m-0 mt-3 p-0 flex flex-col gap-2" data-testid="mat-notices">
-      <li v-for="n in data.notices" :key="n.id" class="mt-notice" :data-testid="`notice-${n.id}`">
-        <div class="min-w-0">
+    <ul v-if="soon.length" class="list-none m-0 mt-3 p-0 flex flex-col gap-2" data-testid="mat-notices">
+      <li v-for="n in soon" :key="n.id" class="mt-notice" :data-testid="`notice-${n.id}`">
+        <div class="min-w-0" style="flex: 1 1 320px">
           <p class="m-0" style="font-weight: 800">{{ noticeTitle(n) }}: {{ n.title }}</p>
           <p v-if="n.type === 'book'" class="k-small m-0 mt-0.5">
             {{ n.book.format === 'paper' ? 'Taschenbuch' : n.book.format === 'ebook' ? 'E-Book' : 'Hörbuch' }}<template v-if="n.book.isbn"> · ISBN {{ n.book.isbn }}</template><template v-if="n.book.price"> · {{ n.book.price }}</template> · ab {{ n.firstDay.slice(8, 10) }}.{{ Number(n.firstDay.slice(5, 7)) }}. im Plan
@@ -58,7 +61,7 @@ async function tick(n) {
           </p>
           <p v-else class="k-small m-0 mt-0.5">{{ n.text }} <a v-if="n.url" :href="n.url" target="_blank" rel="noopener">Zur Seite</a></p>
         </div>
-        <button class="k-btn k-btn-ghost k-btn-sm" :data-testid="`notice-done-${n.id}`" @click="tick(n)">{{ n.type === 'book' ? '✓ gekauft' : '✓ erledigt' }}</button>
+        <button class="k-btn k-btn-ghost k-btn-sm" style="flex: none" :data-testid="`notice-done-${n.id}`" @click="tick(n)">{{ n.type === 'book' ? '✓ gekauft' : '✓ erledigt' }}</button>
       </li>
     </ul>
 
@@ -70,9 +73,9 @@ async function tick(n) {
           <div class="min-w-0">
             <p class="mt-block">{{ blockLabel(it.block) }}</p>
             <p class="m-0" style="font-weight: 700">{{ itemLine(it) }}</p>
-            <p class="k-small m-0 mt-0.5">
+            <p class="k-small m-0 mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
               <OriginBadge :origin="it.origin" :source="it.source" />
-              <span v-if="it.detail"> {{ it.detail }}</span>
+              <span v-if="it.detail">{{ it.detail }}</span>
             </p>
           </div>
           <div class="flex flex-col items-end gap-1">

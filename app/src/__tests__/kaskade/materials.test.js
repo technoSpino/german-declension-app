@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { dayLabel, groupTitle, itemLine, noticeTitle, STATUS_LABEL, withSecureCheck } from '../../lib/materials'
+import { dayLabel, groupTitle, itemLine, noticeTitle, STATUS_LABEL, withinDays, withSecureCheck } from '../../lib/materials'
 
 describe('Material für heute und morgen', () => {
   it('titles the groups: today, tomorrow, next plan day', () => {
@@ -27,5 +27,14 @@ describe('Material für heute und morgen', () => {
     expect(noticeTitle({ type: 'setup', by: '2026-10-21' })).toBe('Einrichten bis Mi, 21.10.')
     expect(itemLine({ title: 'Tatort: Schweigen', part: '0:00–30:14', minutes: 30 })).toBe('Tatort: Schweigen · 0:00–30:14 · 30 min')
     expect(itemLine({ title: 'Fällige Karten', part: '12 fällig + 20 neu', minutes: null })).toBe('Fällige Karten · 12 fällig + 20 neu')
+  })
+})
+
+describe('notices on Heute', () => {
+  it('shows what is due within two weeks (and anything overdue)', () => {
+    expect(withinDays('2026-10-12', '2026-10-11', 14)).toBe(true)
+    expect(withinDays('2026-10-25', '2026-10-11', 14)).toBe(true)
+    expect(withinDays('2026-10-26', '2026-10-11', 14)).toBe(false)
+    expect(withinDays('2026-10-05', '2026-10-11', 14)).toBe(true)
   })
 })

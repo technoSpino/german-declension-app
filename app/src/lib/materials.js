@@ -39,3 +39,8 @@ export function noticeTitle(n) {
 export function itemLine(item) {
   return [item.title, item.part, item.minutes ? `${item.minutes} min` : null].filter(Boolean).join(' · ')
 }
+
+/** Whether the ISO date `by` is at most `days` after `today` (overdue counts too). */
+export function withinDays(by, today, days) {
+  return (Date.parse(`${by}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / 86400000 <= days
+}
