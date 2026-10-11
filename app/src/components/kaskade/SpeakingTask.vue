@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, ref } from 'vue'
 import { api } from '../../lib/api'
 import { formatClock } from '../../lib/format'
 import OriginBadge from './OriginBadge.vue'
+import { useStatusStore } from '../../stores/statusStore'
 
 // Record short spoken answers with MediaRecorder and upload them. No grading yet.
 const props = defineProps({
@@ -25,6 +26,10 @@ let tick = 0
 
 const q = computed(() => props.questions[index.value])
 const supported = typeof window !== 'undefined' && !!navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== 'undefined'
+// Browsers only allow the microphone over HTTPS (#17): point to Kaskade's HTTPS address, same page.
+const insecure = typeof window !== 'undefined' && !window.isSecureContext
+const status = useStatusStore()
+const httpsHere = computed(() => (status.httpsUrl ? `${status.httpsUrl}${window.location.pathname}${window.location.search}` : null))
 const allDone = computed(() => recordings.value.every((r) => r))
 
 async function start() {
@@ -88,7 +93,10 @@ onBeforeUnmount(stop)
     <p class="k-eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">Frage {{ index + 1 }} von {{ questions.length }} <OriginBadge v-if="q.origin" :origin="q.origin" :source="q.source" /></p>
     <h2 id="sp-h" class="k-read m-0" style="font-size: 24px; font-weight: 600; line-height: 1.35">{{ q.prompt }}</h2>
     <p class="k-hint m-0">{{ q.hint }}</p>
-    <p v-if="!supported" class="k-error m-0">Dieser Browser kann keine Aufnahmen machen. Du kannst diesen Teil überspringen.</p>
+    <p v-if="insecure" class="k-error m-0" data-testid="sp-https">
+      Aufnahmen gehen nur über die HTTPS-Adresse<template v-if="httpsHere">: <a :href="httpsHere">{{ status.httpsUrl }}</a> — dort diese Seite öffnen</template>. Du kannst diesen Teil auch überspringen.
+    </p>
+    <p v-else-if="!supported" class="k-error m-0">Dieser Browser kann keine Aufnahmen machen. Du kannst diesen Teil überspringen.</p>
     <p v-if="error" class="k-error m-0" role="alert">{{ error }}</p>
 
     <div class="flex flex-wrap items-center gap-3">

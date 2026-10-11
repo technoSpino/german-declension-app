@@ -2,6 +2,36 @@
 
 _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.md)._
 
+## Für Montag, 12. Oktober — Stand So 11.10. mittags (#16, #17)
+
+**Adresse jetzt mit HTTPS:** https://cos.tail1b5741.ts.net:8443/ (nur im Tailnet; nur dort geht das Mikrofon). Die alte http://100.64.43.3:5173/ geht weiter.
+
+**Jeder Block sagt jetzt genau, was dran ist — und „Starten“ öffnet genau das.** Kein „z. B.“, kein „oder“, kein Suchen. Echtes Material zuerst, alles schon in deiner Bibliothek:
+
+| Woche 1 | Schauen & minen (65 min) | Frei lesen / hören (35 min) | Prüfung |
+|---|---|---|---|
+| Mo 12.10. | *Tatort: Schweigen* 0:00–30:14 | Easy German Podcast #698 | Schreiben *Ein Beet im Hof* |
+| Di 13.10. | *Tatort: Schweigen* 30:14–60:40 | tagesschau.de · Inland: 3 Artikel des Tages | Sprechen *Ein Hoffest* (HTTPS!) |
+| Mi 14.10. | *Tatort: Schweigen* 60:40–89:21 | Easy German Podcast #700 | Schreiben *Kein Licht im Fahrradkeller* |
+| Do 15.10. | *SOKO Leipzig: Das Auge* 0:00–22:04 | ARD Radio Tatort *Übertherapie* 0:00–27:00 | Sprechen *Dinge mit Nachbarn teilen* |
+| Fr 16.10. | *SOKO Leipzig: Das Auge* 22:04–43:31 | Radio Tatort 27:00–54:12 | Prüfungstraining Lesen *Drei Monate in Leipzig* |
+
+Die Schnittstellen liegen in Gesprächspausen (aus den Untertiteln berechnet). Schauen hält am Ende des Tagesteils einmal an: **„Ziel für heute erreicht ✓“**; wer zurückliegt, startet ab der eigenen Position. Die drei tagesschau-Links stehen am Morgen auf Heute.
+
+**Wochen 2–4 sind auch komplett geplant und geholt:** *Merz gegen Merz* 1–3, *Die 100*, *RESPEKT*, *Charité* 19, *Quarks: Schlaf*, *Wunderschön! Nordeifel*, *Feuer & Flamme* (ARD/ZDF, mit UT, verfügbar bis 2027–2031), sechs Easy-German-Folgen. Der neue *Tatort: Unter Freunden* (Satz-Check in Woche 4) läuft heute Abend zum ersten Mal — Kaskade holt ihn morgen früh automatisch. Netflix: *King of Stonks* S1F1 (Mi 21.10.) und YouTube: Easy German Straßeninterviews (Fr 23.10.) laufen in Chrome mit **Language Reactor**.
+
+**Für dich zu tun (steht auch auf Heute → „Material“ und im Fahrplan):**
+- **Kaufen bis Mo 12.10.:** Marc-Uwe Kling, *Die Känguru-Chroniken* (Ullstein TB, ISBN 978-3-548-37257-0, 14,99 €) — Woche 2, Seite 1–145.
+- **Einrichten bis Mo 19.10.:** Language Reactor in Chrome (kostenlos reicht).
+- **Kaufen bis Di 20.10.:** Ferdinand von Schirach, *Verbrechen* (btb TB, ISBN 978-3-442-77066-3, 12 €) — Woche 3, je zwei Geschichten; harte Fälle, eine darf man überspringen.
+- **Kaufen bis Mo 26.10.:** Daniel Glattauer, *Gut gegen Nordwind* (Hanser TB, ISBN 978-3-446-28638-2, 14 €) — Woche 4, Seite 1–140.
+
+**KI-geschrieben ist jetzt markiert:** Karten, die 20 Bibliothekstexte, Einstufung, Prüfungsaufgaben und Hörskripte tragen das Etikett „KI-geschrieben“; echtes Material zeigt seine Quelle. Vorlesen heißt „Computerstimme“, Bewertungen heißen „KI-Bewertung“.
+
+**Materialcheck:** täglich 06:30 (Berlin) holt Kaskade fällige Folgen, wählt die Nachrichten des Tages und prüft die nächsten 7 Tage — „→ zu tun“ erscheint nur bei echten Lücken. Stand jetzt: keine Lücke.
+
+Tests: **Backend 394 · Frontend 382 · E2E 27 + 31 (alt)**, alle grün; Dienste laufen mit dem neuen Stand.
+
 ## Für Montag, 12. Oktober — Stand Sa 10.10. abends
 
 **Alle Follow-ups aus der ersten Nutzung sind erledigt** (#10, #13, #5, #11, #12, #14, #1, #3, #2, #8, #9, #4, #6; #7 mit #5; #15 gilt ab jetzt: Signal ist die Referenz). Tests: **Backend 323 · Frontend 354 · E2E 21 + 31 (alt)**, alle grün; Dienste laufen mit dem neuen Stand.
@@ -73,6 +103,8 @@ _Wird vom Agenten nach jedem Meilenstein aktualisiert. Auftrag: [TASK.md](TASK.m
 - [x] #9 Große Uploads: Ursache war nicht die Größe (400 MB lokal durch den Proxy in 1 s), sondern die Zeit — der Webserver (vite preview/Node) bricht Anfragen nach 5 min ab, und 400 MB vom Mac dauern länger. Jetzt geht das Video in 8-MB-Stücken hoch (jedes Stück mit Wiederholung, nichts doppelt), mit Fortschrittsbalken „Video: 120 von 400 MB hochgeladen“; danach wird der Clip wie bisher angelegt und umgewandelt (#3). Tests: Backend 317 · Frontend 353 · E2E 20/20.
 - [x] #4 YouTube: klare Meldung bei der Bot-Sperre statt „Download fehlgeschlagen“; zwei Wege direkt im Satz-Check: (1) `cookies.txt` hochladen (nur auf dem Server, chmod 600, jederzeit entfernbar) → yt-dlp nutzt sie, (2) Mac-Befehl zum Kopieren (`yt-dlp … --sub-langs "de.*" --convert-subs srt …`), danach Video + .srt hochladen. Tests: Backend 320 · Frontend 353 · E2E 21/21.
 - [x] #6 „Zu schwer“-Zeilen, die kurz sind und nur Kernwörter enthalten (Namen und Verkürzungen wie *'ner*, *nee* zählen nicht), heißen jetzt **„Hören bei normalem Tempo“** — im Satz-Check-Ergebnis und im Verlauf, mit Link „in Schleife üben →“ zur Stelle in Schauen & minen (neu: Schleife, Taste L). Lauf #1: alle vier „zu schwer“-Zeilen sind Tempo-Zeilen (*Na?*, *seit 'ner Stunde*, *Glaubst du mir nicht …*). Tests: Backend 322 · Frontend 354 · E2E 21/21.
+- [x] #16 Genaue Aufgaben für jeden Block, echtes Material zuerst: alle Tage in `phase-2b.json` und `weeks-1-4.json` neu geschrieben (Content-Test verbietet „z. B.“/„oder“/„deiner Wahl“ …), `materials` pro Tag, Katalog `data/plan/stock.json` (nur Links), alles vorab in die Bibliothek geholt (`scripts/stock.py`, Timer `kaskade-stock` täglich 04:30 UTC + Materialcheck), Heute zeigt Titel · Teil · Minuten · Quelle und „Starten“ öffnet genau das (Clip mit Zeitbereich und „Ziel erreicht“, Text im Modus „frei“, Netflix/YouTube in neuem Tab mit Language Reactor), Abschnitt „Material für heute und morgen“, „Kaufen bis …“ für Bücher (7 Tage vorher, E-Book 2), Genre pro Clip in „Deine Clips“, alles KI-Geschriebene markiert. Backup sichert holbare Medien (`stock-*`, `mt-*`) nicht mehr. Tests: Backend 394 · Frontend 382 · E2E 27/27.
+- [x] #17 HTTPS-Adresse https://cos.tail1b5741.ts.net:8443 in Heute (Feed-Link), Sprechen (Hinweis + Link über http), Material-Check (Mikrofon) und Doku; http bleibt.
 
 ## Betrieb
 

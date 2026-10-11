@@ -57,7 +57,9 @@ test('Heute loads with the day plan, block timer and done toggle', async ({ page
   await expect(page.getByText('Woche 1 · Wohnen und Nachbarn')).toBeVisible()
   await expect(page.getByTestId('block-pruefung')).toContainText('Ein Hoffest für das Haus')
 
-  await expect(page.getByTestId('block-lesen')).toContainText('Vorschlag aus der Bibliothek')
+  // #16: every block names its exact item — 2A, week 1, Tuesday: library text t04 in free reading
+  await expect(page.getByTestId('assign-lesen')).toContainText('Streit wegen der Musik')
+  await expect(page.getByTestId('assign-input')).toContainText('Besichtigung einer Wohnung')
   // Timeline: labelled segments, exactly one highlighted (09:30 → Schauen), the rest upcoming.
   const timeline = page.getByTestId('timeline')
   await expect(timeline).toContainText('Karten')
@@ -559,4 +561,104 @@ test('YouTube: Mac one-liner and cookies.txt upload', async ({ page }) => {
   await page.getByTestId('yt-cookies-on').getByRole('button', { name: 'entfernen' }).click()
   await expect(page.getByTestId('yt-cookies-on')).toHaveCount(0)
   expect(errors).toEqual([])
+})
+
+
+/** Material für heute und morgen as of `iso` in the 2B plan (the API's ?today=&phase= preview). */
+async function materialsAt(page: Page, iso: string) {
+  await page.route('**/api/materials', (route) => route.continue({ url: `${new URL(route.request().url()).origin}/api/materials?today=${iso}&phase=2B` }))
+}
+
+async function tatortClip(request) {
+  // A 9-second test clip whose subtitles run to 89:20 — library length of the real Tatort.
+  const srt = SRT + `\n5\n01:29:19,000 --> 01:29:20,000\nEnde.\n`
+  const res = await request.post('/api/media/upload', {
+    multipart: {
+      subtitles: { name: 'tatort.srt', mimeType: 'application/x-subrip', buffer: Buffer.from(srt) },
+      media: { name: 'tatort.webm', mimeType: 'video/webm', buffer: readFileSync(testClip()) },
+      title: 'Tatort: Schweigen (E2E-Testclip)'
+    }
+  })
+  expect(res.ok()).toBeTruthy()
+  return res.json()
+}
+
+test('Material für heute und morgen: Sunday shows Monday with the Tatort ready', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  await tatortClip(request)
+  await materialsAt(page, '2026-10-11')
+  await page.goto('/')
+  const card = page.getByTestId('materials')
+  await expect(card.getByText('Heute (So 11.10.)')).toBeVisible()
+  await expect(page.getByTestId('mat-today')).toContainText('Kein Lernblock.')
+  await expect(card.getByText('Morgen (Mo 12.10.)')).toBeVisible()
+  const tatort = page.getByTestId('mat-tomorrow-input')
+  await expect(tatort).toContainText('Tatort: Schweigen · 0:00–30:14 · 30 min')
+  await expect(tatort).toContainText('✓ bereit')
+  await expect(tatort).toContainText('Quelle: ARD Mediathek · NDR')
+  await expect(page.getByTestId('mat-tomorrow-pruefung')).toContainText('nur Selbstcheck, keine KI-Bewertung')
+  await expect(page.getByTestId('mat-tomorrow-pruefung')).toContainText('KI-geschrieben')
+  // Language Reactor is needed from week 2 (Netflix, YouTube): notice with a date, tick it off
+  await expect(page.getByTestId('notice-language-reactor')).toContainText('Einrichten bis Mo, 19.10.')
+  expect(errors).toEqual([])
+})
+
+test('Material: Monday shows today and Tuesday with the Sprechen microphone line', async ({ page }) => {
+  await materialsAt(page, '2026-10-12')
+  await page.goto('/')
+  await expect(page.getByTestId('materials').getByText('Heute (Mo 12.10.)')).toBeVisible()
+  await expect(page.getByTestId('materials').getByText('Morgen (Di 13.10.)')).toBeVisible()
+  const mic = page.getByTestId('mat-tomorrow-pruefung')
+  await expect(mic).toContainText('Mikrofon / Headset')
+  // 127.0.0.1 counts as a secure context: the microphone works here
+  await expect(mic).toContainText('✓ bereit')
+  await expect(page.getByTestId('mat-tomorrow-input')).toContainText('30:14–60:40')
+  await expect(page.getByTestId('mat-tomorrow-lesen')).toContainText('Die drei Links stehen am Morgen hier')
+})
+
+test('Material over plain http: Sprechen points to the HTTPS address', async ({ page }) => {
+  await page.addInitScript(() => Object.defineProperty(window, 'isSecureContext', { get: () => false }))
+  await materialsAt(page, '2026-10-12')
+  await page.goto('/')
+  const mic = page.getByTestId('mat-tomorrow-pruefung')
+  await expect(mic).toContainText('Aufnahmen gehen nur über https://cos.tail1b5741.ts.net:8443')
+  await expect(mic).toContainText('→ zu tun')
+  await expect(mic.getByRole('link', { name: 'Über HTTPS öffnen →' })).toHaveAttribute('href', 'https://cos.tail1b5741.ts.net:8443')
+})
+
+test('Material on Friday: the next plan day is Monday', async ({ page }) => {
+  await materialsAt(page, '2026-10-16')
+  await page.goto('/')
+  await expect(page.getByTestId('materials').getByText('Nächster Lerntag: Mo 19.10.')).toBeVisible()
+  await expect(page.getByTestId('mat-next-input')).toContainText('Merz gegen Merz, Folge 1')
+  await expect(page.getByTestId('mat-next-lesen')).toContainText('Die Känguru-Chroniken')
+  // the book: notice a week ahead, ticked off as bought
+  const notice = page.getByTestId('notice-kaenguru-chroniken')
+  await expect(notice).toContainText('Kaufen bis')
+  await expect(notice).toContainText('ISBN 978-3-548-37257-0')
+  await page.getByTestId('notice-done-kaenguru-chroniken').click()
+  await expect(page.getByTestId('notice-kaenguru-chroniken')).toHaveCount(0)
+})
+
+test('Schauen with a plan range: starts there and says "Ziel für heute erreicht" at the end', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  const clip = await tatortClip(request)
+  await page.goto(`/schauen/${clip.id}?von=2&bis=4`)
+  await expect(page.getByTestId('watch-range')).toContainText('Heute: 0:02–0:04.')
+  await expect(page.getByTestId('watch-clock')).toContainText('Ziel 0:04')
+  await page.getByTestId('watch-autopause').uncheck()
+  await page.getByTestId('watch-play').click()
+  await expect(page.getByTestId('watch-goal')).toBeVisible({ timeout: 10_000 })
+  await expect(page.getByTestId('watch-goal')).toContainText('Ziel für heute erreicht ✓')
+  expect(errors).toEqual([])
+})
+
+test('Deine Clips: the genre is editable', async ({ page, request }) => {
+  const clip = await tatortClip(request)
+  await page.goto('/schauen')
+  const select = page.getByTestId(`tag-${clip.id}`)
+  await expect(select).toHaveValue('krimi') // guessed from the title
+  await select.selectOption('drama')
+  await page.reload()
+  await expect(page.getByTestId(`tag-${clip.id}`)).toHaveValue('drama')
 })

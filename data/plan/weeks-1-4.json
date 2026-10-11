@@ -1,12 +1,52 @@
 {
-  "about": "Kaskade 4-week plan for Phase 2A, original prompts modelled on common B1 task types.",
+  "about": "Kaskade 4-week plan for Phase 2A: exact assignments for every block (follow-up #16) — library texts by id for interactive and free reading, stocked Mediathek episodes with time ranges, Easy German Podcast episodes, that day's tagesschau articles. Original prompts modelled on common B1 task types (AI-written, tagged).",
   "phase": "2A",
   "block": [
-    { "id": "karten",   "start": "09:00", "minutes": 30, "title": "Karten",                        "kind": "karten",   "label": "Karten",                     "short": "Karten" },
-    { "id": "input",    "start": "09:30", "minutes": 55, "title": "Interaktiv schauen oder lesen", "kind": "input",    "label": "Interaktiv schauen / lesen", "short": "Schauen" },
-    { "id": "pause",    "start": "10:25", "minutes": 10, "title": "Pause",                         "kind": "pause",    "label": "Pause",                      "short": "Pause" },
-    { "id": "lesen",    "start": "10:35", "minutes": 30, "title": "Freies Lesen",                  "kind": "lesen",    "label": "Freies Lesen · ohne Tools",  "short": "Lesen" },
-    { "id": "pruefung", "start": "11:05", "minutes": 25, "title": "B1-Prüfungsteil",               "kind": "pruefung", "label": "B1-Prüfungsteil",            "short": "Prüfung" }
+    {
+      "id": "karten",
+      "start": "09:00",
+      "minutes": 30,
+      "title": "Karten",
+      "kind": "karten",
+      "label": "Karten",
+      "short": "Karten"
+    },
+    {
+      "id": "input",
+      "start": "09:30",
+      "minutes": 55,
+      "title": "Interaktiv schauen oder lesen",
+      "kind": "input",
+      "label": "Interaktiv schauen / lesen",
+      "short": "Schauen"
+    },
+    {
+      "id": "pause",
+      "start": "10:25",
+      "minutes": 10,
+      "title": "Pause",
+      "kind": "pause",
+      "label": "Pause",
+      "short": "Pause"
+    },
+    {
+      "id": "lesen",
+      "start": "10:35",
+      "minutes": 30,
+      "title": "Freies Lesen",
+      "kind": "lesen",
+      "label": "Freies Lesen · ohne Tools",
+      "short": "Lesen"
+    },
+    {
+      "id": "pruefung",
+      "start": "11:05",
+      "minutes": 25,
+      "title": "B1-Prüfungsteil",
+      "kind": "pruefung",
+      "label": "B1-Prüfungsteil",
+      "short": "Prüfung"
+    }
   ],
   "weeks": [
     {
@@ -18,41 +58,112 @@
           "day": "Mo",
           "focus": "Einstieg: Falls noch nicht erledigt, zuerst die Einstufung abschließen.",
           "karten": "15 neue Kernwörter. Bekannte Wörter mit K („kenne ich schon“) schnell aussortieren.",
-          "input": "Eine Folge einer Alltagsserie mit deutschen Untertiteln. Unbekannte Wörter nachschlagen, gute Sätze speichern.",
-          "lesen": "Einen kurzen Text in einfacher Sprache über Wohnen lesen. Nichts nachschlagen, einfach weiterlesen.",
-          "exam": "s01"
+          "input": "„Ärger mit der Heizung“ (A2+, Kaskade-Bibliothek t01). Interaktiv lesen: unbekannte Wörter antippen, gute Sätze speichern.",
+          "lesen": "„Ein Paket für die Nachbarin“ (A2+, Kaskade-Bibliothek t02). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": "s01",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "text",
+              "text": "t01"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t02"
+            }
+          ]
         },
         {
           "day": "Di",
           "focus": "Wörter rund um Haus, Hof und Nachbarschaft.",
           "karten": "20 neue Kernwörter + Wiederholungen. Weiter mit K sortieren: Was du sicher kennst, kommt sofort weg.",
-          "input": "Ein Video über eine Wohnungstour in Deutschland. Oft pausieren, Wörter nachschlagen, Sätze speichern.",
-          "lesen": "Eine Lektüre für Erwachsene in einfacher Sprache (z. B. einen kurzen Krimi) lesen, ohne Wörterbuch.",
-          "exam": "p01"
+          "input": "„Besichtigung einer Wohnung“ (B1, Kaskade-Bibliothek t03). Interaktiv lesen: unbekannte Wörter antippen, gute Sätze speichern.",
+          "lesen": "„Streit wegen der Musik“ (B1, Kaskade-Bibliothek t04). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": "p01",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "text",
+              "text": "t03"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t04"
+            }
+          ]
         },
         {
           "day": "Mi",
           "focus": "Ein Problem in der Wohnung höflich beschreiben.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Eine klar gesprochene Serie für Erwachsene (z. B. Der Bergdoktor) ohne Untertitel schauen. Danach eine schwierige Stelle mit Untertiteln wiederholen.",
-          "lesen": "In der Lektüre von Dienstag weiterlesen.",
-          "exam": "s02"
+          "input": "Merz gegen Merz, Folge 1 „Hoch soll'n sie leben“ (ZDF Mediathek), 0:00–22:35, in deiner Bibliothek. Mit deutschen Untertiteln: nach jeder Zeile pausieren, Wörter antippen, gute Sätze speichern.",
+          "lesen": "„Samstag auf dem Wochenmarkt“ (A2+, Kaskade-Bibliothek t05). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": "s02",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "merz-gegen-merz-1",
+              "from": "0:00",
+              "to": "22:35"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t05"
+            }
+          ]
         },
         {
           "day": "Do",
           "focus": "Über eigene Erfahrungen sprechen: Wie wohnst du?",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Ein Vlog aus dem Alltag in Deutschland mit deutschen Untertiteln. Mindestens drei gute Sätze speichern.",
-          "lesen": "Nachrichten in einfacher Sprache: zwei oder drei kurze Artikel lesen.",
-          "exam": "p02"
+          "input": "Merz gegen Merz, Folge 2 „Alles neu – alles anders“, 0:00–23:06, in deiner Bibliothek. Mindestens drei gute Sätze speichern.",
+          "lesen": "Easy German Podcast 698 „Wie Lara ganz alleine akzentfrei Deutsch gelernt hat“ (31:55) hören, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "exam": "p02",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "merz-gegen-merz-2",
+              "from": "0:00",
+              "to": "23:06"
+            },
+            {
+              "block": "lesen",
+              "kind": "clip",
+              "clip": "egp-698"
+            }
+          ]
         },
         {
           "day": "Fr",
           "focus": "Wochenrückblick: Lieblingssätze der Woche wiederholen.",
           "karten": "Keine neuen Karten, nur Wiederholungen. Danach die gespeicherten Sätze der Woche durchgehen.",
-          "input": "Die Folge von Montag noch einmal schauen. Heute verstehst du schon mehr.",
-          "lesen": "Frei wählen: Lies, was dir Spaß macht, ohne Wörterbuch.",
-          "exam": null
+          "input": "Merz gegen Merz, Folge 1 „Hoch soll'n sie leben“, noch einmal, 0:00–22:35, in deiner Bibliothek. Heute verstehst du schon mehr: diesmal ohne anzuhalten.",
+          "lesen": "„Omas 80. Geburtstag“ (A2+, Kaskade-Bibliothek t20). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": null,
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "merz-gegen-merz-1",
+              "from": "0:00",
+              "to": "22:35"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t20"
+            },
+            {
+              "block": "pruefung",
+              "kind": "practice",
+              "practice": "l2"
+            }
+          ]
         }
       ]
     },
@@ -65,41 +176,114 @@
           "day": "Mo",
           "focus": "Wörter rund um Arbeit, Kollegen und Arbeitszeiten.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Eine Serie, die im Büro oder in einer Firma spielt, mit deutschen Untertiteln. Sätze aus Gesprächen unter Kollegen speichern.",
-          "lesen": "Stellenanzeigen online lesen, ohne nachzuschlagen: Was wird gesucht?",
-          "exam": "s03"
+          "input": "„Der erste Tag im neuen Job“ (A2+, Kaskade-Bibliothek t06). Interaktiv lesen: unbekannte Wörter antippen, gute Sätze speichern.",
+          "lesen": "„Ein Termin wird verschoben“ (A2+, Kaskade-Bibliothek t07). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": "s03",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "text",
+              "text": "t06"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t07"
+            }
+          ]
         },
         {
           "day": "Di",
           "focus": "Termine vereinbaren, verschieben und absagen.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Ein Video über den Berufsalltag einer Person, z. B. in der Pflege, im Handwerk oder im Büro. Pausieren und nachschlagen.",
-          "lesen": "Einen leichten Roman für Erwachsene beginnen (z. B. einen Krimi in einfacher Sprache) und das erste Kapitel lesen.",
-          "exam": "p03"
+          "input": "„Gespräch mit der Chefin über mehr Gehalt“ (B1, Kaskade-Bibliothek t08). Interaktiv lesen: unbekannte Wörter antippen, gute Sätze speichern.",
+          "lesen": "„Die Kollegin, die immer zu spät kommt“ (B1, Kaskade-Bibliothek t09). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": "p03",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "text",
+              "text": "t08"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t09"
+            }
+          ]
         },
         {
           "day": "Mi",
           "focus": "Von der Arbeit erzählen, im Perfekt.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Einen Podcast für Deutschlernende zum Thema Arbeit hören und das Transkript mitlesen.",
-          "lesen": "Im Roman weiterlesen: ein Kapitel ohne Wörterbuch.",
-          "exam": "s04"
+          "input": "Merz gegen Merz, Folge 3 „Jeder ist ersetzbar“ (ZDF Mediathek), 0:00–22:47, in deiner Bibliothek. Sätze aus Gesprächen unter Kollegen speichern.",
+          "lesen": "Easy German Podcast 684 „Als Praktikantin im Deutschen Bundestag“ (27:29) hören, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "exam": "s04",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "merz-gegen-merz-3",
+              "from": "0:00",
+              "to": "22:47"
+            },
+            {
+              "block": "lesen",
+              "kind": "clip",
+              "clip": "egp-684"
+            }
+          ]
         },
         {
           "day": "Do",
           "focus": "Die eigene Meinung sagen und nachfragen.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Ein Interview oder eine Gesprächsrunde zum Thema Arbeit mit Untertiteln. Nützliche Redemittel speichern.",
-          "lesen": "Nachrichten in einfacher Sprache: alle Artikel über Arbeit und Wirtschaft lesen.",
-          "exam": "p04"
+          "input": "Die 100 – was Deutschland bewegt: „Können wir uns diesen Sozialstaat noch leisten?“ (ARD Mediathek), 0:00–16:22, in deiner Bibliothek. Nützliche Redemittel speichern: „Ich finde, dass …“",
+          "lesen": "tagesschau.de · Wirtschaft: die drei neuesten Artikel des Tages. Heute stehen hier die drei Links. Lesen, ohne nachzuschlagen.",
+          "exam": "p04",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "die-100-sozialstaat",
+              "from": "0:00",
+              "to": "16:22"
+            },
+            {
+              "block": "lesen",
+              "kind": "news",
+              "feed": "wirtschaft",
+              "count": 3,
+              "minutes": 30
+            }
+          ]
         },
         {
           "day": "Fr",
           "focus": "Wochenrückblick: Lieblingssätze der Woche wiederholen und laut vorlesen.",
           "karten": "Keine neuen Karten, nur Wiederholungen. Schwierige Wörter der Woche noch einmal ansehen.",
-          "input": "Frei wählen: eine Folge deiner Lieblingsserie mit deutschen Untertiteln.",
-          "lesen": "Im Roman weiterlesen.",
-          "exam": null
+          "input": "Easy German auf YouTube: „Can You Live Well on This Salary in Germany?“, 0:00–14:30, in Chrome mit Language Reactor. Mit deutschen und englischen Untertiteln schauen, gute Sätze speichern.",
+          "lesen": "„Mit dem Rad zur Arbeit“ (B1, Kaskade-Bibliothek t13). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": null,
+          "materials": [
+            {
+              "block": "input",
+              "kind": "youtube",
+              "clip": "yt-easygerman-gehalt",
+              "from": "0:00",
+              "to": "14:30"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t13"
+            },
+            {
+              "block": "pruefung",
+              "kind": "practice",
+              "practice": "h3"
+            }
+          ]
         }
       ]
     },
@@ -112,41 +296,113 @@
           "day": "Mo",
           "focus": "Behörden: Briefe und Formulare verstehen.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Ein Erklärvideo über Behörden in Deutschland, z. B. zur Anmeldung der Wohnung. Pausieren, nachschlagen, Sätze speichern.",
-          "lesen": "Im Roman weiterlesen oder einen neuen Text in einfacher Sprache beginnen.",
-          "exam": "s05"
+          "input": "„Ein Termin beim Bürgeramt“ (B1, Kaskade-Bibliothek t12). Interaktiv lesen: unbekannte Wörter antippen, gute Sätze speichern.",
+          "lesen": "„Ein Brief vom Amt“ (B1, Kaskade-Bibliothek t14). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": "s05",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "text",
+              "text": "t12"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t14"
+            }
+          ]
         },
         {
           "day": "Di",
           "focus": "Gesundheit: Was machst du, wenn du krank bist?",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Eine Arzt- oder Krankenhausserie mit deutschen Untertiteln. Sätze aus Gesprächen in der Praxis speichern.",
-          "lesen": "Gesundheitstexte in einfacher Sprache lesen, z. B. über Erkältung oder Schlaf.",
-          "exam": "p05"
+          "input": "„Eine Erkältung im Herbst“ (A2+, Kaskade-Bibliothek t11). Interaktiv lesen: unbekannte Wörter antippen, gute Sätze speichern.",
+          "lesen": "Easy German Podcast 695 „Die Angst vor der Angst“ (31:20) hören, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "exam": "p05",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "text",
+              "text": "t11"
+            },
+            {
+              "block": "lesen",
+              "kind": "clip",
+              "clip": "egp-695"
+            }
+          ]
         },
         {
           "day": "Mi",
           "focus": "Die eigene Meinung schriftlich begründen.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Ein Wissensvideo über Schlaf oder Bewegung mit deutschen Untertiteln.",
-          "lesen": "Ein Kapitel im Buch lesen. Unbekannte Wörter einfach überspringen.",
-          "exam": "s06"
+          "input": "RESPEKT: „Flüchtlinge – Vorurteile, Bürokratie und das Recht auf einen Neubeginn“ (ARD alpha), ab 0:00 bis zum Ende, in deiner Bibliothek. Sätze speichern, die du auf einem Amt brauchst.",
+          "lesen": "Easy German Podcast 690 „Vom Einwanderer zum Staatsbürger in 3 Jahren“ (31:10) hören, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "exam": "s06",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "respekt-buerokratie",
+              "from": "0:00"
+            },
+            {
+              "block": "lesen",
+              "kind": "clip",
+              "clip": "egp-690"
+            }
+          ]
         },
         {
           "day": "Do",
           "focus": "Aufgaben verteilen und Hilfe anbieten.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Einen Podcast für Deutschlernende zum Thema Gesundheit hören und das Transkript mitlesen.",
-          "lesen": "Nachrichten in einfacher Sprache: zwei oder drei kurze Artikel lesen.",
-          "exam": "p06"
+          "input": "Quarks: „Schlaf – Die billigste Medizin der Welt“ (ARD Mediathek · WDR), 0:00–22:09, in deiner Bibliothek. Pausieren, nachschlagen, Erklärungen speichern.",
+          "lesen": "tagesschau.de · Gesundheit: die drei neuesten Artikel des Tages. Heute stehen hier die drei Links. Lesen, ohne nachzuschlagen.",
+          "exam": "p06",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "quarks-schlaf",
+              "from": "0:00",
+              "to": "22:09"
+            },
+            {
+              "block": "lesen",
+              "kind": "news",
+              "feed": "gesundheit",
+              "count": 3,
+              "minutes": 30
+            }
+          ]
         },
         {
           "day": "Fr",
           "focus": "Wochenrückblick: Lieblingssätze der Woche wiederholen.",
           "karten": "Keine neuen Karten, nur Wiederholungen. Danach die gespeicherten Sätze der Woche durchgehen.",
-          "input": "Ein Video der Woche noch einmal schauen, heute ohne Untertitel.",
-          "lesen": "Frei wählen: Lies, was dir Spaß macht, ohne Wörterbuch.",
-          "exam": null
+          "input": "Charité, Folge 19 „Ankunft“ (ARD Mediathek · MDR), 0:00–24:49, in deiner Bibliothek. Sätze aus Gesprächen in der Klinik speichern.",
+          "lesen": "„Probetraining im Sportverein“ (A2+, Kaskade-Bibliothek t10). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": null,
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "charite-19-ankunft",
+              "from": "0:00",
+              "to": "24:49"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t10"
+            },
+            {
+              "block": "pruefung",
+              "kind": "practice",
+              "practice": "l4"
+            }
+          ]
         }
       ]
     },
@@ -159,41 +415,113 @@
           "day": "Mo",
           "focus": "Von Freizeit und Ausflügen erzählen.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Ein Reise-Vlog aus Deutschland mit deutschen Untertiteln. Ausdrücke für unterwegs speichern.",
-          "lesen": "Einen Reisebericht in einem Blog lesen, ohne Wörterbuch.",
-          "exam": "s07"
+          "input": "„Der Zug hat Verspätung“ (A2+, Kaskade-Bibliothek t16). Interaktiv lesen: unbekannte Wörter antippen, gute Sätze speichern.",
+          "lesen": "„Ein Wochenende an der Ostsee“ (B1, Kaskade-Bibliothek t17). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": "s07",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "text",
+              "text": "t16"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t17"
+            }
+          ]
         },
         {
           "day": "Di",
-          "focus": "Reisen: Zug oder Flugzeug?",
+          "focus": "Reisen: mit dem Zug statt mit dem Flugzeug?",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Eine Doku-Folge über eine Zugreise mit deutschen Untertiteln. Pausieren, nachschlagen, Sätze speichern.",
-          "lesen": "Ein neues Buch beginnen oder im Roman weiterlesen.",
-          "exam": "p07"
+          "input": "Wunderschön!: „Durch die wilde Nordeifel“ (ARD Mediathek · WDR), 0:00–22:06, in deiner Bibliothek. Ausdrücke für unterwegs speichern.",
+          "lesen": "„Kochabend mit Freunden – und alles geht schief“ (B1, Kaskade-Bibliothek t18). Frei lesen: ohne Wörterbuch, einfach weiterlesen.",
+          "exam": "p07",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "wunderschoen-nordeifel",
+              "from": "0:00",
+              "to": "22:06"
+            },
+            {
+              "block": "lesen",
+              "kind": "text",
+              "text": "t18"
+            }
+          ]
         },
         {
           "day": "Mi",
           "focus": "Medien und Deutschlernen: deine Meinung.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Eine Folge einer Serie mit deutschen Untertiteln. Danach eine Szene ohne Untertitel noch einmal schauen.",
-          "lesen": "Ein Kapitel im Buch lesen. Nicht stoppen, wenn ein Wort fehlt.",
-          "exam": "s08"
+          "input": "„Eine Woche ohne Handy“ (B1, Kaskade-Bibliothek t19). Interaktiv lesen: unbekannte Wörter antippen, gute Sätze speichern.",
+          "lesen": "Easy German Podcast 693 „Eine Fahrradtour mit Barack Obama“ (31:12) hören, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "exam": "s08",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "text",
+              "text": "t19"
+            },
+            {
+              "block": "lesen",
+              "kind": "clip",
+              "clip": "egp-693"
+            }
+          ]
         },
         {
           "day": "Do",
           "focus": "Eine Präsentation frei halten.",
           "karten": "20 neue Kernwörter + alle Wiederholungen.",
-          "input": "Nachrichten in einfacher Sprache oder die tagesschau in 100 Sekunden als Video schauen. Wörter nachschlagen, Sätze speichern.",
-          "lesen": "Nachrichten in einfacher Sprache: Artikel über Freizeit, Kultur oder Medien lesen.",
-          "exam": "p08"
+          "input": "Feuer & Flamme, Folge 1 „Extreme Hitze bei Wohnungsbrand“ (ARD Mediathek · WDR), 0:00–21:13, in deiner Bibliothek. Kurze, spontane Sätze speichern.",
+          "lesen": "tagesschau.de: die drei neuesten Artikel des Tages. Heute stehen hier die drei Links. Lesen, ohne nachzuschlagen.",
+          "exam": "p08",
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "feuer-und-flamme-s11e01",
+              "from": "0:00",
+              "to": "21:13"
+            },
+            {
+              "block": "lesen",
+              "kind": "news",
+              "feed": "top",
+              "count": 3,
+              "minutes": 30
+            }
+          ]
         },
         {
           "day": "Fr",
           "focus": "Wochen- und Monatsrückblick: Lieblingssätze wiederholen und den eigenen Fortschritt ansehen.",
           "karten": "Keine neuen Karten, nur Wiederholungen. Danach kurz prüfen: Wie viele Kernwörter kennst du jetzt?",
-          "input": "Die Folge vom ersten Montag noch einmal schauen. Wie viel mehr verstehst du jetzt?",
-          "lesen": "Frei wählen: Lies, was dir Spaß macht, ohne Wörterbuch.",
-          "exam": null
+          "input": "Wunderschön!: „Durch die wilde Nordeifel“, ab 22:06 bis zum Ende, in deiner Bibliothek. Wie viel verstehst du jetzt ohne Pausen?",
+          "lesen": "Easy German Podcast 700 „Die Kunst des Loslassens“ (33:49) hören, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "exam": null,
+          "materials": [
+            {
+              "block": "input",
+              "kind": "clip",
+              "clip": "wunderschoen-nordeifel",
+              "from": "22:06"
+            },
+            {
+              "block": "lesen",
+              "kind": "clip",
+              "clip": "egp-700"
+            },
+            {
+              "block": "pruefung",
+              "kind": "practice",
+              "practice": "h4"
+            }
+          ]
         }
       ]
     }
@@ -216,7 +544,8 @@
         "Anrede und Gruß nicht vergessen: Liebe Lea, … / Viele Grüße",
         "Zu jedem Punkt zwei bis drei Sätze schreiben.",
         "Konnektoren benutzen: weil, deshalb, außerdem."
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "p01",
@@ -236,7 +565,8 @@
         "Vorschläge machen: Was hältst du davon, wenn …? / Ich schlage vor, dass …",
         "Auf den Partner reagieren: Gute Idee! / Das finde ich schwierig, weil …",
         "Am Ende kurz zusammenfassen, wer was macht."
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "s02",
@@ -255,7 +585,8 @@
         "In der E-Mail die Sie-Form benutzen: Sehr geehrte Damen und Herren, … / Mit freundlichen Grüßen",
         "Höflich bitten: Könnten Sie bitte …? / Ich wäre Ihnen dankbar, wenn …",
         "Kurz bleiben: 40 bis 60 Wörter reichen."
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "p02",
@@ -275,7 +606,8 @@
         "Überleitungen benutzen: Ich komme jetzt zu … / Zum Schluss möchte ich …",
         "Nur Stichwörter auf die Folien schreiben und frei sprechen.",
         "Laut üben und die Zeit stoppen."
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "s03",
@@ -294,7 +626,8 @@
         "Meinung einleiten: Ich finde, dass … / Meiner Meinung nach …",
         "Mit aber oder trotzdem auch die andere Seite zeigen.",
         "Ein kurzer Einstieg wie „Hallo zusammen“ reicht."
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "p03",
@@ -314,7 +647,8 @@
         "Zeitangaben üben: um halb zehn, nach der Mittagspause, am Nachmittag.",
         "Höflich ablehnen: Das passt leider nicht so gut, weil …",
         "Gegenvorschlag machen: Wie wäre es stattdessen mit …?"
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "s04",
@@ -333,7 +667,8 @@
         "Anrede und Gruß: Lieber Jonas, … / Bis bald!",
         "Über die erste Woche im Perfekt schreiben: Ich habe … gelernt.",
         "Vorschläge machen: Hast du Lust, …? / Wie wäre es mit …?"
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "p04",
@@ -353,7 +688,8 @@
         "Feedback geben: Mir hat besonders gefallen, dass … / Interessant fand ich …",
         "Nachfragen: Was meinst du genau mit …? / Wie ist das bei dir?",
         "Bei einer Rückfrage Zeit gewinnen: Gute Frage! Ich denke, …"
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "s05",
@@ -372,7 +708,8 @@
         "In der E-Mail die Sie-Form benutzen: Sehr geehrte Damen und Herren, … / Mit freundlichen Grüßen",
         "Wichtige Daten nennen: Name, Geburtsdatum, Adresse.",
         "Höflich fragen: Könnten Sie mir bitte mitteilen, …?"
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "p05",
@@ -392,7 +729,8 @@
         "Den Aufbau ankündigen: Zuerst erzähle ich …, danach …",
         "Vor- und Nachteile verbinden: Einerseits …, andererseits …",
         "Laut üben und die Zeit stoppen."
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "s06",
@@ -411,7 +749,8 @@
         "Meinung begründen: Ich stimme zu, weil … / Ich sehe das anders, denn …",
         "Beispiele einleiten: zum Beispiel, bei mir ist es so, dass …",
         "Am Ende einen Satz als Fazit schreiben: Insgesamt finde ich …"
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "p06",
@@ -430,7 +769,8 @@
         "Aufgaben verteilen: Kannst du … übernehmen? / Ich kümmere mich um …",
         "Termine absprechen: Passt dir Dienstag? / Am Mittwoch kann ich leider nicht.",
         "Am Ende kurz zusammenfassen, wer was macht."
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "s07",
@@ -449,7 +789,8 @@
         "Gefühle zeigen: Es hat mir total gut gefallen. / Leider …",
         "Die Reihenfolge zeigen: zuerst, danach, am Ende.",
         "Gruß am Ende nicht vergessen: Liebe Grüße"
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "p07",
@@ -469,7 +810,8 @@
         "Feedback geben: Danke für die Präsentation. Besonders interessant fand ich …",
         "Nachfragen: Wie lange dauert …? / Was kostet das ungefähr?",
         "Zustimmen oder widersprechen: Da hast du recht. / Das sehe ich etwas anders."
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "s08",
@@ -488,7 +830,8 @@
         "Meinung einleiten: Ich bin der Meinung, dass … / Ich sehe das so: …",
         "Konnektoren benutzen: deshalb, trotzdem, außerdem.",
         "Den Tipp als Vorschlag formulieren: Probiert doch mal …"
-      ]
+      ],
+      "origin": "ai"
     },
     {
       "id": "p08",
@@ -508,7 +851,8 @@
         "Überleitungen benutzen: Ich komme jetzt zu … / Zum Schluss möchte ich …",
         "Vergleichen: Im Vergleich zu … / Bei uns ist es eher so, dass …",
         "Zum Abschluss: Vielen Dank fürs Zuhören! Gibt es noch Fragen?"
-      ]
+      ],
+      "origin": "ai"
     }
   ],
   "week5": {

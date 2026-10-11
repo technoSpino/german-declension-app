@@ -2,7 +2,8 @@
 
 Includes a consistent snapshot of kaskade.db (SQLite backup API, safe while the
 API runs), media/, recordings/ and snippets/. Skips what can be regenerated (tts/, dict/, freq/)
-and .env (secrets). Keeps the newest 14 archives.
+and .env (secrets), and media Kaskade can download again (stock-* / mt-*: Mediathek
+and podcast episodes, see data/plan/stock.json). Keeps the newest 14 archives.
 
 Usage: .venv/bin/python scripts/backup.py [--dest DIR] [--keep N]
 Restore: see docs/kaskade/RUNBOOK.md
@@ -17,6 +18,11 @@ from pathlib import Path
 DATA = Path.home() / "kaskade-data"
 DEST = Path.home() / "kaskade-backups"
 INCLUDE_DIRS = ("media", "recordings", "snippets")
+REFETCHABLE = ("stock-", "mt-", ".partial")   # re-downloadable stock, unfinished uploads
+
+
+def _skip_refetchable(info: tarfile.TarInfo) -> tarfile.TarInfo | None:
+    return None if Path(info.name).name.startswith(REFETCHABLE) else info
 
 
 def backup(data: Path = DATA, dest: Path = DEST, keep: int = 14, now: datetime | None = None,
@@ -39,7 +45,7 @@ def backup(data: Path = DATA, dest: Path = DEST, keep: int = 14, now: datetime |
                 tar.add(snap, arcname="kaskade-data/kaskade.db")
             for d in INCLUDE_DIRS:
                 if (data / d).exists():
-                    tar.add(data / d, arcname=f"kaskade-data/{d}")
+                    tar.add(data / d, arcname=f"kaskade-data/{d}", filter=_skip_refetchable)
     archives = sorted(dest.glob("kaskade-*.tar.gz"))
     for old in archives[:-keep]:
         old.unlink()

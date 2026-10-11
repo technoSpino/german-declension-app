@@ -30,6 +30,8 @@ def test_empty_deck_is_handled(client, monkeypatch, tmp_path):
 def test_backup_contains_consistent_db_and_media(client, tmp_path):
     db.set_setting("phase", "2A")
     (config.MEDIA_DIR / "upload-1.mp4").write_bytes(b"video")
+    (config.MEDIA_DIR / "stock-tatort-x.mp4").write_bytes(b"re-downloadable")
+    (config.MEDIA_DIR / "mt-0123abcd.mp4").write_bytes(b"re-downloadable")
     (config.TTS_DIR / "audio").mkdir(parents=True, exist_ok=True)
     (config.TTS_DIR / "audio" / "x.ogg").write_bytes(b"regenerable")
     (config.DATA_DIR / ".env").write_text("ANTHROPIC_API_KEY=secret")
@@ -40,6 +42,7 @@ def test_backup_contains_consistent_db_and_media(client, tmp_path):
         names = tar.getnames()
         assert "kaskade-data/kaskade.db" in names and "kaskade-data/media/upload-1.mp4" in names
         assert not any("tts" in n or ".env" in n for n in names)
+        assert not any("stock-" in n or "/mt-" in n for n in names)  # Kaskade fetches those again
         tar.extract("kaskade-data/kaskade.db", tmp_path / "restore")
     con = sqlite3.connect(tmp_path / "restore/kaskade-data/kaskade.db")
     assert con.execute("SELECT value FROM settings WHERE key = 'phase'").fetchone()[0] == '"2A"'

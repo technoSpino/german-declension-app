@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
+import { noticeTitle } from '../../lib/materials'
 import { formatDate, formatDecimal, formatNumber } from '../../lib/format'
 import WeeksChart from '../../components/kaskade/WeeksChart.vue'
 
@@ -148,9 +149,16 @@ const GOALS = [
           </li>
         </ol>
         <p class="k-small m-0 mt-4 pt-3.5" style="border-top: 1px solid var(--surface-2); font-size: 13px">B1-Zertifikat geplant: der tägliche Prüfungsteil im Lernblock trainiert das Format, ab Woche 6 mit Probeprüfungen.</p>
-        <template v-if="f?.upcoming?.length">
+        <template v-if="f?.upcoming?.length || f?.notices?.length">
           <h3 class="k-h2 mt-6" style="font-size: 16px">Nächste Schritte</h3>
           <ol class="list-none m-0 mt-3 p-0 flex flex-col gap-2.5" data-testid="fp-upcoming">
+            <li v-for="n in f.notices ?? []" :key="n.id" class="fp-check" :data-testid="`fp-notice-${n.id}`">
+              <span>
+                <strong style="color: var(--text)">{{ n.title }}</strong>
+                <span class="block" style="font-size: 13px">{{ n.type === 'book' ? `Taschenbuch · ISBN ${n.book.isbn} · ${n.book.price}` : n.text }} · im Plan ab {{ formatDate(n.firstDay) }}</span>
+              </span>
+              <span class="self-center k-small" style="font-weight: 700">{{ noticeTitle(n) }}</span>
+            </li>
             <li v-for="u in f.upcoming" :key="u.id" class="fp-check">
               <span>
                 <strong :class="{ 'fp-done': u.done }" style="color: var(--text)">{{ u.done ? '✓ ' : '' }}{{ u.title }}</strong>

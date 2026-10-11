@@ -5,9 +5,11 @@ import { api } from '../../lib/api'
 import { formatClock, formatDate, formatNumber } from '../../lib/format'
 import { berlinMinutes, greeting, layoutBlocks, levelToPct, nextBlock, nowMarker, NO_HOURS_YET, PHASE2_TARGET, previewHint, weekStack } from '../../lib/heute'
 import ImmersionForm from '../../components/kaskade/ImmersionForm.vue'
+import MaterialsCard from '../../components/kaskade/MaterialsCard.vue'
+import OriginBadge from '../../components/kaskade/OriginBadge.vue'
+import { itemLine } from '../../lib/materials'
 import { useNow } from '../../lib/useNow'
 import { useStatusStore } from '../../stores/statusStore'
-import { formatTime } from '../../lib/watch'
 import { coverageLabel } from '../../lib/satzcheck'
 
 const router = useRouter()
@@ -17,7 +19,8 @@ const t = ref(null)
 const error = ref(null)
 const feed = ref(null)
 const copied = ref(false)
-const feedUrl = `${window.location.origin}/api/feed.xml`
+// The feed link points at Kaskade's HTTPS address (#17) — podcast apps want HTTPS.
+const feedUrl = computed(() => `${t.value?.httpsUrl ?? window.location.origin}/api/feed.xml`)
 
 async function load() {
   try {
@@ -38,7 +41,7 @@ onMounted(async () => {
 
 async function copyFeed() {
   try {
-    await navigator.clipboard.writeText(feedUrl)
+    await navigator.clipboard.writeText(feedUrl.value)
     copied.value = true
   } catch {
     copied.value = false
@@ -75,25 +78,17 @@ const nextSatzcheck = computed(() => {
   return d
 })
 
-function textHint(b) {
-  const text = t.value?.texts?.[b.kind]
-  return text ? ` Vorschlag aus der Bibliothek: „${text.title}“ (${text.level}).` : ''
-}
-
-function watchHint() {
-  const w = t.value?.watch
-  if (!w) return textHint({ kind: 'input' })
-  return w.position > 2 ? ` Weiter mit „${w.title}“ ab ${formatTime(w.position)}.` : ` Clip: „${w.title}“.`
-}
+// #16: every block names exactly one thing (title · part · minutes); the day text says how.
+const assignment = (b) => t.value?.assignments?.[b.id] ?? null
 
 function describe(b) {
   const d = day.value
   if (!d) return ''
   switch (b.kind) {
-    case 'karten': return `${d.karten}${t.value?.cards ? ` · heute ${t.value.cards.due} fällig + ${t.value.cards.new} neu` : ''}`
-    case 'input': return d.input + watchHint()
-    case 'pause': return 'Aufstehen, Wasser trinken, kurz ans Fenster oder raus.'
-    case 'lesen': return d.lesen + textHint(b)
+    case 'karten': return d.karten
+    case 'input': return d.input
+    case 'pause': return 'Aufstehen, Wasser trinken, kurz ans Fenster und raus.'
+    case 'lesen': return d.lesen
     case 'pruefung': {
       const exam = planInfo.value?.exam
       if (planInfo.value?.mockExam) return planInfo.value.mockExam.note
@@ -109,8 +104,13 @@ const logged = (b) => Math.round((t.value?.blockSeconds?.[b.id] ?? 0) / 60)
 const runningFor = computed(() => (status.running ? (now.value - new Date(status.running.startedAt)) / 1000 : 0))
 
 async function start(b) {
+  const a = assignment(b)
+  // YouTube/Netflix open in a new tab (Language Reactor) — before any await, or the popup is blocked.
+  if (a?.start?.href) window.open(a.start.href, '_blank', 'noopener')
   try {
     await status.startTimer(b.id)
+    if (a?.start?.to) return router.push(a.start.to)
+    if (a?.start?.href || (a && !a.start)) return load() // a link (opened above), a book, the news links below
     if (b.kind === 'karten') return router.push('/karten')
     if (b.kind === 'input' && t.value?.watch) return router.push(`/schauen/${t.value.watch.id}`)
     if ((b.kind === 'input' || b.kind === 'lesen') && t.value?.texts?.[b.kind]) return router.push(`/lesen/${t.value.texts[b.kind].id}`)
@@ -215,7 +215,8 @@ const timelineLabel = computed(() => {
     </section>
 
     <div v-if="t" class="flex flex-wrap gap-6 items-start">
-      <section class="k-card min-w-0" style="flex: 999 1 560px; padding-bottom: 8px" aria-labelledby="plan-h">
+      <div class="flex flex-col gap-6 min-w-0" style="flex: 999 1 560px">
+      <section class="k-card min-w-0" style="padding-bottom: 8px" aria-labelledby="plan-h">
         <div class="flex flex-wrap items-baseline justify-between gap-2">
           <h2 id="plan-h" class="k-h2">Lernblock 09:00–11:30</h2>
           <p class="k-small m-0">
@@ -251,8 +252,15 @@ const timelineLabel = computed(() => {
             <div class="hb-time" :class="{ 'hb-muted': isDone(b) }">{{ b.start }}<span>{{ b.minutes }} min</span></div>
             <div class="min-w-0">
               <p class="hb-kind"><span :class="['hb-dot', `hb-seg-${segState(b)}`]"></span>{{ kindLabel(b) }}<span v-if="segState(b) === 'current'" class="hb-now-tag">· jetzt</span></p>
-              <p class="hb-title" :class="{ 'hb-strike': isDone(b) }">{{ b.kind === 'pruefung' && planInfo?.exam ? planInfo.exam.title : b.title }}</p>
+              <p class="hb-title" :class="{ 'hb-strike': isDone(b) }" :data-testid="`assign-${b.id}`">{{ assignment(b) ? itemLine(assignment(b)) : b.kind === 'pruefung' && planInfo?.exam ? planInfo.exam.title : b.title }}</p>
+              <p v-if="assignment(b) && (assignment(b).source || assignment(b).origin === 'ai' || assignment(b).detail)" class="k-hint m-0 mt-0.5 flex flex-wrap items-center gap-x-2">
+                <OriginBadge :origin="assignment(b).origin" :source="assignment(b).source" />
+                <span v-if="assignment(b).detail" :class="{ 'hb-todo-text': assignment(b).status === 'todo' }">{{ assignment(b).status === 'todo' ? '→ ' : '' }}{{ assignment(b).detail }}</span>
+              </p>
               <p class="k-small m-0 mt-0.5">{{ describe(b) }}</p>
+              <ol v-if="assignment(b)?.links?.length" class="m-0 mt-1 pl-5 k-small flex flex-col gap-0.5" style="list-style: decimal" :data-testid="`links-${b.id}`">
+                <li v-for="l in assignment(b).links" :key="l.url"><a :href="l.url" target="_blank" rel="noopener">{{ l.title }}</a></li>
+              </ol>
               <router-link v-if="b.kind === 'karten' && t.mineable" to="/satz-check#minen" class="k-small" style="font-weight: 600" data-testid="heute-mineable">{{ t.mineable }} {{ t.mineable === 1 ? 'Satz' : 'Sätze' }} aus dem Satz-Check minen →</router-link>
               <p v-if="logged(b) && !isPreview" class="k-hint m-0 mt-0.5">{{ logged(b) }} min erfasst</p>
             </div>
@@ -296,6 +304,8 @@ const timelineLabel = computed(() => {
           <button class="k-btn k-btn-ghost k-btn-sm" @click="copyFeed">{{ copied ? '✓ Kopiert' : 'Link kopieren' }}</button>
         </div>
       </section>
+      <MaterialsCard :blocks="t.block" />
+      </div>
 
       <div class="flex flex-col gap-6 min-w-0" style="flex: 1 1 340px">
         <section class="k-card" aria-labelledby="kask-h">
@@ -432,6 +442,7 @@ const timelineLabel = computed(() => {
 .hb-dot.hb-seg-done { background: var(--timeline-done-text); }
 .hb-title { margin: 3px 0 0; font-size: 17px; font-weight: 700; }
 .hb-strike { text-decoration: line-through; color: var(--muted); }
+.hb-todo-text { color: var(--text); font-weight: 600; }
 .hb-chipbtn { border: 0; cursor: pointer; font: inherit; font-size: 13px; font-weight: 700; }
 .hb-after {
   display: grid;

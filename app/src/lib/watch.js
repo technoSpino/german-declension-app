@@ -65,6 +65,24 @@ export function formatTime(sec) {
   return h ? `${h}:${pad(m)}:${pad(s % 60)}` : `${m}:${pad(s % 60)}`
 }
 
+/** Plan range times as minutes:seconds, also past an hour ("89:21") — like the plan texts. */
+export function clock(sec) {
+  const s = Math.max(0, Math.round(sec || 0))
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+}
+
+/**
+ * Where a plan range starts (Heute "Starten" → /schauen/ID?von=…&bis=…) and what to tell Matt:
+ * behind → from his position; inside the range → resume; already past the end → "Ziel erreicht".
+ */
+export function rangeStart(from, to, position) {
+  const pos = position || 0
+  if (to && pos > from && pos >= to - 5) return { at: pos, reached: true, note: `Ziel für heute (bis ${clock(to)}) schon erreicht — du kannst weiterschauen.` }
+  if (pos > 2 && pos < from - 5) return { at: pos, reached: false, note: `Ab deiner Position (${clock(pos)}) bis ${clock(to)}.` }
+  if (pos > from + 5) return { at: pos, reached: false, note: `Weiter ab ${clock(pos)} bis ${clock(to)}.` }
+  return { at: from, reached: false, note: `Heute: ${clock(from)}–${clock(to)}.` }
+}
+
 /** Note for a clip whose file is being converted to H.264/AAC MP4, or whose conversion failed. */
 export function clipStatus(clip) {
   if (clip?.status === 'converting') return 'wird für alle Browser umgewandelt …'

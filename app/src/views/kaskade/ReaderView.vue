@@ -26,11 +26,13 @@ const checked = ref(false)
 const done = ref(false)
 const audio = ref(null)
 const audioFailed = ref(false)
+// ?modus=frei (Heute's "Frei lesen" block, #16): plain text, no highlights, no lookups
+const frei = route.query.modus === 'frei'
 
 onMounted(async () => {
   try {
     t.value = await api.get(`/texts/${route.params.id}`)
-    showHelp.value = t.value.slot === 'input'
+    showHelp.value = !frei && t.value.slot === 'input'
     done.value = !!t.value.readAt
   } catch (e) {
     error.value = e.message
@@ -90,7 +92,7 @@ async function finish() {
           <button class="k-btn k-btn-ghost k-btn-sm" data-testid="reader-audio" :disabled="audioFailed" @click="toggleAudio">
             {{ audioFailed ? 'Kein Audio' : audio && !audio.paused ? '❚❚ Pause' : '▶ Vorlesen' }}
           </button>
-          <button class="k-btn k-btn-ghost k-btn-sm" :aria-pressed="showHelp" data-testid="reader-help" @click="showHelp = !showHelp; active = null">
+          <button v-if="!frei" class="k-btn k-btn-ghost k-btn-sm" :aria-pressed="showHelp" data-testid="reader-help" @click="showHelp = !showHelp; active = null">
             {{ showHelp ? 'Hilfen ausblenden' : 'Neue Wörter zeigen' }}
           </button>
         </div>
@@ -119,7 +121,7 @@ async function finish() {
             :lens="showHelp && lens"
             :states="showHelp && flags.states"
             :selected="token?.i ?? null"
-            @select="token = $event"
+            @select="token = frei ? null : $event"
           />
           <div v-else class="k-read rd-text">
             <p v-for="(segs, i) in paras" :key="i">
@@ -132,7 +134,7 @@ async function finish() {
         </article>
 
         <aside class="flex flex-col gap-4 min-w-0" style="flex: 1 1 300px; position: sticky; top: 12px">
-          <WordPanel v-if="analysis" :analysis="analysis" :token="token" :glossary="t.glossary" :source="`Lesen · ${t.title}`" />
+          <WordPanel v-if="analysis && !frei" :analysis="analysis" :token="token" :glossary="t.glossary" :source="`Lesen · ${t.title}`" />
           <section v-else-if="showHelp" class="k-card" aria-live="polite">
             <h2 class="k-h2" style="font-size: 17px">Wort</h2>
             <template v-if="active">
@@ -143,7 +145,7 @@ async function finish() {
             <p v-else class="k-small m-0 mt-2">Markierte Wörter gehören nicht zu den 2.000 Kernwörtern. Antippen zeigt die Bedeutung.</p>
           </section>
           <section v-if="!showHelp" class="k-callout">
-            <strong>Freies Lesen:</strong> nichts nachschlagen, einfach weiterlesen. Wenn du die Geschichte grob verstehst, ist alles gut.
+            <strong>Freies Lesen{{ frei ? ' · ohne Hilfen' : '' }}:</strong> nichts nachschlagen, einfach weiterlesen. Wenn du die Geschichte grob verstehst, ist alles gut.
           </section>
 
           <section class="k-card flex flex-col gap-3">

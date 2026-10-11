@@ -14,6 +14,10 @@ SNIPPETS_DIR = DATA_DIR / "snippets"      # audio of mined subtitle lines
 
 ANTHROPIC_MODEL = "claude-opus-5-5"
 
+# Kaskade's own HTTPS address (Tailscale serve, tailnet only). Browsers allow the microphone only
+# over HTTPS, so Sprechen and the placement recording point here. The http address keeps working.
+HTTPS_URL = os.environ.get("KASKADE_HTTPS_URL", "https://cos.tail1b5741.ts.net:8443")
+
 
 def anthropic_key() -> str | None:
     return os.environ.get("ANTHROPIC_API_KEY") or None

@@ -9,6 +9,7 @@ export const useStatusStore = defineStore('kaskadeStatus', {
     running: null,
     theme: resolveTheme({ local: storedTheme(), server: null, system: systemTheme() }),
     loaded: false,
+    httpsUrl: null,
     error: null
   }),
   actions: {
@@ -17,6 +18,7 @@ export const useStatusStore = defineStore('kaskadeStatus', {
         const s = await api.get('/status')
         this.phase = s.phase
         this.running = s.running
+        this.httpsUrl = s.httpsUrl ?? null
         this.theme = resolveTheme({ local: storedTheme(), server: s.theme, system: systemTheme() })
         applyTheme(this.theme)
         this.error = null

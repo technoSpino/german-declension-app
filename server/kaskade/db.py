@@ -131,6 +131,12 @@ CREATE TABLE IF NOT EXISTS plan_done (
   block TEXT NOT NULL,
   PRIMARY KEY (local_date, block)
 );
+CREATE TABLE IF NOT EXISTS news_picks (
+  local_date TEXT NOT NULL,      -- the plan day the articles are for
+  feed TEXT NOT NULL,            -- tagesschau feed id (see materials.NEWS_FEEDS)
+  items TEXT NOT NULL,           -- JSON [{title, url, published}] — links only
+  PRIMARY KEY (local_date, feed)
+);
 """
 
 
@@ -156,6 +162,10 @@ MIGRATIONS = [
     "ALTER TABLE mined ADD COLUMN audio TEXT",
     # clip conversion to H.264/AAC MP4: NULL/ready | converting | original (conversion failed, original kept)
     "ALTER TABLE media ADD COLUMN status TEXT",
+    # plan stock (#16): stable key from data/plan/stock.json, genre tag, duration for clips without cues
+    "ALTER TABLE media ADD COLUMN key TEXT",
+    "ALTER TABLE media ADD COLUMN tag TEXT",
+    "ALTER TABLE media ADD COLUMN duration REAL",
 ]
 
 

@@ -10,7 +10,9 @@ Caddy, Tailscale serve on port 80) belong to another project — don't touch the
 |---|---|---|
 | `kaskade-api` | FastAPI + SQLite (`server/`) | 127.0.0.1:8000 (local only) |
 | `kaskade-web` | built Vue app via `vite preview`, proxies `/api` | 100.64.43.3:5173 (tailnet only) |
+| Tailscale serve (set up by Matt, not by us) | HTTPS in front of `kaskade-web` — **use this address**; the microphone only works over HTTPS | https://cos.tail1b5741.ts.net:8443 (tailnet only) |
 | `kaskade-backup.timer` | daily backup at 12:00 UTC | — |
+| `kaskade-stock.timer` | daily 04:30 UTC: fetch due plan media (`data/plan/stock.json`), pick the day's tagesschau links, Materialcheck → `~/kaskade-data/materialcheck.json` | — |
 
 ```bash
 systemctl --user status kaskade-api kaskade-web
@@ -33,7 +35,8 @@ Tailscale IP 100.64.43.3.
 | Path | What | Backed up? |
 |---|---|---|
 | `kaskade.db` | all progress: cards/FSRS, tests, placement, timers, immersion, settings | yes |
-| `media/` | Satz-Check clips | yes |
+| `media/` | clips: your uploads (`upload-*`, backed up) and plan stock fetched by Kaskade (`stock-*`, `mt-*`: Mediathek/podcast, **not** backed up — `scripts/stock.py` fetches them again) | uploads only |
+| `materialcheck.json` | result of the daily Materialcheck (gaps in the next 7 days, link status) | no (regenerated) |
 | `recordings/` | Sprechen recordings | yes |
 | `snippets/` | audio of lines mined in Schauen & minen | yes |
 | `tts/` | Piper voice + generated audio | no (regenerate) |
@@ -100,4 +103,6 @@ before major upgrades.
 | No glosses in the reader | `ls ~/kaskade-data/dict/de-en.json` |
 | YouTube download fails | YouTube blocks datacenter IPs: upload a `cookies.txt` (Satz-Check → Von YouTube holen) or download on the Mac with the one-liner shown there and upload. ARD/ZDF Mediathek works directly |
 | Big upload stalls | uploads go up in 8 MB pieces (the web server ends requests after 5 min); unfinished pieces sit in `~/kaskade-data/media/.partial/` and are deleted after 24 h |
+| Heute shows "→ zu tun" for a clip | it's missing from the library: `cd ~/kaskade/server && .venv/bin/python scripts/stock.py` (or `--only KEY`); a Mediathek item that is not released yet (e.g. a Tatort before its first broadcast) has `fetchOn` in `stock.json` |
+| Recording doesn't start | over http the browser blocks the microphone: open https://cos.tail1b5741.ts.net:8443 |
 | Writing not graded | no `ANTHROPIC_API_KEY` in `~/kaskade-data/.env` (optional) |

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { clipStatus, formatTime, jobLabel, inside, isNonSpeech, lineAt, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
+import { clipStatus, clock, formatTime, jobLabel, inside, isNonSpeech, lineAt, rangeStart, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
 
 const CUES = [
   { start: 1, end: 2.5, text: 'Wo waren Sie gestern Abend?' },
@@ -76,5 +76,22 @@ describe('Mediathek job progress', () => {
     expect(jobLabel({ status: 'running', phase: 'convert', downloaded: 1 })).toMatch(/vorbereitet/)
     expect(jobLabel({ status: 'error', message: 'Geo-Sperre' })).toBe('Geo-Sperre')
     expect(jobLabel({ status: 'done' })).toBe('Fertig.')
+  })
+})
+
+describe('plan ranges (#16)', () => {
+  it('formats range times as minutes past an hour', () => {
+    expect(clock(1814)).toBe('30:14')
+    expect(clock(5361)).toBe('89:21')
+    expect(clock(0)).toBe('0:00')
+  })
+
+  it('starts at the range, resumes inside it, catches up when behind', () => {
+    expect(rangeStart(1814, 3640, 1812)).toMatchObject({ at: 1814, reached: false, note: 'Heute: 30:14–60:40.' })
+    expect(rangeStart(1814, 3640, 0)).toMatchObject({ at: 1814 })
+    expect(rangeStart(1814, 3640, 1200)).toMatchObject({ at: 1200, note: 'Ab deiner Position (20:00) bis 60:40.' })
+    expect(rangeStart(1814, 3640, 2400)).toMatchObject({ at: 2400, note: 'Weiter ab 40:00 bis 60:40.' })
+    expect(rangeStart(0, 1814, 1812)).toMatchObject({ reached: true })
+    expect(rangeStart(2, 4, 0)).toMatchObject({ at: 2, reached: false }) // a short range: not "reached" before it starts
   })
 })

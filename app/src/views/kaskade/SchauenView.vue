@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../../lib/api'
-import { clipStatus, formatTime, inside, lineAt, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
+import { clipStatus, clock, formatTime, inside, lineAt, rangeStart, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
 import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
 import WordPanel from '../../components/kaskade/WordPanel.vue'
 
@@ -22,6 +22,10 @@ const rate = ref(1)
 const analysis = ref(null)
 const token = ref(null)
 const mined = ref(0)
+const range = ref(null) // today's plan range from Heute (?von=…&bis=…, #16)
+const rangeNote = ref('')
+const goal = ref(false) // "Ziel für heute erreicht" shown
+const tags = ref([])
 const LEAD = 0.15
 let pausedFor = null
 let touched = false // only save a position once the clip was actually played or moved
@@ -57,12 +61,26 @@ async function load() {
   try {
     if (!route.params.id) {
       clips.value = (await api.get('/media')).filter((c) => c.hasMedia)
+      if (!tags.value.length) tags.value = await api.get('/media/tags').catch(() => [])
       return
     }
     media.value = await api.get(`/media/${route.params.id}`)
-    // ?t=… jumps to a line (e.g. from the Satz-Check result), ?loop=1 repeats it
+    // ?t=… jumps to a line (e.g. from the Satz-Check result), ?loop=1 repeats it,
+    // ?von=…&bis=… is today's plan range: start there (or at his position if he is behind).
     const at = Number(route.query.t)
-    t.value = Number.isFinite(at) && at > 0 ? at : resumeAt(media.value.position, media.value.duration)
+    const von = Number(route.query.von)
+    const bis = Number(route.query.bis)
+    goal.value = false
+    if (Number.isFinite(von) && Number.isFinite(bis) && bis > von) {
+      const r = rangeStart(von, bis, media.value.position)
+      range.value = { from: von, to: bis }
+      rangeNote.value = r.note
+      goal.value = r.reached
+      t.value = r.at
+    } else {
+      range.value = null
+      t.value = Number.isFinite(at) && at > 0 ? at : resumeAt(media.value.position, media.value.duration)
+    }
     loop.value = route.query.loop === '1'
   } catch (e) {
     error.value = e.message
@@ -109,6 +127,10 @@ function tick() {
       pausedFor = i
       v.pause()
     }
+  }
+  if (range.value && !goal.value && v.currentTime >= range.value.to) {
+    goal.value = true // today's part is done: stop once, he may watch on
+    v.pause()
   }
   if (Date.now() - lastSaved > 10000) saveProgress()
   raf = requestAnimationFrame(tick)
@@ -228,6 +250,15 @@ onBeforeUnmount(() => {
   saveProgress()
 })
 
+async function setTag(c, tag) {
+  try {
+    const row = await api.patch(`/media/${c.id}`, { tag })
+    c.tag = row.tag
+  } catch (e) {
+    error.value = e.message
+  }
+}
+
 const extra = computed(() => (line.value ? { mediaId: media.value.id, start: line.value.start, end: line.value.end } : null))
 const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60))
 </script>
@@ -250,7 +281,13 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
           <li v-for="c in clips ?? []" :key="c.id" class="sw-clip">
             <div class="min-w-0">
               <p class="m-0" style="font-weight: 700">{{ c.title }}</p>
-              <p class="k-hint m-0">{{ formatTime(c.duration) }} · {{ c.cueCount }} Zeilen<template v-if="c.position > 2"> · weiter ab {{ formatTime(c.position) }} (noch ≈ {{ minutesLeft(c) }} min)</template><template v-if="clipStatus(c)"> · {{ clipStatus(c) }}</template></p>
+              <p class="k-hint m-0">{{ formatTime(c.duration) }} · {{ c.isAudio ? 'nur Ton' : `${c.cueCount} Zeilen` }}<template v-if="c.source"> · {{ c.source }}</template><template v-if="c.position > 2"> · weiter ab {{ formatTime(c.position) }} (noch ≈ {{ minutesLeft(c) }} min)</template><template v-if="clipStatus(c)"> · {{ clipStatus(c) }}</template></p>
+              <label class="k-small inline-flex items-center gap-2 mt-1">Genre
+                <select class="sw-tag" :value="c.tag ?? ''" :data-testid="`tag-${c.id}`" @change="setTag(c, $event.target.value)">
+                  <option value="">—</option>
+                  <option v-for="g in tags" :key="g.id" :value="g.id">{{ g.label }}</option>
+                </select>
+              </label>
             </div>
             <router-link :to="`/schauen/${c.id}`" class="k-btn k-btn-sm" :data-testid="`watch-${c.id}`">{{ c.position > 2 ? 'Weiterschauen' : 'Schauen' }}</router-link>
           </li>
@@ -268,9 +305,15 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
         <router-link v-if="mined" to="/karten" class="k-chip k-chip-success" data-testid="watch-mined">✓ {{ mined }} {{ mined === 1 ? 'Satz' : 'Sätze' }} gemined → Karten</router-link>
       </div>
 
+      <p v-if="range && goal" class="k-callout m-0" role="status" data-testid="watch-goal">
+        <strong>Ziel für heute erreicht ✓</strong> (bis {{ clock(range.to) }}). Du kannst weiterschauen — oder auf Heute den Block mit „Fertig“ abschließen.
+      </p>
+      <p v-else-if="range" class="k-small m-0" data-testid="watch-range">{{ rangeNote }} Das Video hält am Ende des Teils einmal an.</p>
+
       <div class="sw-grid">
         <div class="flex flex-col gap-3 min-w-0">
-          <div class="sw-stage">
+          <div :class="['sw-stage', { 'sw-stage-audio': media.isAudio }]">
+            <p v-if="media.isAudio" class="sw-audio-label" aria-hidden="true">♪ Nur Ton · {{ media.title }}</p>
             <video
               ref="video"
               class="sw-video"
@@ -292,6 +335,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
               <p v-else class="k-read sw-text m-0">{{ line.text }}</p>
               <p class="k-hint m-0 mt-2">{{ formatTime(line.start) }} · Zeile {{ index + 1 }} von {{ cues.length }}{{ speaking ? '' : ' · Wort antippen zum Nachschlagen' }}</p>
             </template>
+            <p v-else-if="!cues.length" class="k-small m-0">Nur Ton, ohne Untertitel: einfach zuhören, nicht pausieren, nichts nachschlagen.</p>
             <p v-else class="k-small m-0">Drück Play — die Untertitel erscheinen hier, Zeile für Zeile.</p>
           </div>
 
@@ -307,7 +351,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
               <button v-for="r in [1, 0.85]" :key="r" :class="['k-btn k-btn-sm sw-rate', { 'k-btn-ghost': rate !== r }]" :aria-pressed="rate === r" @click="setRate(r)">{{ r === 1 ? '1×' : '0,85×' }}</button>
             </span>
           </div>
-          <p class="k-hint m-0">Tasten: Leertaste Play/Pause · ← → Zeile zurück/vor · R Zeile wiederholen · L Schleife · {{ formatTime(t) }} / {{ formatTime(media.duration) }}</p>
+          <p class="k-hint m-0">Tasten: Leertaste Play/Pause · ← → Zeile zurück/vor · R Zeile wiederholen · L Schleife · <span data-testid="watch-clock">{{ range ? `${clock(t)} / Ziel ${clock(range.to)}` : `${formatTime(t)} / ${formatTime(media.duration)}` }}</span></p>
         </div>
 
         <div class="flex flex-col gap-4 min-w-0">
@@ -348,6 +392,10 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
 .sw-grid { display: grid; gap: 24px; }
 @media (min-width: 980px) { .sw-grid { grid-template-columns: minmax(0, 1fr) 340px; align-items: start; } }
 .sw-stage { background: var(--stage-bg); border-radius: var(--radius-lg); overflow: hidden; }
+.sw-stage-audio { position: relative; }
+.sw-stage-audio .sw-video { aspect-ratio: auto; height: 120px; }
+.sw-audio-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0 16px; color: var(--stage-text); font-weight: 700; text-align: center; pointer-events: none; }
+.sw-tag { min-height: 32px; border: var(--border-width) solid var(--border-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); font: inherit; font-size: 14px; padding: 0 6px; }
 .sw-video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 62vh; object-fit: contain; background: var(--stage-bg); }
 .sw-line { min-height: 96px; }
 .sw-text { font-size: clamp(20px, 2.6vw, 26px); line-height: 1.6; }

@@ -6,7 +6,7 @@ from typing import Literal
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from .. import config, db, plan, srs, texts
+from .. import config, db, materials, plan, srs, stock, texts
 from .media import last_clip
 from .satzcheck import mineable_lines, run_result
 from .texts import read_ids
@@ -61,6 +61,9 @@ def today():
             nxt += timedelta(days=1)
         info["preview"] = plan.plan_day(plan_start(d), nxt, data)
     info["todos"] = [t for t in info["todos"] if not _todo_done(t)]
+    # #16: the exact thing each block of the shown day (today, else the preview day) is about
+    shown = info if info["day"] else info["preview"]
+    assignments = {it["block"]: it for it in materials.day_items(shown, materials.Ctx(d, now), data, plan_start(d))}
     days = plan.week_days(d)
     with db.tx() as conn:
         week_rows = _activity_rows(conn, days[0])
@@ -105,7 +108,64 @@ def today():
         "texts": {slot: texts.next_unread(slot, set(read_ids())) for slot in ("input", "lesen")},
         "mineable": sum(1 for line in mineable_lines() if not line["mined"]),
         "watch": last_clip(),
+        "assignments": assignments,
+        "httpsUrl": config.HTTPS_URL,
     }
+
+
+PHASES = {"1", "2A", "2B"}
+
+
+def _group(info: dict, kind: str, ctx, data: dict, start: date) -> dict:
+    return {"date": info["date"], "weekday": info["weekday"], "week": info["week"], "kind": kind,
+            "planDay": bool(info["day"]), "items": materials.day_items(info, ctx, data, start)}
+
+
+@router.get("/materials")
+def get_materials(today: dt.date | None = None, phase: str | None = None):
+    """Material für heute und morgen (#16). `today`/`phase` preview another day or plan (and drive the E2E)."""
+    if phase is not None and phase not in PHASES:
+        raise HTTPException(422, "Unbekannte Phase")
+    d = today or _today()
+    data = plan.plan(phase or db.get_setting("phase"))
+    start = plan_start(_today())
+    ctx = materials.Ctx(d)
+    nxt, kind = materials.next_plan_day(start, d, data)
+    check = materials.read_check()
+    return {
+        "today": _group(plan.plan_day(start, d, data), "today", ctx, data, start),
+        "next": _group(plan.plan_day(start, nxt, data), kind, ctx, data, start),
+        "notices": materials.notices(start, d, data, ctx),
+        "httpsUrl": config.HTTPS_URL,
+        "check": {"checkedAt": check.get("checkedAt"), "gaps": check.get("gaps", [])},
+    }
+
+
+class TickIn(BaseModel):
+    done: bool = True
+
+
+def _tick(setting: str, item_id: str, done: bool) -> list[str]:
+    have = set(db.get_setting(setting, []))
+    have = have | {item_id} if done else have - {item_id}
+    db.set_setting(setting, sorted(have))
+    return sorted(have)
+
+
+@router.post("/books/{book_id}/bought")
+def book_bought(book_id: str, body: TickIn):
+    if not stock.book(book_id):
+        raise HTTPException(404, "Unbekanntes Buch")
+    _tick("booksBought", book_id, body.done)
+    return {"id": book_id, "bought": body.done}
+
+
+@router.post("/setup/{setup_id}")
+def setup_done(setup_id: str, body: TickIn):
+    if setup_id not in {s["id"] for s in stock.catalog().get("setup", [])}:
+        raise HTTPException(404, "Unbekannte Einrichtung")
+    _tick("setupDone", setup_id, body.done)
+    return {"id": setup_id, "done": body.done}
 
 
 @router.get("/fahrplan")
@@ -125,6 +185,8 @@ def fahrplan():
     recent = sum(v["aktiv"] + v["passiv"] for day, v in by_day.items() if day >= since) / 3600
     measured = recent / 4 if recent >= 2 else None
     last_check = checks[0]["created_at"][:10] if checks else None
+    data = plan.plan(db.get_setting("phase"))
+    notices = materials.notices(plan_start(d), d, data, materials.Ctx(d, now))
     return {
         "hours": hours,
         "target": plan.HOURS_TO_B2,
@@ -143,7 +205,9 @@ def fahrplan():
         "nextCheck": (date.fromisoformat(last_check) + timedelta(days=28)).isoformat() if last_check else None,
         "weeks": plan.weekly_hours(by_day, d),
         "upcoming": [{**u, "done": u["id"] != "mock-exam" and _todo_done(u)}
-                     for u in plan.upcoming(plan_start(d), plan.plan(db.get_setting("phase")))],
+                     for u in plan.upcoming(plan_start(d), data)],
+        # books to buy and setup to do ahead of their first plan day (#16)
+        "notices": notices,
     }
 
 

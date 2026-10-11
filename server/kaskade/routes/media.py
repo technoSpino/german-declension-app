@@ -11,7 +11,7 @@ from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, Reque
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from .. import config, db, mediathek, satzcheck, transcode
+from .. import config, db, mediathek, satzcheck, stock, transcode
 
 router = APIRouter(prefix="/api/media")
 
@@ -33,9 +33,11 @@ def _row(r, with_cues=False, progress: dict | None = None) -> dict:
         "id": r["id"], "createdAt": r["created_at"], "kind": r["kind"], "title": r["title"],
         "sourceUrl": r["source_url"], "hasMedia": bool(r["media_file"]),
         "isAudio": bool(r["media_file"]) and Path(r["media_file"]).suffix in {".mp3", ".m4a", ".ogg", ".oga", ".wav", ".opus", ".aac"},
-        "cueCount": len(cues), "duration": cues[-1]["end"] if cues else 0,
+        "cueCount": len(cues), "duration": cues[-1]["end"] if cues else (r["duration"] or 0),
         "position": p.get("position", 0), "watchedAt": p.get("watchedAt"),
         "status": r["status"] or "ready",
+        # plan stock (#16): catalog key, genre tag, where it comes from
+        "key": r["key"], "tag": r["tag"] or None, "source": (stock.item(r["key"]) or {}).get("source") if r["key"] else None,
     }
     if with_cues:
         out["cues"] = cues
@@ -45,8 +47,9 @@ def _row(r, with_cues=False, progress: dict | None = None) -> dict:
 def _insert(kind, title, source_url, media_file, cues) -> int:
     with db.tx() as conn:
         cur = conn.execute(
-            "INSERT INTO media(created_at, kind, title, source_url, media_file, cues) VALUES (?, ?, ?, ?, ?, ?)",
-            (db.now_iso(), kind, title, source_url, media_file, json.dumps(cues, ensure_ascii=False)),
+            "INSERT INTO media(created_at, kind, title, source_url, media_file, cues, tag) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (db.now_iso(), kind, title, source_url, media_file, json.dumps(cues, ensure_ascii=False),
+             stock.guess_tag(title) or ""),
         )
         return cur.lastrowid
 
@@ -93,6 +96,26 @@ def save_progress(media_id: int, body: ProgressIn):
             " ON CONFLICT(media_id) DO UPDATE SET position = excluded.position, updated_at = excluded.updated_at",
             (media_id, round(body.position, 2), db.now_iso()))
     return {"id": media_id, "position": round(body.position, 2)}
+
+
+class TagIn(BaseModel):
+    tag: str = ""
+
+
+@router.patch("/{media_id}")
+def set_tag(media_id: int, body: TagIn):
+    """Genre of a clip (krimi, comedy …), editable in "Deine Clips"; "" = none."""
+    if body.tag and body.tag not in stock.TAGS:
+        raise HTTPException(422, "Unbekanntes Genre")
+    _get(media_id)
+    with db.tx() as conn:
+        conn.execute("UPDATE media SET tag = ? WHERE id = ?", (body.tag, media_id))
+    return _row(_get(media_id))
+
+
+@router.get("/tags")
+def tags():
+    return [{"id": k, "label": v} for k, v in stock.TAGS.items()]
 
 
 @router.get("/{media_id}")

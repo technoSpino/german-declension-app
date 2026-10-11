@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from . import config, db
+from . import config, db, stock
 from .routes import cards, feed, media, placement, practice, reader, satzcheck, texts, today, vocab
 
 
@@ -12,6 +12,8 @@ from .routes import cards, feed, media, placement, practice, reader, satzcheck, 
 async def lifespan(app: FastAPI):
     config.ensure_dirs()
     db.init()
+    stock.backfill_tags()
+    stock.link_existing()
     yield
 
 
@@ -38,6 +40,7 @@ def status():
         "name": db.get_setting("name", "Matt"),
         "running": {"block": running["block"], "startedAt": running["started_at"]} if running else None,
         "theme": db.get_setting("theme"),
+        "httpsUrl": config.HTTPS_URL,  # the microphone needs HTTPS (#17)
     }
 
 

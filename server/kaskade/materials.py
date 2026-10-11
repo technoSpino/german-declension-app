@@ -1,0 +1,412 @@
+"""Exact assignments for every block of a plan day, their status, and the daily Materialcheck (#16).
+
+A plan day lists one material per block (data/plan/*.json → day["materials"]); this module
+turns it into what Heute shows and what "Starten" opens: a library clip with a time range, a
+YouTube/Netflix link for Language Reactor, that day's tagesschau articles, a library text, a
+book part, an exam task. Status is "ready" or "todo" — "todo" only for real gaps.
+"""
+import json
+import logging
+import os
+import urllib.request
+import xml.etree.ElementTree as ET
+from datetime import date, datetime, time, timedelta, timezone
+from email.utils import parsedate_to_datetime
+
+from . import config, db, plan, srs, stock, texts
+
+log = logging.getLogger(__name__)
+
+NEWS_FEEDS = {
+    "top": ("tagesschau.de", "https://www.tagesschau.de/index~rss2.xml"),
+    "inland": ("tagesschau.de · Inland", "https://www.tagesschau.de/inland/index~rss2.xml"),
+    "wirtschaft": ("tagesschau.de · Wirtschaft", "https://www.tagesschau.de/wirtschaft/index~rss2.xml"),
+    "wissen": ("tagesschau.de · Wissen", "https://www.tagesschau.de/wissen/index~rss2.xml"),
+    "gesundheit": ("tagesschau.de · Gesundheit", "https://www.tagesschau.de/wissen/gesundheit/index~rss2.xml"),
+}
+NOT_ARTICLES = ("/multimedia/", "liveblog", "livestream", "/video/", "/audio/", "/podcast", "/sendung/")
+CHECK_FILE = "materialcheck.json"
+LR_NOTE = "in Chrome mit Language Reactor"
+
+
+# ── Small helpers ────────────────────────────────────────────────────────────
+
+def seconds(value) -> float | None:
+    """"30:14" → 1814, "1:00:40" → 3640, 95 → 95, None → None."""
+    if value is None or isinstance(value, (int, float)):
+        return value
+    parts = [int(p) for p in str(value).split(":")]
+    total = 0
+    for p in parts:
+        total = total * 60 + p
+    return total
+
+
+def clock(sec: float) -> str:
+    """Range times as minutes:seconds, also past an hour ("89:21"), like the plan texts."""
+    s = int(round(sec or 0))
+    return f"{s // 60}:{s % 60:02d}"
+
+
+def _minutes(a: float, b: float) -> int:
+    return max(1, round((b - a) / 60))
+
+
+# ── News: that day's articles, links only ────────────────────────────────────
+
+def pick_articles(feed_xml: bytes, count: int = 3) -> list[dict]:
+    """The newest real articles from a tagesschau RSS feed (no live blogs, videos, podcasts)."""
+    channel = ET.fromstring(feed_xml).find("channel")
+    out = []
+    for entry in channel.findall("item") if channel is not None else []:
+        url = (entry.findtext("link") or "").strip()
+        title = (entry.findtext("title") or "").strip()
+        if not url.startswith("https://www.tagesschau.de/") or any(x in url for x in NOT_ARTICLES) or not title:
+            continue
+        try:
+            published = parsedate_to_datetime(entry.findtext("pubDate") or "")
+        except (TypeError, ValueError):
+            published = None
+        out.append({"title": title, "url": url, "published": published.isoformat() if published else None})
+    out.sort(key=lambda a: a["published"] or "", reverse=True)
+    return out[:count]
+
+
+def offline() -> bool:
+    """KASKADE_OFFLINE=1 (E2E): no news fetching, no link checks."""
+    return os.environ.get("KASKADE_OFFLINE") == "1"
+
+
+def fetch_feed(url: str) -> bytes:
+    if offline():
+        raise OSError("offline")
+    with urllib.request.urlopen(urllib.request.Request(url, headers=stock.UA), timeout=10) as r:
+        return r.read()
+
+
+def news_for(day: date, feed: str, today: date, count: int = 3) -> list[dict] | None:
+    """The articles picked for `day` (fixed once picked). Picked on the day itself; None before."""
+    with db.tx() as conn:
+        row = conn.execute("SELECT items FROM news_picks WHERE local_date = ? AND feed = ?",
+                           (day.isoformat(), feed)).fetchone()
+    if row:
+        return json.loads(row["items"])
+    if day != today:
+        return None
+    try:
+        items = pick_articles(fetch_feed(NEWS_FEEDS[feed][1]), count)
+    except Exception as e:  # offline: Heute says so, the Materialcheck reports it
+        log.warning("news %s: %s", feed, e)
+        return []
+    if items:
+        with db.tx() as conn:
+            conn.execute("INSERT OR REPLACE INTO news_picks(local_date, feed, items) VALUES (?, ?, ?)",
+                         (day.isoformat(), feed, json.dumps(items, ensure_ascii=False)))
+    return items
+
+
+# ── Context ──────────────────────────────────────────────────────────────────
+
+class Ctx:
+    """Everything the item builders need, gathered once per request."""
+
+    def __init__(self, today: date, now: datetime | None = None):
+        self.today = today
+        self.now = now or srs.now_utc()
+        stock.link_existing()  # a clip uploaded under a catalog title counts as that item
+        self.lib = stock.by_key()
+        with db.tx() as conn:
+            self.positions = {r["media_id"]: r["position"] for r in conn.execute("SELECT media_id, position FROM media_progress")}
+            self.unseen = len(srs.deck()) + conn.execute("SELECT COUNT(*) FROM mined").fetchone()[0] - \
+                conn.execute("SELECT COUNT(*) FROM cards").fetchone()[0]
+        self.ai = config.anthropic_key() is not None
+        self.bought = set(db.get_setting("booksBought", []))
+        self.setup_done = set(db.get_setting("setupDone", []))
+        self.links = read_check().get("links", {})
+
+    def due_cards(self, day: date) -> int:
+        end = datetime.combine(day + timedelta(days=1), time(0), srs.TZ).astimezone(timezone.utc)
+        with db.tx() as conn:
+            return conn.execute("SELECT COUNT(*) FROM cards WHERE status = 'learning' AND due < ?",
+                                (end.isoformat(),)).fetchone()[0]
+
+    def new_cards(self, day: date) -> int:
+        if day == self.today:
+            with db.tx() as conn:
+                return srs.counts(conn, self.now)["new"]
+        return min(srs.new_per_day(), max(0, self.unseen))
+
+
+# ── Item builders, one per kind ──────────────────────────────────────────────
+
+def _base(block: str, kind: str, **kw) -> dict:
+    return {"block": block, "kind": kind, "title": "", "part": None, "minutes": None, "source": None,
+            "origin": "real", "detail": None, "status": "ready", "start": None, "links": [], "check": None, **kw}
+
+
+def _clip(m: dict, ctx: Ctx, day: date) -> dict:
+    it = stock.item(m["clip"]) or {"title": m["clip"], "source": None}
+    row = ctx.lib.get(m["clip"])
+    end = seconds(m.get("to")) or (row and row["duration"]) or it.get("duration") or 0
+    start = seconds(m.get("from")) or 0
+    out = _base(m["block"], "clip", title=it["title"], source=it.get("source"), audio=it.get("kind") in ("podcast", "audio"),
+                range=[start, end], part=f"{clock(start)}–{clock(end)}" if end else None,
+                minutes=_minutes(start, end) if end else None)
+    if not row or not row["media_file"]:
+        fetch_on = it.get("fetchOn")
+        out.update(status="todo", detail=f"wird am {fetch_on} geholt" if fetch_on and date.fromisoformat(fetch_on) > ctx.today
+                   else "fehlt noch in der Bibliothek — Kaskade holt es beim nächsten Abgleich")
+        return out
+    if not stock.playable(row):
+        out.update(status="todo", detail="wird gerade für alle Browser umgewandelt")
+        return out
+    pos = ctx.positions.get(row["id"], 0) or 0
+    out["mediaId"] = row["id"]
+    out["position"] = pos
+    if end and pos > start and pos >= end - 5:
+        out["detail"] = "in deiner Bibliothek · Ziel schon erreicht ✓"
+    elif 2 < pos < start - 5:
+        out["detail"] = f"in deiner Bibliothek · du bist bei {clock(pos)}: ab deiner Position bis {clock(end)}"
+    elif start + 5 < pos:
+        out["detail"] = f"in deiner Bibliothek · weiter ab {clock(pos)}"
+    else:
+        out["detail"] = "in deiner Bibliothek"
+    out["start"] = {"to": f"/schauen/{row['id']}?von={int(start)}&bis={int(end)}"}
+    return out
+
+
+def _satzcheck(m: dict, ctx: Ctx, day: date) -> dict:
+    out = _clip({**m, "kind": "clip"}, ctx, day)
+    start = seconds(m.get("from")) or 0
+    out.update(kind="satzcheck", part=f"Satz-Check {clock(start)}–{clock(start + 180)}, danach Schauen bis {clock(out['range'][1])}")
+    if out.get("mediaId"):
+        out["start"] = {"to": f"/satz-check?clip={out['mediaId']}&ab={int(start)}"}
+    return out
+
+
+def _external(m: dict, ctx: Ctx, kind: str) -> dict:
+    it = stock.item(m["clip"]) or {}
+    start, end = seconds(m.get("from")) or 0, seconds(m.get("to")) or it.get("duration") or 0
+    href = f"https://www.youtube.com/watch?v={it['video']}&t={int(start)}s" if kind == "youtube" else it.get("url")
+    part = f"{clock(start)}–{clock(end)}" if end else None
+    if kind == "netflix" and m.get("episode"):
+        part = f"{m['episode']}" + (f", {clock(start)}–{clock(end)}" if end else "")
+    out = _base(m["block"], kind, title=it.get("title", m["clip"]), source=it.get("source"), part=part,
+                minutes=_minutes(start, end) if end else None, start={"href": href, "note": LR_NOTE},
+                detail=f"öffnet {'YouTube' if kind == 'youtube' else 'Netflix'} in einem neuen Tab — {LR_NOTE}")
+    if ctx.links.get(href) is False:
+        out.update(status="todo", detail="Link antwortet gerade nicht — Kaskade sucht Ersatz")
+    return out
+
+
+def _news(m: dict, ctx: Ctx, day: date) -> dict:
+    name = NEWS_FEEDS[m["feed"]][0]
+    count = m.get("count", 3)
+    out = _base(m["block"], "news", title=f"{name}: die {count} neuesten Artikel", source=name, minutes=m.get("minutes"))
+    items = news_for(day, m["feed"], ctx.today, count)
+    if items:
+        out.update(links=items, detail=f"ausgewählt für {day.day}.{day.month}.{day.year}")
+    elif items is None:
+        out["detail"] = "Die drei Links stehen am Morgen hier (neueste Meldungen des Tages)."
+    else:
+        out.update(status="todo", detail="tagesschau.de antwortet gerade nicht — später neu laden")
+    return out
+
+
+def _text(m: dict, ctx: Ctx) -> dict:
+    t = texts.get(m["text"])
+    words = len(t["text"].split()) if t else 0
+    free = m["block"] == "lesen"  # the free-reading block: no help; the input block reads interactively
+    return _base(m["block"], "text", title=t["title"] if t else m["text"], origin=(t or {}).get("origin", "ai"),
+                 source="Kaskade-Bibliothek", part=f"{t['level']} · {words} Wörter" if t else None,
+                 minutes=max(5, round(words / 110)) if t else None,
+                 start={"to": f"/lesen/{m['text']}" + ("?modus=frei" if free else "")},
+                 detail="frei lesen: ohne Wörterbuch, ohne Hilfen" if free else "interaktiv: Wörter antippen, Sätze minen")
+
+
+def _book(m: dict, ctx: Ctx, first_day: date | None) -> dict:
+    b = stock.book(m["book"]) or {"id": m["book"], "author": "", "title": m["book"], "format": "paper"}
+    out = _base(m["block"], "book", title=f"{b['author']}: {b['title']}".strip(": "), part=m.get("part"),
+                minutes=m.get("minutes", 35), source=f"{b['author']} · {b['title']}".strip(" ·"), bookId=b["id"])
+    if b["id"] not in ctx.bought:
+        buy_by = stock.notice(first_day, b.get("format", "paper")) if first_day else None
+        out.update(status="todo", detail=f"Kaufen bis {buy_by.day}.{buy_by.month}." if buy_by else "noch nicht gekauft")
+    else:
+        out["detail"] = "gekauft ✓"
+    return out
+
+
+def _exam(prompt: dict, ctx: Ctx) -> dict:
+    out = _base("pruefung", "exam", title=prompt["title"], part=prompt["type"], minutes=prompt.get("minutes"),
+                origin=prompt.get("origin", "ai"), source="Kaskade", skill=prompt["skill"],
+                start={"to": f"/aufgabe/{prompt['id']}"})
+    if prompt["skill"] == "sprechen":
+        out.update(detail="Mikrofon / Headset", check="secure")
+    else:
+        out["detail"] = f"≈ {prompt.get('minutes', 20)} min, Tastatur" + ("" if ctx.ai else " · nur Selbstcheck, keine KI-Bewertung")
+    return out
+
+
+def _practice(m: dict, ctx: Ctx) -> dict:
+    from . import practice
+    module = "hoeren" if m["practice"].startswith("h") else "lesen"
+    item = practice.get(module, m["practice"])
+    label = {"lesen": "Prüfungstraining Lesen", "hoeren": "Prüfungstraining Hören"}.get(module, "Prüfungstraining")
+    return _base("pruefung", "practice", title=item["title"] if item else m["practice"], part=label,
+                 minutes=(item or {}).get("minutes"), origin=(item or {}).get("origin", "ai"), source="Kaskade",
+                 start={"to": f"/pruefung/{module}/{m['practice']}"} if item else None,
+                 detail="mit Zeit, wie in der Prüfung" + (" · Kopfhörer" if module == "hoeren" else ""))
+
+
+def _mock(info: dict) -> dict:
+    return _base("pruefung", "mock", title=info["mockExam"]["title"], detail="Mikrofon / Headset und Tastatur",
+                 origin="ai", source="Kaskade", check="secure")
+
+
+def _cards(ctx: Ctx, day: date) -> dict:
+    due, new = ctx.due_cards(day), ctx.new_cards(day)
+    return _base("karten", "cards", title="Fällige Karten und geminte Sätze", part=f"{due} fällig + {new} neu",
+                 origin=None, start={"to": "/karten"}, detail="in Kaskade" if day == ctx.today else "Stand heute")
+
+
+BUILDERS = {"clip": _clip, "satzcheck": _satzcheck}
+
+
+def first_days(start: date, data: dict) -> dict[str, date]:
+    """The first plan date each book is read on (for "Kaufen bis")."""
+    out: dict[str, date] = {}
+    for wi, w in enumerate(data["weeks"]):
+        for di, d in enumerate(w["days"]):
+            for m in d.get("materials", []):
+                if m["kind"] == "book":
+                    when = start + timedelta(weeks=wi, days=di)
+                    out[m["book"]] = min(out.get(m["book"], when), when)
+    return out
+
+
+def day_items(info: dict, ctx: Ctx, data: dict, start: date) -> list[dict]:
+    """One exact item per block of the plan day in `info` (empty on days without a block)."""
+    d = info.get("day")
+    if not d:
+        return []
+    day = date.fromisoformat(info["date"])
+    books = first_days(start, data)
+    by_block = {m["block"]: m for m in d.get("materials", [])}
+    out = []
+    for b in data["block"]:
+        if b["kind"] == "pause":
+            continue
+        m = by_block.get(b["id"])
+        if b["kind"] == "karten":
+            item = _cards(ctx, day)
+        elif b["kind"] == "pruefung":
+            item = _mock(info) if info.get("mockExam") else _exam(info["exam"], ctx) if info.get("exam") else \
+                _practice(m, ctx) if m else _base("pruefung", "none", title="Kein Prüfungsteil", origin=None)
+        elif not m:
+            item = _base(b["id"], "none", title="Noch nichts eingeplant", status="todo", origin=None)
+        elif m["kind"] in BUILDERS:
+            item = BUILDERS[m["kind"]](m, ctx, day)
+        elif m["kind"] in ("youtube", "netflix"):
+            item = _external(m, ctx, m["kind"])
+        elif m["kind"] == "news":
+            item = _news(m, ctx, day)
+        elif m["kind"] == "text":
+            item = _text(m, ctx)
+        elif m["kind"] == "book":
+            item = _book(m, ctx, books.get(m["book"]))
+        else:
+            item = _base(b["id"], m["kind"], title=m.get("title", ""), origin=None)
+        item["block"] = b["id"]
+        out.append(item)
+    return out
+
+
+def next_plan_day(start: date, today: date, data: dict) -> tuple[date, str]:
+    """Tomorrow if it has a block, else the next day that does ("next")."""
+    d = today + timedelta(days=1)
+    for _ in range(60):
+        if plan.plan_day(start, d, data)["day"]:
+            return d, "tomorrow" if d == today + timedelta(days=1) else "next"
+        d += timedelta(days=1)
+    return d, "next"
+
+
+def notices(start: date, today: date, data: dict, ctx: Ctx) -> list[dict]:
+    """Things Matt must do ahead: buy a book ("Kaufen bis"), install Language Reactor."""
+    out = []
+    for book_id, first in sorted(first_days(start, data).items(), key=lambda kv: kv[1]):
+        b = stock.book(book_id)
+        if not b or book_id in ctx.bought or first < today:
+            continue
+        out.append({"type": "book", "id": book_id, "by": stock.notice(first, b.get("format", "paper")).isoformat(),
+                    "firstDay": first.isoformat(), "title": f"{b['author']}: {b['title']}", "book": b})
+    kinds_used: dict[str, date] = {}
+    for wi, w in enumerate(data["weeks"]):
+        for di, d in enumerate(w["days"]):
+            for m in d.get("materials", []):
+                when = start + timedelta(weeks=wi, days=di)
+                if when >= today:
+                    kinds_used[m["kind"]] = min(kinds_used.get(m["kind"], when), when)
+    for s in stock.catalog().get("setup", []):
+        kinds = [k for k in ([s["forKind"]] if isinstance(s["forKind"], str) else s["forKind"]) if k in kinds_used]
+        if s["id"] in ctx.setup_done or not kinds:
+            continue
+        first = min(kinds_used[k] for k in kinds)
+        out.append({"type": "setup", "id": s["id"], "by": (first - timedelta(days=s.get("noticeDays", 2))).isoformat(),
+                    "firstDay": first.isoformat(), "title": s["title"], "text": s.get("text"), "url": s.get("url")})
+    return sorted(out, key=lambda n: n["by"])
+
+
+# ── Materialcheck ────────────────────────────────────────────────────────────
+
+def read_check() -> dict:
+    p = config.DATA_DIR / CHECK_FILE
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def link_ok(url: str) -> bool:
+    if offline():
+        return True
+    try:
+        req = urllib.request.Request(url, headers={**stock.UA, "User-Agent": "Mozilla/5.0 Firefox/131.0"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            return r.status < 400
+    except Exception:
+        return False
+
+
+def check(today: date, start: date, data: dict, days: int = 7, links: bool = True) -> dict:
+    """Every item of the next `days` plan days: in the library and playable, links answering."""
+    ctx = Ctx(today)
+    if links:
+        ctx.links = {}
+    gaps, urls = [], {}
+    for i in range(days):
+        day = today + timedelta(days=i)
+        info = plan.plan_day(start, day, data)
+        for it in day_items(info, ctx, data, start):
+            href = (it.get("start") or {}).get("href")
+            if links and href and href not in urls:
+                urls[href] = link_ok(href)
+                if not urls[href]:
+                    it.update(status="todo", detail="Link antwortet nicht")
+            if it["status"] == "todo" and it["kind"] != "book":
+                gaps.append({"date": day.isoformat(), "block": it["block"], "title": it["title"], "problem": it["detail"]})
+    for feed in {m["feed"] for w in data["weeks"] for d in w["days"] for m in d.get("materials", []) if m["kind"] == "news"}:
+        url = NEWS_FEEDS[feed][1]
+        if links and url not in urls:
+            urls[url] = link_ok(url)
+            if not urls[url]:
+                gaps.append({"date": today.isoformat(), "block": "lesen", "title": NEWS_FEEDS[feed][0], "problem": "Feed antwortet nicht"})
+    return {"checkedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"), "days": days, "gaps": gaps, "links": urls}
+
+
+def write_check(today: date) -> dict:
+    from .routes.today import plan_start
+    data = plan.plan(db.get_setting("phase"))
+    result = check(today, plan_start(today), data)
+    (config.DATA_DIR / CHECK_FILE).write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    return {"gaps": result["gaps"], "checkedAt": result["checkedAt"]}

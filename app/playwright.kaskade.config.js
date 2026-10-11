@@ -23,7 +23,7 @@ export default defineConfig({
     {
       // Server clock pinned to Tuesday of plan week 1, 09:30 Berlin. No H.264 conversion:
       // Playwright's Chromium can't play H.264, so test clips stay WebM.
-      command: `rm -rf ${DATA} && KASKADE_TRANSCODE=0 KASKADE_NOW=2026-10-13T07:30:00+00:00 KASKADE_DATA_DIR=$PWD/${DATA} ../server/.venv/bin/uvicorn kaskade.main:app --app-dir ../server --host 127.0.0.1 --port 8001`,
+      command: `rm -rf ${DATA} && KASKADE_OFFLINE=1 KASKADE_TRANSCODE=0 KASKADE_NOW=2026-10-13T07:30:00+00:00 KASKADE_DATA_DIR=$PWD/${DATA} ../server/.venv/bin/uvicorn kaskade.main:app --app-dir ../server --host 127.0.0.1 --port 8001`,
       url: 'http://127.0.0.1:8001/api/health',
       reuseExistingServer: false
     },

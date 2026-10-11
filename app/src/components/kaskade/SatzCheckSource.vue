@@ -1,5 +1,6 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { api } from '../../lib/api'
 import { cuesInWindow } from '../../lib/satzcheck'
 import { clipStatus, jobLabel } from '../../lib/watch'
@@ -34,7 +35,22 @@ async function loadLibrary() {
     error.value = e.message
   }
 }
-onMounted(loadLibrary)
+const route = useRoute()
+onMounted(async () => {
+  await loadLibrary()
+  // From Heute (#16): /satz-check?clip=ID&ab=SECONDS opens step 2 with that clip and window.
+  const clip = Number(route.query.clip)
+  if (clip) {
+    await choose(clip)
+    windowStart.value = Math.max(0, Math.min(Number(route.query.ab) || 0, maxStart.value))
+  }
+  // "→ zu tun" links: #mediathek / #youtube open that section.
+  const section = route.hash && document.getElementById(route.hash.slice(1))
+  if (section) {
+    section.open = true
+    section.scrollIntoView?.({ block: 'start' })
+  }
+})
 
 async function choose(id) {
   error.value = null
@@ -221,7 +237,7 @@ function start() {
         </div>
       </details>
 
-      <details class="flex flex-col gap-3" data-testid="mediathek">
+      <details id="mediathek" class="flex flex-col gap-3" data-testid="mediathek">
         <summary class="k-btn k-btn-ghost k-btn-sm" style="width: fit-content">Aus der Mediathek holen</summary>
         <div class="flex flex-col gap-3 mt-3">
           <p class="k-hint m-0">Link zu einer Sendung in der ARD- oder ZDF-Mediathek mit Untertiteln („UT“), z. B. ein Tatort. Lädt das Video in 540p (gut 150 MB pro Stunde) und die deutschen Untertitel.</p>
@@ -234,7 +250,7 @@ function start() {
         </div>
       </details>
 
-      <details class="flex flex-col gap-3">
+      <details id="youtube" class="flex flex-col gap-3">
         <summary class="k-btn k-btn-ghost k-btn-sm" style="width: fit-content">Von YouTube holen</summary>
         <div class="flex flex-col gap-3 mt-3">
           <p class="k-hint m-0">YouTube lässt Server ohne Anmeldung meist nicht laden („Sign in to confirm you're not a bot“). Zwei Wege, die funktionieren:</p>
