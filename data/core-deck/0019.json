@@ -12,7 +12,8 @@
   "en": "Thousands of people demonstrated at the weekend.",
   "note": "die Zahl klein: tausend Euro",
   "case": null,
-  "order": 2075
+  "order": 2075,
+  "origin": "ai"
  },
  {
   "id": "core:r02076",
@@ -27,7 +28,8 @@
   "en": "Nowadays almost everyone pays with their phone.",
   "note": null,
   "case": null,
-  "order": 2076
+  "order": 2076,
+  "origin": "ai"
  },
  {
   "id": "core:r02078",
@@ -42,7 +44,8 @@
   "en": "The table is made of real wood.",
   "note": null,
   "case": null,
-  "order": 2078
+  "order": 2078,
+  "origin": "ai"
  },
  {
   "id": "core:r02079",
@@ -57,7 +60,8 @@
   "en": "You need fingerprints for the new passport.",
   "note": null,
   "case": null,
-  "order": 2079
+  "order": 2079,
+  "origin": "ai"
  },
  {
   "id": "core:r02080",
@@ -72,7 +76,8 @@
   "en": "The emperor used to live in this palace.",
   "note": null,
   "case": null,
-  "order": 2080
+  "order": 2080,
+  "origin": "ai"
  },
  {
   "id": "core:r02081",
@@ -87,7 +92,8 @@
   "en": "The rain ruined our barbecue.",
   "note": "umgangssprachlich; = verderben",
   "case": null,
-  "order": 2081
+  "order": 2081,
+  "origin": "ai"
  },
  {
   "id": "core:r02082",
@@ -102,7 +108,8 @@
   "en": "In the fairy tale there's a curse on the castle.",
   "note": null,
   "case": null,
-  "order": 2082
+  "order": 2082,
+  "origin": "ai"
  },
  {
   "id": "core:r02084",
@@ -117,7 +124,8 @@
   "en": "After the divorce he moved into a small flat.",
   "note": null,
   "case": null,
-  "order": 2084
+  "order": 2084,
+  "origin": "ai"
  },
  {
   "id": "core:r02085",
@@ -132,7 +140,8 @@
   "en": "She ties her hair into a ponytail.",
   "note": null,
   "case": null,
-  "order": 2085
+  "order": 2085,
+  "origin": "ai"
  },
  {
   "id": "core:r02086",
@@ -147,7 +156,8 @@
   "en": "My husband has had a beard since the holiday.",
   "note": null,
   "case": null,
-  "order": 2086
+  "order": 2086,
+  "origin": "ai"
  },
  {
   "id": "core:r02087",
@@ -162,7 +172,8 @@
   "en": "I try to avoid sugar as much as possible.",
   "note": null,
   "case": null,
-  "order": 2087
+  "order": 2087,
+  "origin": "ai"
  },
  {
   "id": "core:r02088",
@@ -177,7 +188,8 @@
   "en": "Where's the loo here?",
   "note": "umgangssprachlich; = die Toilette",
   "case": null,
-  "order": 2088
+  "order": 2088,
+  "origin": "ai"
  },
  {
   "id": "core:r02090",
@@ -192,7 +204,8 @@
   "en": "The children were absolutely thrilled with the zoo.",
   "note": "begeistert von + Dativ",
   "case": "D",
-  "order": 2090
+  "order": 2090,
+  "origin": "ai"
  },
  {
   "id": "core:r02091",
@@ -207,7 +220,8 @@
   "en": "Turn around, your boss is standing behind you!",
   "note": "trennbar: sich umdrehen",
   "case": null,
-  "order": 2091
+  "order": 2091,
+  "origin": "ai"
  },
  {
   "id": "core:r02095",
@@ -222,7 +236,8 @@
   "en": "The Rhine flows through many cities.",
   "note": null,
   "case": null,
-  "order": 2095
+  "order": 2095,
+  "origin": "ai"
  },
  {
   "id": "core:r02096",
@@ -237,7 +252,8 @@
   "en": "Due to the strike, many trains are cancelled today.",
   "note": "aufgrund + Genitiv",
   "case": "G",
-  "order": 2096
+  "order": 2096,
+  "origin": "ai"
  },
  {
   "id": "core:r02097",
@@ -252,7 +268,8 @@
   "en": "At the moment I'm very stressed at work.",
   "note": null,
   "case": null,
-  "order": 2097
+  "order": 2097,
+  "origin": "ai"
  },
  {
   "id": "core:r02099",
@@ -267,7 +284,8 @@
   "en": "At the weekend I usually sleep in.",
   "note": null,
   "case": null,
-  "order": 2099
+  "order": 2099,
+  "origin": "ai"
  },
  {
   "id": "core:r02100",
@@ -282,7 +300,8 @@
   "en": "The new boss has a clear vision for the company.",
   "note": null,
   "case": null,
-  "order": 2100
+  "order": 2100,
+  "origin": "ai"
  },
  {
   "id": "core:r02101",
@@ -297,7 +316,8 @@
   "en": "Luckily the wound healed quickly.",
   "note": "Die Wunde heilt → ist geheilt. Der Arzt heilt den Patienten → hat geheilt.",
   "case": null,
-  "order": 2101
+  "order": 2101,
+  "origin": "ai"
  },
  {
   "id": "core:r02102",
@@ -312,7 +332,8 @@
   "en": "I'm hungry, my stomach is already rumbling.",
   "note": null,
   "case": null,
-  "order": 2102
+  "order": 2102,
+  "origin": "ai"
  },
  {
   "id": "core:r02103",
@@ -327,7 +348,8 @@
   "en": "As far as I know, the doctor's surgery is closed today.",
   "note": "Als Konjunktion zusammen: soviel ich weiß; aber: so viel Geld",
   "case": null,
-  "order": 2103
+  "order": 2103,
+  "origin": "ai"
  },
  {
   "id": "core:r02104",
@@ -342,7 +364,8 @@
   "en": "She works for an international company in Frankfurt.",
   "note": null,
   "case": null,
-  "order": 2104
+  "order": 2104,
+  "origin": "ai"
  },
  {
   "id": "core:r02105",
@@ -357,7 +380,8 @@
   "en": "The bus didn't come, so I walked instead.",
   "note": null,
   "case": null,
-  "order": 2105
+  "order": 2105,
+  "origin": "ai"
  },
  {
   "id": "core:r02108",
@@ -372,7 +396,8 @@
   "en": "All the colleagues chipped in for the present.",
   "note": "sich beteiligen an + Dativ",
   "case": "D",
-  "order": 2108
+  "order": 2108,
+  "origin": "ai"
  },
  {
   "id": "core:r02109",
@@ -387,7 +412,8 @@
   "en": "I'm just going to pop to the shops after work.",
   "note": "trennbar: Ich kaufe ein.",
   "case": null,
-  "order": 2109
+  "order": 2109,
+  "origin": "ai"
  },
  {
   "id": "core:r02110",
@@ -402,7 +428,8 @@
   "en": "The fire brigade rescued the injured from the car.",
   "note": "auch Adjektiv: sich geborgen fühlen = sich sicher fühlen",
   "case": null,
-  "order": 2110
+  "order": 2110,
+  "origin": "ai"
  },
  {
   "id": "core:r02111",
@@ -417,7 +444,8 @@
   "en": "There was a great atmosphere at the party.",
   "note": null,
   "case": null,
-  "order": 2111
+  "order": 2111,
+  "origin": "ai"
  },
  {
   "id": "core:r02112",
@@ -432,7 +460,8 @@
   "en": "After the long journey we need to rest first.",
   "note": "trennbar: Ich ruhe mich aus.",
   "case": null,
-  "order": 2112
+  "order": 2112,
+  "origin": "ai"
  },
  {
   "id": "core:r02113",
@@ -447,7 +476,8 @@
   "en": "It's been raining for three days.",
   "note": null,
   "case": null,
-  "order": 2113
+  "order": 2113,
+  "origin": "ai"
  },
  {
   "id": "core:r02114",
@@ -462,7 +492,8 @@
   "en": "Can you hear that strange noise from the kitchen?",
   "note": null,
   "case": null,
-  "order": 2114
+  "order": 2114,
+  "origin": "ai"
  },
  {
   "id": "core:r02115",
@@ -477,7 +508,8 @@
   "en": "On Saturdays I buy fruit and vegetables at the market.",
   "note": null,
   "case": null,
-  "order": 2115
+  "order": 2115,
+  "origin": "ai"
  },
  {
   "id": "core:r02116",
@@ -492,7 +524,8 @@
   "en": "Why have you been lying to me the whole time?",
   "note": "jemanden (Akkusativ) belügen = anlügen",
   "case": "A",
-  "order": 2116
+  "order": 2116,
+  "origin": "ai"
  },
  {
   "id": "core:r02117",
@@ -507,7 +540,8 @@
   "en": "Today lots of artists work in the old factory building.",
   "note": null,
   "case": null,
-  "order": 2117
+  "order": 2117,
+  "origin": "ai"
  },
  {
   "id": "core:r02120",
@@ -522,7 +556,8 @@
   "en": "For a week I've been coughing all night.",
   "note": null,
   "case": null,
-  "order": 2120
+  "order": 2120,
+  "origin": "ai"
  },
  {
   "id": "core:r02122",
@@ -537,7 +572,8 @@
   "en": "The weather's wonderful today, let's go outside!",
   "note": null,
   "case": null,
-  "order": 2122
+  "order": 2122,
+  "origin": "ai"
  },
  {
   "id": "core:r02123",
@@ -552,7 +588,8 @@
   "en": "The cat is stretching in the sun.",
   "note": null,
   "case": null,
-  "order": 2123
+  "order": 2123,
+  "origin": "ai"
  },
  {
   "id": "core:r02124",
@@ -567,7 +604,8 @@
   "en": "The company has over two hundred employees.",
   "note": null,
   "case": null,
-  "order": 2124
+  "order": 2124,
+  "origin": "ai"
  },
  {
   "id": "core:r02127",
@@ -582,7 +620,8 @@
   "en": "The driver was taken to hospital with minor injuries.",
   "note": null,
   "case": null,
-  "order": 2127
+  "order": 2127,
+  "origin": "ai"
  },
  {
   "id": "core:r02129",
@@ -597,7 +636,8 @@
   "en": "Tomorrow class doesn't start until ten o'clock.",
   "note": null,
   "case": null,
-  "order": 2129
+  "order": 2129,
+  "origin": "ai"
  },
  {
   "id": "core:r02130",
@@ -612,7 +652,8 @@
   "en": "Did you switch off the cooker?",
   "note": "trennbar: Schalt den Herd aus!",
   "case": null,
-  "order": 2130
+  "order": 2130,
+  "origin": "ai"
  },
  {
   "id": "core:r02131",
@@ -627,7 +668,8 @@
   "en": "The public prosecutor has brought charges against the man.",
   "note": "Anklage erheben gegen + Akkusativ",
   "case": "A",
-  "order": 2131
+  "order": 2131,
+  "origin": "ai"
  },
  {
   "id": "core:r02132",
@@ -642,7 +684,8 @@
   "en": "The ball rolled under the car.",
   "note": "Bewegung: ist gerollt",
   "case": null,
-  "order": 2132
+  "order": 2132,
+  "origin": "ai"
  },
  {
   "id": "core:r02134",
@@ -657,7 +700,8 @@
   "en": "In winter I always have dry lips.",
   "note": null,
   "case": null,
-  "order": 2134
+  "order": 2134,
+  "origin": "ai"
  },
  {
   "id": "core:r02135",
@@ -672,7 +716,8 @@
   "en": "This yoghurt has very little fat.",
   "note": null,
   "case": null,
-  "order": 2135
+  "order": 2135,
+  "origin": "ai"
  },
  {
   "id": "core:r02136",
@@ -687,7 +732,8 @@
   "en": "Which series are you watching at the moment?",
   "note": null,
   "case": null,
-  "order": 2136
+  "order": 2136,
+  "origin": "ai"
  },
  {
   "id": "core:r02137",
@@ -702,7 +748,8 @@
   "en": "The police are warning that the perpetrator may be armed.",
   "note": null,
   "case": null,
-  "order": 2137
+  "order": 2137,
+  "origin": "ai"
  },
  {
   "id": "core:r02139",
@@ -717,7 +764,8 @@
   "en": "That was a pretty stupid question.",
   "note": "umgangssprachlich; = dumm",
   "case": null,
-  "order": 2139
+  "order": 2139,
+  "origin": "ai"
  },
  {
   "id": "core:r02140",
@@ -732,7 +780,8 @@
   "en": "The situation on the housing market is extremely difficult.",
   "note": null,
   "case": null,
-  "order": 2140
+  "order": 2140,
+  "origin": "ai"
  },
  {
   "id": "core:r02141",
@@ -747,7 +796,8 @@
   "en": "Would you like the cheese in a piece or sliced?",
   "note": null,
   "case": null,
-  "order": 2141
+  "order": 2141,
+  "origin": "ai"
  },
  {
   "id": "core:r02142",
@@ -762,7 +812,8 @@
   "en": "According to the police, the man allegedly raped a young woman.",
   "note": "Nachrichtensprache: soll … haben = angeblich",
   "case": null,
-  "order": 2142
+  "order": 2142,
+  "origin": "ai"
  },
  {
   "id": "core:r02143",
@@ -777,7 +828,8 @@
   "en": "I'm happy to answer any questions you may have.",
   "note": "zur Verfügung stehen / stellen",
   "case": null,
-  "order": 2143
+  "order": 2143,
+  "origin": "ai"
  },
  {
   "id": "core:r02144",
@@ -792,7 +844,8 @@
   "en": "My brother has to wear a uniform at work.",
   "note": null,
   "case": null,
-  "order": 2144
+  "order": 2144,
+  "origin": "ai"
  },
  {
   "id": "core:r02145",
@@ -807,7 +860,8 @@
   "en": "Too much stress is bad for your health.",
   "note": "Wenn jemand niest, sagt man: Gesundheit!",
   "case": null,
-  "order": 2145
+  "order": 2145,
+  "origin": "ai"
  },
  {
   "id": "core:r02146",
@@ -822,7 +876,8 @@
   "en": "The trip through South America was a real adventure.",
   "note": null,
   "case": null,
-  "order": 2146
+  "order": 2146,
+  "origin": "ai"
  },
  {
   "id": "core:r02151",
@@ -837,7 +892,8 @@
   "en": "The company is known not only nationally but also internationally.",
   "note": null,
   "case": null,
-  "order": 2151
+  "order": 2151,
+  "origin": "ai"
  },
  {
   "id": "core:r02152",
@@ -852,7 +908,8 @@
   "en": "The situation in the hospitals is dramatic.",
   "note": null,
   "case": null,
-  "order": 2152
+  "order": 2152,
+  "origin": "ai"
  },
  {
   "id": "core:r02153",
@@ -867,7 +924,8 @@
   "en": "I had to go to the police station to report the theft.",
   "note": "= das Polizeirevier, die Polizeiwache",
   "case": null,
-  "order": 2153
+  "order": 2153,
+  "origin": "ai"
  },
  {
   "id": "core:r02155",
@@ -882,7 +940,8 @@
   "en": "Tomorrow we're having a test in our German class.",
   "note": null,
   "case": null,
-  "order": 2155
+  "order": 2155,
+  "origin": "ai"
  },
  {
   "id": "core:r02156",
@@ -897,7 +956,8 @@
   "en": "After the party my head is pounding today.",
   "note": "umgangssprachlich: Mir brummt der Schädel. = Ich habe Kopfschmerzen.",
   "case": null,
-  "order": 2156
+  "order": 2156,
+  "origin": "ai"
  },
  {
   "id": "core:r02157",
@@ -912,7 +972,8 @@
   "en": "In reality, unfortunately, it's not that simple.",
   "note": null,
   "case": null,
-  "order": 2157
+  "order": 2157,
+  "origin": "ai"
  },
  {
   "id": "core:r02158",
@@ -927,7 +988,8 @@
   "en": "In April the weather is often very changeable.",
   "note": null,
   "case": null,
-  "order": 2158
+  "order": 2158,
+  "origin": "ai"
  },
  {
   "id": "core:r02160",
@@ -942,7 +1004,8 @@
   "en": "Is it really necessary for me to come by in person?",
   "note": null,
   "case": null,
-  "order": 2160
+  "order": 2160,
+  "origin": "ai"
  },
  {
   "id": "core:r02161",
@@ -957,7 +1020,8 @@
   "en": "He urgently needs medical help.",
   "note": null,
   "case": null,
-  "order": 2161
+  "order": 2161,
+  "origin": "ai"
  },
  {
   "id": "core:r02162",
@@ -972,7 +1036,8 @@
   "en": "The transport senator has announced new cycle paths.",
   "note": "In Berlin, Hamburg und Bremen: Mitglied der Landesregierung",
   "case": null,
-  "order": 2162
+  "order": 2162,
+  "origin": "ai"
  },
  {
   "id": "core:r02163",
@@ -987,7 +1052,8 @@
   "en": "Children often have a lot of imagination.",
   "note": null,
   "case": null,
-  "order": 2163
+  "order": 2163,
+  "origin": "ai"
  },
  {
   "id": "core:r02164",
@@ -1002,7 +1068,8 @@
   "en": "He was accused of taking money from the till.",
   "note": null,
   "case": null,
-  "order": 2164
+  "order": 2164,
+  "origin": "ai"
  },
  {
   "id": "core:r02166",
@@ -1017,7 +1084,8 @@
   "en": "You've surely heard about it already.",
   "note": null,
   "case": null,
-  "order": 2166
+  "order": 2166,
+  "origin": "ai"
  },
  {
   "id": "core:r02167",
@@ -1032,7 +1100,8 @@
   "en": "The children are playing in the sand on the beach.",
   "note": null,
   "case": null,
-  "order": 2167
+  "order": 2167,
+  "origin": "ai"
  },
  {
   "id": "core:r02168",
@@ -1047,7 +1116,8 @@
   "en": "The plans haven't been presented to the public yet.",
   "note": null,
   "case": null,
-  "order": 2168
+  "order": 2168,
+  "origin": "ai"
  },
  {
   "id": "core:r02169",
@@ -1062,7 +1132,8 @@
   "en": "All the tenants fought against the rent increase.",
   "note": "sich wehren gegen + Akkusativ",
   "case": "A",
-  "order": 2169
+  "order": 2169,
+  "origin": "ai"
  },
  {
   "id": "core:r02170",
@@ -1077,7 +1148,8 @@
   "en": "The criminal was caught after three days.",
   "note": null,
   "case": null,
-  "order": 2170
+  "order": 2170,
+  "origin": "ai"
  },
  {
   "id": "core:r02171",
@@ -1092,7 +1164,8 @@
   "en": "We're looking for new people to strengthen our sales team.",
   "note": null,
   "case": null,
-  "order": 2171
+  "order": 2171,
+  "origin": "ai"
  },
  {
   "id": "core:r02172",
@@ -1107,7 +1180,8 @@
   "en": "Do you want to take part in the company run?",
   "note": "trennbar; mitmachen bei + Dativ",
   "case": "D",
-  "order": 2172
+  "order": 2172,
+  "origin": "ai"
  },
  {
   "id": "core:r02173",
@@ -1122,7 +1196,8 @@
   "en": "I got lost in the old town.",
   "note": "auch: Das Gespräch ist gut verlaufen. (= gegangen)",
   "case": null,
-  "order": 2173
+  "order": 2173,
+  "origin": "ai"
  },
  {
   "id": "core:r02177",
@@ -1137,7 +1212,8 @@
   "en": "In the Middle Ages knights lived in castles.",
   "note": null,
   "case": null,
-  "order": 2177
+  "order": 2177,
+  "origin": "ai"
  },
  {
   "id": "core:r02178",
@@ -1152,7 +1228,8 @@
   "en": "Sometimes in life you just have to be able to let go.",
   "note": "trennbar: Lass mich los!",
   "case": null,
-  "order": 2178
+  "order": 2178,
+  "origin": "ai"
  },
  {
   "id": "core:r02181",
@@ -1167,7 +1244,8 @@
   "en": "The wedding was the most important event of the year.",
   "note": null,
   "case": null,
-  "order": 2181
+  "order": 2181,
+  "origin": "ai"
  },
  {
   "id": "core:r02182",
@@ -1182,7 +1260,8 @@
   "en": "The demonstration stayed peaceful to the end.",
   "note": null,
   "case": null,
-  "order": 2182
+  "order": 2182,
+  "origin": "ai"
  },
  {
   "id": "core:r02184",
@@ -1197,7 +1276,8 @@
   "en": "The doctor suspects that I have an allergy.",
   "note": "Plural selten",
   "case": null,
-  "order": 2184
+  "order": 2184,
+  "origin": "ai"
  },
  {
   "id": "core:r02185",
@@ -1212,7 +1292,8 @@
   "en": "My desk is right by the window.",
   "note": null,
   "case": null,
-  "order": 2185
+  "order": 2185,
+  "origin": "ai"
  },
  {
   "id": "core:r02186",
@@ -1227,7 +1308,8 @@
   "en": "My daughter likes reading books about vampires.",
   "note": null,
   "case": null,
-  "order": 2186
+  "order": 2186,
+  "origin": "ai"
  },
  {
   "id": "core:r02188",
@@ -1242,7 +1324,8 @@
   "en": "At the moment I'm doing without alcohol.",
   "note": "verzichten auf + Akkusativ",
   "case": "A",
-  "order": 2188
+  "order": 2188,
+  "origin": "ai"
  },
  {
   "id": "core:r02189",
@@ -1257,7 +1340,8 @@
   "en": "The doctor sent a sample to the lab.",
   "note": "auch: die Probe im Theater = rehearsal; die Probezeit",
   "case": null,
-  "order": 2189
+  "order": 2189,
+  "origin": "ai"
  },
  {
   "id": "core:r02192",
@@ -1272,7 +1356,8 @@
   "en": "Please keep the receipt in a safe place.",
   "note": "trennbar; auch: etwas vom Boden aufheben",
   "case": null,
-  "order": 2192
+  "order": 2192,
+  "origin": "ai"
  },
  {
   "id": "core:r02193",
@@ -1287,7 +1372,8 @@
   "en": "On Saturdays I always clean the whole flat.",
   "note": "auch: Zähne putzen",
   "case": null,
-  "order": 2193
+  "order": 2193,
+  "origin": "ai"
  },
  {
   "id": "core:r02194",
@@ -1302,7 +1388,8 @@
   "en": "Climate change is a threat to many animal species.",
   "note": null,
   "case": null,
-  "order": 2194
+  "order": 2194,
+  "origin": "ai"
  },
  {
   "id": "core:r02196",
@@ -1317,7 +1404,8 @@
   "en": "You don't have to yell like that, I can hear you fine.",
   "note": null,
   "case": null,
-  "order": 2196
+  "order": 2196,
+  "origin": "ai"
  },
  {
   "id": "core:r02197",
@@ -1332,7 +1420,8 @@
   "en": "Lots of students live in our building.",
   "note": "n-Deklination: den / dem / des Studenten",
   "case": null,
-  "order": 2197
+  "order": 2197,
+  "origin": "ai"
  },
  {
   "id": "core:r02199",
@@ -1347,7 +1436,8 @@
   "en": "We saw a young tiger at the zoo.",
   "note": null,
   "case": null,
-  "order": 2199
+  "order": 2199,
+  "origin": "ai"
  },
  {
   "id": "core:r02201",
@@ -1362,7 +1452,8 @@
   "en": "Please contact us if you have any questions.",
   "note": "jemanden (Akk.) kontaktieren",
   "case": "A",
-  "order": 2201
+  "order": 2201,
+  "origin": "ai"
  },
  {
   "id": "core:r02203",
@@ -1377,7 +1468,8 @@
   "en": "I still have to wash my clothes this evening.",
   "note": "umgangssprachlich = Kleidung",
   "case": null,
-  "order": 2203
+  "order": 2203,
+  "origin": "ai"
  },
  {
   "id": "core:r02204",
@@ -1392,7 +1484,8 @@
   "en": "Someone simply abandoned the dog in the woods.",
   "note": "trennbar: Er setzt den Hund aus. Auch: an etwas etwas auszusetzen haben = etwas kritisieren",
   "case": null,
-  "order": 2204
+  "order": 2204,
+  "origin": "ai"
  },
  {
   "id": "core:r02205",
@@ -1407,7 +1500,8 @@
   "en": "Don't worry, our dog doesn't bite.",
   "note": null,
   "case": null,
-  "order": 2205
+  "order": 2205,
+  "origin": "ai"
  },
  {
   "id": "core:r02206",
@@ -1422,7 +1516,8 @@
   "en": "The owner of the car should report to the police.",
   "note": "weiblich: die Besitzerin",
   "case": null,
-  "order": 2206
+  "order": 2206,
+  "origin": "ai"
  },
  {
   "id": "core:r02207",
@@ -1437,7 +1532,8 @@
   "en": "The rent amounts to 850 euros a month.",
   "note": "formell, oft bei Preisen und Zahlen",
   "case": null,
-  "order": 2207
+  "order": 2207,
+  "origin": "ai"
  },
  {
   "id": "core:r02208",
@@ -1452,7 +1548,8 @@
   "en": "She has a very gentle voice.",
   "note": null,
   "case": null,
-  "order": 2208
+  "order": 2208,
+  "origin": "ai"
  },
  {
   "id": "core:r02209",
@@ -1467,7 +1564,8 @@
   "en": "Would you like another cup of coffee?",
   "note": null,
   "case": null,
-  "order": 2209
+  "order": 2209,
+  "origin": "ai"
  },
  {
   "id": "core:r02210",
@@ -1482,7 +1580,8 @@
   "en": "In my defence, I have to say that the bus was late.",
   "note": null,
   "case": null,
-  "order": 2210
+  "order": 2210,
+  "origin": "ai"
  },
  {
   "id": "core:r02211",
@@ -1497,6 +1596,7 @@
   "en": "My stomach has been hurting since yesterday.",
   "note": null,
   "case": null,
-  "order": 2211
+  "order": 2211,
+  "origin": "ai"
  }
 ]

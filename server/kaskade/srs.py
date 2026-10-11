@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 
 from fsrs import Card, Rating, Scheduler, State
 
-from . import config, db
+from . import config, db, origin, texts
 
 TZ = ZoneInfo("Europe/Berlin")
 NEW_PER_DAY = 20
@@ -34,19 +34,32 @@ def deck_index() -> dict[str, dict]:
 def mined_cards() -> list[dict]:
     """Sentences mined in the reader — cards like the core deck, id 'mine:N'."""
     with db.tx() as conn:
-        rows = conn.execute("SELECT * FROM mined ORDER BY id").fetchall()
-    return [{
-        "id": f"mine:{r['id']}", "n": None, "lemma": r["lemma"], "display": r["display"], "gloss": r["gloss"],
-        "sentence": r["sentence"], "target": r["target"], "en": r["en"] or "", "note": r["note"],
-        "case": r["kasus"], "source": r["source"], "pos": None,
-        "audio": r["audio"], "mediaId": r["media_id"], "clipStart": r["clip_start"], "clipEnd": r["clip_end"],
-    } for r in rows]
+        rows = conn.execute(
+            "SELECT mined.*, media.title AS media_title FROM mined"
+            " LEFT JOIN media ON media.id = mined.media_id ORDER BY mined.id").fetchall()
+    library = {t["title"]: t for t in texts.library()}
+    out = []
+    for r in rows:
+        o = origin.of_mined(r["source"], r["media_title"], library)
+        out.append({
+            "id": f"mine:{r['id']}", "n": None, "lemma": r["lemma"], "display": r["display"], "gloss": r["gloss"],
+            "sentence": r["sentence"], "target": r["target"], "en": r["en"] or "", "note": r["note"],
+            "case": r["kasus"], "source": r["source"], "pos": None,
+            "audio": r["audio"], "mediaId": r["media_id"], "clipStart": r["clip_start"], "clipEnd": r["clip_end"],
+            # "source" above is where it was mined (shown as "Gemined · …"); origin says whose German it is
+            "origin": o["origin"], "originSource": o["source"],
+        })
+    return out
 
 
 def card_content(card_id: str) -> dict | None:
     if card_id.startswith("mine:"):
         return next((c for c in mined_cards() if c["id"] == card_id), None)
-    return deck_index().get(card_id)
+    card = deck_index().get(card_id)
+    if card is None:
+        return None
+    o = origin.tag(card)  # same fields as mined cards: origin + originSource
+    return {**card, "origin": o["origin"], "originSource": o["source"]}
 
 
 _BOOT = time.monotonic()

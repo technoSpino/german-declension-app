@@ -7,6 +7,8 @@ import { useStatusStore } from '../../stores/statusStore'
 import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
 import WordPanel from '../../components/kaskade/WordPanel.vue'
 import CaseLegend from '../../components/kaskade/CaseLegend.vue'
+import OriginBadge from '../../components/kaskade/OriginBadge.vue'
+import { TTS_NOTE } from '../../lib/origin'
 
 const route = useRoute()
 const t = ref(null)
@@ -79,6 +81,10 @@ async function finish() {
         <div class="min-w-0">
           <p class="k-eyebrow mb-1.5"><router-link to="/lesen">Lesen</router-link> · {{ t.theme }} · {{ t.level }} · {{ t.words }} Wörter</p>
           <h1 class="k-h1">{{ t.title }}</h1>
+          <p class="flex flex-wrap items-center gap-x-3 gap-y-1 m-0 mt-2" data-testid="reader-origin">
+            <OriginBadge :origin="t.origin" :source="t.source" fallback="ai" />
+            <span class="k-hint">Vorlesen: {{ TTS_NOTE }}</span>
+          </p>
         </div>
         <div class="flex flex-wrap gap-2">
           <button class="k-btn k-btn-ghost k-btn-sm" data-testid="reader-audio" :disabled="audioFailed" @click="toggleAudio">

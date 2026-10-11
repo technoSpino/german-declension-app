@@ -13,7 +13,8 @@ const REQUIRED = [
   'font-ui', 'font-heading', 'font-read', 'font-size-base', 'case-n', 'case-a', 'case-d', 'case-g',
   'case-n-bg', 'case-a-bg', 'case-d-bg', 'case-g-bg', 'chart-active', 'chart-passive',
   'timeline-upcoming', 'timeline-upcoming-border', 'timeline-text', 'timeline-current', 'timeline-current-text', 'timeline-current-border',
-  'timeline-done', 'timeline-done-text', 'timeline-pause', 'timeline-pause-line', 'word-new-tint', 'word-new-underline'
+  'timeline-done', 'timeline-done-text', 'timeline-pause', 'timeline-pause-line', 'word-new-tint', 'word-new-underline',
+  'origin-ai-bg', 'origin-ai-text', 'origin-ai-border'
 ]
 
 /** { themeId: { token: value } } parsed from the :root[data-theme='x'] blocks. */
@@ -78,6 +79,8 @@ describe('themes.css', () => {
         ['timeline-done-text', 'timeline-done', 4.5], ['timeline-upcoming-border', 'surface', 3], ['timeline-current-border', 'surface', 3],
         // reader: new words as a light tint + underline
         ['text', 'word-new-tint', 4.5], ['word-new-underline', 'surface', 3],
+        // "KI-geschrieben" badge: text on its tint, outline visible on cards
+        ['origin-ai-text', 'origin-ai-bg', 4.5], ['origin-ai-text', 'surface', 4.5], ['origin-ai-border', 'surface', 3],
         ['focus', 'bg', 3], ['word-learning', 'surface', 3], ['chart-active', 'surface', 3], ['chart-passive', 'surface', 3],
         ...['n', 'a', 'd', 'g'].flatMap((c) => [[`case-${c}`, `case-${c}-bg`, 4.5], [`case-${c}`, 'surface', 4.5]])
       ]

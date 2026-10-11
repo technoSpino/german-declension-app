@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from .. import db, plan, practice, tts
+from .. import db, origin, plan, practice, tts
 
 router = APIRouter(prefix="/api/practice")
 
@@ -40,7 +40,7 @@ def overview():
     for a in sorted(attempts, key=lambda a: a["created_at"]):
         last[(a["module"], a["item_id"])] = round(a["points"] / a["total"], 3) if a["total"] else None
     summary = lambda m, i: {"id": i["id"], "title": i["title"], "kind": i.get("kind") or i.get("type"),
-                            "minutes": i["minutes"], "last": last.get((m, i["id"]))}
+                            "minutes": i["minutes"], "last": last.get((m, i["id"])), **origin.tag(i)}
     return {
         "lesen": [summary("lesen", i) for i in practice.bank("lesen")],
         "hoeren": [summary("hoeren", i) for i in practice.bank("hoeren")],

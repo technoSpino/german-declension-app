@@ -6,6 +6,8 @@ import { formatClock } from '../../lib/format'
 import { isComplete, KIND_LABEL, timeLeft } from '../../lib/practice'
 import { paragraphs } from '../../lib/reader'
 import { useNow } from '../../lib/useNow'
+import { TTS_NOTE } from '../../lib/origin'
+import OriginBadge from '../../components/kaskade/OriginBadge.vue'
 
 const route = useRoute()
 const module = route.params.module
@@ -104,6 +106,7 @@ const optClass = (id, value) => {
         <div class="min-w-0">
           <p class="k-eyebrow mb-1.5"><router-link to="/pruefung">Prüfungstraining</router-link> · {{ module === 'schreiben' ? item.type : KIND_LABEL[item.kind] }} · {{ item.minutes }} min</p>
           <h1 class="k-h1">{{ item.title }}</h1>
+          <OriginBadge class="mt-2" :origin="item.origin" :source="item.source" fallback="ai" />
         </div>
         <p v-if="left != null && !result" class="k-chip k-chip-accent m-0" style="font-size: 18px" data-testid="countdown" aria-live="off">⏱ {{ formatClock(left) }}</p>
       </div>
@@ -122,7 +125,7 @@ const optClass = (id, value) => {
           <button class="k-btn" :disabled="playsUsed >= plays || playing || audioFailed" data-testid="play" @click="play">
             ▶ {{ playing ? 'Läuft …' : playsUsed ? 'Noch einmal hören' : 'Abspielen' }}
           </button>
-          <span class="k-small">{{ playsUsed }} von {{ plays }}× gehört</span>
+          <span class="k-small">{{ playsUsed }} von {{ plays }}× gehört · {{ TTS_NOTE }}</span>
           <span v-if="audioFailed" class="k-error">Audio nicht verfügbar (Piper fehlt auf dem Server).</span>
         </section>
 

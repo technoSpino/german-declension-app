@@ -38,6 +38,7 @@ def summary(t: dict) -> dict:
     return {
         "id": t["id"], "title": t["title"], "level": t["level"], "theme": t["theme"], "slot": t["slot"],
         "words": len(t["text"].split()), "glossaryCount": len(t["glossary"]), "coverage": core_coverage(t["id"]),
+        "origin": t.get("origin", "ai"), "source": t.get("source"),
     }
 
 

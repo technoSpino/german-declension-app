@@ -12,7 +12,8 @@
   "en": "Turn left at the traffic lights.",
   "note": "nach links = in Richtung links",
   "case": null,
-  "order": 855
+  "order": 855,
+  "origin": "ai"
  },
  {
   "id": "core:r00856",
@@ -27,7 +28,8 @@
   "en": "In Germany people separate their rubbish.",
   "note": "sich trennen = eine Beziehung beenden",
   "case": null,
-  "order": 856
+  "order": 856,
+  "origin": "ai"
  },
  {
   "id": "core:r00857",
@@ -42,7 +44,8 @@
   "en": "I have to write a report for my boss by Friday.",
   "note": null,
   "case": null,
-  "order": 857
+  "order": 857,
+  "origin": "ai"
  },
  {
   "id": "core:r00858",
@@ -57,7 +60,8 @@
   "en": "Many people suffer from hay fever in spring.",
   "note": "leiden an/unter + Dativ",
   "case": "D",
-  "order": 858
+  "order": 858,
+  "origin": "ai"
  },
  {
   "id": "core:r00860",
@@ -72,7 +76,8 @@
   "en": "Making mistakes is human.",
   "note": null,
   "case": null,
-  "order": 860
+  "order": 860,
+  "origin": "ai"
  },
  {
   "id": "core:r00861",
@@ -87,7 +92,8 @@
   "en": "Did you bake the cake yourself?",
   "note": "umgangssprachlich = selbst",
   "case": null,
-  "order": 861
+  "order": 861,
+  "origin": "ai"
  },
  {
   "id": "core:r00862",
@@ -102,7 +108,8 @@
   "en": "The dog obeys every command immediately.",
   "note": null,
   "case": null,
-  "order": 862
+  "order": 862,
+  "origin": "ai"
  },
  {
   "id": "core:r00863",
@@ -117,7 +124,8 @@
   "en": "Your new colleague is really funny.",
   "note": null,
   "case": null,
-  "order": 863
+  "order": 863,
+  "origin": "ai"
  },
  {
   "id": "core:r00864",
@@ -132,7 +140,8 @@
   "en": "It's my grandma's birthday on Sunday.",
   "note": null,
   "case": null,
-  "order": 864
+  "order": 864,
+  "origin": "ai"
  },
  {
   "id": "core:r00865",
@@ -147,7 +156,8 @@
   "en": "I lost the bet and now I have to pay for the meal.",
   "note": "eine Wette gewinnen / verlieren; Verb: wetten",
   "case": null,
-  "order": 865
+  "order": 865,
+  "origin": "ai"
  },
  {
   "id": "core:r00866",
@@ -162,7 +172,8 @@
   "en": "Wait a second, I'm coming right away!",
   "note": null,
   "case": null,
-  "order": 866
+  "order": 866,
+  "origin": "ai"
  },
  {
   "id": "core:r00869",
@@ -177,7 +188,8 @@
   "en": "He obviously didn't read the email.",
   "note": null,
   "case": null,
-  "order": 869
+  "order": 869,
+  "origin": "ai"
  },
  {
   "id": "core:r00870",
@@ -192,7 +204,8 @@
   "en": "Nobody's forcing you to come along tonight.",
   "note": null,
   "case": null,
-  "order": 870
+  "order": 870,
+  "origin": "ai"
  },
  {
   "id": "core:r00871",
@@ -207,7 +220,8 @@
   "en": "You can hardly breathe in this heat.",
   "note": null,
   "case": null,
-  "order": 871
+  "order": 871,
+  "origin": "ai"
  },
  {
   "id": "core:r00872",
@@ -222,7 +236,8 @@
   "en": "Can I pay by card here?",
   "note": null,
   "case": null,
-  "order": 872
+  "order": 872,
+  "origin": "ai"
  },
  {
   "id": "core:r00873",
@@ -237,7 +252,8 @@
   "en": "My goodness, it's hot today!",
   "note": "Meine Güte! = Ausruf der Überraschung",
   "case": null,
-  "order": 873
+  "order": 873,
+  "origin": "ai"
  },
  {
   "id": "core:r00874",
@@ -252,7 +268,8 @@
   "en": "The station is only a ten-minute walk away.",
   "note": null,
   "case": null,
-  "order": 874
+  "order": 874,
+  "origin": "ai"
  },
  {
   "id": "core:r00875",
@@ -267,7 +284,8 @@
   "en": "This time I'm paying, you paid last time.",
   "note": null,
   "case": null,
-  "order": 875
+  "order": 875,
+  "origin": "ai"
  },
  {
   "id": "core:r00876",
@@ -282,7 +300,8 @@
   "en": "It's a shame you can't come on Saturday.",
   "note": null,
   "case": null,
-  "order": 876
+  "order": 876,
+  "origin": "ai"
  },
  {
   "id": "core:r00877",
@@ -297,7 +316,8 @@
   "en": "The professor has postponed the exam until next week.",
   "note": null,
   "case": null,
-  "order": 877
+  "order": 877,
+  "origin": "ai"
  },
  {
   "id": "core:r00879",
@@ -312,7 +332,8 @@
   "en": "We experienced a lot of nice things on the trip.",
   "note": null,
   "case": null,
-  "order": 879
+  "order": 879,
+  "origin": "ai"
  },
  {
   "id": "core:r00880",
@@ -327,7 +348,8 @@
   "en": "Yesterday I discovered a great café nearby.",
   "note": null,
   "case": null,
-  "order": 880
+  "order": 880,
+  "origin": "ai"
  },
  {
   "id": "core:r00881",
@@ -342,7 +364,8 @@
   "en": "Finally the sun is shining again!",
   "note": null,
   "case": null,
-  "order": 881
+  "order": 881,
+  "origin": "ai"
  },
  {
   "id": "core:r00882",
@@ -357,7 +380,8 @@
   "en": "That's really kind of you, thanks!",
   "note": "lieb von dir = nett von dir",
   "case": null,
-  "order": 882
+  "order": 882,
+  "origin": "ai"
  },
  {
   "id": "core:r00883",
@@ -372,7 +396,8 @@
   "en": "I can't come today, because I'm ill.",
   "note": "nämlich erklärt einen Grund; nie am Satzanfang",
   "case": null,
-  "order": 883
+  "order": 883,
+  "origin": "ai"
  },
  {
   "id": "core:r00884",
@@ -387,7 +412,8 @@
   "en": "I miss my family a lot.",
   "note": null,
   "case": null,
-  "order": 884
+  "order": 884,
+  "origin": "ai"
  },
  {
   "id": "core:r00885",
@@ -402,7 +428,8 @@
   "en": "The court ruled in favour of the tenant.",
   "note": "zwei Bedeutungen: court und dish (Essen)",
   "case": null,
-  "order": 885
+  "order": 885,
+  "origin": "ai"
  },
  {
   "id": "core:r00886",
@@ -417,7 +444,8 @@
   "en": "Calm down, nothing happened.",
   "note": null,
   "case": null,
-  "order": 886
+  "order": 886,
+  "origin": "ai"
  },
  {
   "id": "core:r00887",
@@ -432,7 +460,8 @@
   "en": "My nose has been running for three days.",
   "note": "Die Nase läuft = man hat Schnupfen",
   "case": null,
-  "order": 887
+  "order": 887,
+  "origin": "ai"
  },
  {
   "id": "core:r00888",
@@ -447,7 +476,8 @@
   "en": "My computer has crashed again.",
   "note": null,
   "case": null,
-  "order": 888
+  "order": 888,
+  "origin": "ai"
  },
  {
   "id": "core:r00890",
@@ -462,7 +492,8 @@
   "en": "I still have to prepare for the job interview.",
   "note": "trennbar; sich vorbereiten auf + Akkusativ",
   "case": "A",
-  "order": 890
+  "order": 890,
+  "origin": "ai"
  },
  {
   "id": "core:r00891",
@@ -477,7 +508,8 @@
   "en": "Are you going to your parents' for Christmas?",
   "note": "meist ohne Artikel: an Weihnachten, Frohe Weihnachten!",
   "case": null,
-  "order": 891
+  "order": 891,
+  "origin": "ai"
  },
  {
   "id": "core:r00892",
@@ -492,7 +524,8 @@
   "en": "The situation on the housing market is difficult.",
   "note": null,
   "case": null,
-  "order": 892
+  "order": 892,
+  "origin": "ai"
  },
  {
   "id": "core:r00893",
@@ -507,7 +540,8 @@
   "en": "The examination showed that everything is fine.",
   "note": null,
   "case": null,
-  "order": 893
+  "order": 893,
+  "origin": "ai"
  },
  {
   "id": "core:r00894",
@@ -522,7 +556,8 @@
   "en": "Shall I bring something to drink to the party?",
   "note": "trennbar",
   "case": null,
-  "order": 894
+  "order": 894,
+  "origin": "ai"
  },
  {
   "id": "core:r00895",
@@ -537,7 +572,8 @@
   "en": "My grandfather was in the army for two years.",
   "note": null,
   "case": null,
-  "order": 895
+  "order": 895,
+  "origin": "ai"
  },
  {
   "id": "core:r90007",
@@ -552,7 +588,8 @@
   "en": "The show on TV was pretty boring.",
   "note": null,
   "case": null,
-  "order": 895.5
+  "order": 895.5,
+  "origin": "ai"
  },
  {
   "id": "core:r00896",
@@ -567,7 +604,8 @@
   "en": "Did you read that in the paper today?",
   "note": null,
   "case": null,
-  "order": 896
+  "order": 896,
+  "origin": "ai"
  },
  {
   "id": "core:r00897",
@@ -582,7 +620,8 @@
   "en": "We recorded the concert on our phones.",
   "note": "trennbar",
   "case": null,
-  "order": 897
+  "order": 897,
+  "origin": "ai"
  },
  {
   "id": "core:r00898",
@@ -597,7 +636,8 @@
   "en": "What a lovely surprise!",
   "note": null,
   "case": null,
-  "order": 898
+  "order": 898,
+  "origin": "ai"
  },
  {
   "id": "core:r00899",
@@ -612,7 +652,8 @@
   "en": "Can you keep a secret?",
   "note": null,
   "case": null,
-  "order": 899
+  "order": 899,
+  "origin": "ai"
  },
  {
   "id": "core:r00900",
@@ -627,7 +668,8 @@
   "en": "Shall we have a drink after work?",
   "note": "umgangssprachlich; meist ein alkoholisches Getränk",
   "case": null,
-  "order": 900
+  "order": 900,
+  "origin": "ai"
  },
  {
   "id": "core:r00901",
@@ -642,7 +684,8 @@
   "en": "Shall we go out together on Friday evening?",
   "note": "trennbar: Ich gehe aus. Auch: davon ausgehen, dass … = annehmen",
   "case": null,
-  "order": 901
+  "order": 901,
+  "origin": "ai"
  },
  {
   "id": "core:r00902",
@@ -657,7 +700,8 @@
   "en": "The ring is made of real gold.",
   "note": null,
   "case": null,
-  "order": 902
+  "order": 902,
+  "origin": "ai"
  },
  {
   "id": "core:r00903",
@@ -672,7 +716,8 @@
   "en": "The newspaper says that the police found drugs.",
   "note": "Achtung: In der Drogerie kauft man keine Drogen, sondern Seife, Shampoo usw.",
   "case": null,
-  "order": 903
+  "order": 903,
+  "origin": "ai"
  },
  {
   "id": "core:r00904",
@@ -687,7 +732,8 @@
   "en": "The government wants to lower taxes next year.",
   "note": null,
   "case": null,
-  "order": 904
+  "order": 904,
+  "origin": "ai"
  },
  {
   "id": "core:r00906",
@@ -702,7 +748,8 @@
   "en": "The office is on the third floor.",
   "note": "formell für „sein“ oder „liegen“",
   "case": null,
-  "order": 906
+  "order": 906,
+  "origin": "ai"
  },
  {
   "id": "core:r00908",
@@ -717,7 +764,8 @@
   "en": "What is your new address?",
   "note": "formell: Wie lautet …? = Wie ist …?",
   "case": null,
-  "order": 908
+  "order": 908,
+  "origin": "ai"
  },
  {
   "id": "core:r00909",
@@ -732,7 +780,8 @@
   "en": "We got stuck in a traffic jam on the motorway.",
   "note": "in + Akk. geraten: in einen Stau, in Schwierigkeiten; Perfekt mit sein",
   "case": "A",
-  "order": 909
+  "order": 909,
+  "origin": "ai"
  },
  {
   "id": "core:r00910",
@@ -747,7 +796,8 @@
   "en": "Can you show me how this machine works?",
   "note": null,
   "case": null,
-  "order": 910
+  "order": 910,
+  "origin": "ai"
  },
  {
   "id": "core:r00911",
@@ -762,7 +812,8 @@
   "en": "The pharmacy is directly opposite the station.",
   "note": "gegenüber + Dativ; oft auch: gegenüber vom Bahnhof",
   "case": "D",
-  "order": 911
+  "order": 911,
+  "origin": "ai"
  },
  {
   "id": "core:r00912",
@@ -777,7 +828,8 @@
   "en": "You need more sleep, you look really tired.",
   "note": "das Verb: schlafen",
   "case": null,
-  "order": 912
+  "order": 912,
+  "origin": "ai"
  },
  {
   "id": "core:r00913",
@@ -792,7 +844,8 @@
   "en": "Do you feel like going to the cinema tonight?",
   "note": "Lust haben auf + Akk. / Lust haben, … zu + Infinitiv",
   "case": null,
-  "order": 913
+  "order": 913,
+  "origin": "ai"
  },
  {
   "id": "core:r00914",
@@ -807,7 +860,8 @@
   "en": "By the way, the landlord called today about the heating.",
   "note": null,
   "case": null,
-  "order": 914
+  "order": 914,
+  "origin": "ai"
  },
  {
   "id": "core:r00915",
@@ -822,7 +876,8 @@
   "en": "My daughter has a very strong will.",
   "note": "Akkusativ/Dativ: den/dem Willen. Ausdruck: Um Gottes willen! = Oh nein!",
   "case": null,
-  "order": 915
+  "order": 915,
+  "origin": "ai"
  },
  {
   "id": "core:r00916",
@@ -837,7 +892,8 @@
   "en": "You still owe me twenty euros.",
   "note": "jemandem etwas schuldig sein = Schulden haben; vor Gericht: schuldig = guilty",
   "case": null,
-  "order": 916
+  "order": 916,
+  "origin": "ai"
  },
  {
   "id": "core:r00917",
@@ -852,7 +908,8 @@
   "en": "Is there anything left over from lunch?",
   "note": "übrig sein / übrig bleiben",
   "case": null,
-  "order": 917
+  "order": 917,
+  "origin": "ai"
  },
  {
   "id": "core:r00918",
@@ -867,7 +924,8 @@
   "en": "My grandma has been living in a care home for a year.",
   "note": "oft: Altenheim, Kinderheim, Studentenwohnheim",
   "case": null,
-  "order": 918
+  "order": 918,
+  "origin": "ai"
  },
  {
   "id": "core:r00919",
@@ -882,7 +940,8 @@
   "en": "Yesterday a man called Becker phoned for you.",
   "note": "namens = mit dem Namen",
   "case": null,
-  "order": 919
+  "order": 919,
+  "origin": "ai"
  },
  {
   "id": "core:r00920",
@@ -897,7 +956,8 @@
   "en": "Our washing machine is broken again.",
   "note": "umgangssprachlich auch: sehr müde (Ich bin total kaputt.)",
   "case": null,
-  "order": 920
+  "order": 920,
+  "origin": "ai"
  },
  {
   "id": "core:r00921",
@@ -912,7 +972,8 @@
   "en": "The police are looking for witnesses to yesterday's accident.",
   "note": "n-Deklination: den/dem/des Zeugen; weiblich: die Zeugin",
   "case": null,
-  "order": 921
+  "order": 921,
+  "origin": "ai"
  },
  {
   "id": "core:r00922",
@@ -927,7 +988,8 @@
   "en": "My son grew ten centimetres this year.",
   "note": "er/sie wächst; Perfekt mit sein",
   "case": null,
-  "order": 922
+  "order": 922,
+  "origin": "ai"
  },
  {
   "id": "core:r00923",
@@ -942,7 +1004,8 @@
   "en": "From our balcony you have a great view of the river.",
   "note": "Blick auf + Akk.; auf den ersten Blick = at first sight",
   "case": null,
-  "order": 923
+  "order": 923,
+  "origin": "ai"
  },
  {
   "id": "core:r00924",
@@ -957,7 +1020,8 @@
   "en": "At the weekend we're getting a visit from my parents.",
   "note": "Besuch bekommen / zu Besuch sein",
   "case": null,
-  "order": 924
+  "order": 924,
+  "origin": "ai"
  },
  {
   "id": "core:r00925",
@@ -972,7 +1036,8 @@
   "en": "I urgently need to get my hair cut.",
   "note": "meist Plural: die Haare = hair",
   "case": null,
-  "order": 925
+  "order": 925,
+  "origin": "ai"
  },
  {
   "id": "core:r00926",
@@ -987,7 +1052,8 @@
   "en": "I was really nervous before the job interview.",
   "note": null,
   "case": null,
-  "order": 926
+  "order": 926,
+  "origin": "ai"
  },
  {
   "id": "core:r00928",
@@ -1002,7 +1068,8 @@
   "en": "Fresh vegetables are healthy and not expensive at all.",
   "note": null,
   "case": null,
-  "order": 928
+  "order": 928,
+  "origin": "ai"
  },
  {
   "id": "core:r00929",
@@ -1017,7 +1084,8 @@
   "en": "The train leaves at half past seven.",
   "note": "Achtung: halb acht = 7:30 Uhr, nicht 8:30 Uhr!",
   "case": null,
-  "order": 929
+  "order": 929,
+  "origin": "ai"
  },
  {
   "id": "core:r00930",
@@ -1032,7 +1100,8 @@
   "en": "The doctor gave us hope again.",
   "note": "Hoffnung machen / die Hoffnung aufgeben",
   "case": null,
-  "order": 930
+  "order": 930,
+  "origin": "ai"
  },
  {
   "id": "core:r00931",
@@ -1047,7 +1116,8 @@
   "en": "It smells of fresh coffee here.",
   "note": "riechen nach + Dativ",
   "case": "D",
-  "order": 931
+  "order": 931,
+  "origin": "ai"
  },
  {
   "id": "core:r00932",
@@ -1062,7 +1132,8 @@
   "en": "Turn right at the traffic lights.",
   "note": "nach rechts = Richtung; rechts = Ort (Das Haus ist rechts.)",
   "case": null,
-  "order": 932
+  "order": 932,
+  "origin": "ai"
  },
  {
   "id": "core:r00933",
@@ -1077,7 +1148,8 @@
   "en": "Enjoy the concert tonight!",
   "note": "Mit Vergnügen! = Sehr gern!",
   "case": null,
-  "order": 933
+  "order": 933,
+  "origin": "ai"
  },
  {
   "id": "core:r00934",
@@ -1092,7 +1164,8 @@
   "en": "I had a long conversation with my boss today.",
   "note": null,
   "case": null,
-  "order": 934
+  "order": 934,
+  "origin": "ai"
  },
  {
   "id": "core:r00935",
@@ -1107,7 +1180,8 @@
   "en": "You two need to talk to each other calmly.",
   "note": null,
   "case": null,
-  "order": 935
+  "order": 935,
+  "origin": "ai"
  },
  {
   "id": "core:r00937",
@@ -1122,7 +1196,8 @@
   "en": "The best way to learn a language is by speaking a lot.",
   "note": "Nebensatz: Verb am Ende",
   "case": null,
-  "order": 937
+  "order": 937,
+  "origin": "ai"
  },
  {
   "id": "core:r00938",
@@ -1137,7 +1212,8 @@
   "en": "I have neither the time nor the desire for a party.",
   "note": "weder … noch = nicht … und auch nicht",
   "case": null,
-  "order": 938
+  "order": 938,
+  "origin": "ai"
  },
  {
   "id": "core:r00939",
@@ -1152,7 +1228,8 @@
   "en": "Is it possible to book an appointment online?",
   "note": null,
   "case": null,
-  "order": 939
+  "order": 939,
+  "origin": "ai"
  },
  {
   "id": "core:r00940",
@@ -1167,7 +1244,8 @@
   "en": "Our plane lands in Frankfurt at 6 p.m.",
   "note": null,
   "case": null,
-  "order": 940
+  "order": 940,
+  "origin": "ai"
  },
  {
   "id": "core:r00941",
@@ -1182,7 +1260,8 @@
   "en": "Older people are an important part of our society.",
   "note": "auch: Firma (GmbH = Gesellschaft mit beschränkter Haftung)",
   "case": null,
-  "order": 941
+  "order": 941,
+  "origin": "ai"
  },
  {
   "id": "core:r00942",
@@ -1197,7 +1276,8 @@
   "en": "Too much sugar is bad for your health.",
   "note": "schaden + Dativ",
   "case": "D",
-  "order": 942
+  "order": 942,
+  "origin": "ai"
  },
  {
   "id": "core:r00943",
@@ -1212,7 +1292,8 @@
   "en": "Can you be quieter, please? The baby is sleeping.",
   "note": "Gegenteil: laut",
   "case": null,
-  "order": 943
+  "order": 943,
+  "origin": "ai"
  },
  {
   "id": "core:r00944",
@@ -1227,7 +1308,8 @@
   "en": "My neighbour doesn't like talking about his past.",
   "note": "in der Vergangenheit = früher",
   "case": null,
-  "order": 944
+  "order": 944,
+  "origin": "ai"
  },
  {
   "id": "core:r00945",
@@ -1242,7 +1324,8 @@
   "en": "Can you start cutting the onions?",
   "note": null,
   "case": null,
-  "order": 945
+  "order": 945,
+  "origin": "ai"
  },
  {
   "id": "core:r00946",
@@ -1257,7 +1340,8 @@
   "en": "Would you prefer coffee or tea?",
   "note": null,
   "case": null,
-  "order": 946
+  "order": 946,
+  "origin": "ai"
  },
  {
   "id": "core:r00947",
@@ -1272,7 +1356,8 @@
   "en": "The food at the new restaurant was fantastic.",
   "note": null,
   "case": null,
-  "order": 947
+  "order": 947,
+  "origin": "ai"
  },
  {
   "id": "core:r00948",
@@ -1287,7 +1372,8 @@
   "en": "We can go shopping either today or tomorrow.",
   "note": "entweder … oder",
   "case": null,
-  "order": 948
+  "order": 948,
+  "origin": "ai"
  },
  {
   "id": "core:r00949",
@@ -1302,7 +1388,8 @@
   "en": "Can you look after the children tonight?",
   "note": "aufpassen auf + Akk.; trennbar: Ich passe auf.",
   "case": "A",
-  "order": 949
+  "order": 949,
+  "origin": "ai"
  },
  {
   "id": "core:r00950",
@@ -1317,7 +1404,8 @@
   "en": "We live on the third floor, unfortunately without a lift.",
   "note": "Ordinalzahl: der erste, zweite, dritte, vierte …",
   "case": null,
-  "order": 950
+  "order": 950,
+  "origin": "ai"
  },
  {
   "id": "core:r00951",
@@ -1332,7 +1420,8 @@
   "en": "I felt really sick after the bus ride.",
   "note": "Mir ist übel. = Mir ist schlecht. (Dativ)",
   "case": "D",
-  "order": 951
+  "order": 951,
+  "origin": "ai"
  },
  {
   "id": "core:r00953",
@@ -1347,7 +1436,8 @@
   "en": "In the German course we often work in small groups.",
   "note": null,
   "case": null,
-  "order": 953
+  "order": 953,
+  "origin": "ai"
  },
  {
   "id": "core:r00955",
@@ -1362,7 +1452,8 @@
   "en": "Do you have any more questions about the contract?",
   "note": null,
   "case": null,
-  "order": 955
+  "order": 955,
+  "origin": "ai"
  },
  {
   "id": "core:r00956",
@@ -1377,7 +1468,8 @@
   "en": "On Saturday I'm going dancing with the girls.",
   "note": "umgangssprachlich für Mädchen oder junge Frauen",
   "case": null,
-  "order": 956
+  "order": 956,
+  "origin": "ai"
  },
  {
   "id": "core:r00957",
@@ -1392,7 +1484,8 @@
   "en": "Did you arrive safely in Hamburg?",
   "note": "trennbar; Perfekt mit sein. Auch: Es kommt darauf an. = It depends.",
   "case": null,
-  "order": 957
+  "order": 957,
+  "origin": "ai"
  },
  {
   "id": "core:r00960",
@@ -1407,7 +1500,8 @@
   "en": "The news was a heavy blow for the whole family.",
   "note": "das Verb: schlagen; mit einem Schlag = plötzlich",
   "case": null,
-  "order": 960
+  "order": 960,
+  "origin": "ai"
  },
  {
   "id": "core:r00962",
@@ -1422,7 +1516,8 @@
   "en": "I now watch series with German subtitles.",
   "note": null,
   "case": null,
-  "order": 962
+  "order": 962,
+  "origin": "ai"
  },
  {
   "id": "core:r00965",
@@ -1437,7 +1532,8 @@
   "en": "The novel tells the fate of a family during the war.",
   "note": null,
   "case": null,
-  "order": 965
+  "order": 965,
+  "origin": "ai"
  },
  {
   "id": "core:r00966",
@@ -1452,7 +1548,8 @@
   "en": "My throat hurts, I'm going to the doctor tomorrow.",
   "note": "Halsschmerzen = sore throat",
   "case": null,
-  "order": 966
+  "order": 966,
+  "origin": "ai"
  },
  {
   "id": "core:r00967",
@@ -1467,7 +1564,8 @@
   "en": "I'm listening to this song every day at the moment.",
   "note": null,
   "case": null,
-  "order": 967
+  "order": 967,
+  "origin": "ai"
  },
  {
   "id": "core:r00968",
@@ -1482,7 +1580,8 @@
   "en": "I'd like to thank you warmly for your help.",
   "note": "jemandem (Dativ) danken für + Akk.",
   "case": "D",
-  "order": 968
+  "order": 968,
+  "origin": "ai"
  },
  {
   "id": "core:r00969",
@@ -1497,6 +1596,7 @@
   "en": "I reckon the repair will cost about 200 euros.",
   "note": "1. vermuten 2. sehr gut finden (Ich schätze deine Hilfe.)",
   "case": null,
-  "order": 969
+  "order": 969,
+  "origin": "ai"
  }
 ]

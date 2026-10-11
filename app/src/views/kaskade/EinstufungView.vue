@@ -2,6 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
 import { formatDate, formatNumber } from '../../lib/format'
+import { AI_GRADE } from '../../lib/origin'
 import { useStatusStore } from '../../stores/statusStore'
 import VocabTest from '../../components/kaskade/VocabTest.vue'
 import ReadingTest from '../../components/kaskade/ReadingTest.vue'
@@ -110,7 +111,7 @@ function summary(id) {
       return s.satzcheck?.result ? { big: s.satzcheck.result.coverage + ' %', small: s.satzcheck.result.verdict.title } : null
     case 'schreiben':
       if (s.writing?.skipped) return { big: '—', small: 'übersprungen' }
-      return s.writing?.writingId ? { big: s.writing.grade?.level || '✓', small: s.writing.grade ? 'KI-Einschätzung' : 'gespeichert' } : null
+      return s.writing?.writingId ? { big: s.writing.grade?.level || '✓', small: s.writing.grade ? AI_GRADE : 'gespeichert' } : null
     case 'sprechen':
       if (s.speaking?.skipped) return { big: '—', small: 'übersprungen' }
       return s.speaking?.done ? { big: '✓', small: 'aufgenommen' } : null

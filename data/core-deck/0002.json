@@ -12,7 +12,8 @@
   "en": "I'll be late because my train is delayed.",
   "note": "Nebensatz: Verb am Ende",
   "case": null,
-  "order": 101
+  "order": 101,
+  "origin": "ai"
  },
  {
   "id": "core:r00102",
@@ -27,7 +28,8 @@
   "en": "Sorry, I didn't understand you.",
   "note": null,
   "case": null,
-  "order": 102
+  "order": 102,
+  "origin": "ai"
  },
  {
   "id": "core:r00103",
@@ -42,7 +44,8 @@
   "en": "We've been waiting for the technician for an hour.",
   "note": "warten auf + Akkusativ",
   "case": "A",
-  "order": 103
+  "order": 103,
+  "origin": "ai"
  },
  {
   "id": "core:r00104",
@@ -57,7 +60,8 @@
   "en": "I go for a half-hour walk every morning.",
   "note": "hier Akkusativ maskulin: jeden Morgen",
   "case": "A",
-  "order": 104
+  "order": 104,
+  "origin": "ai"
  },
  {
   "id": "core:r00105",
@@ -72,7 +76,8 @@
   "en": "I'm off today, but tomorrow I have to work again.",
   "note": null,
   "case": null,
-  "order": 105
+  "order": 105,
+  "origin": "ai"
  },
  {
   "id": "core:r00106",
@@ -87,7 +92,8 @@
   "en": "I save something every month so that we can go on holiday.",
   "note": "damit = so that (Verb am Ende); auch: mit + das: Was machst du damit?",
   "case": null,
-  "order": 106
+  "order": 106,
+  "origin": "ai"
  },
  {
   "id": "core:r00107",
@@ -102,7 +108,8 @@
   "en": "Are you sure the door is locked?",
   "note": null,
   "case": null,
-  "order": 107
+  "order": 107,
+  "origin": "ai"
  },
  {
   "id": "core:r00108",
@@ -117,7 +124,8 @@
   "en": "Has anyone seen my umbrella?",
   "note": null,
   "case": null,
-  "order": 108
+  "order": 108,
+  "origin": "ai"
  },
  {
   "id": "core:r00109",
@@ -132,7 +140,8 @@
   "en": "My parents have a house with a garden.",
   "note": "nach Hause (wohin?), zu Hause (wo?)",
   "case": null,
-  "order": 109
+  "order": 109,
+  "origin": "ai"
  },
  {
   "id": "core:r00110",
@@ -147,7 +156,8 @@
   "en": "How long are you staying in Berlin?",
   "note": "Perfekt mit sein",
   "case": null,
-  "order": 110
+  "order": 110,
+  "origin": "ai"
  },
  {
   "id": "core:r00111",
@@ -162,7 +172,8 @@
   "en": "I've been living in Germany for three years.",
   "note": "seit + Dativ: seit drei Jahren",
   "case": "D",
-  "order": 111
+  "order": 111,
+  "origin": "ai"
  },
  {
   "id": "core:r00112",
@@ -177,7 +188,8 @@
   "en": "The train is cancelled – what do we do now?",
   "note": "nun = jetzt (etwas formeller)",
   "case": null,
-  "order": 112
+  "order": 112,
+  "origin": "ai"
  },
  {
   "id": "core:r00113",
@@ -192,7 +204,8 @@
   "en": "Can you bring me a glass of water, please?",
   "note": null,
   "case": null,
-  "order": 113
+  "order": 113,
+  "origin": "ai"
  },
  {
   "id": "core:r00114",
@@ -207,7 +220,8 @@
   "en": "We had a lovely weekend by the sea.",
   "note": null,
   "case": null,
-  "order": 114
+  "order": 114,
+  "origin": "ai"
  },
  {
   "id": "core:r00115",
@@ -222,7 +236,8 @@
   "en": "The bakery is open from seven until six p.m.",
   "note": "bis + Akkusativ; Bis morgen! = See you tomorrow!",
   "case": "A",
-  "order": 115
+  "order": 115,
+  "origin": "ai"
  },
  {
   "id": "core:r00116",
@@ -237,7 +252,8 @@
   "en": "We need to talk about the utility costs.",
   "note": "reden über + Akkusativ",
   "case": "A",
-  "order": 116
+  "order": 116,
+  "origin": "ai"
  },
  {
   "id": "core:r00117",
@@ -252,7 +268,8 @@
   "en": "I'm sorry I'm late.",
   "note": "Es tut mir leid = I'm sorry; Person im Dativ (mir, dir)",
   "case": "D",
-  "order": 117
+  "order": 117,
+  "origin": "ai"
  },
  {
   "id": "core:r00118",
@@ -267,7 +284,8 @@
   "en": "Unfortunately our kitchen is very small.",
   "note": null,
   "case": null,
-  "order": 118
+  "order": 118,
+  "origin": "ai"
  },
  {
   "id": "core:r00119",
@@ -282,7 +300,8 @@
   "en": "When are you back from your holiday?",
   "note": null,
   "case": null,
-  "order": 119
+  "order": 119,
+  "origin": "ai"
  },
  {
   "id": "core:r00120",
@@ -297,7 +316,8 @@
   "en": "I work eight hours a day.",
   "note": "Guten Tag! am Tag = per day",
   "case": null,
-  "order": 120
+  "order": 120,
+  "origin": "ai"
  },
  {
   "id": "core:r00121",
@@ -312,7 +332,8 @@
   "en": "Your name isn't on the list.",
   "note": "stehen = Wo? (+ Dativ)",
   "case": null,
-  "order": 121
+  "order": 121,
+  "origin": "ai"
  },
  {
   "id": "core:r00122",
@@ -327,7 +348,8 @@
   "en": "The flat is big and bright.",
   "note": null,
   "case": null,
-  "order": 122
+  "order": 122,
+  "origin": "ai"
  },
  {
   "id": "core:r00123",
@@ -342,7 +364,8 @@
   "en": "Can you help me with the move?",
   "note": "helfen + Dativ: Ich helfe dir.",
   "case": "D",
-  "order": 123
+  "order": 123,
+  "origin": "ai"
  },
  {
   "id": "core:r00124",
@@ -357,7 +380,8 @@
   "en": "Thank God nobody is hurt.",
   "note": "Gott sei Dank = thank God; Oh Gott! = Oh my God!",
   "case": null,
-  "order": 124
+  "order": 124,
+  "origin": "ai"
  },
  {
   "id": "core:r00125",
@@ -372,7 +396,8 @@
   "en": "How many children do you have?",
   "note": null,
   "case": null,
-  "order": 125
+  "order": 125,
+  "origin": "ai"
  },
  {
   "id": "core:r00126",
@@ -387,7 +412,8 @@
   "en": "Does this bus also stop at the main station?",
   "note": "du hältst, er hält; halten von: Was hältst du davon?",
   "case": null,
-  "order": 126
+  "order": 126,
+  "origin": "ai"
  },
  {
   "id": "core:r00127",
@@ -402,7 +428,8 @@
   "en": "How old is your daughter?",
   "note": null,
   "case": null,
-  "order": 127
+  "order": 127,
+  "origin": "ai"
  },
  {
   "id": "core:r00128",
@@ -417,7 +444,8 @@
   "en": "Do you know exactly when the appointment is?",
   "note": "Genau! = Exactly!",
   "case": null,
-  "order": 128
+  "order": 128,
+  "origin": "ai"
  },
  {
   "id": "core:r00129",
@@ -432,7 +460,8 @@
   "en": "On Saturday I'm meeting up with an old friend.",
   "note": "mein Freund = oft boyfriend; ein Freund von mir = a friend of mine",
   "case": null,
-  "order": 129
+  "order": 129,
+  "origin": "ai"
  },
  {
   "id": "core:r00130",
@@ -447,7 +476,8 @@
   "en": "Do you know a good restaurant nearby?",
   "note": "kennen = Personen/Orte; wissen = Fakten",
   "case": null,
-  "order": 130
+  "order": 130,
+  "origin": "ai"
  },
  {
   "id": "core:r00131",
@@ -462,7 +492,8 @@
   "en": "All right, see you tomorrow then.",
   "note": "Alles klar! = OK/Got it. Klar! = Sure!",
   "case": null,
-  "order": 131
+  "order": 131,
+  "origin": "ai"
  },
  {
   "id": "core:r00132",
@@ -477,7 +508,8 @@
   "en": "Can I speak to your colleague, please?",
   "note": "sprechen mit + Dativ, über + Akkusativ; du sprichst, er spricht",
   "case": null,
-  "order": 132
+  "order": 132,
+  "origin": "ai"
  },
  {
   "id": "core:r00134",
@@ -492,7 +524,8 @@
   "en": "May I leave my bike here?",
   "note": "Modalverb: ich darf, du darfst, er darf",
   "case": null,
-  "order": 134
+  "order": 134,
+  "origin": "ai"
  },
  {
   "id": "core:r00135",
@@ -507,7 +540,8 @@
   "en": "I'll call you back tomorrow morning.",
   "note": "morgen = tomorrow; der Morgen = morning",
   "case": null,
-  "order": 135
+  "order": 135,
+  "origin": "ai"
  },
  {
   "id": "core:r00136",
@@ -522,7 +556,8 @@
   "en": "Is this the right way to the station?",
   "note": null,
   "case": null,
-  "order": 136
+  "order": 136,
+  "origin": "ai"
  },
  {
   "id": "core:r00137",
@@ -537,7 +572,8 @@
   "en": "We bought ourselves a new sofa.",
   "note": null,
   "case": null,
-  "order": 137
+  "order": 137,
+  "origin": "ai"
  },
  {
   "id": "core:r00138",
@@ -552,7 +588,8 @@
   "en": "Luckily nobody was hurt in the accident.",
   "note": "Perfekt mit sein",
   "case": null,
-  "order": 138
+  "order": 138,
+  "origin": "ai"
  },
  {
   "id": "core:r00139",
@@ -567,7 +604,8 @@
   "en": "There were lots of nice people at the party.",
   "note": "nur Plural",
   "case": null,
-  "order": 139
+  "order": 139,
+  "origin": "ai"
  },
  {
   "id": "core:r00140",
@@ -582,7 +620,8 @@
   "en": "It's my father's birthday today.",
   "note": null,
   "case": null,
-  "order": 140
+  "order": 140,
+  "origin": "ai"
  },
  {
   "id": "core:r00141",
@@ -597,7 +636,8 @@
   "en": "I'd like to book a room for two nights.",
   "note": "höfliche Form: möchten statt wollen",
   "case": null,
-  "order": 141
+  "order": 141,
+  "origin": "ai"
  },
  {
   "id": "core:r00142",
@@ -612,7 +652,8 @@
   "en": "Whose is the key on the table?",
   "note": "gehören + Dativ: Das gehört mir.",
   "case": "D",
-  "order": 142
+  "order": 142,
+  "origin": "ai"
  },
  {
   "id": "core:r00143",
@@ -627,7 +668,8 @@
   "en": "From next week I'll only be working part-time.",
   "note": "ab + Dativ (Zeit, Ort): ab Montag, ab dem Bahnhof",
   "case": "D",
-  "order": 143
+  "order": 143,
+  "origin": "ai"
  },
  {
   "id": "core:r00144",
@@ -642,7 +684,8 @@
   "en": "I can't talk on the phone now, I'm in the middle of cooking.",
   "note": null,
   "case": null,
-  "order": 144
+  "order": 144,
+  "origin": "ai"
  },
  {
   "id": "core:r00145",
@@ -657,7 +700,8 @@
   "en": "I like to drink a tea in the morning.",
   "note": "Verb + gern = etwas gern tun (to like doing)",
   "case": null,
-  "order": 145
+  "order": 145,
+  "origin": "ai"
  },
  {
   "id": "core:r00146",
@@ -672,7 +716,8 @@
   "en": "On Sunday we walked through the park.",
   "note": "durch + Akkusativ",
   "case": "A",
-  "order": 146
+  "order": 146,
+  "origin": "ai"
  },
  {
   "id": "core:r00147",
@@ -687,7 +732,8 @@
   "en": "This is probably the wrong address.",
   "note": "wohl = wahrscheinlich; sich wohlfühlen = to feel good",
   "case": null,
-  "order": 147
+  "order": 147,
+  "origin": "ai"
  },
  {
   "id": "core:r00148",
@@ -702,7 +748,8 @@
   "en": "I still need to withdraw money from the cash machine.",
   "note": null,
   "case": null,
-  "order": 148
+  "order": 148,
+  "origin": "ai"
  },
  {
   "id": "core:r00149",
@@ -717,7 +764,8 @@
   "en": "Last week I was ill for three days.",
   "note": null,
   "case": null,
-  "order": 149
+  "order": 149,
+  "origin": "ai"
  },
  {
   "id": "core:r00150",
@@ -732,7 +780,8 @@
   "en": "Love is more important than money.",
   "note": "Briefanfang „Liebe Anna“ = Adjektiv lieb",
   "case": null,
-  "order": 150
+  "order": 150,
+  "origin": "ai"
  },
  {
   "id": "core:r00151",
@@ -747,7 +796,8 @@
   "en": "I'll be right there, I just have to make a quick call.",
   "note": "auch Adjektiv: das gleiche Auto = the same car",
   "case": null,
-  "order": 151
+  "order": 151,
+  "origin": "ai"
  },
  {
   "id": "core:r00152",
@@ -762,7 +812,8 @@
   "en": "Do you know if the post office is open today?",
   "note": "ob = Ja/Nein-Frage im Nebensatz; Verb am Ende",
   "case": null,
-  "order": 152
+  "order": 152,
+  "origin": "ai"
  },
  {
   "id": "core:r00153",
@@ -777,7 +828,8 @@
   "en": "My mother calls me every Sunday.",
   "note": null,
   "case": null,
-  "order": 153
+  "order": 153,
+  "origin": "ai"
  },
  {
   "id": "core:r00154",
@@ -792,7 +844,8 @@
   "en": "I'm staying in Hamburg for a few more days.",
   "note": "ein paar = einige (klein); ein Paar = zwei (a pair)",
   "case": null,
-  "order": 154
+  "order": 154,
+  "origin": "ai"
  },
  {
   "id": "core:r00155",
@@ -807,7 +860,8 @@
   "en": "With this lovely weather we're going outside today.",
   "note": "umgangssprachlich für heraus/hinaus",
   "case": null,
-  "order": 155
+  "order": 155,
+  "origin": "ai"
  },
  {
   "id": "core:r00156",
@@ -822,7 +876,8 @@
   "en": "Over a million people live in the city.",
   "note": "n-Deklination: den/dem/des Menschen",
   "case": null,
-  "order": 156
+  "order": 156,
+  "origin": "ai"
  },
  {
   "id": "core:r00157",
@@ -837,7 +892,8 @@
   "en": "I try to read a bit of German every day.",
   "note": "versuchen + zu + Infinitiv",
   "case": null,
-  "order": 157
+  "order": 157,
+  "origin": "ai"
  },
  {
   "id": "core:r00158",
@@ -852,7 +908,8 @@
   "en": "Our cat killed a mouse last night.",
   "note": null,
   "case": null,
-  "order": 158
+  "order": 158,
+  "origin": "ai"
  },
  {
   "id": "core:r00159",
@@ -867,7 +924,8 @@
   "en": "Why didn't you tell me earlier?",
   "note": "wieso = warum (umgangssprachlich)",
   "case": null,
-  "order": 159
+  "order": 159,
+  "origin": "ai"
  },
  {
   "id": "core:r00160",
@@ -882,7 +940,8 @@
   "en": "I'll ask the landlord whether we have a cellar.",
   "note": "jemanden (Akk.) fragen; fragen nach + Dativ",
   "case": "A",
-  "order": 160
+  "order": 160,
+  "origin": "ai"
  },
  {
   "id": "core:r00161",
@@ -897,7 +956,8 @@
   "en": "I baked the cake myself.",
   "note": null,
   "case": null,
-  "order": 161
+  "order": 161,
+  "origin": "ai"
  },
  {
   "id": "core:r00162",
@@ -912,7 +972,8 @@
   "en": "I always drink my coffee without sugar.",
   "note": "ohne + Akkusativ",
   "case": "A",
-  "order": 162
+  "order": 162,
+  "origin": "ai"
  },
  {
   "id": "core:r00163",
@@ -927,7 +988,8 @@
   "en": "Come here, I want to show you something.",
   "note": "her = zum Sprecher hin; hin = vom Sprecher weg",
   "case": null,
-  "order": 163
+  "order": 163,
+  "origin": "ai"
  },
  {
   "id": "core:r00164",
@@ -942,7 +1004,8 @@
   "en": "I slept badly last night.",
   "note": "Gute Nacht!",
   "case": null,
-  "order": 164
+  "order": 164,
+  "origin": "ai"
  },
  {
   "id": "core:r00165",
@@ -957,7 +1020,8 @@
   "en": "Both my children go to the same school.",
   "note": null,
   "case": null,
-  "order": 165
+  "order": 165,
+  "origin": "ai"
  },
  {
   "id": "core:r00166",
@@ -972,7 +1036,8 @@
   "en": "Could you please not speak so fast?",
   "note": null,
   "case": null,
-  "order": 166
+  "order": 166,
+  "origin": "ai"
  },
  {
   "id": "core:r00167",
@@ -987,7 +1052,8 @@
   "en": "Of course I'll help you with the move.",
   "note": null,
   "case": null,
-  "order": 167
+  "order": 167,
+  "origin": "ai"
  },
  {
   "id": "core:r00168",
@@ -1002,7 +1068,8 @@
   "en": "My wife has been working at an insurance company since May.",
   "note": "arbeiten bei + Firma, als + Beruf",
   "case": null,
-  "order": 168
+  "order": 168,
+  "origin": "ai"
  },
  {
   "id": "core:r00169",
@@ -1017,7 +1084,8 @@
   "en": "At the weekend we're going to my parents'.",
   "note": "du fährst, er fährt; Perfekt mit sein",
   "case": null,
-  "order": 169
+  "order": 169,
+  "origin": "ai"
  },
  {
   "id": "core:r00170",
@@ -1032,7 +1100,8 @@
   "en": "How long have you been living in Leipzig?",
   "note": "lange = viel Zeit; lang = Länge (ein langer Tag)",
   "case": null,
-  "order": 170
+  "order": 170,
+  "origin": "ai"
  },
  {
   "id": "core:r00171",
@@ -1047,7 +1116,8 @@
   "en": "My son doesn't like fish.",
   "note": "ich mag, du magst, er mag",
   "case": null,
-  "order": 171
+  "order": 171,
+  "origin": "ai"
  },
  {
   "id": "core:r00172",
@@ -1062,7 +1132,8 @@
   "en": "When I was young, I did a lot of sport.",
   "note": null,
   "case": null,
-  "order": 172
+  "order": 172,
+  "origin": "ai"
  },
  {
   "id": "core:r00173",
@@ -1077,7 +1148,8 @@
   "en": "Her grandfather died last year.",
   "note": "du stirbst, er stirbt; Perfekt mit sein",
   "case": null,
-  "order": 173
+  "order": 173,
+  "origin": "ai"
  },
  {
   "id": "core:r00174",
@@ -1092,7 +1164,8 @@
   "en": "I don't feel like working at all today.",
   "note": "gar nicht / gar kein = überhaupt nicht",
   "case": null,
-  "order": 174
+  "order": 174,
+  "origin": "ai"
  },
  {
   "id": "core:r00175",
@@ -1107,7 +1180,8 @@
   "en": "Excuse me, what time is it?",
   "note": "Wie spät ist es? = What time is it?",
   "case": null,
-  "order": 175
+  "order": 175,
+  "origin": "ai"
  },
  {
   "id": "core:r00176",
@@ -1122,7 +1196,8 @@
   "en": "What is your name, please?",
   "note": "n-Deklination: den/dem Namen",
   "case": null,
-  "order": 176
+  "order": 176,
+  "origin": "ai"
  },
  {
   "id": "core:r00177",
@@ -1137,7 +1212,8 @@
   "en": "I got a letter from the tax office today.",
   "note": "Falscher Freund: bekommen = to get, nicht „to become“",
   "case": null,
-  "order": 177
+  "order": 177,
+  "origin": "ai"
  },
  {
   "id": "core:r00178",
@@ -1152,7 +1228,8 @@
   "en": "We're meeting at seven in front of the restaurant.",
   "note": "sich treffen = to meet up; du triffst, er trifft",
   "case": null,
-  "order": 178
+  "order": 178,
+  "origin": "ai"
  },
  {
   "id": "core:r00179",
@@ -1167,7 +1244,8 @@
   "en": "Hello, my name is Tom and I'm new on the team.",
   "note": "Was heißt das auf Deutsch? = What's that in German?",
   "case": null,
-  "order": 179
+  "order": 179,
+  "origin": "ai"
  },
  {
   "id": "core:r00180",
@@ -1182,7 +1260,8 @@
   "en": "Do you see the café there on the corner?",
   "note": null,
   "case": null,
-  "order": 180
+  "order": 180,
+  "origin": "ai"
  },
  {
   "id": "core:r00181",
@@ -1197,7 +1276,8 @@
   "en": "After the break we'll carry on working.",
   "note": "weiter + Verb = continue: weiterarbeiten, weitermachen",
   "case": null,
-  "order": 181
+  "order": 181,
+  "origin": "ai"
  },
  {
   "id": "core:r00182",
@@ -1212,7 +1292,8 @@
   "en": "I rang the bell, but nobody opened.",
   "note": null,
   "case": null,
-  "order": 182
+  "order": 182,
+  "origin": "ai"
  },
  {
   "id": "core:r00183",
@@ -1227,7 +1308,8 @@
   "en": "Where did you park your car?",
   "note": "mit Endung fällt das e weg: eure Wohnung, euren Hund",
   "case": null,
-  "order": 183
+  "order": 183,
+  "origin": "ai"
  },
  {
   "id": "core:r00184",
@@ -1242,7 +1324,8 @@
   "en": "I've had a cold and a headache since Monday.",
   "note": "seit + Dativ; mit Präsens: Ich wohne seit 2020 hier.",
   "case": "D",
-  "order": 184
+  "order": 184,
+  "origin": "ai"
  },
  {
   "id": "core:r00185",
@@ -1257,7 +1340,8 @@
   "en": "What did you have for dinner yesterday?",
   "note": "du isst, er isst; zu Abend essen = to have dinner",
   "case": null,
-  "order": 185
+  "order": 185,
+  "origin": "ai"
  },
  {
   "id": "core:r00186",
@@ -1272,7 +1356,8 @@
   "en": "I run a lap in the park every morning.",
   "note": "du läufst, er läuft; Wie läuft's? = How's it going?",
   "case": null,
-  "order": 186
+  "order": 186,
+  "origin": "ai"
  },
  {
   "id": "core:r00187",
@@ -1287,7 +1372,8 @@
   "en": "This is my first job in Germany.",
   "note": null,
   "case": null,
-  "order": 187
+  "order": 187,
+  "origin": "ai"
  },
  {
   "id": "core:r00188",
@@ -1302,7 +1388,8 @@
   "en": "You're completely right about that.",
   "note": "recht haben = to be right (klein geschrieben)",
   "case": null,
-  "order": 188
+  "order": 188,
+  "origin": "ai"
  },
  {
   "id": "core:r00189",
@@ -1317,7 +1404,8 @@
   "en": "Is everything OK with you?",
   "note": "in Ordnung = OK",
   "case": null,
-  "order": 189
+  "order": 189,
+  "origin": "ai"
  },
  {
   "id": "core:r00190",
@@ -1332,7 +1420,8 @@
   "en": "No problem, I can pick you up from the station.",
   "note": null,
   "case": null,
-  "order": 190
+  "order": 190,
+  "origin": "ai"
  },
  {
   "id": "core:r00191",
@@ -1347,7 +1436,8 @@
   "en": "Have you heard that the bakery is closing?",
   "note": "davon = von + das/es (hören von + Dativ)",
   "case": null,
-  "order": 191
+  "order": 191,
+  "origin": "ai"
  },
  {
   "id": "core:r00192",
@@ -1362,7 +1452,8 @@
   "en": "How much did you pay for it?",
   "note": "dafür = für + das/es",
   "case": null,
-  "order": 192
+  "order": 192,
+  "origin": "ai"
  },
  {
   "id": "core:r00193",
@@ -1377,7 +1468,8 @@
   "en": "At the weekend I play football with friends.",
   "note": null,
   "case": null,
-  "order": 193
+  "order": 193,
+  "origin": "ai"
  },
  {
   "id": "core:r00194",
@@ -1392,7 +1484,8 @@
   "en": "Tell me, how was your holiday?",
   "note": "erzählen von + Dativ",
   "case": null,
-  "order": 194
+  "order": 194,
+  "origin": "ai"
  },
  {
   "id": "core:r00195",
@@ -1407,7 +1500,8 @@
   "en": "Because of the strike, no buses are running today.",
   "note": "wegen + Genitiv (umgangssprachlich oft + Dativ)",
   "case": "G",
-  "order": 195
+  "order": 195,
+  "origin": "ai"
  },
  {
   "id": "core:r00196",
@@ -1422,7 +1516,8 @@
   "en": "That's not true, I've already paid the bill.",
   "note": "Das stimmt = That's right. Stimmt so! = Keep the change.",
   "case": null,
-  "order": 196
+  "order": 196,
+  "origin": "ai"
  },
  {
   "id": "core:r00197",
@@ -1437,7 +1532,8 @@
   "en": "Which line goes to the main station?",
   "note": null,
   "case": null,
-  "order": 197
+  "order": 197,
+  "origin": "ai"
  },
  {
   "id": "core:r00198",
@@ -1452,7 +1548,8 @@
   "en": "Our neighbours have a girl and two boys.",
   "note": "das Mädchen – neutral wegen -chen",
   "case": null,
-  "order": 198
+  "order": 198,
+  "origin": "ai"
  },
  {
   "id": "core:r00199",
@@ -1467,7 +1564,8 @@
   "en": "The concert is on Saturday – are you going?",
   "note": "hin = vom Sprecher weg; her = zum Sprecher",
   "case": null,
-  "order": 199
+  "order": 199,
+  "origin": "ai"
  },
  {
   "id": "core:r00200",
@@ -1482,7 +1580,8 @@
   "en": "My plant is dead, I never watered it.",
   "note": "tot = Adjektiv; der Tod = Nomen; sterben = Verb",
   "case": null,
-  "order": 200
+  "order": 200,
+  "origin": "ai"
  },
  {
   "id": "core:r00201",
@@ -1497,6 +1596,7 @@
   "en": "In the evening I often take the dog for a walk.",
   "note": "heute Abend; Guten Abend!",
   "case": null,
-  "order": 201
+  "order": 201,
+  "origin": "ai"
  }
 ]

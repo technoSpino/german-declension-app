@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { api } from '../../lib/api'
 import WritingTask from '../../components/kaskade/WritingTask.vue'
 import SpeakingTask from '../../components/kaskade/SpeakingTask.vue'
+import OriginBadge from '../../components/kaskade/OriginBadge.vue'
 
 const route = useRoute()
 const prompt = ref(null)
@@ -36,6 +37,7 @@ const speakingQuestions = computed(() =>
       <div>
         <p class="k-eyebrow mb-1.5">B1-Prüfungsteil · {{ prompt.skill === 'schreiben' ? 'Schreiben' : 'Sprechen' }} · {{ prompt.minutes }} min</p>
         <h1 class="k-h1">{{ prompt.title }}</h1>
+        <OriginBadge class="mt-2" :origin="prompt.origin" :source="prompt.source" fallback="ai" />
         <p class="k-lead">Eigene Übungsaufgabe im Stil der B1-Prüfung (keine echte Prüfungsaufgabe).</p>
       </div>
 

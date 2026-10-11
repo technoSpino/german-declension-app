@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
+import OriginBadge from '../../components/kaskade/OriginBadge.vue'
 
 const texts = ref([])
 const error = ref(null)
@@ -39,7 +40,10 @@ const SLOT = { input: '09:30 · mit Hilfen', lesen: '10:35 · freies Lesen' }
           <span class="k-eyebrow">{{ t.theme }} · {{ t.level }}</span>
           <span class="lb-title">{{ t.title }}</span>
           <span class="k-small">{{ SLOT[t.slot] }} · {{ t.words }} Wörter<template v-if="t.coverage != null"> · {{ Math.round(t.coverage * 100) }} % Kernwörter</template></span>
-          <span v-if="t.readAt" class="k-chip k-chip-success" style="width: fit-content">✓ gelesen</span>
+          <span class="flex flex-wrap items-center gap-2">
+            <OriginBadge :origin="t.origin" :source="t.source" fallback="ai" />
+            <span v-if="t.readAt" class="k-chip k-chip-success" style="width: fit-content">✓ gelesen</span>
+          </span>
         </router-link>
       </li>
     </ul>

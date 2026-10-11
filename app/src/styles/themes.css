@@ -77,6 +77,9 @@
   --timeline-done-text: #3d4350;
   --timeline-pause: #eceef2;
   --timeline-pause-line: #c5cad3;
+  --origin-ai-bg: #efecfc;        /* "KI-geschrieben" badge */
+  --origin-ai-text: #3b2bb0;
+  --origin-ai-border: #8d7fe3;
   --chart-active: #5b3fd6;
   --chart-passive: #b57a00;
 }
@@ -152,6 +155,9 @@
   --timeline-done-text: #c3c8d2;
   --timeline-pause: #1e222a;
   --timeline-pause-line: #3d4350;
+  --origin-ai-bg: #232035;        /* "KI-geschrieben" badge */
+  --origin-ai-text: #c9bcff;
+  --origin-ai-border: #7d70c9;
   --chart-active: #a996ff;
   --chart-passive: #e0a33a;
 }
@@ -227,6 +233,9 @@
   --timeline-done-text: #4a4237;
   --timeline-pause: #efe8da;
   --timeline-pause-line: #c9bda6;
+  --origin-ai-bg: #e6efec;        /* "KI-geschrieben" badge */
+  --origin-ai-text: #1e4d4d;
+  --origin-ai-border: #5f8b87;
   --chart-active: #1e4d4d;
   --chart-passive: #9a6a12;
 }
@@ -302,6 +311,9 @@
   --timeline-done-text: #000000;
   --timeline-pause: #ffffff;
   --timeline-pause-line: #808080;
+  --origin-ai-bg: #ffffff;        /* "KI-geschrieben" badge */
+  --origin-ai-text: #000000;
+  --origin-ai-border: #000000;
   --chart-active: #000000;
   --chart-passive: #808080;
 }
@@ -377,6 +389,9 @@
   --timeline-done-text: #555555;
   --timeline-pause: #f0f0eb;
   --timeline-pause-line: #b5b5ae;
+  --origin-ai-bg: #f6f6f1;        /* "KI-geschrieben" badge */
+  --origin-ai-text: #333333;
+  --origin-ai-border: #8f8f88;
   --chart-active: #b88a00;
   --chart-passive: #6b6b66;
 }
@@ -453,6 +468,9 @@
   --timeline-done-text: #3a3a3a;
   --timeline-pause: #f4f4f2;
   --timeline-pause-line: #b5b5b0;
+  --origin-ai-bg: #f4f4f2;        /* "KI-geschrieben" badge */
+  --origin-ai-text: #a8300d;
+  --origin-ai-border: #c93a12;
   --chart-active: #e64415;
   --chart-passive: #8a8a86;
 }

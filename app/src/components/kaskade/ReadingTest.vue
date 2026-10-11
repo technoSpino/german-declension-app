@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
+import OriginBadge from './OriginBadge.vue'
 
 // Placement reading: texts with multiple-choice questions. Keys A/B/C, Enter = weiter.
 const props = defineProps({
@@ -67,6 +68,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
     <article class="k-card" style="flex: 999 1 520px" aria-labelledby="rt-title">
       <p class="k-eyebrow">Text {{ textNo }} von {{ texts.length }} · {{ text.kind }}</p>
       <h2 id="rt-title" class="k-h2 mt-1.5">{{ text.title }}</h2>
+      <OriginBadge class="mt-1.5" :origin="text.origin" :source="text.source" fallback="ai" />
       <div class="k-read mt-4 flex flex-col gap-3" style="font-size: 18px; line-height: 1.7">
         <p v-for="(para, i) in text.text.split('\n\n')" :key="i" class="m-0">{{ para }}</p>
       </div>

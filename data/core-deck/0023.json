@@ -12,7 +12,8 @@
   "en": "I think the new rule is totally stupid.",
   "note": "umgangssprachlich",
   "case": null,
-  "order": 2590
+  "order": 2590,
+  "origin": "ai"
  },
  {
   "id": "core:r02591",
@@ -27,7 +28,8 @@
   "en": "Can you put the plates on the table, please?",
   "note": null,
   "case": null,
-  "order": 2591
+  "order": 2591,
+  "origin": "ai"
  },
  {
   "id": "core:r02592",
@@ -42,7 +44,8 @@
   "en": "Back then the smartphone was a real revolution.",
   "note": null,
   "case": null,
-  "order": 2592
+  "order": 2592,
+  "origin": "ai"
  },
  {
   "id": "core:r02593",
@@ -57,7 +60,8 @@
   "en": "The police investigation is still ongoing.",
   "note": "meist Plural",
   "case": null,
-  "order": 2593
+  "order": 2593,
+  "origin": "ai"
  },
  {
   "id": "core:r02594",
@@ -72,7 +76,8 @@
   "en": "In the end our team won 2–1.",
   "note": "normal: gewinnen",
   "case": null,
-  "order": 2594
+  "order": 2594,
+  "origin": "ai"
  },
  {
   "id": "core:r02595",
@@ -87,7 +92,8 @@
   "en": "I still have to hang up the washing today.",
   "note": null,
   "case": null,
-  "order": 2595
+  "order": 2595,
+  "origin": "ai"
  },
  {
   "id": "core:r02596",
@@ -102,7 +108,8 @@
   "en": "How he managed that is a mystery to me.",
   "note": null,
   "case": null,
-  "order": 2596
+  "order": 2596,
+  "origin": "ai"
  },
  {
   "id": "core:r02597",
@@ -117,7 +124,8 @@
   "en": "Hundreds of people demonstrated against the high rents.",
   "note": null,
   "case": null,
-  "order": 2597
+  "order": 2597,
+  "origin": "ai"
  },
  {
   "id": "core:r02598",
@@ -132,7 +140,8 @@
   "en": "My grandmother read the Bible every evening.",
   "note": null,
   "case": null,
-  "order": 2598
+  "order": 2598,
+  "origin": "ai"
  },
  {
   "id": "core:r02599",
@@ -147,6 +156,7 @@
   "en": "My suitcase weighs more than 23 kilos.",
   "note": null,
   "case": null,
-  "order": 2599
+  "order": 2599,
+  "origin": "ai"
  }
 ]

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
 import { KIND_LABEL, verdictLabel } from '../../lib/practice'
+import OriginBadge from '../../components/kaskade/OriginBadge.vue'
 
 const data = ref(null)
 const error = ref(null)
@@ -55,7 +56,7 @@ const pct = (x) => (x == null ? '—' : `${Math.round(x * 100)} %`)
           <li v-for="it in data[m.id]" :key="it.id" class="pr-row">
             <span class="min-w-0">
               <router-link :to="`/pruefung/${m.id}/${it.id}`" style="font-weight: 700" :data-testid="`item-${it.id}`">{{ it.title }}</router-link>
-              <span class="k-hint block">{{ KIND_LABEL[it.kind] || it.kind }} · {{ it.minutes }} min</span>
+              <span class="k-hint flex flex-wrap items-center gap-x-2 gap-y-1">{{ KIND_LABEL[it.kind] || it.kind }} · {{ it.minutes }} min <OriginBadge :origin="it.origin" :source="it.source" fallback="ai" /></span>
             </span>
             <span class="k-small" style="font-weight: 700; color: var(--text)">{{ it.last == null ? '' : pct(it.last) }}</span>
           </li>

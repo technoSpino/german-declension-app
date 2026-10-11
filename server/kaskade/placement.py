@@ -2,7 +2,7 @@
 import json
 from functools import lru_cache
 
-from . import config
+from . import config, origin
 
 
 @lru_cache(maxsize=1)
@@ -20,7 +20,7 @@ def reading_public() -> list[dict]:
     out = []
     for t in reading_texts()["texts"]:
         qs = [{k: q[k] for k in ("id", "question", "options")} for q in t["questions"]]
-        out.append({**{k: t[k] for k in ("id", "level", "title", "kind", "text")}, "questions": qs})
+        out.append({**{k: t[k] for k in ("id", "level", "title", "kind", "text")}, **origin.tag(t), "questions": qs})
     return out
 
 
@@ -105,7 +105,7 @@ def result(state: dict) -> dict:
             "sprechen": None,
         },
         "notes": {
-            "schreiben": "bewertet" if grade else ("gespeichert, ohne KI nicht bewertet" if writing.get("text") else "übersprungen"),
+            "schreiben": "KI-Bewertung" if grade else ("gespeichert, ohne KI nicht bewertet" if writing.get("text") else "übersprungen"),
             "sprechen": f"{len(recordings)} Aufnahmen gespeichert, noch nicht bewertet" if recordings else "übersprungen",
         },
     }

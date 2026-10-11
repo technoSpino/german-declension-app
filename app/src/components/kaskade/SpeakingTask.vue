@@ -2,6 +2,7 @@
 import { computed, onBeforeUnmount, ref } from 'vue'
 import { api } from '../../lib/api'
 import { formatClock } from '../../lib/format'
+import OriginBadge from './OriginBadge.vue'
 
 // Record short spoken answers with MediaRecorder and upload them. No grading yet.
 const props = defineProps({
@@ -84,7 +85,7 @@ onBeforeUnmount(stop)
 
 <template>
   <section class="k-card flex flex-col gap-4" aria-labelledby="sp-h" data-testid="speaking-task">
-    <p class="k-eyebrow">Frage {{ index + 1 }} von {{ questions.length }}</p>
+    <p class="k-eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">Frage {{ index + 1 }} von {{ questions.length }} <OriginBadge v-if="q.origin" :origin="q.origin" :source="q.source" /></p>
     <h2 id="sp-h" class="k-read m-0" style="font-size: 24px; font-weight: 600; line-height: 1.35">{{ q.prompt }}</h2>
     <p class="k-hint m-0">{{ q.hint }}</p>
     <p v-if="!supported" class="k-error m-0">Dieser Browser kann keine Aufnahmen machen. Du kannst diesen Teil überspringen.</p>

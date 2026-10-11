@@ -180,6 +180,29 @@
 .k-chip-accent { background: var(--accent); color: var(--accent-text); }
 .k-chip-success { background: var(--success-bg); color: var(--success); }
 
+/* Origin of content (#16): AI-written badge, or the source of real material. */
+.k-origin {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+.k-origin-ai {
+  padding: 2px 8px;
+  border: 1px solid var(--origin-ai-border);
+  border-radius: var(--radius-pill);
+  background: var(--origin-ai-bg);
+  color: var(--origin-ai-text);
+  white-space: nowrap;
+}
+.k-origin-real { color: var(--muted); font-weight: 600; }
+
 .k-callout {
   background: var(--callout);
   color: var(--text-2);

@@ -38,6 +38,9 @@ A JSON array; one object per rank in the file's range, in rank order.
   everything else: the word.
 - `target`: the exact substring of `sentence` to highlight (an inflected form is fine).
 - `note`: short, simple German. Prepositions: the case (`mit + Dativ`).
+- `origin` (optional): the merge writes `"origin": "ai"` on every card (the sentences are
+  written for Kaskade; the app shows "KI-geschrieben"). A card from real input would set
+  `"origin": "real"` plus a `source`.
   Optional elsewhere — only when it really helps.
 - `case`: `"N" | "A" | "D" | "G" | null` — set for prepositions and when the note is
   about a case; shown as the coloured case badge.

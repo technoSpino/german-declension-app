@@ -3,6 +3,7 @@
   "items": [
     {
       "id": "l1",
+      "origin": "ai",
       "title": "Drei Monate in Leipzig",
       "kind": "richtig-falsch",
       "minutes": 10,
@@ -19,6 +20,7 @@
     },
     {
       "id": "l2",
+      "origin": "ai",
       "title": "Sonntags in die Bibliothek",
       "kind": "mc",
       "minutes": 12,
@@ -79,6 +81,7 @@
     },
     {
       "id": "l3",
+      "origin": "ai",
       "title": "Wer findet was?",
       "kind": "zuordnung",
       "minutes": 10,
@@ -137,6 +140,7 @@
     },
     {
       "id": "l4",
+      "origin": "ai",
       "title": "Sperrmüll richtig anmelden",
       "kind": "richtig-falsch",
       "minutes": 8,

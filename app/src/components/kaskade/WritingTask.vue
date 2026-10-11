@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { api } from '../../lib/api'
+import { AI_GRADE } from '../../lib/origin'
+import OriginBadge from './OriginBadge.vue'
 
 // A B1-style writing task. Saves the text; graded only when the server has an API key.
 const props = defineProps({
@@ -46,6 +48,7 @@ const criteria = { erfuellung: 'Erfüllung', kohaerenz: 'Kohärenz', wortschatz:
     <section class="k-card flex flex-col gap-3" style="flex: 1 1 340px" :aria-label="task.title">
       <p class="k-eyebrow">{{ task.type }} · {{ task.minutes }} min</p>
       <h2 v-if="showTitle" id="wt-h" class="k-h2">{{ task.title }}</h2>
+      <OriginBadge v-if="showTitle" :origin="task.origin" :source="task.source" fallback="ai" />
       <p class="k-read m-0" style="font-size: 18px; line-height: 1.6">{{ task.situation }}</p>
       <ul class="m-0 list-disc pl-5 flex flex-col gap-1.5">
         <li v-for="p in task.points" :key="p">{{ p }}</li>
@@ -73,7 +76,7 @@ const criteria = { erfuellung: 'Erfüllung', kohaerenz: 'Kohärenz', wortschatz:
       <p v-if="error" class="k-error m-0" role="alert">{{ error }}</p>
       <p v-if="!ai && !saved" class="k-hint m-0">Ohne KI-Schlüssel wird der Text nur gespeichert, nicht bewertet.</p>
       <div v-if="saved?.grade" class="k-callout flex flex-col gap-2" data-testid="wt-grade">
-        <p class="m-0" style="font-size: 18px; font-weight: 800; color: var(--text)">Einschätzung: {{ saved.grade.level }}</p>
+        <p class="m-0" style="font-size: 18px; font-weight: 800; color: var(--text)">{{ AI_GRADE }}: {{ saved.grade.level }}</p>
         <p class="m-0">{{ saved.grade.summary }}</p>
         <ul v-if="saved.grade.scores" class="m-0 pl-5">
           <li v-for="(v, k) in saved.grade.scores" :key="k">{{ criteria[k] || k }}: {{ v }}/5</li>

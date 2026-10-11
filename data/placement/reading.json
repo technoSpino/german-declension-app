@@ -3,6 +3,7 @@
   "texts": [
     {
       "id": "b1",
+      "origin": "ai",
       "level": "B1",
       "title": "Eine Bank, die Menschen verbindet",
       "kind": "Zeitungsartikel (Lokalteil)",
@@ -67,6 +68,7 @@
     },
     {
       "id": "b2",
+      "origin": "ai",
       "level": "B2",
       "title": "Bauen im Hinterhof: Wie viel Dichte verträgt die Stadt?",
       "kind": "Zeitungsartikel",

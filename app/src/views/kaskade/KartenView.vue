@@ -3,6 +3,8 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
 import { splitTarget } from '../../lib/cards'
 import { speak } from '../../lib/speech'
+import { audioNote, cardBadge } from '../../lib/origin'
+import OriginBadge from '../../components/kaskade/OriginBadge.vue'
 
 const data = ref(null)
 const stats = ref(null)
@@ -123,7 +125,7 @@ const buttons = [
             <span class="k-eyebrow">{{ card.isNew ? 'Neu' : 'Wiederholung' }} · {{ card.n ? `Kernwort ${card.n}` : `Gemined · ${card.source || 'Lesen'}` }}</span>
             <button type="button" class="kc-audio" data-testid="karte-audio" aria-label="Satz vorlesen (Taste A)" @click="playAudio">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /></svg>
-              Audio <kbd class="k-kbd">A</kbd>
+              Audio <span class="kc-voice" data-testid="karte-voice">{{ audioNote(card) }}</span> <kbd class="k-kbd">A</kbd>
             </button>
           </div>
           <p class="k-read kc-sentence" data-testid="karte-satz">{{ parts.pre }}<mark class="k-mark">{{ parts.target }}</mark>{{ parts.post }}</p>
@@ -133,6 +135,9 @@ const buttons = [
               <p class="m-0" style="font-size: 24px; font-weight: 800">{{ card.display }}</p>
               <p class="m-0 k-read" style="font-size: 18px; color: var(--text-2)">„{{ card.gloss }}“</p>
               <p v-if="card.en" class="m-0 mt-2" style="font-size: 15px; color: var(--muted)">{{ card.en }}</p>
+              <span v-if="cardBadge(card)" class="mt-2" data-testid="karte-origin">
+                <OriginBadge :origin="card.origin" :source="card.originSource" :fallback="card.n ? 'ai' : null" />
+              </span>
             </div>
             <div v-if="card.note" class="kc-note">
               <span v-if="card.case" :class="['k-case', `k-case-${card.case}`]" :aria-label="`Kasus ${card.case}`">{{ card.case }}</span>
@@ -222,6 +227,7 @@ const buttons = [
   background: var(--surface); color: var(--text); font: inherit; font-weight: 700; font-size: 14px; cursor: pointer;
 }
 .kc-audio:disabled { opacity: 0.5; cursor: default; }
+.kc-voice { font-size: 12px; font-weight: 600; color: var(--muted); }
 .kc-back { border-top: 1px solid var(--surface-2); padding-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
 .kc-note { display: flex; gap: 12px; align-items: flex-start; background: var(--bg); border-radius: 12px; padding: 14px; }
 .kc-reveal { min-height: 60px; font-size: 18px; font-weight: 800; border-radius: var(--radius-lg); }

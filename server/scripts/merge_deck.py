@@ -15,6 +15,7 @@ RAW = DECK / "raw"
 REQUIRED = ("rank", "lemma", "pos", "display", "gloss", "sentence", "target", "en")
 ARTICLE_RE = re.compile(r"^(der|die|das) ")
 CASES = {None, "N", "A", "D", "G"}
+ORIGINS = {"ai", "real"}
 
 
 def norm(lemma: str) -> str:
@@ -37,6 +38,8 @@ def check_card(c: dict) -> list[str]:
         errs.append(f"target {c['target']!r} not in sentence")
     if c.get("case") not in CASES:
         errs.append(f"bad case {c.get('case')!r}")
+    if c.get("origin", "ai") not in ORIGINS or (c.get("origin") == "real" and not c.get("source")):
+        errs.append("origin must be ai, or real with a source")
     if c["pos"] == "NOUN" and not ARTICLE_RE.match(c["display"]) and "Plural" not in c["display"]:
         errs.append("noun display needs der/die/das")
     if c["pos"] == "NOUN" and not c["lemma"][:1].isupper():
@@ -112,6 +115,11 @@ def main() -> None:
             out = {"id": f"core:r{c['rank']:05d}", "n": i}
             out.update({k: c.get(k) for k in (*REQUIRED, "note", "case")})
             out["order"] = c["order"]
+            # The example sentences are written for Kaskade (AI); a card from real input
+            # would carry origin "real" and its source in the raw file.
+            out["origin"] = c.get("origin", "ai")
+            if c.get("source"):
+                out["source"] = c["source"]
             batch.append(out)
         name = DECK / f"{start // 100 + 1:04d}.json"
         name.write_text(json.dumps(batch, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

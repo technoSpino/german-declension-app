@@ -11,7 +11,8 @@ among the first 2,000 core-deck words. Check with
 (spaCy + `de_core_news_sm`, see `server/requirements-tools.txt`). The content tests
 enforce the rule and require a glossary entry for every word outside the core.
 
-Format (`tNN.json`): `id, title, level ("A2+"|"B1"), theme, slot ("input" = 09:30 with
+Format (`tNN.json`): `id, origin ("ai" = written for Kaskade, shown as "KI-geschrieben";
+"real" needs a `source`), title, level ("A2+"|"B1"), theme, slot ("input" = 09:30 with
 glossary, "lesen" = 10:35 free reading), text (paragraphs separated by a blank line),
 glossary [{term, gloss, note?}], questions [{question, options[3], correct}],
 names [optional: names the tagger doesn't recognise]`.

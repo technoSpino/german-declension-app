@@ -3,6 +3,7 @@
   "items": [
     {
       "id": "h1",
+      "origin": "ai",
       "title": "Ersatzbus nach Würzburg",
       "kind": "durchsage",
       "plays": 2,
@@ -24,6 +25,7 @@
     },
     {
       "id": "h2",
+      "origin": "ai",
       "title": "Nachricht von der Hausarztpraxis",
       "kind": "anrufbeantworter",
       "plays": 2,
@@ -65,6 +67,7 @@
     },
     {
       "id": "h3",
+      "origin": "ai",
       "title": "Abschied für Herrn Brandt",
       "kind": "gespraech",
       "plays": 1,
@@ -98,6 +101,7 @@
     },
     {
       "id": "h4",
+      "origin": "ai",
       "title": "Schwimmen lernen mit einundvierzig",
       "kind": "radio",
       "plays": 1,
