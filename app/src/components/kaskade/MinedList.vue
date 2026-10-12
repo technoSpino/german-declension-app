@@ -48,9 +48,8 @@ function deleted(c) {
           <p class="m-0 k-small ml-sentence">„{{ c.sentence }}“</p>
           <p v-for="w in cardWords(c)" :key="w.target" class="m-0 mt-1 flex flex-wrap items-center gap-1.5 text-sm">
             <span v-if="w.case" :class="['k-case', `k-case-${w.case}`]" :aria-label="`Kasus ${w.case}`">{{ w.case }}</span>
-            <strong>{{ w.display }}</strong><AiMark v-if="w.ai?.includes('lemma')" field="lemma" />
-            <span style="color: var(--text-2)">· {{ w.gloss }}</span><AiMark v-if="w.ai?.includes('gloss')" field="gloss" />
-            <AiMark v-if="w.ai?.includes('case')" field="case" />
+            <span class="inline-flex items-center gap-1.5"><strong>{{ w.display }}</strong><AiMark v-if="w.ai?.includes('lemma')" field="lemma" /></span>
+            <span class="inline-flex items-center gap-1.5" style="color: var(--text-2)">· {{ w.gloss }}<AiMark v-if="w.ai?.includes('gloss')" field="gloss" /><AiMark v-if="w.ai?.includes('case')" field="case" /></span>
           </p>
           <button type="button" class="ml-edit" :data-testid="`mined-edit-${c.id}`" @click="open = c.id">Bearbeiten</button>
         </template>

@@ -32,7 +32,7 @@ Wort: „{target}“
 
 Gib für dieses Wort, so wie es in genau diesem Satz steht, an:
 - lemma: die Grundform (Verb im Infinitiv, Nomen im Nominativ Singular, Adjektiv ohne Endung)
-- gloss: kurze englische Bedeutung in diesem Satz, höchstens 6 Wörter
+- gloss: kurze englische Bedeutung der Grundform in diesem Satz (Verben als „to …“), höchstens 6 Wörter
 - article: "der", "die" oder "das" bei Nomen, sonst null
 - plural: Pluralform ohne Artikel bei Nomen (null, wenn es keinen gibt), sonst null
 - case: Kasus des Wortes in diesem Satz, "N", "A", "D" oder "G" — nur bei Nomen und Pronomen, sonst null

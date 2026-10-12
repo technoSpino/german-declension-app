@@ -66,7 +66,9 @@ def today(today: dt.date | None = None, phase: str | None = None):
     info["todos"] = [t for t in info["todos"] if not _todo_done(t)]
     # #16: the exact thing each block of the shown day (today, else the preview day) is about
     shown = info if info["day"] else info["preview"]
-    assignments = {it["block"]: it for it in materials.day_items(shown, materials.Ctx(d, now), data, plan_start(d))}
+    ctx = materials.Ctx(d, now)
+    ctx.live = today is None and phase is None
+    assignments = {it["block"]: it for it in materials.day_items(shown, ctx, data, plan_start(d))}
     days = plan.week_days(d)
     with db.tx() as conn:
         week_rows = _activity_rows(conn, days[0])
@@ -133,6 +135,7 @@ def get_materials(today: dt.date | None = None, phase: str | None = None):
     data = plan.plan(phase or db.get_setting("phase"))
     start = plan_start(_today())
     ctx = materials.Ctx(d)
+    ctx.live = today is None and phase is None
     nxt, kind = materials.next_plan_day(start, d, data)
     check = materials.read_check()
     return {

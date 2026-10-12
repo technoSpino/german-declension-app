@@ -689,22 +689,25 @@ test('#20 every Starten on Heute opens its exact item, Mon–Fri of week 1', asy
       join(DATA_DIR, 'kaskade.db'), key, String(clip.id)])
   }
   const id = Object.fromEntries((await media()).filter((m) => m.key).map((m) => [m.key, m.id]))
-  const watch = (key: string, von: number) => new RegExp(`/schauen/${id[key]}\\?von=${von}&bis=\\d+$`)
+  const watch = (key: string) => new RegExp(`/schauen/${id[key]}\\?von=\\d+&bis=\\d+$`)
 
   // block → where "Starten" goes; null = stays on Heute (the news links are listed under the block)
   const days: [string, Record<string, RegExp | null>][] = [
-    ['2026-10-12', { karten: /\/karten$/, input: watch('tatort-schweigen', 0), lesen: watch('egp-698', 0), pruefung: /\/aufgabe\/s01$/ }],
-    ['2026-10-13', { karten: /\/karten$/, input: watch('tatort-schweigen', 1814), lesen: null, pruefung: /\/aufgabe\/p01$/ }],
-    ['2026-10-14', { karten: /\/karten$/, input: watch('tatort-schweigen', 3640), lesen: watch('egp-700', 0), pruefung: /\/aufgabe\/s02$/ }],
-    ['2026-10-15', { karten: /\/karten$/, input: watch('soko-leipzig-das-auge', 0), lesen: watch('radio-tatort-uebertherapie', 0), pruefung: /\/aufgabe\/p02$/ }],
-    ['2026-10-16', { karten: /\/karten$/, input: watch('soko-leipzig-das-auge', 1324), lesen: watch('radio-tatort-uebertherapie', 1620), pruefung: /\/pruefung\/lesen\/l1$/ }]
+    ['2026-10-12', { karten: /\/karten$/, input: watch('tatort-schweigen'), lesen: watch('egp-698'), pruefung: /\/aufgabe\/s01$/ }],
+    ['2026-10-13', { karten: /\/karten$/, input: watch('tatort-schweigen'), lesen: null, pruefung: /\/aufgabe\/p01$/ }],
+    ['2026-10-14', { karten: /\/karten$/, input: watch('tatort-schweigen'), lesen: /\/schauen\/\d+\?von=\d+&bis=\d+$/, pruefung: /\/aufgabe\/s02$/ }],
+    ['2026-10-15', { karten: /\/karten$/, input: /\/schauen\/\d+\?von=\d+&bis=\d+$/, lesen: /\/schauen\/\d+\?von=\d+&bis=\d+$/, pruefung: /\/aufgabe\/p02$/ }],
+    ['2026-10-16', { karten: /\/karten$/, input: /\/schauen\/\d+\?von=\d+&bis=\d+$/, lesen: /\/schauen\/\d+\?von=\d+&bis=\d+$/, pruefung: /\/pruefung\/lesen\/l1$/ }]
   ]
   const undone = new Set<string>()
   for (const [iso, blocks] of days) {
     await page.unroute('**/api/today')
     await page.route('**/api/today', (route) => route.continue({ url: `${new URL(route.request().url()).origin}/api/today?today=${iso}&phase=2B` }))
+    // what the server computed for that day (#21: clip ranges roll from his position)
+    const assigned = (await (await request.get(`http://127.0.0.1:8001/api/today?today=${iso}&phase=2B`)).json()).assignments
     for (const [block, to] of Object.entries(blocks)) {
       await page.goto('/')
+      if (assigned[block].part) await expect(page.getByTestId(`assign-${block}`), `${iso} ${block}`).toContainText(assigned[block].part)
       await expect(page.getByTestId(`done-${block}`)).toBeVisible()
       // earlier tests may have ticked a block off or left its timer running: undo that first
       if ((await page.getByTestId(`done-${block}`).textContent())?.includes('Erledigt')) {
@@ -713,7 +716,10 @@ test('#20 every Starten on Heute opens its exact item, Mon–Fri of week 1', asy
       }
       if (await page.getByTestId(`stop-${block}`).isVisible()) await page.getByTestId(`stop-${block}`).click()
       await page.getByTestId(`start-${block}`).click()
-      if (to) await expect(page, `${iso} ${block}`).toHaveURL(to)
+      if (to) {
+        await expect(page, `${iso} ${block}`).toHaveURL(to)
+        expect(page.url(), `${iso} ${block}`).toContain(assigned[block].start.to)  // exactly the line's item
+      }
       else {
         await expect(page.getByTestId(`stop-${block}`)).toBeVisible()
         await expect(page, `${iso} ${block}`).toHaveURL(/\/$/)
@@ -723,6 +729,27 @@ test('#20 every Starten on Heute opens its exact item, Mon–Fri of week 1', asy
   await request.post('http://127.0.0.1:8001/api/activity/stop')
   for (const block of undone) await request.post('http://127.0.0.1:8001/api/plan/done', { data: { block, done: true } })
   await page.unroute('**/api/today')
+  expect(errors).toEqual([])
+})
+
+test('#21 the clip range on Heute starts at his saved position, and Starten opens exactly that', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  const media = (await (await request.get('http://127.0.0.1:8001/api/media')).json()) as { id: number, key: string | null }[]
+  const tatort = media.find((m) => m.key === 'tatort-schweigen')!  // registered by the #20 test above
+  const before = (await (await request.get(`http://127.0.0.1:8001/api/media/${tatort.id}`)).json()).position ?? 0
+  // He is at 66:40: Wednesday's part is the rest of the film, not the plan's 60:40–89:21
+  await request.put(`http://127.0.0.1:8001/api/media/${tatort.id}/progress`, { data: { position: 4000 } })
+  await page.route('**/api/today', (route) => route.continue({ url: `${new URL(route.request().url()).origin}/api/today?today=2026-10-14&phase=2B` }))
+  await page.goto('/')
+  await expect(page.getByTestId('assign-input')).toContainText('Tatort: Schweigen · 66:40–89:21 · 23 min')
+  await expect(page.getByTestId('block-input')).toContainText('Tatort: Schweigen, 66:40–89:21 (Ende).')
+  await page.getByTestId('start-input').click()
+  await expect(page).toHaveURL(new RegExp(`/schauen/${tatort.id}\\?von=4000&bis=5361$`))
+  await expect(page.getByTestId('watch-range')).toContainText('66:40')
+  await page.unroute('**/api/today')
+  await page.goto('about:blank') // Schauen saves its position on leaving — leave first, then restore
+  await request.post('http://127.0.0.1:8001/api/activity/stop')
+  await request.put(`http://127.0.0.1:8001/api/media/${tatort.id}/progress`, { data: { position: before } })
   expect(errors).toEqual([])
 })
 
@@ -771,7 +798,7 @@ test('Material für heute und morgen: Sunday shows Monday with the Tatort ready'
   await expect(page.getByTestId('mat-today')).toContainText('Kein Lernblock.')
   await expect(card.getByText('Morgen (Mo 12.10.)')).toBeVisible()
   const tatort = page.getByTestId('mat-tomorrow-input')
-  await expect(tatort).toContainText('Tatort: Schweigen · 0:00–30:14 · 30 min')
+  await expect(tatort).toContainText(/Tatort: Schweigen · \d+:\d\d–\d+:\d\d · \d+ min/) // #21: the range rolls from his position
   await expect(tatort).toContainText('✓ bereit')
   await expect(tatort).toContainText('Quelle: ARD Mediathek · NDR')
   await expect(page.getByTestId('mat-tomorrow-pruefung')).toContainText('nur Selbstcheck, keine KI-Bewertung')
@@ -797,7 +824,7 @@ test('Material: Monday shows today and Tuesday with the Sprechen microphone line
   await expect(mic).toContainText('Mikrofon / Headset')
   // 127.0.0.1 counts as a secure context: the microphone works here
   await expect(mic).toContainText('✓ bereit')
-  await expect(page.getByTestId('mat-tomorrow-input')).toContainText('30:14–60:40')
+  await expect(page.getByTestId('mat-tomorrow-input')).toContainText(/Tatort: Schweigen · \d+:\d\d–\d+:\d\d/)
   await expect(page.getByTestId('mat-tomorrow-lesen')).toContainText('Die drei Links stehen am Morgen hier')
 })
 
@@ -815,7 +842,8 @@ test('Material on Friday: the next plan day is Monday', async ({ page }) => {
   await materialsAt(page, '2026-10-16')
   await page.goto('/')
   await expect(page.getByTestId('materials').getByText('Nächster Lerntag: Mo 19.10.')).toBeVisible()
-  await expect(page.getByTestId('mat-next-input')).toContainText('Merz gegen Merz, Folge 1')
+  // #21: week 1's Tatort isn't watched here → Monday continues with it, nothing is skipped
+  await expect(page.getByTestId('mat-next-input')).toContainText('Tatort: Schweigen')
   await expect(page.getByTestId('mat-next-lesen')).toContainText('Ferdinand von Schirach: Verbrechen')
   await expect(page.getByTestId('mat-next-lesen')).toContainText('„Fähner“ und „Tanatas Teeschale“')
   // not bought by Monday: overdue, marked — tick it off as bought

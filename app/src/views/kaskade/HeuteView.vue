@@ -97,9 +97,10 @@ function describe(b) {
   if (!d) return ''
   switch (b.kind) {
     case 'karten': return d.karten
-    case 'input': return d.input
+    // #21: a rolling clip brings the plan text with its real range ("Tatort: Schweigen, 7:10–34:34 …")
+    case 'input': return assignment(b)?.text ?? d.input
     case 'pause': return 'Aufstehen, Wasser trinken, kurz ans Fenster und raus.'
-    case 'lesen': return d.lesen
+    case 'lesen': return assignment(b)?.text ?? d.lesen
     case 'pruefung': {
       const exam = planInfo.value?.exam
       if (planInfo.value?.mockExam) return planInfo.value.mockExam.note

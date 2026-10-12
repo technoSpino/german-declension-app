@@ -97,6 +97,16 @@ CREATE TABLE IF NOT EXISTS mined (
   kasus TEXT,                    -- N | A | D | G | NULL
   source TEXT
 );
+CREATE TABLE IF NOT EXISTS watch_ranges (
+  local_date TEXT NOT NULL,      -- #21: a day's rolling clip range, fixed on its first computation
+  block TEXT NOT NULL,           -- input | lesen
+  clip TEXT NOT NULL,            -- stock key
+  start REAL NOT NULL,
+  end REAL,
+  clean INTEGER NOT NULL,        -- 1 = fixed before he started the block that day (counts for his pace)
+  reached REAL,                  -- his position the next time a range of this block was fixed
+  PRIMARY KEY (local_date, block)
+);
 CREATE TABLE IF NOT EXISTS media_progress (
   media_id INTEGER PRIMARY KEY,  -- resume position per clip (Schauen & minen)
   position REAL NOT NULL,

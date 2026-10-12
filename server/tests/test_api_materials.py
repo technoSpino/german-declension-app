@@ -49,9 +49,10 @@ def test_sunday_shows_monday_with_tatort_ready(b2, monkeypatch):
     items = by_block(m["next"])
     assert list(items) == ["karten", "input", "lesen", "pruefung"]
     tatort = items["input"]
-    assert tatort["title"] == "Tatort: Schweigen" and tatort["part"] == "0:00–30:14" and tatort["minutes"] == 30
+    # #21: 89:21 of film at ≈ 25 min a block → four even days from the start
+    assert tatort["title"] == "Tatort: Schweigen" and tatort["part"] == "0:00–22:20" and tatort["minutes"] == 22
     assert tatort["status"] == "ready" and tatort["source"] == "ARD Mediathek · NDR" and tatort["origin"] == "real"
-    assert tatort["start"] == {"to": f"/schauen/{mid}?von=0&bis=1814"}
+    assert tatort["start"] == {"to": f"/schauen/{mid}?von=0&bis=1340"}
     # the podcast isn't in this library yet → a real gap, said plainly
     assert items["lesen"]["status"] == "todo" and "Bibliothek" in items["lesen"]["detail"]
     # Monday's exam is a writing task: keyboard, and no AI grading without a key
@@ -68,7 +69,7 @@ def test_monday_today_and_tuesday_with_microphone(b2, monkeypatch):
     tue = by_block(m["next"])
     assert tue["pruefung"]["skill"] == "sprechen" and tue["pruefung"]["check"] == "secure"
     assert tue["pruefung"]["detail"] == "Mikrofon / Headset"
-    assert tue["input"]["part"] == "30:14–60:40"
+    assert tue["input"]["part"] == "22:20–44:40"   # #21: from where today's part ends
     # tomorrow's news: the links appear on the morning itself
     assert tue["lesen"]["kind"] == "news" and tue["lesen"]["links"] == [] and "am Morgen" in tue["lesen"]["detail"]
 
@@ -78,6 +79,13 @@ def test_friday_next_plan_day_is_monday(b2, monkeypatch):
     m = b2.get("/api/materials").json()
     assert m["today"]["date"] == "2026-10-16" and m["today"]["planDay"]
     assert m["next"]["date"] == "2026-10-19" and m["next"]["kind"] == "next"
+    # #21: nothing of week 1 watched → nothing skipped, the Tatort comes first
+    assert by_block(m["next"])["input"]["title"] == "Tatort: Schweigen"
+    for key in ("tatort-schweigen", "soko-leipzig-das-auge"):
+        b2.put(f"/api/media/{add_clip(key)}/progress", json={"position": 5361})
+    m = b2.get("/api/materials", params={"today": "2026-10-16"}).json()
+    # … once week 1 is watched, week 2 follows; today's range was fixed this morning and stays
+    assert by_block(m["today"])["input"]["title"] == "Tatort: Schweigen"
     assert by_block(m["next"])["input"]["title"].startswith("Merz gegen Merz, Folge 1")
 
 
@@ -102,16 +110,14 @@ def test_preview_query_for_another_day_and_phase(b2, monkeypatch):
 def test_clip_status_follows_the_library_and_his_position(b2, monkeypatch):
     at(monkeypatch, MONDAY)
     mid = add_clip("tatort-schweigen", status="converting")
-    item = lambda: by_block(b2.get("/api/materials", params={"today": "2026-10-13"}).json()["today"])["input"]  # Tue 30:14–60:40
+    item = lambda: by_block(b2.get("/api/materials").json()["today"])["input"]  # Monday, fixed at 0:00–22:20
     assert item()["status"] == "todo" and "umgewandelt" in item()["detail"]
     with db.tx() as conn:
         conn.execute("UPDATE media SET status = 'ready' WHERE id = ?", (mid,))
     assert item()["status"] == "ready" and item()["detail"] == "in deiner Bibliothek"
-    b2.put(f"/api/media/{mid}/progress", json={"position": 1200})   # behind: stopped at 20:00 on Monday
-    assert item()["detail"].endswith("du bist bei 20:00: ab deiner Position bis 60:40")
-    b2.put(f"/api/media/{mid}/progress", json={"position": 2400})
-    assert item()["detail"].endswith("weiter ab 40:00")
-    b2.put(f"/api/media/{mid}/progress", json={"position": 3700})
+    b2.put(f"/api/media/{mid}/progress", json={"position": 600})
+    assert item()["detail"].endswith("weiter ab 10:00") and item()["part"] == "0:00–22:20"  # today's range stays
+    b2.put(f"/api/media/{mid}/progress", json={"position": 1340})
     assert item()["detail"].endswith("Ziel schon erreicht ✓")
 
 
@@ -148,13 +154,13 @@ def test_assignments_on_heute_open_exactly_that(b2, monkeypatch):
     at(monkeypatch, MONDAY)
     mid = add_clip("tatort-schweigen")
     t = b2.get("/api/today").json()
-    assert t["assignments"]["input"]["start"]["to"] == f"/schauen/{mid}?von=0&bis=1814"
+    assert t["assignments"]["input"]["start"]["to"] == f"/schauen/{mid}?von=0&bis=1340"
     assert t["assignments"]["pruefung"]["start"]["to"] == "/aufgabe/s01"
     assert t["assignments"]["karten"]["start"]["to"] == "/karten"
     assert t["httpsUrl"] == config.HTTPS_URL
-    # weekend: the preview day's assignments
+    # weekend: the preview day's assignments (Tatort not finished → it continues on Monday, #21)
     at(monkeypatch, datetime(2026, 10, 17, 8, 0, tzinfo=timezone.utc))
-    assert b2.get("/api/today").json()["assignments"]["input"]["title"].startswith("Merz gegen Merz, Folge 1")
+    assert b2.get("/api/today").json()["assignments"]["input"]["title"] == "Tatort: Schweigen"
 
 
 def test_youtube_opens_in_language_reactor(b2, monkeypatch):
@@ -271,3 +277,40 @@ def test_today_shows_another_day_and_every_exam_block_has_a_target(client):
         assert r["date"] == iso and r["assignments"]["pruefung"]["start"] == {"to": to}
         assert r["assignments"]["karten"]["start"] == {"to": "/karten"}
     assert client.get("/api/today?phase=3").status_code == 422
+
+
+def test_rolling_ranges_follow_where_he_really_is(b2, monkeypatch):
+    """#21, Matt's Monday: he reached 7:10 and ticked the block off → Tuesday is 7:10 + a day, not 30:14–60:40."""
+    at(monkeypatch, MONDAY)
+    mid = add_clip("tatort-schweigen")
+    assert by_block(b2.get("/api/materials").json()["today"])["input"]["part"] == "0:00–22:20"  # fixed this morning
+    b2.put(f"/api/media/{mid}/progress", json={"position": 430})
+    b2.post("/api/plan/done", json={"block": "input", "done": True})
+    tue = by_block(b2.get("/api/materials").json()["next"])["input"]
+    assert tue["part"] == "7:10–34:34" and tue["start"]["to"] == f"/schauen/{mid}?von=430&bis=2074"
+    assert tue["text"].startswith("Tatort: Schweigen (ARD Mediathek · NDR), 7:10–34:34")
+    # Tuesday morning: the range is fixed, Monday's reach is noted; watching doesn't move today's target
+    at(monkeypatch, datetime(2026, 10, 13, 7, 0, tzinfo=timezone.utc))
+    t = b2.get("/api/today").json()
+    assert t["assignments"]["input"]["part"] == "7:10–34:34" and t["assignments"]["input"]["rolling"] is True
+    b2.put(f"/api/media/{mid}/progress", json={"position": 1500})
+    assert b2.get("/api/today").json()["assignments"]["input"]["part"] == "7:10–34:34"
+    with db.tx() as conn:
+        rows = {r["local_date"]: dict(r) for r in conn.execute("SELECT * FROM watch_ranges WHERE block = 'input'")}
+    assert rows["2026-10-12"]["reached"] == 430 and rows["2026-10-12"]["clean"] == 1
+    assert (rows["2026-10-13"]["start"], rows["2026-10-13"]["end"]) == (430, 2074)
+    # the following days and clips shift: Tatort ends Thursday, SOKO starts Friday instead of Thursday
+    m = b2.get("/api/materials", params={"today": "2026-10-15"}).json()
+    assert by_block(m["today"])["input"]["part"].endswith("–89:21") and by_block(m["next"])["input"]["title"].startswith("SOKO")
+
+
+def test_previews_never_fix_a_range(b2, monkeypatch):
+    at(monkeypatch, MONDAY)
+    add_clip("tatort-schweigen")
+    b2.get("/api/materials", params={"today": "2026-10-12", "phase": "2B"})
+    b2.get("/api/today", params={"today": "2026-10-12"})
+    with db.tx() as conn:
+        assert conn.execute("SELECT COUNT(*) FROM watch_ranges").fetchone()[0] == 0
+    b2.get("/api/today")
+    with db.tx() as conn:
+        assert {r[0] for r in conn.execute("SELECT block FROM watch_ranges")} == {"input", "lesen"}

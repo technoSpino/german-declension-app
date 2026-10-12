@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 from datetime import date, datetime, time, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
-from . import config, db, plan, srs, stock, texts
+from . import config, db, plan, rolling, srs, stock, texts
 
 log = logging.getLogger(__name__)
 
@@ -31,21 +31,7 @@ LR_NOTE = "in Chrome mit Language Reactor"
 
 # ── Small helpers ────────────────────────────────────────────────────────────
 
-def seconds(value) -> float | None:
-    """"30:14" → 1814, "1:00:40" → 3640, 95 → 95, None → None."""
-    if value is None or isinstance(value, (int, float)):
-        return value
-    parts = [int(p) for p in str(value).split(":")]
-    total = 0
-    for p in parts:
-        total = total * 60 + p
-    return total
-
-
-def clock(sec: float) -> str:
-    """Range times as minutes:seconds, also past an hour ("89:21"), like the plan texts."""
-    s = int(round(sec or 0))
-    return f"{s // 60}:{s % 60:02d}"
+seconds, clock = rolling.seconds, rolling.clock  # "30:14" ↔ 1814
 
 
 def _minutes(a: float, b: float) -> int:
@@ -113,6 +99,8 @@ class Ctx:
     def __init__(self, today: date, now: datetime | None = None):
         self.today = today
         self.now = now or srs.now_utc()
+        self.real_today = self.now.astimezone(srs.TZ).date()  # `today` may be a preview day
+        self.live = True  # False for previews (?today=, ?phase=): they never fix a day's range
         stock.link_existing()  # a clip uploaded under a catalog title counts as that item
         self.lib = stock.by_key()
         with db.tx() as conn:
@@ -123,6 +111,14 @@ class Ctx:
         self.bought = set(db.get_setting("booksBought", []))
         self.setup_done = set(db.get_setting("setupDone", []))
         self.links = read_check().get("links", {})
+        self._rolling: dict = {}
+
+    def rolling(self, block: str, data: dict, start: date) -> dict[date, dict]:
+        """#21: the block's rolling clip ranges from `today` on (computed once per request)."""
+        key = (block, id(data), start)
+        if key not in self._rolling:
+            self._rolling[key] = rolling.plan_block(block, data, start, self)
+        return self._rolling[key]
 
     def due_cards(self, day: date) -> int:
         end = datetime.combine(day + timedelta(days=1), time(0), srs.TZ).astimezone(timezone.utc)
@@ -173,6 +169,19 @@ def _clip(m: dict, ctx: Ctx, day: date) -> dict:
         out["detail"] = "in deiner Bibliothek"
     out["start"] = {"to": f"/schauen/{row['id']}?von={int(start)}&bis={int(end)}"}
     return out
+
+
+def _rolled(m: dict, ctx: Ctx, day: date, data: dict, start: date) -> dict:
+    """A clip whose range follows his real position (#21). Past days keep the range they had."""
+    if day < ctx.today:
+        r = rolling.frozen(day, m["block"])
+        return _clip({**m, **({"clip": r["clip"], "from": r["from"], "to": r["to"]} if r else {})}, ctx, day)
+    r = ctx.rolling(m["block"], data, start).get(day)
+    if not r:
+        return _clip(m, ctx, day)  # everything before it is watched: as planned
+    item = _clip({**m, "clip": r["clip"], "from": r["from"], "to": r["to"]}, ctx, day)
+    item.update(text=r["text"], rolling=True)
+    return item
 
 
 def _satzcheck(m: dict, ctx: Ctx, day: date) -> dict:
@@ -304,6 +313,8 @@ def day_items(info: dict, ctx: Ctx, data: dict, start: date) -> list[dict]:
                 _practice(m, ctx) if m else _base("pruefung", "none", title="Kein Prüfungsteil", origin=None)
         elif not m:
             item = _base(b["id"], "none", title="Noch nichts eingeplant", status="todo", origin=None)
+        elif rolling.rolls(m) and b["id"] in rolling.FILM:
+            item = _rolled(m, ctx, day, data, start)
         elif m["kind"] in BUILDERS:
             item = BUILDERS[m["kind"]](m, ctx, day)
         elif m["kind"] in ("youtube", "netflix"):
