@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../../lib/api'
-import { clipStatus, clock, formatTime, inside, lineAt, rangeStart, resumeAt, shouldPause, speechCues, stepLine } from '../../lib/watch'
+import { clipStatus, clock, formatTime, inside, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine } from '../../lib/watch'
 import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
 import WordPanel from '../../components/kaskade/WordPanel.vue'
 
@@ -26,8 +26,9 @@ const range = ref(null) // today's plan range from Heute (?von=…&bis=…, #16)
 const rangeNote = ref('')
 const goal = ref(false) // "Ziel für heute erreicht" shown
 const tags = ref([])
-const LEAD = 0.15
+const held = ref(-1) // the line auto-pause stopped after: shown (and mined) until play resumes (#18)
 let pausedFor = null
+let lastT = 0 // playhead at the previous tick
 let touched = false // only save a position once the clip was actually played or moved
 let loopLine = -1 // the line being looped (fixed when the loop starts or a line is chosen)
 let raf = 0
@@ -47,13 +48,15 @@ watch(autoPause, (v) => {
 })
 
 const cues = computed(() => (media.value ? speechCues(media.value.cues) : []))
-// Look slightly ahead: seeking lands 0.1 s before a line, which should already show that line.
-const index = computed(() => lineAt(cues.value, t.value + LEAD))
+// The line just heard stays until its end (and through an auto-pause); only in a gap the
+// next one appears slightly early — seeking lands 0.1 s before a line.
+const index = computed(() => shownLine(cues.value, t.value, held.value))
 const line = computed(() => cues.value[index.value] ?? null)
 const speaking = computed(() => inside(cues.value, index.value, t.value))
 
 async function load() {
   touched = false
+  held.value = -1
   error.value = null
   media.value = null
   analysis.value = null
@@ -122,12 +125,14 @@ function tick() {
   if (loop.value && !v.paused && cur && v.currentTime >= cur.end + 0.15) {
     v.currentTime = Math.max(0, cur.start - 0.1) // loop: back to the start of the line
   } else if (autoPause.value && !loop.value && !v.paused) {
-    const i = shouldPause(cues.value, v.currentTime, pausedFor)
+    const i = shouldPause(cues.value, v.currentTime, pausedFor, lastT)
     if (i >= 0) {
       pausedFor = i
+      held.value = i
       v.pause()
     }
   }
+  lastT = v.currentTime
   if (range.value && !goal.value && v.currentTime >= range.value.to) {
     goal.value = true // today's part is done: stop once, he may watch on
     v.pause()
@@ -138,7 +143,9 @@ function tick() {
 
 function onPlay() {
   touched = true
-  if (loopLine < 0 || !loop.value) loopLine = lineAt(cues.value, (video.value?.currentTime ?? 0) + LEAD)
+  if (loopLine < 0 || !loop.value) loopLine = index.value
+  held.value = -1
+  lastT = video.value?.currentTime ?? 0
   playing.value = true
   cancelAnimationFrame(raf)
   raf = requestAnimationFrame(tick)
@@ -173,13 +180,16 @@ function seekLine(i, play = true) {
   if (!v || !c) return
   touched = true
   loopLine = i
+  held.value = -1
   pausedFor = i - 1 // the lead-in belongs to the previous line: don't pause for it
-  v.currentTime = Math.max(0, c.start - 0.1)
+  v.currentTime = seekTarget(cues.value, i)
+  lastT = v.currentTime
   t.value = c.start
   if (play) v.play().catch(() => {})
 }
-const prev = () => seekLine(stepLine(cues.value, t.value, -1))
-const next = () => seekLine(stepLine(cues.value, t.value, 1))
+// ← / → / R / L act on the line on screen
+const prev = () => seekLine(stepLine(cues.value, index.value, -1))
+const next = () => seekLine(stepLine(cues.value, index.value, 1))
 const replay = () => index.value >= 0 && seekLine(index.value)
 
 function toggleLoop() {

@@ -31,22 +31,48 @@ export function lineAt(cues, t) {
 /** Whether `t` is inside cue `i` (its spoken part). */
 export const inside = (cues, i, t) => i >= 0 && t >= cues[i].start && t < cues[i].end
 
-/** Target line for ← / → from the line at `t`. */
-export function stepLine(cues, t, dir) {
-  if (!cues.length) return -1
+/** How far ahead the next line may appear — only inside a real gap between lines. */
+export const LEAD = 0.15
+
+/**
+ * The line to show at `t` (#18): a line being spoken stays until its end; only in a gap
+ * does the next line appear up to `lead` early (never earlier than that). `held` = the line
+ * auto-pause stopped after: it stays on screen until play resumes or he navigates.
+ */
+export function shownLine(cues, t, held = -1, lead = LEAD) {
+  if (held >= 0 && held < cues.length) return held
   const i = lineAt(cues, t)
+  if (i >= 0 && t < cues[i].end) return i
+  return lineAt(cues, t + lead)
+}
+
+/** Target line for ← / → from the shown line `i`. */
+export function stepLine(cues, i, dir) {
+  if (!cues.length) return -1
   if (dir > 0) return Math.min(cues.length - 1, i + 1)
   return Math.max(0, i - 1)
 }
 
+/** Where to seek for line `i`: 0.1 s before it, but never back into the previous line. */
+export function seekTarget(cues, i) {
+  const c = cues[i]
+  const prevEnd = i > 0 ? cues[i - 1].end : 0
+  return Math.max(0, Math.min(c.start, Math.max(c.start - 0.1, prevEnd)))
+}
+
 /**
  * Auto-pause: once the playhead passes the end of line `i`, pause — but only once per
- * line, so pressing play again continues to the next line.
+ * line, so pressing play again continues to the next line. `prev` is the playhead at the
+ * last tick: with lines only a frame apart it may already be in the next line, and the
+ * line whose end it just crossed is the one to pause for.
  */
-export function shouldPause(cues, t, pausedFor) {
+export function shouldPause(cues, t, pausedFor, prev) {
   const i = lineAt(cues, t)
-  if (i < 0 || i === pausedFor) return -1
-  return t >= cues[i].end ? i : -1
+  if (i < 0) return -1
+  if (t >= cues[i].end) return i === pausedFor ? -1 : i
+  const k = i - 1
+  const crossed = prev !== undefined && k >= 0 && prev < cues[k].end && cues[k].end <= t && t - prev < 0.5
+  return crossed && k !== pausedFor ? k : -1
 }
 
 /** Where to resume: the saved position, unless it's (almost) at the very end. */

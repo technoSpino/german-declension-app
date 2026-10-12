@@ -486,6 +486,52 @@ test('Schauen & minen: play → auto-pause → tap a word → mine → card with
   expect(errors).toEqual([])
 })
 
+test('#18 Schauen: auto-pause after a tight line shows and mines that line, not the next', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  // Like Tatort: a 0.12 s gap after line 1, then lines back to back (gap 0).
+  const TIGHT = `1\n00:00:00,500 --> 00:00:02,000\nWo waren Sie gestern Abend?\n\n2\n00:00:02,120 --> 00:00:03,500\nIch war die ganze Zeit zu Hause.\n\n3\n00:00:03,500 --> 00:00:05,000\nDas kann niemand bestätigen.\n`
+  const up = await request.post('http://127.0.0.1:8001/api/media/upload', {
+    multipart: {
+      title: 'E2E-Verhör',
+      subtitles: { name: 't.srt', mimeType: 'application/x-subrip', buffer: Buffer.from(TIGHT) },
+      media: { name: 't.webm', mimeType: 'video/webm', buffer: readFileSync(testClip()) }
+    }
+  })
+  const clip = await up.json()
+  await page.goto(`/schauen/${clip.id}`)
+  const line = page.getByTestId('watch-line')
+  const video = page.getByTestId('watch-video')
+  const paused = () => video.evaluate((v: HTMLVideoElement) => v.paused)
+
+  await page.getByTestId('watch-play').click()
+  await expect.poll(paused, { timeout: 8000 }).toBe(true)
+  expect(await video.evaluate((v: HTMLVideoElement) => v.currentTime)).toBeGreaterThanOrEqual(2.0)
+  await page.waitForTimeout(400) // nothing switches while paused
+  await expect(line).toContainText('Wo waren Sie gestern Abend?')
+  await expect(line).not.toContainText('ganze Zeit')
+
+  // Word panel and "Satz minen" act on the line just heard.
+  await line.locator('.at-word', { hasText: /^gestern$/ }).click()
+  await expect(page.getByTestId('word-panel')).toContainText('Wo waren Sie gestern Abend?')
+  await page.getByTestId('mine').click()
+  await expect(page.getByTestId('watch-mined')).toContainText('1 Satz gemined')
+  const mined = await (await request.get('http://127.0.0.1:8001/api/mined')).json()
+  const card = mined.find((c: { sentence: string }) => c.sentence === 'Wo waren Sie gestern Abend?')
+  expect(card.mediaId).toBe(clip.id)
+
+  // Play on: line 2, then a pause at its end although line 3 starts at the same moment.
+  await page.getByTestId('watch-play').click()
+  await expect(line).toContainText('Ich war die ganze Zeit zu Hause.')
+  await expect.poll(paused, { timeout: 8000 }).toBe(true)
+  await page.waitForTimeout(400)
+  await expect(line).toContainText('Ich war die ganze Zeit zu Hause.')
+  // → goes to the next line from the one on screen (line 3), not past it.
+  await page.keyboard.press('ArrowRight')
+  await expect(line).toContainText('Das kann niemand bestätigen.')
+  await video.evaluate((v: HTMLVideoElement) => v.pause())
+  expect(errors).toEqual([])
+})
+
 test('Week 5: the AI-key to-do shows on Heute and can be ticked off', async ({ page, request }) => {
   const errors = watchConsole(page)
   const plan = await (await request.get('http://127.0.0.1:8001/api/plan')).json()
