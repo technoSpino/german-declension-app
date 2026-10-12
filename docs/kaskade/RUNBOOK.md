@@ -17,7 +17,7 @@ Caddy, Tailscale serve on port 80) belong to another project — don't touch the
 ```bash
 systemctl --user status kaskade-api kaskade-web
 systemctl --user restart kaskade-api                      # after backend/content changes
-cd ~/kaskade/app && npm run build && systemctl --user restart kaskade-web   # after frontend changes
+~/kaskade/deploy/web-deploy.sh                            # after frontend changes: keeps old chunks, so open tabs keep working (#20)
 journalctl --user -u kaskade-api -n 100 --no-pager        # logs
 systemctl --user list-timers | grep kaskade               # next backup
 ```
