@@ -258,3 +258,16 @@ def test_bald_faellig_schirach_first_no_kaenguru(b2, monkeypatch):
     # Monday of week 2: whole stories
     mon = by_block(b2.get("/api/materials", params={"today": "2026-10-19"}).json()["today"])
     assert mon["lesen"]["kind"] == "book" and mon["lesen"]["part"] == "S. 7–42: „Fähner“ und „Tanatas Teeschale“"
+
+
+def test_today_shows_another_day_and_every_exam_block_has_a_target(client):
+    """#20: /api/today?today=…&phase=… (drives the E2E); the Prüfungsteil always opens its task."""
+    from kaskade import db
+    db.set_setting("planStart", "2026-10-12")
+    want = {"2026-10-12": "/aufgabe/s01", "2026-10-13": "/aufgabe/p01", "2026-10-14": "/aufgabe/s02",
+            "2026-10-15": "/aufgabe/p02", "2026-10-16": "/pruefung/lesen/l1"}
+    for iso, to in want.items():
+        r = client.get(f"/api/today?today={iso}&phase=2B").json()
+        assert r["date"] == iso and r["assignments"]["pruefung"]["start"] == {"to": to}
+        assert r["assignments"]["karten"]["start"] == {"to": "/karten"}
+    assert client.get("/api/today?phase=3").status_code == 422

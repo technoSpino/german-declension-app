@@ -175,4 +175,20 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
+// After a deploy, a tab opened earlier still asks for the old lazy chunks, which are gone — the
+// page didn't change and only the block timer started (#20). Load the target fresh instead
+// (at most once in 10 s per target, so a real error can't loop).
+const STALE_CHUNK = /dynamically imported module|Importing a module script failed|MIME type/i
+router.onError((err, to) => {
+  if (!STALE_CHUNK.test(err?.message ?? '') || !to) return
+  const key = `kaskade-reload:${to.fullPath}`
+  try {
+    if (Date.now() - Number(sessionStorage.getItem(key) || 0) < 10000) return
+    sessionStorage.setItem(key, String(Date.now()))
+  } catch {
+    /* private mode: reload anyway */
+  }
+  window.location.assign(to.fullPath)
+})
+
 export default router

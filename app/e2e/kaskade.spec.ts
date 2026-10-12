@@ -3,7 +3,8 @@ import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const TMP = join(process.cwd(), '.e2e-data', 'fixtures')
+const DATA_DIR = join(process.cwd(), '.e2e-data') // the E2E API's KASKADE_DATA_DIR
+const TMP = join(DATA_DIR, 'fixtures')
 
 // Original test subtitles (written for these tests).
 const SRT = `1
@@ -669,6 +670,79 @@ test('YouTube: Mac one-liner and cookies.txt upload', async ({ page }) => {
 
 
 /** Material für heute und morgen as of `iso` in the 2B plan (the API's ?today=&phase= preview). */
+test('#20 every Starten on Heute opens its exact item, Mon–Fri of week 1', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  // The plan's week-1 clips in the library (a test clip each, registered under its catalog key).
+  const keys = ['tatort-schweigen', 'egp-698', 'egp-700', 'soko-leipzig-das-auge', 'radio-tatort-uebertherapie']
+  const media = async () => (await (await request.get('http://127.0.0.1:8001/api/media')).json()) as { id: number, key: string | null }[]
+  for (const key of keys) {
+    if ((await media()).some((m) => m.key === key)) continue
+    const up = await request.post('http://127.0.0.1:8001/api/media/upload', {
+      multipart: {
+        title: `E2E ${key}`,
+        subtitles: { name: 'k.srt', mimeType: 'application/x-subrip', buffer: Buffer.from(SRT) },
+        media: { name: 'k.webm', mimeType: 'video/webm', buffer: readFileSync(testClip()) }
+      }
+    })
+    const clip = await up.json()
+    execFileSync('python3', ['-c', 'import sqlite3,sys; c=sqlite3.connect(sys.argv[1]); c.execute("UPDATE media SET key=? WHERE id=?", (sys.argv[2], int(sys.argv[3]))); c.commit()',
+      join(DATA_DIR, 'kaskade.db'), key, String(clip.id)])
+  }
+  const id = Object.fromEntries((await media()).filter((m) => m.key).map((m) => [m.key, m.id]))
+  const watch = (key: string, von: number) => new RegExp(`/schauen/${id[key]}\\?von=${von}&bis=\\d+$`)
+
+  // block → where "Starten" goes; null = stays on Heute (the news links are listed under the block)
+  const days: [string, Record<string, RegExp | null>][] = [
+    ['2026-10-12', { karten: /\/karten$/, input: watch('tatort-schweigen', 0), lesen: watch('egp-698', 0), pruefung: /\/aufgabe\/s01$/ }],
+    ['2026-10-13', { karten: /\/karten$/, input: watch('tatort-schweigen', 1814), lesen: null, pruefung: /\/aufgabe\/p01$/ }],
+    ['2026-10-14', { karten: /\/karten$/, input: watch('tatort-schweigen', 3640), lesen: watch('egp-700', 0), pruefung: /\/aufgabe\/s02$/ }],
+    ['2026-10-15', { karten: /\/karten$/, input: watch('soko-leipzig-das-auge', 0), lesen: watch('radio-tatort-uebertherapie', 0), pruefung: /\/aufgabe\/p02$/ }],
+    ['2026-10-16', { karten: /\/karten$/, input: watch('soko-leipzig-das-auge', 1324), lesen: watch('radio-tatort-uebertherapie', 1620), pruefung: /\/pruefung\/lesen\/l1$/ }]
+  ]
+  const undone = new Set<string>()
+  for (const [iso, blocks] of days) {
+    await page.unroute('**/api/today')
+    await page.route('**/api/today', (route) => route.continue({ url: `${new URL(route.request().url()).origin}/api/today?today=${iso}&phase=2B` }))
+    for (const [block, to] of Object.entries(blocks)) {
+      await page.goto('/')
+      await expect(page.getByTestId(`done-${block}`)).toBeVisible()
+      // earlier tests may have ticked a block off or left its timer running: undo that first
+      if ((await page.getByTestId(`done-${block}`).textContent())?.includes('Erledigt')) {
+        undone.add(block)
+        await page.getByTestId(`done-${block}`).click()
+      }
+      if (await page.getByTestId(`stop-${block}`).isVisible()) await page.getByTestId(`stop-${block}`).click()
+      await page.getByTestId(`start-${block}`).click()
+      if (to) await expect(page, `${iso} ${block}`).toHaveURL(to)
+      else {
+        await expect(page.getByTestId(`stop-${block}`)).toBeVisible()
+        await expect(page, `${iso} ${block}`).toHaveURL(/\/$/)
+      }
+    }
+  }
+  await request.post('http://127.0.0.1:8001/api/activity/stop')
+  for (const block of undone) await request.post('http://127.0.0.1:8001/api/plan/done', { data: { block, done: true } })
+  await page.unroute('**/api/today')
+  expect(errors).toEqual([])
+})
+
+test('#20 a tab from before a deploy: Starten on the Prüfungsteil still opens the task', async ({ page }) => {
+  // The tab's Aufgabe chunk is gone after a rebuild: the server answers with index.html (as vite preview does).
+  let served = 0
+  await page.route(/\/assets\/AufgabeView-[^/]+\.js$/, (route) => {
+    if (served++ === 0) return route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html></html>' })
+    return route.continue()
+  })
+  await page.route('**/api/today', (route) => route.continue({ url: `${new URL(route.request().url()).origin}/api/today?today=2026-10-12&phase=2B` }))
+  await page.goto('/')
+  await page.getByTestId('start-pruefung').click()
+  await expect(page).toHaveURL(/\/aufgabe\/s01$/)
+  await expect(page.locator('h1')).toBeVisible()
+  expect(served).toBe(2) // failed once, then loaded fresh
+  await page.unroute('**/api/today')
+  await page.request.post('http://127.0.0.1:8001/api/activity/stop')
+})
+
 async function materialsAt(page: Page, iso: string) {
   await page.route('**/api/materials', (route) => route.continue({ url: `${new URL(route.request().url()).origin}/api/materials?today=${iso}&phase=2B` }))
 }

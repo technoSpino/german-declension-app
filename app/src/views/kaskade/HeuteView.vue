@@ -121,7 +121,9 @@ async function start(b) {
   try {
     await status.startTimer(b.id)
     if (a?.start?.to) return router.push(a.start.to)
-    if (a?.start?.href || (a && !a.start)) return load() // a link (opened above), a book, the news links below
+    // a link (opened above), a book, the news links below, a clip still being fetched: stay here.
+    // The exam block always falls through to its task (#20).
+    if (a && b.kind !== 'pruefung') return load()
     if (b.kind === 'karten') return router.push('/karten')
     if (b.kind === 'input' && t.value?.watch) return router.push(`/schauen/${t.value.watch.id}`)
     if ((b.kind === 'input' || b.kind === 'lesen') && t.value?.texts?.[b.kind]) return router.push(`/lesen/${t.value.texts[b.kind].id}`)

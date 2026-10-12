@@ -49,10 +49,13 @@ def _todo_done(todo: dict) -> bool:
 
 
 @router.get("/today")
-def today():
+def today(today: dt.date | None = None, phase: str | None = None):
+    """Heute. `today`/`phase` show another day or plan (as /api/materials; drives the E2E for #20)."""
+    if phase is not None and phase not in PHASES:
+        raise HTTPException(422, "Unbekannte Phase")
     now = srs.now_utc()
-    d = _today()
-    data = plan.plan(db.get_setting("phase"))
+    d = today or _today()
+    data = plan.plan(phase or db.get_setting("phase"))
     info = plan.plan_day(plan_start(d), d, data)
     if info["day"] is None:
         # Weekend or before the start: show the next plan day as a preview.
