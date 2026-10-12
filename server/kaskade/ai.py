@@ -25,6 +25,23 @@ Antworte NUR mit JSON in genau diesem Format, Texte auf einfachem Deutsch (A2–
 Höchstens 5 Korrekturen, die wichtigsten zuerst."""
 
 
+WORD_PROMPT = """Ein erwachsener Deutschlerner (A2–B1) hat in diesem Satz ein Wort markiert, um es zu lernen.
+
+Satz: „{sentence}“
+Wort: „{target}“
+
+Gib für dieses Wort, so wie es in genau diesem Satz steht, an:
+- lemma: die Grundform (Verb im Infinitiv, Nomen im Nominativ Singular, Adjektiv ohne Endung)
+- gloss: kurze englische Bedeutung in diesem Satz, höchstens 6 Wörter
+- article: "der", "die" oder "das" bei Nomen, sonst null
+- plural: Pluralform ohne Artikel bei Nomen (null, wenn es keinen gibt), sonst null
+- case: Kasus des Wortes in diesem Satz, "N", "A", "D" oder "G" — nur bei Nomen und Pronomen, sonst null
+- caseReason: bei case ein kurzer Grund auf einfachem Deutsch, z. B. „Subjekt → Nominativ“ oder „mit + Dativ“, sonst null
+
+Antworte NUR mit JSON in genau diesem Format:
+{{"lemma": "…", "gloss": "…", "article": null, "plural": null, "case": null, "caseReason": null}}"""
+
+
 def available() -> bool:
     return config.anthropic_key() is not None
 
@@ -68,3 +85,41 @@ def grade_writing(task: dict, text: str) -> dict | None:
     except Exception:  # network, auth, quota … — never break the app
         log.exception("AI grade failed")
     return None
+
+
+def _short(value, limit: int) -> str | None:
+    return value.strip()[:limit] if isinstance(value, str) and value.strip() else None
+
+
+def word_info(sentence: str, target: str) -> dict | None:
+    """Lemma, gloss, article/plural and case-with-reason of `target` in `sentence` (#19).
+
+    For mined words the dictionary doesn't know. None if no key, the call fails or the answer
+    makes no sense — mining then keeps what the dictionary had.
+    """
+    if not available():
+        return None
+    try:
+        msg = _client().messages.create(
+            model=config.ANTHROPIC_MODEL,
+            max_tokens=300,
+            timeout=30,
+            messages=[{"role": "user", "content": WORD_PROMPT.format(sentence=sentence, target=target)}],
+        )
+        raw = parse_json("".join(getattr(b, "text", "") for b in msg.content)) or {}
+    except Exception:  # network, auth, quota … — never break mining
+        log.exception("AI word info failed")
+        return None
+    lemma = _short(raw.get("lemma"), 60)
+    if not lemma:
+        log.warning("AI word info: unparseable answer")
+        return None
+    case = raw.get("case") if raw.get("case") in ("N", "A", "D", "G") else None
+    return {
+        "lemma": lemma,
+        "gloss": _short(raw.get("gloss"), 120),
+        "article": raw.get("article") if raw.get("article") in ("der", "die", "das") else None,
+        "plural": _short(raw.get("plural"), 60),
+        "case": case,
+        "caseReason": _short(raw.get("caseReason"), 120) if case else None,
+    }

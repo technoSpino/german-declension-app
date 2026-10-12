@@ -1,9 +1,12 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
-import { splitTarget } from '../../lib/cards'
+import { cardWords, markTargets } from '../../lib/cards'
 import { speak } from '../../lib/speech'
 import { audioNote, cardBadge } from '../../lib/origin'
+import AiMark from '../../components/kaskade/AiMark.vue'
+import MinedEditor from '../../components/kaskade/MinedEditor.vue'
+import MinedList from '../../components/kaskade/MinedList.vue'
 import OriginBadge from '../../components/kaskade/OriginBadge.vue'
 
 const data = ref(null)
@@ -15,7 +18,11 @@ const sessionDone = ref(0)
 const flash = ref(null)
 
 const card = computed(() => data.value?.card)
-const parts = computed(() => (card.value ? splitTarget(card.value.sentence, card.value.target) : null))
+const editing = ref(false) // the shown mined card in the editor (#19)
+const minedList = ref(null)
+const isMined = computed(() => card.value?.id.startsWith('mine:'))
+const words = computed(() => (card.value ? (isMined.value ? cardWords(card.value) : [{ ...card.value, ai: [] }]) : []))
+const segments = computed(() => (card.value ? markTargets(card.value.sentence, words.value.map((w) => w.target)) : []))
 const total = computed(() => sessionDone.value + (data.value ? data.value.counts.due + data.value.counts.new : 0))
 const pct = computed(() => (total.value ? Math.round((sessionDone.value / total.value) * 100) : 100))
 
@@ -24,6 +31,7 @@ async function load() {
   try {
     data.value = await api.get('/cards/next')
     revealed.value = false
+    editing.value = false
   } catch (e) {
     error.value = e.message
   }
@@ -78,12 +86,32 @@ async function undo() {
   }
 }
 
+function onSaved(c) {
+  data.value = { ...data.value, card: { ...data.value.card, ...c } }
+  editing.value = false
+  flash.value = 'Karte gespeichert.'
+  minedList.value?.reload()
+}
+async function onDeleted() {
+  editing.value = false
+  flash.value = 'Karte gelöscht.'
+  await load()
+  loadStats()
+  minedList.value?.reload()
+}
+function onListChanged(change) {
+  // edited or deleted in the list: the card on screen may be the same one
+  if (card.value?.id !== change.id) return
+  if (change.deleted) onDeleted()
+  else data.value = { ...data.value, card: { ...data.value.card, ...change.card } }
+}
+
 function playAudio() {
   if (card.value) speak(card.value.sentence, { url: `/api/cards/${card.value.id}/audio` })
 }
 
 function onKey(e) {
-  if (e.ctrlKey || e.metaKey || e.altKey) return
+  if (e.ctrlKey || e.metaKey || e.altKey || editing.value) return // no shortcuts while editing a card
   if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(e.target?.tagName) && e.key === ' ') return
   const k = e.key.toLowerCase()
   if (k === ' ' || k === 'enter') {
@@ -128,20 +156,28 @@ const buttons = [
               Audio <span class="kc-voice" data-testid="karte-voice">{{ audioNote(card) }}</span> <kbd class="k-kbd">A</kbd>
             </button>
           </div>
-          <p class="k-read kc-sentence" data-testid="karte-satz">{{ parts.pre }}<mark class="k-mark">{{ parts.target }}</mark>{{ parts.post }}</p>
+          <p class="k-read kc-sentence" data-testid="karte-satz"><template v-for="(seg, i) in segments" :key="i"><mark v-if="seg.mark" class="k-mark">{{ seg.text }}</mark><template v-else>{{ seg.text }}</template></template></p>
           <p v-if="!revealed" class="k-small m-0 mt-auto">Verstehst du den ganzen Satz? Einmal laut mitsprechen, dann aufdecken.</p>
+          <MinedEditor v-else-if="editing" :card="card" @saved="onSaved" @deleted="onDeleted" @cancel="editing = false" />
           <div v-else class="kc-back" data-testid="karte-back">
-            <div class="flex flex-col gap-1.5">
-              <p class="m-0" style="font-size: 24px; font-weight: 800">{{ card.display }}</p>
-              <p class="m-0 k-read" style="font-size: 18px; color: var(--text-2)">„{{ card.gloss }}“</p>
-              <p v-if="card.en" class="m-0 mt-2" style="font-size: 15px; color: var(--muted)">{{ card.en }}</p>
-              <span v-if="cardBadge(card)" class="mt-2" data-testid="karte-origin">
-                <OriginBadge :origin="card.origin" :source="card.originSource" :fallback="card.n ? 'ai' : null" />
-              </span>
-            </div>
-            <div v-if="card.note" class="kc-note">
-              <span v-if="card.case" :class="['k-case', `k-case-${card.case}`]" :aria-label="`Kasus ${card.case}`">{{ card.case }}</span>
-              <p class="m-0" style="font-size: 15px; line-height: 1.5">{{ card.note }}</p>
+            <template v-for="(w, wi) in words" :key="w.target">
+              <div class="flex flex-col gap-1.5" :data-testid="`karte-wort-${wi}`">
+                <p class="m-0 flex flex-wrap items-center gap-2" style="font-size: 24px; font-weight: 800">{{ w.display }} <AiMark v-if="w.ai.includes('lemma')" field="lemma" /></p>
+                <p class="m-0 k-read flex flex-wrap items-center gap-2" style="font-size: 18px; color: var(--text-2)">„{{ w.gloss }}“ <AiMark v-if="w.ai.includes('gloss')" field="gloss" /></p>
+                <template v-if="wi === 0">
+                  <p v-if="card.en" class="m-0 mt-2" style="font-size: 15px; color: var(--muted)">{{ card.en }}</p>
+                  <span v-if="cardBadge(card)" class="mt-2" data-testid="karte-origin">
+                    <OriginBadge :origin="card.origin" :source="card.originSource" :fallback="card.n ? 'ai' : null" />
+                  </span>
+                </template>
+              </div>
+              <div v-if="w.note || w.case" class="kc-note" :data-testid="`karte-note-${wi}`">
+                <span v-if="w.case" :class="['k-case', `k-case-${w.case}`]" :aria-label="`Kasus ${w.case}`" data-testid="karte-case">{{ w.case }}</span>
+                <p class="m-0" style="font-size: 15px; line-height: 1.5">{{ w.note }} <AiMark v-if="w.ai.includes('case')" field="case" /></p>
+              </div>
+            </template>
+            <div v-if="isMined" class="kc-edit">
+              <button type="button" class="k-btn k-btn-ghost k-btn-sm" data-testid="karte-edit" @click="editing = true">Bearbeiten oder löschen</button>
             </div>
           </div>
         </article>
@@ -205,6 +241,7 @@ const buttons = [
             <li class="flex justify-between"><span>Noch nicht gesehen</span><strong>{{ stats.unseen }}</strong></li>
           </ul>
         </section>
+        <MinedList ref="minedList" @changed="onListChanged" />
         <section class="k-callout" aria-labelledby="k-h">
           <h2 id="k-h" class="m-0" style="font-size: 15px; font-weight: 800; color: var(--text)">Erst sortieren, dann lernen</h2>
           <p class="m-0 mt-1.5">Du kennst schon viele Kernwörter. Drück <strong>K</strong>, wenn du den Satz sofort verstehst — die Karte ist dann für immer weg und zählt nicht zu den 20 neuen pro Tag.</p>
@@ -229,6 +266,7 @@ const buttons = [
 .kc-audio:disabled { opacity: 0.5; cursor: default; }
 .kc-voice { font-size: 12px; font-weight: 600; color: var(--muted); }
 .kc-back { border-top: 1px solid var(--surface-2); padding-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.kc-edit { grid-column: 1 / -1; }
 .kc-note { display: flex; gap: 12px; align-items: flex-start; background: var(--bg); border-radius: 12px; padding: 14px; }
 .kc-reveal { min-height: 60px; font-size: 18px; font-weight: 800; border-radius: var(--radius-lg); }
 .kc-rates { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }

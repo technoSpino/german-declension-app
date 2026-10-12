@@ -532,6 +532,64 @@ test('#18 Schauen: auto-pause after a tight line shows and mines that line, not 
   expect(errors).toEqual([])
 })
 
+test('#19 mined cards: no unsure case badge, same line again → add the word, edit and delete in Karten', async ({ page }) => {
+  const errors = watchConsole(page)
+  await page.goto('/lesen/eigener-text')
+  // Parser says Akkusativ for "die Herrlichkeit", its role says subject: no badge rather than a wrong one.
+  await page.getByTestId('paste-text').fill('Denn dein ist das Reich und die Kraft und die Herrlichkeit.')
+  await page.getByTestId('paste-run').click()
+  await page.locator('.at-word', { hasText: /^Herrlichkeit$/ }).click()
+  await expect(page.getByTestId('word-panel')).toContainText('Herrlichkeit')
+  await expect(page.getByTestId('word-panel').locator('.k-case')).toHaveCount(0)
+  await page.locator('.at-word', { hasText: /^Reich$/ }).click()
+  await expect(page.getByTestId('word-panel').locator('.k-case')).toHaveText('N')
+
+  const line = 'Wenn man überhetzt, versaust du dir nachher die Chance.'
+  await page.goto('/lesen/eigener-text')
+  await page.getByTestId('paste-text').fill(line)
+  await page.getByTestId('paste-run').click()
+  await page.locator('.at-word', { hasText: /^versaust$/ }).click()
+  await page.getByTestId('mine').click()
+  await expect(page.getByTestId('mine-result')).toContainText('Gemined — kommt als neue Karte.')
+  await page.getByTestId('mine').click()
+  await expect(page.getByTestId('mine-result')).toContainText('Satz schon gemint — das Wort ist schon auf der Karte.')
+  await page.locator('.at-word', { hasText: /^Chance$/ }).click()
+  await page.getByTestId('mine').click()
+  await expect(page.getByTestId('mine-result')).toHaveText('Satz schon gemint.')
+  await page.getByTestId('mine-add-word').click()
+  await expect(page.getByTestId('mine-result')).toContainText('„Chance“ steht jetzt mit auf der Karte.')
+
+  await page.goto('/karten')
+  const row = page.getByTestId('mined-list').locator('li', { hasText: line })
+  await expect(row.locator('strong')).toHaveCount(2) // versaust + Chance on one card
+  await expect(row).toContainText('Chance')
+  await row.getByRole('button', { name: 'Bearbeiten' }).click()
+  await page.getByTestId('edit-gloss').fill('to mess up, to ruin')
+  await page.getByTestId('edit-case').selectOption('')
+  await page.getByTestId('edit-save').click()
+  await expect(row).toContainText('to mess up, to ruin')
+
+  // The card on screen: a mined card can be edited right there.
+  await page.getByTestId('karte-reveal').click()
+  if ((await page.getByTestId('karte').textContent())?.includes('Gemined')) {
+    await page.getByTestId('karte-edit').click()
+    await expect(page.getByTestId('mined-editor')).toBeVisible()
+    await expect(page.getByTestId('edit-lemma')).toBeFocused()
+    await page.keyboard.press('Escape')
+    await page.locator('body').click({ position: { x: 5, y: 5 } })
+    await page.keyboard.press('1') // keys never rate a card while it's being edited
+    await expect(page.getByTestId('mined-editor')).toBeVisible()
+    await page.getByTestId('mined-editor').getByRole('button', { name: 'Abbrechen' }).click()
+    await expect(page.getByTestId('karte-back')).toBeVisible()
+  }
+
+  await row.getByRole('button', { name: 'Bearbeiten' }).click()
+  await page.getByTestId('edit-delete').click()
+  await page.getByTestId('edit-delete-yes').click()
+  await expect(page.getByTestId('mined-list').locator('li', { hasText: line })).toHaveCount(0)
+  expect(errors).toEqual([])
+})
+
 test('Week 5: the AI-key to-do shows on Heute and can be ticked off', async ({ page, request }) => {
   const errors = watchConsole(page)
   const plan = await (await request.get('http://127.0.0.1:8001/api/plan')).json()

@@ -46,6 +46,8 @@ def mined_cards() -> list[dict]:
             "sentence": r["sentence"], "target": r["target"], "en": r["en"] or "", "note": r["note"],
             "case": r["kasus"], "source": r["source"], "pos": None,
             "audio": r["audio"], "mediaId": r["media_id"], "clipStart": r["clip_start"], "clipEnd": r["clip_end"],
+            # #19: fields a KI filled in ("lemma", "gloss", "case") and more target words of the same line
+            "aiFields": json.loads(r["ai_fields"] or "[]"), "words": json.loads(r["words"] or "[]"),
             # "source" above is where it was mined (shown as "Gemined · …"); origin says whose German it is
             "origin": o["origin"], "originSource": o["source"],
         })

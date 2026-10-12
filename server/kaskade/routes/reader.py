@@ -1,9 +1,10 @@
+import json
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from .. import analyze, config, db, snippet, srs, texts
+from .. import analyze, config, db, mining, snippet, srs, texts
 
 router = APIRouter(prefix="/api")
 
@@ -64,23 +65,93 @@ def mine(body: MineIn):
     clip = body.mediaId is not None and body.start is not None and body.end is not None
     if clip and body.end <= body.start:
         raise HTTPException(422, "Ungültiger Zeitbereich.")
+    sentence = body.sentence.strip()
     with db.tx() as conn:
-        dup = conn.execute("SELECT id FROM mined WHERE sentence = ? AND target = ?", (body.sentence, body.target)).fetchone()
-        if dup:
-            return {"id": f"mine:{dup[0]}", "duplicate": True}
+        dup = conn.execute("SELECT * FROM mined WHERE sentence = ? ORDER BY id", (sentence,)).fetchone()
+    if dup:
+        # "Satz schon gemint" — another word of the line can go onto the same card (#19)
+        return {"id": f"mine:{dup['id']}", "duplicate": True, "sameWord": body.target in mining.targets(dup)}
+    w = mining.enrich(sentence, body.target, _word(body))
+    with db.tx() as conn:
         cur = conn.execute(
             "INSERT INTO mined(created_at, sentence, target, lemma, display, gloss, en, note, kasus, source,"
-            " media_id, clip_start, clip_end) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (db.now_iso(), body.sentence.strip(), body.target, body.lemma, body.display or body.lemma,
-             body.gloss or "—", body.en, body.note, body.case, body.source,
-             body.mediaId if clip else None, body.start if clip else None, body.end if clip else None),
+            " media_id, clip_start, clip_end, ai_fields) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (db.now_iso(), sentence, body.target, w["lemma"], w["display"], w["gloss"] or "—", body.en, w["note"],
+             w["case"], body.source, body.mediaId if clip else None, body.start if clip else None,
+             body.end if clip else None, json.dumps(w["ai"]) if w["ai"] else None),
         )
         mid = cur.lastrowid
     audio = _snippet(mid, body.mediaId, body.start, body.end) if clip else None
     if audio:
         with db.tx() as conn:
             conn.execute("UPDATE mined SET audio = ? WHERE id = ?", (audio, mid))
-    return {"id": f"mine:{mid}", "duplicate": False, "audio": bool(audio)}
+    return {"id": f"mine:{mid}", "duplicate": False, "audio": bool(audio), "ai": w["ai"]}
+
+
+def _word(body: MineIn) -> dict:
+    return {"lemma": body.lemma, "display": body.display or body.lemma, "gloss": body.gloss, "case": body.case,
+            "note": body.note}
+
+
+def _mined_card(n: int) -> dict:
+    card = srs.card_content(f"mine:{n}")
+    if not card:
+        raise HTTPException(404, "Karte nicht gefunden")
+    return card
+
+
+@router.post("/mined/{n}/words")
+def add_word(n: int, body: MineIn):
+    """A second target word of the same line onto the existing card (#19)."""
+    r = mining.row(n)
+    if not r:
+        raise HTTPException(404, "Karte nicht gefunden")
+    if body.target not in r["sentence"]:
+        raise HTTPException(422, "Das Wort steht nicht im Satz.")
+    if body.target in mining.targets(r):
+        raise HTTPException(409, "Das Wort ist schon auf der Karte.")
+    w = mining.enrich(r["sentence"], body.target, _word(body))
+    words = [*json.loads(r["words"] or "[]"),
+             {"target": body.target, **{k: w[k] for k in ("lemma", "display", "case", "note", "ai")},
+              "gloss": w["gloss"] or "—"}]
+    with db.tx() as conn:
+        conn.execute("UPDATE mined SET words = ? WHERE id = ?", (json.dumps(words, ensure_ascii=False), n))
+    return _mined_card(n)
+
+
+class MinedEdit(BaseModel):
+    lemma: str | None = Field(default=None, min_length=1, max_length=80)
+    display: str | None = Field(default=None, min_length=1, max_length=120)
+    gloss: str | None = Field(default=None, max_length=200)
+    case: Literal["N", "A", "D", "G"] | None = None
+    note: str | None = Field(default=None, max_length=300)
+
+
+@router.patch("/mined/{n}")
+def edit_mined(n: int, body: MinedEdit):
+    """Matt corrects a mined card; what he edits is his, no longer marked KI."""
+    r = mining.row(n)
+    if not r:
+        raise HTTPException(404, "Karte nicht gefunden")
+    sent = body.model_fields_set
+    cols = {"lemma": "lemma", "display": "display", "gloss": "gloss", "case": "kasus", "note": "note"}
+    values = {cols[f]: getattr(body, f) for f in sent}
+    if "gloss" in values:
+        values["gloss"] = (values["gloss"] or "").strip() or "—"
+    if "note" in values:
+        values["note"] = (values["note"] or "").strip() or None
+    edited = {"lemma" if f in ("lemma", "display") else f for f in sent}
+    values["ai_fields"] = json.dumps([f for f in json.loads(r["ai_fields"] or "[]") if f not in edited])
+    with db.tx() as conn:
+        conn.execute(f"UPDATE mined SET {', '.join(f'{c} = ?' for c in values)} WHERE id = ?", (*values.values(), n))
+    return _mined_card(n)
+
+
+@router.delete("/mined/{n}")
+def delete_mined(n: int):
+    if not mining.delete(n):
+        raise HTTPException(404, "Karte nicht gefunden")
+    return {"ok": True}
 
 
 @router.get("/mined")

@@ -16,6 +16,16 @@ CONTRACTED = {"im": "in dem", "am": "an dem", "ans": "an das", "ins": "in das", 
               "zur": "zu der", "vom": "von dem", "beim": "bei dem", "aufs": "auf das", "fürs": "für das"}
 CONTENT_POS = {"NOUN", "VERB", "ADJ", "ADV"}
 ARTICLE = {"m": "der", "f": "die", "n": "das"}
+# Which cases a preposition allows (contractions fix the case: im = in dem → D, ins = in das → A).
+PREP_CASES = {
+    **{p: {"A"} for p in ("durch", "für", "gegen", "ohne", "um", "bis", "entlang", "wider", "ins", "ans", "aufs", "fürs")},
+    **{p: {"D"} for p in ("aus", "bei", "mit", "nach", "seit", "von", "zu", "gegenüber", "ab", "außer", "samt",
+                          "entgegen", "im", "am", "zum", "zur", "vom", "beim")},
+    **{p: {"G", "D"} for p in ("wegen", "während", "trotz", "statt", "anstatt", "laut", "dank")},
+    **{p: {"G"} for p in ("außerhalb", "innerhalb", "aufgrund", "oberhalb", "unterhalb", "jenseits", "diesseits")},
+    **{p: {"A", "D"} for p in TWO_WAY},
+}
+ROLE_CASE = {"sb": "N", "pd": "N", "oa": "A", "da": "D", "og": "G", "ag": "G"}
 
 
 @lru_cache(maxsize=1)
@@ -35,6 +45,10 @@ def dictionary() -> dict:
 
 def _norm(lemma: str) -> str:
     return lemma.split(" (")[0].replace("sich ", "").strip().lower()
+
+
+def _is_noun(lemma: str) -> bool:
+    return lemma.split(" (")[0].replace("sich ", "").strip()[:1].isupper()
 
 
 @lru_cache(maxsize=1)
@@ -90,6 +104,12 @@ def lookup(lemma: str, text: str, pos: str) -> dict | None:
     return None
 
 
+def known_lemma(lemma: str) -> bool:
+    """Whether a lemma is a headword of the core deck or the dictionary."""
+    entries = dictionary()["entries"]
+    return _norm(lemma) in deck_by_lemma() or any(w in entries for w in (lemma, lemma.lower(), lemma.capitalize()))
+
+
 def explain(case: str, gov: dict | None) -> str:
     name = CASE_NAME[case]
     if not gov:
@@ -107,6 +127,33 @@ def explain(case: str, gov: dict | None) -> str:
     return labels.get(gov["role"], name)
 
 
+def sure_case(ch) -> tuple[str, dict] | None:
+    """The case of a noun phrase — only when the parser is sure (#19), else None (no badge).
+
+    Sure means: every case-marked word of the phrase has the same case, and something in the
+    sentence demands exactly that case — the preposition before it (mit → D, in → A or D …) or
+    its role (subject → N, accusative object → A …; in "das Reich und die Herrlichkeit" the
+    second phrase takes the role of the first). Morphology and syntax disagree → None.
+    """
+    cases = {CASE[c] for t in ch for c in t.morph.get("Case") if c in CASE}
+    if len(cases) != 1:
+        return None
+    case = cases.pop()
+    root = ch.root
+    while root.dep_ in ("cj", "cd") and root.head is not root:
+        root = root.head  # coordination: the first conjunct carries the role
+    head = root.head
+    if head.pos_ == "ADP" and root.dep_ == "nk":
+        word = head.text.lower()
+        if case not in PREP_CASES.get(word, ()):
+            return None
+        return case, {"kind": "prep", "word": word, "role": "prep", "i": head.i}
+    if ROLE_CASE.get(root.dep_) == case:
+        return case, {"kind": "verb" if head.pos_ in ("VERB", "AUX") else "word", "word": head.lemma_,
+                      "role": root.dep_, "i": head.i}
+    return None
+
+
 def analyze(text: str) -> dict:
     doc = nlp()(text)
     states = card_states()
@@ -115,17 +162,10 @@ def analyze(text: str) -> dict:
 
     chunks = []
     for ch in doc.noun_chunks:
-        case = next((CASE[c] for t in [ch.root, *ch] for c in t.morph.get("Case") if c in CASE), None)
-        if not case:
+        sure = sure_case(ch)
+        if not sure:
             continue
-        head = ch.root.head
-        if head.pos_ == "ADP" and ch.root.dep_ == "nk":
-            gov = {"kind": "prep", "word": head.text.lower(), "role": "prep", "i": head.i}
-        elif ch.root.dep_ in ("sb", "oa", "da", "og", "ag", "pd"):
-            gov = {"kind": "verb" if head.pos_ in ("VERB", "AUX") else "word", "word": head.lemma_,
-                   "role": ch.root.dep_, "i": head.i}
-        else:
-            gov = None
+        case, gov = sure
         text = explain(case, gov)
         if "Yes" in ch.root.morph.get("Reflex"):
             text = f"Reflexivpronomen → {CASE_NAME[case]}"
@@ -140,19 +180,23 @@ def analyze(text: str) -> dict:
     for t in doc:
         lemma = t.lemma_ if t.pos_ != "NOUN" else t.lemma_[:1].upper() + t.lemma_[1:]
         card = by_lemma.get(_norm(lemma)) if t.is_alpha else None
+        if card and _is_noun(card["lemma"]) != (t.pos_ == "NOUN"):
+            card = None  # the noun "Reich" is not the adjective card "reich"
         state = None
         if t.is_alpha and t.pos_ in CONTENT_POS:
             state = word_state(card, states, estimate)
         entry = None
         if t.is_alpha and t.pos_ not in ("PUNCT", "PROPN", "NUM"):
-            entry = {"gloss": card["gloss"], "display": card["display"], "cardId": card["id"]} if card else None
+            entry = ({"gloss": card["gloss"], "display": card["display"], "cardId": card["id"], "lemma": card["lemma"]}
+                     if card else None)
             if not entry:
                 d = lookup(lemma, t.text, t.pos_)
                 if d:
                     display = d["word"]
                     if d.get("g"):
                         display = f"{ARTICLE[d['g']]} {d['word']}" + (f" · die {d['pl']}" if d.get("pl") else "")
-                    entry = {"gloss": "; ".join(d["gl"][:2]), "display": display, "cardId": None}
+                    # the dictionary's headword beats spaCy's guess (versaust → versauen, not "versausen")
+                    entry = {"gloss": "; ".join(d["gl"][:2]), "display": display, "cardId": None, "lemma": d["word"]}
         tokens.append({
             "i": t.i, "text": t.text, "ws": t.whitespace_, "lemma": lemma, "pos": t.pos_,
             "state": state, "chunk": chunk_of.get(t.i), "entry": entry, "sent": t.sent.start,

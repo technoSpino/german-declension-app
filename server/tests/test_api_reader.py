@@ -24,7 +24,7 @@ def test_mine_duplicate_and_validation(client):
     body = {"sentence": "Das Wetter ist schön.", "target": "Wetter", "lemma": "Wetter"}
     first = client.post("/api/mined", json=body).json()
     again = client.post("/api/mined", json=body).json()
-    assert again == {"id": first["id"], "duplicate": True}
+    assert again == {"id": first["id"], "duplicate": True, "sameWord": True}
     assert client.post("/api/mined", json={**body, "target": "Regen"}).status_code == 422
     assert client.post("/api/mined", json={**body, "case": "X"}).status_code == 422
 

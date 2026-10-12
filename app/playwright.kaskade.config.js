@@ -28,7 +28,8 @@ export default defineConfig({
       reuseExistingServer: false
     },
     {
-      command: 'KASKADE_API=http://127.0.0.1:8001 npx vite preview --host 127.0.0.1 --port 5174 --strictPort',
+      // KASKADE_DIST: test a build outside app/dist (which the live site serves)
+      command: `KASKADE_API=http://127.0.0.1:8001 npx vite preview --host 127.0.0.1 --port 5174 --strictPort --outDir ${process.env.KASKADE_DIST ?? 'dist'}`,
       url: 'http://127.0.0.1:5174',
       reuseExistingServer: false
     }

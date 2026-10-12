@@ -18,7 +18,11 @@ const emit = defineEmits(['mined'])
 
 const mined = ref(null)
 const error = ref(null)
-watch(() => props.token, () => { mined.value = null; error.value = null })
+const busy = ref(false)
+const existing = ref(null) // "Satz schon gemint" with a different word: can go onto that card (#19)
+watch(() => props.token, () => { mined.value = null; error.value = null; existing.value = null })
+const AI_NAMES = { lemma: 'Grundform', gloss: 'Bedeutung', case: 'Kasus' }
+const aiNote = (fields) => (fields?.length ? ` ${fields.map((f) => AI_NAMES[f]).join(', ')} von der KI ergänzt (KI) — in Karten prüfen.` : '')
 
 const chunk = computed(() => (props.token?.chunk != null ? props.analysis.chunks[props.token.chunk] : null))
 const authorGloss = computed(() => props.glossary.find((g) => g.term === props.token?.text))
@@ -27,24 +31,51 @@ const display = computed(() => props.token?.entry?.display ?? props.token?.lemma
 const sentence = computed(() => props.sentence ?? (props.token ? sentenceOf(props.analysis, props.token.i) : ''))
 const STATE = { neu: 'neu', lernend: 'am Lernen', bekannt: 'bekannt' }
 
+// Case only where the parser is sure (the analysis leaves out the rest): no badge beats a wrong one.
+const body = () => ({
+  sentence: sentence.value,
+  target: props.token.text,
+  lemma: props.token.entry?.lemma ?? props.token.lemma, // the dictionary's headword beats spaCy's guess
+  display: display.value,
+  gloss: gloss.value ?? '',
+  note: chunk.value?.explain ?? authorGloss.value?.note ?? null,
+  case: chunk.value?.case ?? null,
+  source: props.source,
+  ...(props.extra ?? {})
+})
+
 async function mine() {
   error.value = null
+  existing.value = null
+  busy.value = true
   try {
-    const r = await api.post('/mined', {
-      sentence: sentence.value,
-      target: props.token.text,
-      lemma: props.token.lemma,
-      display: display.value,
-      gloss: gloss.value ?? '',
-      note: chunk.value?.explain ?? authorGloss.value?.note ?? null,
-      case: chunk.value?.case ?? null,
-      source: props.source,
-      ...(props.extra ?? {})
-    })
-    mined.value = r.duplicate ? 'Schon gemined.' : 'Gemined — kommt als neue Karte.'
+    const r = await api.post('/mined', body())
+    if (r.duplicate) {
+      mined.value = r.sameWord ? 'Satz schon gemint — das Wort ist schon auf der Karte.' : 'Satz schon gemint.'
+      if (!r.sameWord) existing.value = r.id
+    } else {
+      mined.value = `Gemined — kommt als neue Karte.${aiNote(r.ai)}`
+    }
     emit('mined', r)
   } catch (e) {
     error.value = e.message
+  } finally {
+    busy.value = false
+  }
+}
+
+async function addWord() {
+  error.value = null
+  busy.value = true
+  try {
+    const card = await api.post(`/mined/${existing.value.split(':')[1]}/words`, body())
+    const w = card.words.find((x) => x.target === props.token.text)
+    mined.value = `„${props.token.text}“ steht jetzt mit auf der Karte.${aiNote(w?.ai)}`
+    existing.value = null
+  } catch (e) {
+    error.value = e.message
+  } finally {
+    busy.value = false
   }
 }
 </script>
@@ -63,8 +94,9 @@ async function mine() {
         <p class="m-0 k-small" style="color: var(--text)">{{ chunk.explain }}</p>
       </div>
       <p class="k-small m-0 mt-1 k-read" style="font-size: 15px">„{{ sentence }}“</p>
-      <button class="k-btn k-btn-sm mt-1" data-testid="mine" @click="mine">Satz minen</button>
-      <p v-if="mined" class="k-chip k-chip-success m-0" style="width: fit-content">{{ mined }}</p>
+      <button class="k-btn k-btn-sm mt-1" data-testid="mine" :disabled="busy" @click="mine">{{ busy ? 'Wird gemint …' : 'Satz minen' }}</button>
+      <p v-if="mined" class="k-chip k-chip-success m-0" style="width: fit-content; height: auto" data-testid="mine-result">{{ mined }}</p>
+      <button v-if="existing" class="k-btn k-btn-ghost k-btn-sm" data-testid="mine-add-word" :disabled="busy" @click="addWord">„{{ token.text }}“ zur Karte dazunehmen</button>
       <p v-if="error" class="k-error m-0">{{ error }}</p>
     </template>
   </section>

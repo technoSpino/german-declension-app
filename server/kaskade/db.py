@@ -160,6 +160,9 @@ MIGRATIONS = [
     "ALTER TABLE mined ADD COLUMN clip_start REAL",
     "ALTER TABLE mined ADD COLUMN clip_end REAL",
     "ALTER TABLE mined ADD COLUMN audio TEXT",
+    # #19: which fields a KI filled in (JSON list: lemma, gloss, case), more target words of the same line
+    "ALTER TABLE mined ADD COLUMN ai_fields TEXT",
+    "ALTER TABLE mined ADD COLUMN words TEXT",
     # clip conversion to H.264/AAC MP4: NULL/ready | converting | original (conversion failed, original kept)
     "ALTER TABLE media ADD COLUMN status TEXT",
     # plan stock (#16): stable key from data/plan/stock.json, genre tag, duration for clips without cues
