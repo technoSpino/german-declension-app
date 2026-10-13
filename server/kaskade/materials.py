@@ -369,8 +369,13 @@ def _mock(info: dict) -> dict:
 
 
 def _cards(ctx: Ctx, day: date) -> dict:
-    due, new = ctx.due_cards(day), ctx.new_cards(day)
-    return _base("karten", "cards", title="Fällige Karten und geminte Sätze", part=f"{due} fällig + {new} neu",
+    if day == ctx.real_today:  # #25: the same "offen" as Karten — cards, over the whole day
+        with db.tx() as conn:
+            c = srs.counts(conn, ctx.now)
+        part = f"{c['left']} offen" + (f" (davon {c['new']} neu)" if c["new"] else "")
+    else:
+        part = f"{ctx.due_cards(day)} fällig + {ctx.new_cards(day)} neu"
+    return _base("karten", "cards", title="Fällige Karten und geminte Sätze", part=part,
                  origin=None, start={"to": "/karten"}, detail="in Kaskade" if day == ctx.today else "Stand heute")
 
 

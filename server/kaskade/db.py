@@ -197,6 +197,10 @@ MIGRATIONS = [
     # #19: which fields a KI filled in (JSON list: lemma, gloss, case), more target words of the same line
     "ALTER TABLE mined ADD COLUMN ai_fields TEXT",
     "ALTER TABLE mined ADD COLUMN words TEXT",
+    # #25: time to reveal (ms, capped at 60 s), rating derived from it (1) or chosen (0), words in the sentence
+    "ALTER TABLE review_log ADD COLUMN reveal_ms INTEGER",
+    "ALTER TABLE review_log ADD COLUMN auto INTEGER",
+    "ALTER TABLE review_log ADD COLUMN words INTEGER",
     # clip conversion to H.264/AAC MP4: NULL/ready | converting | original (conversion failed, original kept)
     "ALTER TABLE media ADD COLUMN status TEXT",
     # plan stock (#16): stable key from data/plan/stock.json, genre tag, duration for clips without cues

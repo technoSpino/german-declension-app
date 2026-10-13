@@ -1,8 +1,9 @@
 """Core-deck spaced repetition with FSRS. All scheduling lives here; state in SQLite."""
 import json
 import os
+import statistics
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, time as dtime, timedelta, timezone
 from functools import lru_cache
 from zoneinfo import ZoneInfo
 
@@ -14,6 +15,12 @@ TZ = ZoneInfo("Europe/Berlin")
 NEW_PER_DAY = 20
 LEECH_AGAIN = 4          # "Nochmal" this often → card is suspended
 LEARN_AHEAD = timedelta(minutes=20)
+# #25: how fast he reveals a sentence he knows → Leicht / Gut / Schwer
+BASE_MS, PER_WORD_MS = 1500, 450      # typical = (1.5 s + 0.45 s × words) × pace
+EASY, HARD = 0.7, 1.6                 # Leicht if t ≤ 0.7 × typical, Gut if ≤ 1.6 × typical, else Schwer
+PACE_MIN_REVIEWS, PACE_WINDOW = 30, 200
+REVEAL_CAP_MS = 60_000
+STEPPED = (int(State.Learning), int(State.Relearning))
 
 scheduler = Scheduler(desired_retention=0.9)
 
@@ -116,48 +123,91 @@ def previews(card: Card, at: datetime, sched: Scheduler = scheduler) -> dict[int
     return out
 
 
+def end_of_day(at: datetime) -> datetime:
+    """Berlin midnight after `at` (the day boundary for reviews, like Anki's)."""
+    d = at.astimezone(TZ).date() + timedelta(days=1)
+    return datetime.combine(d, dtime(0), TZ).astimezone(timezone.utc)
+
+
+def _state(row) -> int | None:
+    return json.loads(row["fsrs"]).get("state") if row["fsrs"] else None
+
+
 def counts(conn, at: datetime) -> dict:
-    today = local_date(at)
-    due = conn.execute(
-        "SELECT COUNT(*) FROM cards WHERE status = 'learning' AND due <= ?", (at.isoformat(),)
-    ).fetchone()[0]
+    """Distinct cards for today (#25). left = reviews due by Berlin midnight + every card in a
+    short-term step (they come back today) + new cards left; doneToday = cards reviewed today
+    that won't come back today, plus today's "Kenne ich schon"."""
+    today, eod = local_date(at), end_of_day(at)
+    rows = conn.execute("SELECT id, fsrs, due FROM cards WHERE status = 'learning'").fetchall()
+    stepped = [r for r in rows if _state(r) in STEPPED]
+    reviews = [r for r in rows if _state(r) not in STEPPED and r["due"] and r["due"] < eod.isoformat()]
+    waiting = [r for r in stepped if r["due"] > at.isoformat()]
     introduced = conn.execute("SELECT COUNT(*) FROM cards WHERE introduced_on = ?", (today,)).fetchone()[0]
-    done = conn.execute(
-        "SELECT COUNT(*) FROM review_log WHERE local_date = ? AND rating > 0", (today,)
-    ).fetchone()[0]
     seen = conn.execute("SELECT COUNT(*) FROM cards").fetchone()[0]
     total = len(deck()) + conn.execute("SELECT COUNT(*) FROM mined").fetchone()[0]
     new_left = min(max(0, new_per_day() - introduced), max(0, total - seen))
-    return {"due": due, "new": new_left, "doneToday": done}
+    coming_back = {r["id"] for r in stepped} | {r["id"] for r in reviews}
+    reviewed = {r[0] for r in conn.execute("SELECT DISTINCT card_id FROM review_log WHERE local_date = ?", (today,))}
+    done = len(reviewed - coming_back)
+    left = len(stepped) + len(reviews) + new_left
+    return {"left": left, "doneToday": done, "new": new_left, "due": len(stepped) + len(reviews),
+            "waiting": len(waiting), "nextAt": min((r["due"] for r in waiting), default=None)}
+
+
+def pace(conn) -> float:
+    """His reveal speed against the typical one: 1.0 until 30 timed "gewusst" reviews, then the
+    median over the last 200 — so Leicht/Gut/Schwer follow his own speed."""
+    rows = conn.execute(
+        "SELECT reveal_ms, words FROM review_log WHERE reveal_ms IS NOT NULL AND words IS NOT NULL AND rating >= 2"
+        " ORDER BY id DESC LIMIT ?", (PACE_WINDOW,)).fetchall()
+    if len(rows) < PACE_MIN_REVIEWS:
+        return 1.0
+    return statistics.median(min(r["reveal_ms"], REVEAL_CAP_MS) / (BASE_MS + PER_WORD_MS * r["words"]) for r in rows)
+
+
+def words_in(sentence: str) -> int:
+    return len((sentence or "").split())
+
+
+def timing(sentence: str, p: float = 1.0) -> dict:
+    """Reveal-time thresholds for a sentence: Leicht ≤ easyMs < Gut ≤ hardMs < Schwer."""
+    typical = (BASE_MS + PER_WORD_MS * words_in(sentence)) * p
+    return {"easyMs": round(EASY * typical), "hardMs": round(HARD * typical), "typicalMs": round(typical),
+            "words": words_in(sentence), "pace": round(p, 3), "capMs": REVEAL_CAP_MS}
 
 
 def next_card(at: datetime | None = None, sched: Scheduler = scheduler) -> dict:
-    """Next card for today: due reviews first, then new cards, then learning cards due soon."""
+    """Next card (#25): cards in a step that are due, then every review due by Berlin midnight
+    (served right away, like Anki), then new cards, then steps due within the learn-ahead.
+    Nothing comes up that `counts` didn't count."""
     at = at or now_utc()
+    eod = end_of_day(at).isoformat()
     with db.tx() as conn:
         c = counts(conn, at)
-        row = conn.execute(
-            "SELECT * FROM cards WHERE status = 'learning' AND due <= ? ORDER BY due LIMIT 1", (at.isoformat(),)
-        ).fetchone()
-        card_id = row["id"] if row else None
+        p = pace(conn)
+        learning = conn.execute("SELECT id, fsrs, due FROM cards WHERE status = 'learning' ORDER BY due").fetchall()
+        step_due = next((r["id"] for r in learning if _state(r) in STEPPED and r["due"] <= at.isoformat()), None)
+        review_due = next((r["id"] for r in learning if _state(r) not in STEPPED and r["due"] and r["due"] < eod), None)
+        card_id = step_due or review_due
         if card_id is None and c["new"] > 0:
             seen = {r[0] for r in conn.execute("SELECT id FROM cards")}
             # mined sentences first (you chose them from real input), then the core deck in order
             pool = [*(f"mine:{r[0]}" for r in conn.execute("SELECT id FROM mined ORDER BY id")), *(d["id"] for d in deck())]
             card_id = next((cid for cid in pool if cid not in seen), None)
         if card_id is None:
-            row = conn.execute(
-                "SELECT * FROM cards WHERE status = 'learning' AND due <= ? ORDER BY due LIMIT 1",
-                ((at + LEARN_AHEAD).isoformat(),),
-            ).fetchone()
-            card_id = row["id"] if row else None
+            ahead = (at + LEARN_AHEAD).isoformat()
+            card_id = next((r["id"] for r in learning if _state(r) in STEPPED and r["due"] <= ahead), None)
         if card_id is None:
-            return {"card": None, "counts": c}
+            out = {"card": None, "counts": c}
+            if c["nextAt"]:  # only cards waiting in a step: they come back by themselves
+                out["wait"] = {"cards": c["waiting"], "at": (datetime.fromisoformat(c["nextAt"]) - LEARN_AHEAD).isoformat()}
+            return out
         row = _row(conn, card_id)
     content = card_content(card_id)
     return {
         "card": {**content, "isNew": row is None},
         "intervals": previews(_fsrs(row), at, sched),
+        "timing": timing(content["sentence"], p),
         "counts": c,
     }
 
@@ -166,8 +216,12 @@ def _snapshot(row) -> str | None:
     return json.dumps(dict(row)) if row else None
 
 
-def review(card_id: str, rating: int, at: datetime | None = None, sched: Scheduler = scheduler) -> dict:
-    if card_content(card_id) is None:
+def review(card_id: str, rating: int, at: datetime | None = None, sched: Scheduler = scheduler,
+           reveal_ms: int | None = None, auto: bool | None = None) -> dict:
+    """Rate a card. #25: `reveal_ms` (time to reveal, capped at 60 s) and `auto` (rating derived
+    from that time, not chosen) are logged — they tune his pace and the thresholds later."""
+    content = card_content(card_id)
+    if content is None:
         raise KeyError(card_id)
     if rating not in (1, 2, 3, 4):
         raise ValueError("rating must be 1–4")
@@ -187,8 +241,11 @@ def review(card_id: str, rating: int, at: datetime | None = None, sched: Schedul
             (card_id, status, json.dumps(card.to_dict()), card.due.isoformat(), introduced, lapses, at.isoformat()),
         )
         conn.execute(
-            "INSERT INTO review_log(card_id, rating, reviewed_at, local_date, prev) VALUES (?, ?, ?, ?, ?)",
-            (card_id, rating, at.isoformat(), local_date(at), _snapshot(row)),
+            "INSERT INTO review_log(card_id, rating, reviewed_at, local_date, prev, reveal_ms, auto, words)"
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            (card_id, rating, at.isoformat(), local_date(at), _snapshot(row),
+             min(reveal_ms, REVEAL_CAP_MS) if reveal_ms is not None else None,
+             None if auto is None else int(auto), words_in(content["sentence"]) if reveal_ms is not None else None),
         )
     return {"id": card_id, "status": status, "due": card.due.isoformat(), "interval": human_interval(card.due - at)}
 

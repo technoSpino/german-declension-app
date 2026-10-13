@@ -214,8 +214,9 @@ test('Karten: reveal, rate, "kenne ich schon" and undo', async ({ page }) => {
 
   await page.keyboard.press('Space')
   await expect(page.getByTestId('karte-back')).toBeVisible()
-  await expect(page.getByTestId('rate-3')).toContainText('Gut')
-  await page.keyboard.press('3')
+  await expect(page.getByTestId('karte-gewusst')).toContainText('Gewusst')  // #25: two buttons, the time decides
+  await expect(page.getByTestId('karte-nicht')).toContainText('Nicht gewusst')
+  await page.keyboard.press('3') // keys 1–4 still work, silently
   await expect(satz).not.toHaveText(first!)
 
   const second = await satz.textContent()
@@ -968,5 +969,61 @@ test('#23 Heute: the lesen block ends → "Wie viel hast du verstanden?" → sto
 
   sql("DELETE FROM ratings WHERE local_date = '2026-10-13'")
   restore()
+  expect(errors).toEqual([])
+})
+
+test('#25 Karten: the time to reveal sets the rating, the bar counts cards and waits for stepped ones', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  await page.clock.install({ time: new Date('2026-10-13T07:30:00Z') })
+  const card = async () => (await (await request.get('http://127.0.0.1:8001/api/cards/next')).json())
+  const last = () => sql('SELECT rating || "," || reveal_ms || "," || auto FROM review_log ORDER BY id DESC LIMIT 1')
+
+  // a short sentence revealed after 2 s → "Gewusst · Leicht" (≥ 4 words: Leicht up to ≥ 2.3 s)
+  let next = await card()
+  const quick = Math.min(2000, next.timing.easyMs - 200)
+  await page.goto('/karten')
+  await expect(page.getByTestId('karte-satz')).toHaveText(next.card.sentence)
+  await page.clock.runFor(quick)
+  await page.keyboard.press('Space')
+  await expect(page.getByTestId('karte-gewusst-label')).toHaveText(/^Gewusst · Leicht · \d+ (Min|Std|Tag|Tage|Mon\.)$/) // FSRS fuzzes the interval
+  await page.keyboard.press('Space') // within 400 ms of revealing: ignored (double tap)
+  await expect(page.getByTestId('karte-gewusst')).toBeVisible()
+  await page.clock.runFor(500)
+  await page.keyboard.press('Space')
+  await expect(page.getByTestId('karte-satz')).not.toHaveText(next.card.sentence)
+  const [r1, ms1, auto1] = last().split(',').map(Number)  // the browser clock also ticks on its own a little
+  expect([r1, auto1]).toEqual([4, 1]); expect(ms1).toBeGreaterThanOrEqual(quick); expect(ms1).toBeLessThan(quick + 1000)
+
+  // after 20 s → "Schwer"; N → Nicht gewusst = Nochmal
+  next = await card()
+  await expect(page.getByTestId('karte-satz')).toHaveText(next.card.sentence)
+  await page.clock.runFor(20_000)
+  await page.getByTestId('karte-reveal').click()
+  await expect(page.getByTestId('karte-gewusst-label')).toContainText('Gewusst · Schwer')
+  await expect(page.getByTestId('karte-nicht')).toContainText(/Nicht gewusst · \d+ (Min|Std|Tag|Tage)/)
+  await page.keyboard.press('n')
+  await expect(page.getByTestId('karte-satz')).not.toHaveText(next.card.sentence)
+  const [r2, ms2, auto2] = last().split(',').map(Number)
+  expect([r2, auto2]).toEqual([1, 0]); expect(ms2).toBeGreaterThanOrEqual(20_000); expect(ms2).toBeLessThan(21_000)
+
+  // Only a card in a step is left (back in 50 min): the bar stays below 100 % and says when it comes back
+  await request.put('http://127.0.0.1:8001/api/cards/settings', { data: { newPerDay: 0 } })
+  const waitingId = sql('SELECT card_id FROM review_log WHERE rating = 1 ORDER BY id DESC LIMIT 1')
+  const others = sql("SELECT group_concat(id) FROM cards WHERE status = 'learning' AND id != ?", waitingId)
+  for (const id of others ? others.split(',') : []) await request.post(`http://127.0.0.1:8001/api/cards/${id}/known`)
+  sql("UPDATE cards SET due = '2026-10-13T08:20:00+00:00' WHERE id = ?", waitingId)
+  await page.reload()
+  await expect(page.getByTestId('karten-wait')).toContainText('Noch 1 Karte — kommt in 30 Min wieder')
+  await expect(page.getByTestId('karten-fertig')).toHaveCount(0)
+  expect(Number(await page.getByTestId('karten-bar').getAttribute('data-pct'))).toBeLessThan(100)
+  await expect(page.getByTestId('karten-progress')).toContainText(/\d+ fertig · 1 offen/)
+  await page.clock.runFor(60_000)
+  await expect(page.getByTestId('karten-wait')).toContainText('kommt in 29 Min wieder') // live countdown
+  // "Fertig" only once nothing is open
+  await request.post(`http://127.0.0.1:8001/api/cards/${waitingId}/known`)
+  await page.reload()
+  await expect(page.getByTestId('karten-fertig')).toContainText('Fertig für heute')
+  await expect(page.getByTestId('karten-bar')).toHaveAttribute('data-pct', '100')
+  await request.put('http://127.0.0.1:8001/api/cards/settings', { data: { newPerDay: 20 } })
   expect(errors).toEqual([])
 })

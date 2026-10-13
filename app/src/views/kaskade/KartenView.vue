@@ -1,7 +1,9 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { api } from '../../lib/api'
 import { cardWords, markTargets } from '../../lib/cards'
+import { createRevealTimer, DOUBLE_TAP_MS, grade, GRADE_LABEL, progress, waitLine } from '../../lib/reveal'
+import { useNow } from '../../lib/useNow'
 import { speak } from '../../lib/speech'
 import { audioNote, cardBadge } from '../../lib/origin'
 import AiMark from '../../components/kaskade/AiMark.vue'
@@ -14,8 +16,12 @@ const stats = ref(null)
 const revealed = ref(false)
 const busy = ref(false)
 const error = ref(null)
-const sessionDone = ref(0)
 const flash = ref(null)
+// #25: the rating comes from the time to reveal (paused while the tab is hidden or not focused)
+const timer = createRevealTimer()
+const revealMs = ref(null)
+let revealedAt = 0
+const now = useNow(1000)
 
 const card = computed(() => data.value?.card)
 const editing = ref(false) // the shown mined card in the editor (#19)
@@ -23,19 +29,48 @@ const minedList = ref(null)
 const isMined = computed(() => card.value?.id.startsWith('mine:'))
 const words = computed(() => (card.value ? (isMined.value ? cardWords(card.value) : [{ ...card.value, ai: [] }]) : []))
 const segments = computed(() => (card.value ? markTargets(card.value.sentence, words.value.map((w) => w.target)) : []))
-const total = computed(() => sessionDone.value + (data.value ? data.value.counts.due + data.value.counts.new : 0))
-const pct = computed(() => (total.value ? Math.round((sessionDone.value / total.value) * 100) : 100))
+// #25: cards done today against cards still open today — a card in a step stays open
+const prog = computed(() => progress(data.value?.counts))
+const gewusstAs = computed(() => grade(revealMs.value ?? 0, data.value?.timing)) // what "Gewusst" means for this card
+const waiting = computed(() => (!card.value && data.value?.wait ? waitLine(data.value.wait, now.value.getTime()) : null))
 
+let loading = false
 async function load() {
   error.value = null
+  loading = true
   try {
     data.value = await api.get('/cards/next')
     revealed.value = false
+    revealMs.value = null
     editing.value = false
+    if (data.value.card) {
+      timer.start()
+      if (document.hidden || !document.hasFocus()) timer.pause()
+    }
   } catch (e) {
     error.value = e.message
+  } finally {
+    loading = false
   }
 }
+// a card waiting in a step comes back by itself
+watch(now, (n) => {
+  const at = data.value?.wait?.at
+  if (at && !card.value && !loading && n.getTime() >= Date.parse(at)) load()
+})
+
+function reveal() {
+  if (!card.value || revealed.value) return
+  revealMs.value = timer.stop()
+  revealed.value = true
+  revealedAt = performance.now()
+}
+function onVisibility() {
+  if (document.hidden) timer.pause()
+  else if (card.value && !revealed.value && document.hasFocus()) timer.resume()
+}
+const onBlur = () => timer.pause()
+const onFocus = () => { if (card.value && !revealed.value && !document.hidden) timer.resume() }
 
 async function loadStats() {
   try {
@@ -48,15 +83,22 @@ async function loadStats() {
 onMounted(async () => {
   await Promise.all([load(), loadStats()])
   window.addEventListener('keydown', onKey)
+  document.addEventListener('visibilitychange', onVisibility)
+  window.addEventListener('blur', onBlur)
+  window.addEventListener('focus', onFocus)
 })
-onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKey)
+  document.removeEventListener('visibilitychange', onVisibility)
+  window.removeEventListener('blur', onBlur)
+  window.removeEventListener('focus', onFocus)
+})
 
 async function act(fn, message) {
   if (busy.value || !card.value) return
   busy.value = true
   try {
     await fn()
-    sessionDone.value++
     flash.value = message
     await load()
     loadStats()
@@ -67,7 +109,10 @@ async function act(fn, message) {
   }
 }
 
-const rate = (r) => revealed.value && act(() => api.post(`/cards/${card.value.id}/review`, { rating: r }), null)
+// "Gewusst": Leicht/Gut/Schwer from the time; "Nicht gewusst" = Nochmal; keys 1–4 override silently
+const rate = (r, auto = false) => revealed.value && act(() => api.post(`/cards/${card.value.id}/review`, { rating: r, revealMs: revealMs.value, auto }), null)
+const gewusst = () => rate(gewusstAs.value, true)
+const nichtGewusst = () => rate(1)
 const known = () => act(() => api.post(`/cards/${card.value.id}/known`), `„${card.value.lemma}“ — kenne ich schon. Kommt nicht wieder.`)
 
 async function undo() {
@@ -75,7 +120,6 @@ async function undo() {
   busy.value = true
   try {
     await api.post('/cards/undo')
-    sessionDone.value = Math.max(0, sessionDone.value - 1)
     flash.value = 'Rückgängig gemacht.'
     await load()
     loadStats()
@@ -116,7 +160,11 @@ function onKey(e) {
   const k = e.key.toLowerCase()
   if (k === ' ' || k === 'enter') {
     e.preventDefault()
-    if (card.value && !revealed.value) revealed.value = true
+    if (!card.value) return
+    if (!revealed.value) reveal()
+    else if (performance.now() - revealedAt >= DOUBLE_TAP_MS) gewusst() // a double tap doesn't rate
+  } else if (k === 'n') {
+    nichtGewusst()
   } else if (['1', '2', '3', '4'].includes(k)) {
     rate(Number(k))
   } else if (k === 'k') {
@@ -128,12 +176,6 @@ function onKey(e) {
   }
 }
 
-const buttons = [
-  { r: 1, label: 'Nochmal' },
-  { r: 2, label: 'Schwer' },
-  { r: 3, label: 'Gut', primary: true },
-  { r: 4, label: 'Leicht' }
-]
 </script>
 
 <template>
@@ -142,9 +184,9 @@ const buttons = [
       <div class="flex flex-col gap-4 min-w-0" style="flex: 999 1 560px">
         <div class="flex flex-wrap items-baseline justify-between gap-2">
           <h1 class="k-h1" style="font-size: 32px">Karten</h1>
-          <p class="m-0 k-small"><strong style="color: var(--text)">{{ sessionDone }} / {{ total }}</strong> heute · 09:00–09:30 im Block</p>
+          <p class="m-0 k-small" data-testid="karten-progress"><strong style="color: var(--text)">{{ prog.text }}</strong> · heute</p>
         </div>
-        <div class="k-progress"><div :style="{ width: pct + '%' }"></div></div>
+        <div class="k-progress" role="img" :aria-label="`${prog.done} Karten fertig, ${prog.left} offen`" data-testid="karten-bar" :data-pct="prog.pct"><div :style="{ width: prog.pct + '%' }"></div></div>
 
         <p v-if="error" class="k-error m-0" role="alert">{{ error }}</p>
 
@@ -182,6 +224,11 @@ const buttons = [
           </div>
         </article>
 
+        <section v-else-if="data && data.counts.left > 0" class="k-card flex flex-col gap-3" data-testid="karten-wait">
+          <h2 class="k-h2" aria-live="polite">{{ waiting ?? `Noch ${data.counts.left} Karten offen` }}</h2>
+          <p class="k-small m-0">Sie sind in einem kurzen Lernschritt und erscheinen hier von selbst wieder. Bis dahin: Pause, oder schon mal ins Schauen.</p>
+        </section>
+
         <section v-else-if="data" class="k-card flex flex-col gap-3" data-testid="karten-fertig">
           <template v-if="stats && stats.deckSize === 0">
             <h2 class="k-h2">Kein Kerndeck gefunden</h2>
@@ -189,27 +236,23 @@ const buttons = [
           </template>
           <template v-else>
             <h2 class="k-h2">Fertig für heute 🎉</h2>
-            <p class="k-small m-0">{{ sessionDone ? `${sessionDone} Karten in dieser Sitzung.` : 'Heute ist nichts mehr fällig.' }} Morgen kommen neue Kernwörter.</p>
+            <p class="k-small m-0">{{ prog.done ? `${prog.done} Karten heute.` : 'Heute ist nichts mehr fällig.' }} Morgen kommen neue Kernwörter.</p>
           </template>
           <div><router-link to="/" class="k-btn">Zurück zu Heute</router-link></div>
         </section>
 
         <template v-if="card">
-          <button v-if="!revealed" class="k-btn kc-reveal" data-testid="karte-reveal" @click="revealed = true">
+          <button v-if="!revealed" class="k-btn kc-reveal" data-testid="karte-reveal" @click="reveal">
             Antwort zeigen <kbd class="k-kbd">Leertaste</kbd>
           </button>
           <div v-else class="kc-rates">
-            <button
-              v-for="b in buttons"
-              :key="b.r"
-              type="button"
-              :class="['kc-rate', { 'kc-rate-primary': b.primary }]"
-              :data-testid="`rate-${b.r}`"
-              :disabled="busy"
-              @click="rate(b.r)"
-            >
-              <span><kbd class="k-kbd">{{ b.r }}</kbd> {{ b.label }}</span>
-              <span class="kc-ivl">{{ data.intervals[b.r] }}</span>
+            <button type="button" class="kc-rate kc-rate-primary" data-testid="karte-gewusst" :disabled="busy" @click="gewusst">
+              <span data-testid="karte-gewusst-label">Gewusst · {{ GRADE_LABEL[gewusstAs] }} · {{ data.intervals[gewusstAs] }}</span>
+              <span class="kc-ivl"><kbd class="k-kbd">Leertaste</kbd></span>
+            </button>
+            <button type="button" class="kc-rate" data-testid="karte-nicht" :disabled="busy" @click="nichtGewusst">
+              <span>Nicht gewusst · {{ data.intervals[1] }}</span>
+              <span class="kc-ivl"><kbd class="k-kbd">N</kbd></span>
             </button>
           </div>
           <div class="flex flex-wrap items-center justify-between gap-3">
@@ -218,15 +261,15 @@ const buttons = [
           </div>
         </template>
         <p v-if="flash" class="k-hint m-0" aria-live="polite">{{ flash }}</p>
-        <p class="k-hint m-0">Tastatur: Leertaste aufdecken · 1–4 bewerten · K kenne ich schon (kommt nie wieder) · A Audio · Z rückgängig</p>
+        <p class="k-hint m-0">Leertaste aufdecken · Leertaste gewusst · N nicht gewusst · K kenne ich schon · A Audio · Z rückgängig</p>
       </div>
 
       <aside aria-label="Sitzung" class="flex flex-col gap-4 min-w-0" style="flex: 1 1 320px">
         <section v-if="data" class="k-card" aria-labelledby="today-h">
           <h2 id="today-h" class="k-h2" style="font-size: 17px">Heute fällig</h2>
           <div class="grid grid-cols-2 gap-3 mt-3">
-            <div><p class="m-0" style="font-size: 28px; font-weight: 800" data-testid="due-count">{{ data.counts.due }}</p><p class="k-small m-0">Wiederholungen</p></div>
-            <div><p class="m-0" style="font-size: 28px; font-weight: 800">{{ data.counts.new }}</p><p class="k-small m-0">neue Sätze</p></div>
+            <div><p class="m-0" style="font-size: 28px; font-weight: 800" data-testid="due-count">{{ data.counts.left }}</p><p class="k-small m-0">offen<template v-if="data.counts.new"> · davon {{ data.counts.new }} neu</template></p></div>
+            <div><p class="m-0" style="font-size: 28px; font-weight: 800" data-testid="done-count">{{ data.counts.doneToday }}</p><p class="k-small m-0">fertig</p></div>
           </div>
           <p class="k-small m-0 mt-3.5 pt-3" style="border-top: 1px solid var(--surface-2)">
             FSRS-Ziel: <strong style="color: var(--text)">90 % behalten</strong><template v-if="stats?.retention30 != null"> · letzte 30 Tage: {{ Math.round(stats.retention30 * 100) }} %</template>
@@ -269,7 +312,7 @@ const buttons = [
 .kc-edit { grid-column: 1 / -1; }
 .kc-note { display: flex; gap: 12px; align-items: flex-start; background: var(--bg); border-radius: 12px; padding: 14px; }
 .kc-reveal { min-height: 60px; font-size: 18px; font-weight: 800; border-radius: var(--radius-lg); }
-.kc-rates { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.kc-rates { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 10px; }
 .kc-rate {
   min-height: 64px; border: var(--border-width) solid var(--border-strong); border-radius: 12px;
   background: var(--surface); color: var(--text); font: inherit; font-weight: 800; font-size: 16px;
@@ -281,6 +324,6 @@ const buttons = [
 .kc-ivl { font-size: 13px; font-weight: 500; opacity: 0.8; }
 @media (max-width: 480px) {
   .kc-card { padding: 20px 16px; min-height: 300px; }
-  .kc-rates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kc-rates { grid-template-columns: minmax(0, 1fr); }
 }
 </style>
