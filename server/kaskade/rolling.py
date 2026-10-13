@@ -47,12 +47,14 @@ def rolls(m: dict | None) -> bool:
 
 
 def slots(start: date, data: dict, block: str) -> list[dict]:
-    """Every plan day's material for `block`, in date order: {date, m, text}."""
+    """Every plan day's material for `block`, in date order: {date, m, text}. A block with two
+    items (#27: audio and a text) rolls its audio item; each item has its own text ("desc")."""
     out = []
     for wi, w in enumerate(data["weeks"]):
         for di, d in enumerate(w["days"]):
-            m = next((x for x in d.get("materials", []) if x["block"] == block), None)
-            out.append({"date": start + timedelta(weeks=wi, days=di), "m": m, "text": d.get(block, "")})
+            mats = [x for x in d.get("materials", []) if x["block"] == block]
+            m = next((x for x in mats if rolls(x)), mats[0] if mats else None)
+            out.append({"date": start + timedelta(weeks=wi, days=di), "m": m, "text": (m or {}).get("desc") or d.get(block, "")})
     return out
 
 
@@ -109,7 +111,8 @@ def schedule(block_slots: list[dict], clips: dict[str, dict], pos: dict[str, flo
 
     clips: key → {"end", "cues", "planned"}; pos: key → saved position. Each day is assumed to
     reach its target (except today once the block is ticked off) — tomorrow's real start is
-    computed tomorrow from where he really is.
+    computed tomorrow from where he really is. A slot with its own "minutes" (the lesen block's
+    audio, #27) gets that much audio instead of `film`.
     """
     rolling = [s for s in block_slots if rolls(s["m"])]
     order = list(dict.fromkeys(s["m"]["clip"] for s in rolling))
@@ -134,7 +137,8 @@ def schedule(block_slots: list[dict], clips: dict[str, dict], pos: dict[str, flo
             c = next((k for k in order if not finished(k)), None)
             if c is None:
                 break  # everything watched: the rest of the plan stays as written
-            frm, to, final = day_range(pos.get(c, 0), clips[c]["end"], film, clips[c]["cues"])
+            budget = s["m"]["minutes"] * 60 if s["m"].get("minutes") else film
+            frm, to, final = day_range(pos.get(c, 0), clips[c]["end"], budget, clips[c]["cues"])
         planned = clips.get(c, {}).get("planned") or [s]
         out[s["date"]] = {"clip": c, "from": frm, "to": to, "final": final, "text": text_for(planned, frm, to, final)}
         if not (s["date"] == today and today_done):

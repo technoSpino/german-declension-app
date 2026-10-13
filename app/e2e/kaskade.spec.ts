@@ -54,9 +54,9 @@ test('Heute loads with the day plan, block timer and done toggle', async ({ page
   await page.goto('/')
   await expect(page.getByTestId('heute')).toBeVisible()
   await expect(page.getByRole('navigation', { name: 'Hauptnavigation' })).toBeVisible()
-  // Server clock: Tuesday, week 1 → speaking task p01
+  // Server clock: Tuesday, week 1 — #27: no Prüfungsteil, the block ends with Lesen at 11:30
   await expect(page.getByText('Woche 1 · Wohnen und Nachbarn')).toBeVisible()
-  await expect(page.getByTestId('block-pruefung')).toContainText('Ein Hoffest für das Haus')
+  await expect(page.getByTestId('block-pruefung')).toHaveCount(0)
 
   // #16: every block names its exact item — 2A, week 1, Tuesday: library text t04 in free reading
   await expect(page.getByTestId('assign-lesen')).toContainText('Streit wegen der Musik')
@@ -64,7 +64,11 @@ test('Heute loads with the day plan, block timer and done toggle', async ({ page
   // Timeline: labelled segments, exactly one highlighted (09:30 → Schauen), the rest upcoming.
   const timeline = page.getByTestId('timeline')
   await expect(timeline).toContainText('Karten')
-  await expect(timeline).toContainText('Prüfung')
+  await expect(timeline).not.toContainText('Prüfung')
+  await expect(timeline.locator('[data-state]')).toHaveCount(4) // Karten, Schauen, Pause, Lesen
+  await expect(timeline).toHaveAttribute('aria-label', /10:35 Lesen \(55 min, offen\)$/)
+  // #27: the longer lesen block names a second exact item after the text
+  await expect(page.getByTestId('then-lesen-0')).toContainText('Danach')
   await expect(timeline.locator('[data-state="current"]')).toHaveCount(1)
   await expect(timeline.locator('[data-state="current"]')).toContainText('Schauen')
   // Starting the free-reading block opens the suggested text; the timer keeps running in the header.
@@ -102,7 +106,7 @@ test('Heute on a weekend: Start buttons are disabled with a hint and do nothing'
   await expect(page.getByText('Wochenende — kein Lernblock.')).toBeVisible()
   // pinned clock → no hours yet: one line instead of an empty chart
   await expect(page.getByTestId('heute-hours-empty')).toContainText('Noch keine Zeit erfasst')
-  for (const id of ['karten', 'input', 'lesen', 'pruefung']) {
+  for (const id of ['karten', 'input', 'lesen']) {
     await expect(page.getByTestId(`start-${id}`)).toHaveAttribute('aria-disabled', 'true')
   }
   await expect(page.getByTestId('done-karten')).toHaveCount(0)
@@ -337,6 +341,9 @@ test('Fahrplan shows forecast, phases and checks', async ({ page }) => {
   await expect(page.getByText('Stunden bis B2')).toBeVisible()
   await expect(page.locator('[data-testid^="phase-"]', { hasText: 'Jetzt' })).toHaveCount(1)
   await expect(page.getByText('Nächster Satz-Check')).toBeVisible()
+  // #27: the exam is paused; #23: ratings have an empty state until the first one
+  await expect(page.getByTestId('fp-exam')).toHaveText('B1-Prüfung: pausiert — kommt zurück, wenn du ein Prüfungsdatum wählst.')
+  await expect(page.getByTestId('fp-ratings')).toContainText('Wie viel verstanden?')
   expect(errors).toEqual([])
 })
 
@@ -591,24 +598,13 @@ test('#19 mined cards: no unsure case badge, same line again → add the word, e
   expect(errors).toEqual([])
 })
 
-test('Week 5: the AI-key to-do shows on Heute and can be ticked off', async ({ page, request }) => {
+test('#27 Prüfung page: the Schreiben/Sprechen tasks stay reachable, the exam is paused', async ({ page }) => {
   const errors = watchConsole(page)
-  const plan = await (await request.get('http://127.0.0.1:8001/api/plan')).json()
-  // Pretend it's week 5 for the first load only; after ticking, the real /api/today has no to-dos.
-  await page.route('**/api/today', async (route) => {
-    const res = await route.fetch()
-    await route.fulfill({ response: res, json: { ...(await res.json()), week: 5, todos: plan.week5.todos } })
-    await page.unroute('**/api/today')
-  })
-  await page.goto('/')
-  const card = page.getByTestId('todo-ai-key')
-  await expect(card).toContainText('KI-Schlüssel einrichten')
-  await expect(card).toContainText('ANTHROPIC_API_KEY')
-  await page.getByTestId('todo-done-ai-key').click()
-  await expect(card).toHaveCount(0)
-  await page.goto('/fahrplan')
-  await expect(page.getByTestId('fp-upcoming')).toContainText('✓ KI-Schlüssel einrichten')
-  await expect(page.getByTestId('fp-upcoming')).toContainText('Erste Probeprüfung')
+  await page.goto('/pruefung')
+  await expect(page.getByTestId('pruefung-paused')).toContainText('B1-Prüfung: pausiert')
+  await page.getByTestId('aufgabe-p01').click()
+  await expect(page).toHaveURL(/\/aufgabe\/p01$/)
+  await expect(page.locator('h1')).toContainText('Ein Hoffest für das Haus')
   expect(errors).toEqual([])
 })
 
@@ -673,7 +669,7 @@ test('YouTube: Mac one-liner and cookies.txt upload', async ({ page }) => {
 test('#20 every Starten on Heute opens its exact item, Mon–Fri of week 1', async ({ page, request }) => {
   const errors = watchConsole(page)
   // The plan's week-1 clips in the library (a test clip each, registered under its catalog key).
-  const keys = ['tatort-schweigen', 'egp-698', 'egp-700', 'soko-leipzig-das-auge', 'radio-tatort-uebertherapie']
+  const keys = ['tatort-schweigen', 'egp-698', 'egp-700', 'egp-684', 'soko-leipzig-das-auge', 'radio-tatort-uebertherapie']
   const media = async () => (await (await request.get('http://127.0.0.1:8001/api/media')).json()) as { id: number, key: string | null }[]
   for (const key of keys) {
     if ((await media()).some((m) => m.key === key)) continue
@@ -691,30 +687,32 @@ test('#20 every Starten on Heute opens its exact item, Mon–Fri of week 1', asy
   const id = Object.fromEntries((await media()).filter((m) => m.key).map((m) => [m.key, m.id]))
   const watch = (key: string) => new RegExp(`/schauen/${id[key]}\\?von=\\d+&bis=\\d+$`)
 
-  // block → where "Starten" goes; null = stays on Heute (the news links are listed under the block)
+  // block → where "Starten" goes; null = stays on Heute (the news links are listed under the block).
+  // #27: no Prüfungsteil any more — three blocks a day.
   const days: [string, Record<string, RegExp | null>][] = [
-    ['2026-10-12', { karten: /\/karten$/, input: watch('tatort-schweigen'), lesen: watch('egp-698'), pruefung: /\/aufgabe\/s01$/ }],
-    ['2026-10-13', { karten: /\/karten$/, input: watch('tatort-schweigen'), lesen: null, pruefung: /\/aufgabe\/p01$/ }],
-    ['2026-10-14', { karten: /\/karten$/, input: watch('tatort-schweigen'), lesen: /\/schauen\/\d+\?von=\d+&bis=\d+$/, pruefung: /\/aufgabe\/s02$/ }],
-    ['2026-10-15', { karten: /\/karten$/, input: /\/schauen\/\d+\?von=\d+&bis=\d+$/, lesen: /\/schauen\/\d+\?von=\d+&bis=\d+$/, pruefung: /\/aufgabe\/p02$/ }],
-    ['2026-10-16', { karten: /\/karten$/, input: /\/schauen\/\d+\?von=\d+&bis=\d+$/, lesen: /\/schauen\/\d+\?von=\d+&bis=\d+$/, pruefung: /\/pruefung\/lesen\/l1$/ }]
+    ['2026-10-12', { karten: /\/karten$/, input: watch('tatort-schweigen'), lesen: watch('egp-698') }],
+    ['2026-10-13', { karten: /\/karten$/, input: watch('tatort-schweigen'), lesen: null }],
+    ['2026-10-14', { karten: /\/karten$/, input: watch('tatort-schweigen'), lesen: /\/schauen\/\d+\?von=\d+&bis=\d+$/ }],
+    ['2026-10-15', { karten: /\/karten$/, input: /\/schauen\/\d+\?von=\d+&bis=\d+$/, lesen: /\/schauen\/\d+\?von=\d+&bis=\d+$/ }],
+    ['2026-10-16', { karten: /\/karten$/, input: /\/schauen\/\d+\?von=\d+&bis=\d+$/, lesen: /\/schauen\/\d+\?von=\d+&bis=\d+$/ }]
   ]
   const undone = new Set<string>()
   for (const [iso, blocks] of days) {
     await page.unroute('**/api/today')
     await page.route('**/api/today', (route) => route.continue({ url: `${new URL(route.request().url()).origin}/api/today?today=${iso}&phase=2B` }))
-    // what the server computed for that day (#21: clip ranges roll from his position)
-    const assigned = (await (await request.get(`http://127.0.0.1:8001/api/today?today=${iso}&phase=2B`)).json()).assignments
     for (const [block, to] of Object.entries(blocks)) {
       await page.goto('/')
-      if (assigned[block].part) await expect(page.getByTestId(`assign-${block}`), `${iso} ${block}`).toContainText(assigned[block].part)
       await expect(page.getByTestId(`done-${block}`)).toBeVisible()
+      await expect(page.getByTestId('block-pruefung')).toHaveCount(0)
       // earlier tests may have ticked a block off or left its timer running: undo that first
       if ((await page.getByTestId(`done-${block}`).textContent())?.includes('Erledigt')) {
         undone.add(block)
         await page.getByTestId(`done-${block}`).click()
       }
       if (await page.getByTestId(`stop-${block}`).isVisible()) await page.getByTestId(`stop-${block}`).click()
+      // what the server computes for that day now (#21: clip ranges roll from his position)
+      const assigned = (await (await request.get(`http://127.0.0.1:8001/api/today?today=${iso}&phase=2B`)).json()).assignments
+      if (assigned[block].part) await expect(page.getByTestId(`assign-${block}`), `${iso} ${block}`).toContainText(assigned[block].part)
       await page.getByTestId(`start-${block}`).click()
       if (to) {
         await expect(page, `${iso} ${block}`).toHaveURL(to)
@@ -726,6 +724,14 @@ test('#20 every Starten on Heute opens its exact item, Mon–Fri of week 1', asy
       }
     }
   }
+  // #24/#27 Friday: after the Radio Tatort comes the Schirach Lesetest — "Öffnen" opens the Leseprobe at S. 7
+  await page.context().route('https://www.bic-media.com/**', (route) => route.fulfill({ status: 200, contentType: 'text/plain', body: 'Leseprobe' }))
+  await page.goto('/')
+  const test = page.getByTestId('then-lesen-0')
+  await expect(test).toContainText('Lesetest: Schirach, Verbrechen — die ersten zwei Seiten von „Fähner“ · S. 7–8 · 25 min')
+  const [popup] = await Promise.all([page.waitForEvent('popup'), page.getByTestId('open-lesen-0').click()])
+  expect(popup.url()).toBe('https://www.bic-media.com/books/content/shortened/9783442770663.pdf#page=9')
+  await popup.close()
   await request.post('http://127.0.0.1:8001/api/activity/stop')
   for (const block of undone) await request.post('http://127.0.0.1:8001/api/plan/done', { data: { block, done: true } })
   await page.unroute('**/api/today')
@@ -753,17 +759,17 @@ test('#21 the clip range on Heute starts at his saved position, and Starten open
   expect(errors).toEqual([])
 })
 
-test('#20 a tab from before a deploy: Starten on the Prüfungsteil still opens the task', async ({ page }) => {
-  // The tab's Aufgabe chunk is gone after a rebuild: the server answers with index.html (as vite preview does).
+test('#20 a tab from before a deploy: Starten still opens its page', async ({ page }) => {
+  // The tab's Karten chunk is gone after a rebuild: the server answers with index.html (as vite preview does).
   let served = 0
-  await page.route(/\/assets\/AufgabeView-[^/]+\.js$/, (route) => {
+  await page.route(/\/assets\/KartenView-[^/]+\.js$/, (route) => {
     if (served++ === 0) return route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html></html>' })
     return route.continue()
   })
   await page.route('**/api/today', (route) => route.continue({ url: `${new URL(route.request().url()).origin}/api/today?today=2026-10-12&phase=2B` }))
   await page.goto('/')
-  await page.getByTestId('start-pruefung').click()
-  await expect(page).toHaveURL(/\/aufgabe\/s01$/)
+  await page.getByTestId('start-karten').click()
+  await expect(page).toHaveURL(/\/karten$/)
   await expect(page.locator('h1')).toBeVisible()
   expect(served).toBe(2) // failed once, then loaded fresh
   await page.unroute('**/api/today')
@@ -801,8 +807,8 @@ test('Material für heute und morgen: Sunday shows Monday with the Tatort ready'
   await expect(tatort).toContainText(/Tatort: Schweigen · \d+:\d\d–\d+:\d\d · \d+ min/) // #21: the range rolls from his position
   await expect(tatort).toContainText('✓ bereit')
   await expect(tatort).toContainText('Quelle: ARD Mediathek · NDR')
-  await expect(page.getByTestId('mat-tomorrow-pruefung')).toContainText('nur Selbstcheck, keine KI-Bewertung')
-  await expect(page.getByTestId('mat-tomorrow-pruefung')).toContainText('KI-geschrieben')
+  await expect(page.getByTestId('mat-tomorrow-pruefung')).toHaveCount(0) // #27: no Prüfungsteil
+  await expect(page.getByTestId('mat-tomorrow-lesen-1')).toContainText('nachrichtenleicht.de')  // "danach", fills the 60 min
   // Bald fällig: the week-2 book, due date first; Material itself has no purchase cards
   const due = page.getByTestId('due-schirach-verbrechen')
   await expect(due).toContainText('Fällig Mo 12.10. · morgen')
@@ -815,27 +821,15 @@ test('Material für heute und morgen: Sunday shows Monday with the Tatort ready'
   expect(errors).toEqual([])
 })
 
-test('Material: Monday shows today and Tuesday with the Sprechen microphone line', async ({ page }) => {
+test('Material: Monday shows today and Tuesday, no microphone line any more', async ({ page }) => {
   await materialsAt(page, '2026-10-12')
   await page.goto('/')
   await expect(page.getByTestId('materials').getByText('Heute (Mo 12.10.)')).toBeVisible()
   await expect(page.getByTestId('materials').getByText('Morgen (Di 13.10.)')).toBeVisible()
-  const mic = page.getByTestId('mat-tomorrow-pruefung')
-  await expect(mic).toContainText('Mikrofon / Headset')
-  // 127.0.0.1 counts as a secure context: the microphone works here
-  await expect(mic).toContainText('✓ bereit')
+  await expect(page.getByTestId('materials')).not.toContainText('Mikrofon')  // #27: no Sprechen task in the plan
   await expect(page.getByTestId('mat-tomorrow-input')).toContainText(/Tatort: Schweigen · \d+:\d\d–\d+:\d\d/)
   await expect(page.getByTestId('mat-tomorrow-lesen')).toContainText('Die drei Links stehen am Morgen hier')
-})
-
-test('Material over plain http: Sprechen points to the HTTPS address', async ({ page }) => {
-  await page.addInitScript(() => Object.defineProperty(window, 'isSecureContext', { get: () => false }))
-  await materialsAt(page, '2026-10-12')
-  await page.goto('/')
-  const mic = page.getByTestId('mat-tomorrow-pruefung')
-  await expect(mic).toContainText('Aufnahmen gehen nur über https://cos.tail1b5741.ts.net:8443')
-  await expect(mic).toContainText('→ zu tun')
-  await expect(mic.getByRole('link', { name: 'Über HTTPS öffnen →' })).toHaveAttribute('href', 'https://cos.tail1b5741.ts.net:8443')
+  await expect(page.getByTestId('mat-tomorrow-lesen-1')).toContainText('Easy German Podcast')
 })
 
 test('Material on Friday: the next plan day is Monday', async ({ page }) => {
@@ -875,4 +869,104 @@ test('Deine Clips: the genre is editable', async ({ page, request }) => {
   await select.selectOption('drama')
   await page.reload()
   await expect(page.getByTestId(`tag-${clip.id}`)).toHaveValue('drama')
+})
+
+/** Run SQL on the E2E database (setup and cleanup that has no API). Returns the first column of the first row. */
+function sql(query: string, ...args: (string | number)[]): string {
+  return execFileSync('python3', ['-c', [
+    'import sqlite3, sys',
+    'c = sqlite3.connect(sys.argv[1]); r = c.execute(sys.argv[2], sys.argv[3:]).fetchone(); c.commit()',
+    'print("" if r is None else r[0])'
+  ].join('\n'), join(DATA_DIR, 'kaskade.db'), query, ...args.map(String)]).toString().trim()
+}
+
+/** Matt's setup for a test (phase 2B from Mon 12.10.), restored afterwards. */
+function asMatt() {
+  const old = ['phase', 'planStart'].map((k) => [k, sql('SELECT value FROM settings WHERE key = ?', k)])
+  for (const [k, v] of [['phase', '"2B"'], ['planStart', '"2026-10-12"']]) {
+    sql('INSERT INTO settings(key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value', k, v)
+  }
+  return () => {
+    for (const [k, v] of old) {
+      if (v) sql('UPDATE settings SET value = ? WHERE key = ?', v, k)
+      else sql('DELETE FROM settings WHERE key = ?', k)
+    }
+  }
+}
+
+test('#23 Schauen: Z counts the line as too hard and plays the next one; the rating shows the share', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  const restore = asMatt()
+  const media = (await (await request.get('http://127.0.0.1:8001/api/media')).json()) as { id: number, key: string | null }[]
+  const tatort = media.find((m) => m.key === 'tatort-schweigen')!  // registered by the #20 test
+  const before = (await (await request.get(`http://127.0.0.1:8001/api/media/${tatort.id}`)).json()).position ?? 0
+  await request.put(`http://127.0.0.1:8001/api/media/${tatort.id}/progress`, { data: { position: 0 } })
+  sql("DELETE FROM ratings WHERE local_date = '2026-10-13' AND block = 'input'")
+  sql('DELETE FROM hard_lines WHERE media_id = ?', tatort.id)
+  // today's Schauen block is this clip: the rating question comes at the end of today's part
+  const today = await (await request.get('http://127.0.0.1:8001/api/ratings/today')).json()
+  expect(today.find((r: { block: string }) => r.block === 'input').mediaId).toBe(tatort.id)
+
+  await page.goto(`/schauen/${tatort.id}?von=0&bis=7`)
+  const line = page.getByTestId('watch-line')
+  const video = page.getByTestId('watch-video')
+  await page.getByTestId('watch-play').click()
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused), { timeout: 8000 }).toBe(true)
+  await expect(line).toContainText('Guten Morgen, wie geht es dir?')
+  await page.keyboard.press('z')
+  await expect(page.getByTestId('watch-hard-note')).toContainText('„Guten Morgen, wie geht es dir?“ als zu schwer markiert · 1 heute')
+  await expect(line).toContainText('Danke, mir geht es gut.')                     // the next line …
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => !v.paused && v.currentTime > 2.2), { timeout: 2000 }).toBe(true) // … plays
+  const marks = (await (await request.get(`http://127.0.0.1:8001/api/media/${tatort.id}/hard`)).json()).marks
+  expect(marks.map((m: { text: string }) => m.text)).toEqual(['Guten Morgen, wie geht es dir?'])  // logged, no card
+  await expect(page.getByTestId('watch-mined')).toHaveCount(0)
+
+  await page.getByTestId('watch-autopause').uncheck()
+  await video.evaluate((v: HTMLVideoElement) => v.play())  // on to the end of today's part (0:07)
+  await expect(page.getByTestId('rate-ask')).toBeVisible({ timeout: 12_000 })
+  await expect(page.getByTestId('rate-share')).toHaveText('Heute 1 von 4 Zeilen als zu schwer markiert (25 %)')
+  await page.getByTestId('rate-80').click()
+  await expect(page.getByTestId('watch-rated')).toContainText('Verstanden: 80 %')
+  const rows = (await (await request.get('http://127.0.0.1:8001/api/ratings')).json()).ratings
+  const r = rows.find((x: { block: string, date: string }) => x.block === 'input' && x.date === '2026-10-13')
+  expect([r.pct, r.hard, r.lines, r.kind]).toEqual([80, 1, 4, 'clip'])
+
+  await page.goto('about:blank') // Schauen saves its position on leaving — leave first, then restore
+  await request.put(`http://127.0.0.1:8001/api/media/${tatort.id}/progress`, { data: { position: before } })
+  sql("DELETE FROM ratings WHERE local_date = '2026-10-13' AND block = 'input'")
+  restore()
+  expect(errors).toEqual([])
+})
+
+test('#23 Heute: the lesen block ends → "Wie viel hast du verstanden?" → stored, and under 70 % it says what the plan does', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  const restore = asMatt()
+  sql("DELETE FROM ratings WHERE local_date = '2026-10-13'")
+  sql("DELETE FROM activity WHERE local_date = '2026-10-13' AND block = 'lesen'")  // earlier tests ran this block
+  await request.post('http://127.0.0.1:8001/api/activity/stop')
+  await request.post('http://127.0.0.1:8001/api/plan/done', { data: { block: 'lesen', done: false } })
+  await page.goto('/')
+  const lesen = page.getByTestId('block-lesen')
+  await expect(page.getByTestId('assign-lesen')).toContainText('tagesschau.de · Inland')   // what he read on Tuesday
+  await expect(lesen.getByTestId('rate-ask')).toHaveCount(0)
+  await page.getByTestId('start-lesen').click()
+  await expect(page.getByTestId('stop-lesen')).toBeVisible()
+  await page.getByTestId('stop-lesen').click()
+  const ask = lesen.getByTestId('rate-ask').first()
+  await expect(ask).toContainText('Wie viel hast du verstanden?')
+  await expect(ask).toContainText('tagesschau.de · Inland: 3 Artikel')
+  await ask.getByTestId('rate-20').click()
+  await expect(page.getByTestId('rated-lesen')).toHaveText('Verstanden: 20 %')
+  const hard = page.getByTestId('too-hard')
+  await expect(hard).toContainText('Zu schwer: tagesschau.de · Inland: 3 Artikel (20 %)')
+  await expect(hard).toContainText('tagesschau.de ist aus dem Plan: Frei lesen kommt jetzt von nachrichtenleicht.de')
+  const rows = (await (await request.get('http://127.0.0.1:8001/api/ratings')).json()).ratings
+  expect(rows.map((x: { date: string, block: string, item: string, pct: number }) => [x.date, x.block, x.item, x.pct]))
+    .toContainEqual(['2026-10-13', 'lesen', 'news:inland:2026-10-13', 20])
+  // the podcast after it is asked about on its own
+  await expect(page.getByTestId('then-lesen-0').getByTestId('rate-ask')).toBeVisible()
+
+  sql("DELETE FROM ratings WHERE local_date = '2026-10-13'")
+  restore()
+  expect(errors).toEqual([])
 })

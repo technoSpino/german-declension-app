@@ -13,8 +13,8 @@ def test_today_sets_plan_start_and_returns_day(client, monkeypatch):
     at(monkeypatch, FIXED)
     t = client.get("/api/today").json()
     assert t["planStart"] == "2026-10-12"
-    assert t["week"] == 1 and t["weekday"] == "Di" and t["exam"]["id"] == "p01"
-    assert [b["id"] for b in t["block"]] == ["karten", "input", "pause", "lesen", "pruefung"]
+    assert t["week"] == 1 and t["weekday"] == "Di" and t["exam"] is None  # #27: no exam block
+    assert [b["id"] for b in t["block"]] == ["karten", "input", "pause", "lesen"]
     assert t["running"] is None and t["immersion"]["hours"] == 150
     assert t["cards"]["new"] == 20
 
@@ -24,7 +24,7 @@ def test_weekend_shows_preview_of_monday(client, monkeypatch):
     t = client.get("/api/today").json()
     assert t["weekend"] and t["day"] is None
     assert t["planStart"] == "2026-10-12"
-    assert t["preview"]["date"] == "2026-10-12" and t["preview"]["exam"]["id"] == "s01"
+    assert t["preview"]["date"] == "2026-10-12" and t["preview"]["day"]["day"] == "Mo"
     # Saturday before the start: both flags, so Heute can name the start date in its hint.
     assert t["beforeStart"] is True
 
@@ -143,9 +143,9 @@ def test_phase_2b_switches_to_the_2b_block(client, monkeypatch):
     t = client.get("/api/today").json()
     assert t["planPhase"] == "2B" and t["week"] == 1 and t["weekday"] == "Mo"
     assert [(b["id"], b["minutes"]) for b in t["block"]] == [
-        ("karten", 15), ("input", 65), ("pause", 10), ("lesen", 35), ("pruefung", 25)]
+        ("karten", 15), ("input", 65), ("pause", 10), ("lesen", 60)]
     assert "Tatort" in t["day"]["input"]
-    assert t["exam"]["id"] == "s01"  # B1 exam task unchanged
+    assert t["exam"] is None and "pruefung" not in t["assignments"]  # #27: the time went to lesen/hören
     # timers and "Fertig" work with the 2B block
     assert client.post("/api/activity/start", json={"block": "input"}).status_code == 200
     assert client.post("/api/plan/done", json={"block": "input"}).json()["done"] is True
@@ -181,32 +181,12 @@ def test_satzcheck_lines_can_be_mined_as_cards(client, monkeypatch):
 WEEK5_MONDAY = datetime(2026, 11, 9, 8, 0, tzinfo=timezone.utc)  # Mon 9 Nov 2026, plan week 5
 
 
-def test_week5_shows_the_ai_key_todo_until_ticked(client, monkeypatch):
+def test_week5_has_no_todo_and_fahrplan_says_the_exam_is_paused(client, monkeypatch):
+    """#27: the week-5 "KI-Schlüssel vor dem Probetest" to-do and the week-6 mock exam are parked."""
     client.put("/api/plan/start", json={"planStart": "2026-10-12"})
-    at(monkeypatch, WEEK5_MONDAY - timedelta(days=7))
-    assert client.get("/api/today").json()["todos"] == []  # week 4: nothing yet
     at(monkeypatch, WEEK5_MONDAY)
     t = client.get("/api/today").json()
-    assert t["week"] == 5 and [x["id"] for x in t["todos"]] == ["ai-key"]
-    assert "KI-Schlüssel" in t["todos"][0]["text"] and len(t["todos"][0]["steps"]) == 3
-    assert client.post("/api/todos/ai-key", json={"done": True}).json()["done"] is True
-    assert client.get("/api/today").json()["todos"] == []
-    client.post("/api/todos/ai-key", json={"done": False})
-    assert len(client.get("/api/today").json()["todos"]) == 1
-    assert client.post("/api/todos/nope", json={"done": True}).status_code == 404
-
-
-def test_week5_todo_disappears_once_the_key_is_set(client, monkeypatch):
-    client.put("/api/plan/start", json={"planStart": "2026-10-12"})
-    at(monkeypatch, WEEK5_MONDAY)
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
-    assert client.get("/api/health").json()["ai"] is True
-    assert client.get("/api/today").json()["todos"] == []
-
-
-def test_fahrplan_lists_upcoming_steps(client, monkeypatch):
-    client.put("/api/plan/start", json={"planStart": "2026-10-12"})
-    at(monkeypatch, WEEK5_MONDAY)
-    up = client.get("/api/fahrplan").json()["upcoming"]
-    assert [(u["week"], u["date"], u["id"], u["done"]) for u in up] == [
-        (5, "2026-11-09", "ai-key", False), (6, "2026-11-16", "mock-exam", False)]
+    assert t["week"] == 5 and t["todos"] == []
+    assert client.post("/api/todos/ai-key", json={"done": True}).status_code == 404
+    f = client.get("/api/fahrplan").json()
+    assert f["upcoming"] == [] and f["exam"] == "B1-Prüfung: pausiert — kommt zurück, wenn du ein Prüfungsdatum wählst."

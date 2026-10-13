@@ -6,18 +6,20 @@ from kaskade import config
 from .test_content_placement import no_empty_strings
 
 PLAN = json.loads((config.CONTENT_DIR / "plan/weeks-1-4.json").read_text(encoding="utf-8"))
+PLAN_2B = json.loads((config.CONTENT_DIR / "plan/phase-2b.json").read_text(encoding="utf-8"))
 
 
 def test_no_empty_strings():
     no_empty_strings({k: v for k, v in PLAN.items() if k != "weeks"})
     for w in PLAN["weeks"]:
         for d in w["days"]:
-            no_empty_strings({k: v for k, v in d.items() if k != "exam"})
+            no_empty_strings(d)
 
 
 def test_block_matches_phase_2a_schedule():
+    """#27: no exam block — freies Lesen runs 10:35–11:30."""
     assert [(b["start"], b["minutes"]) for b in PLAN["block"]] == [
-        ("09:00", 30), ("09:30", 55), ("10:25", 10), ("10:35", 30), ("11:05", 25)]
+        ("09:00", 30), ("09:30", 55), ("10:25", 10), ("10:35", 55)]
 
 
 def test_four_weeks_of_five_days():
@@ -26,14 +28,14 @@ def test_four_weeks_of_five_days():
         assert [d["day"] for d in w["days"]] == ["Mo", "Di", "Mi", "Do", "Fr"]
 
 
-def test_exam_rhythm_and_prompts_used_once():
-    ids = {p["id"]: p for p in PLAN["prompts"]}
-    used = []
-    for w in PLAN["weeks"]:
-        skills = [ids[d["exam"]]["skill"] if d["exam"] else None for d in w["days"]]
-        assert skills == ["schreiben", "sprechen", "schreiben", "sprechen", None]
-        used += [d["exam"] for d in w["days"] if d["exam"]]
-    assert sorted(used) == sorted(ids) and len(used) == 16
+def test_no_exam_in_the_plan_but_all_prompts_kept():
+    """#27: no exam date yet — no exam field on any day; the 16 prompts stay for the Prüfung page."""
+    for plan in (PLAN, PLAN_2B):
+        for w in plan["weeks"]:
+            for d in w["days"]:
+                assert "exam" not in d and all(m["block"] != "pruefung" for m in d["materials"]), d["day"]
+        assert all(b["kind"] != "pruefung" for b in plan["block"])
+    assert len(PLAN["prompts"]) == 16 and len({p["id"] for p in PLAN["prompts"]}) == 16
 
 
 def test_prompts_well_formed():
@@ -46,18 +48,19 @@ def test_prompts_well_formed():
     assert len(types) >= 5
 
 
-def test_week6_placeholder():
-    assert PLAN["week6"]["title"] and PLAN["week6"]["note"]
+def test_no_mock_exam_and_no_week5_todo_pointing_to_it():
+    """#27: the week-6 mock exam is parked ("Später" in TASK.md), and so is week 5's text about it."""
+    assert "week6" not in PLAN and "week5" not in PLAN
+    assert "Probetest" not in json.dumps(PLAN, ensure_ascii=False) and "Probeprüfung" not in json.dumps(PLAN, ensure_ascii=False)
 
 
 # ── Phase 2B plan ──────────────────────────────────────────────────────────
-PLAN_2B = json.loads((config.CONTENT_DIR / "plan/phase-2b.json").read_text(encoding="utf-8"))
 
 
 def test_2b_block_is_contiguous_with_less_core_deck_time():
     blocks = PLAN_2B["block"]
     assert [(b["start"], b["minutes"]) for b in blocks] == [
-        ("09:00", 15), ("09:15", 65), ("10:20", 10), ("10:30", 35), ("11:05", 25)]
+        ("09:00", 15), ("09:15", 65), ("10:20", 10), ("10:30", 60)]
     # same ids/kinds as 2A, so timers, "Fertig" and week totals carry over
     assert [(b["id"], b["kind"]) for b in blocks] == [(b["id"], b["kind"]) for b in PLAN["block"]]
     t = 9 * 60
@@ -69,19 +72,24 @@ def test_2b_block_is_contiguous_with_less_core_deck_time():
     assert sum(b["minutes"] for b in blocks if b["kind"] != "pause") == 140
 
 
+def test_every_block_09_00_to_11_30_adds_up_to_150_minutes():
+    for plan in (PLAN, PLAN_2B):
+        assert sum(b["minutes"] for b in plan["block"]) == 150
+        assert plan["block"][0]["start"] == "09:00" and len(plan["block"]) == 4
+
+
 def test_every_block_has_label_and_short_label():
     for b in PLAN["block"] + PLAN_2B["block"]:
         assert b["label"].strip() and b["short"].strip() and len(b["short"]) <= 8
 
 
-def test_2b_weeks_and_unchanged_exam_tasks():
+def test_2b_weeks():
     no_empty_strings({k: v for k, v in PLAN_2B.items() if k != "weeks"})
     assert [w["week"] for w in PLAN_2B["weeks"]] == [1, 2, 3, 4]
-    for w2a, w2b in zip(PLAN["weeks"], PLAN_2B["weeks"]):
-        assert [d["day"] for d in w2b["days"]] == ["Mo", "Di", "Mi", "Do", "Fr"]
-        assert [d["exam"] for d in w2b["days"]] == [d["exam"] for d in w2a["days"]]
-        for d in w2b["days"]:
-            no_empty_strings({k: v for k, v in d.items() if k != "exam"})
+    for w in PLAN_2B["weeks"]:
+        assert [d["day"] for d in w["days"]] == ["Mo", "Di", "Mi", "Do", "Fr"]
+        for d in w["days"]:
+            no_empty_strings(d)
 
 
 def test_content_is_for_adults():

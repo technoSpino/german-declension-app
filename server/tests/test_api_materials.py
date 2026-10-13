@@ -47,7 +47,7 @@ def test_sunday_shows_monday_with_tatort_ready(b2, monkeypatch):
     assert m["today"]["date"] == "2026-10-11" and not m["today"]["planDay"] and m["today"]["items"] == []
     assert m["next"]["date"] == "2026-10-12" and m["next"]["kind"] == "tomorrow" and m["next"]["planDay"]
     items = by_block(m["next"])
-    assert list(items) == ["karten", "input", "lesen", "pruefung"]
+    assert list(items) == ["karten", "input", "lesen"]  # #27: no Prüfungsteil
     tatort = items["input"]
     # #21: 89:21 of film at ≈ 25 min a block → four even days from the start
     assert tatort["title"] == "Tatort: Schweigen" and tatort["part"] == "0:00–22:20" and tatort["minutes"] == 22
@@ -55,9 +55,9 @@ def test_sunday_shows_monday_with_tatort_ready(b2, monkeypatch):
     assert tatort["start"] == {"to": f"/schauen/{mid}?von=0&bis=1340"}
     # the podcast isn't in this library yet → a real gap, said plainly
     assert items["lesen"]["status"] == "todo" and "Bibliothek" in items["lesen"]["detail"]
-    # Monday's exam is a writing task: keyboard, and no AI grading without a key
-    assert items["pruefung"]["detail"] == "≈ 20 min, Tastatur · nur Selbstcheck, keine KI-Bewertung"
-    assert items["pruefung"]["origin"] == "ai"
+    # #27: then nachrichtenleicht for the rest of the 60-min block
+    then = items["lesen"]["then"]
+    assert [x["kind"] for x in then] == ["news"] and then[0]["feed"] == "leicht" and then[0]["minutes"] == 30
     assert m["httpsUrl"] == config.HTTPS_URL
 
 
@@ -67,8 +67,7 @@ def test_monday_today_and_tuesday_with_microphone(b2, monkeypatch):
     m = b2.get("/api/materials").json()
     assert m["today"]["date"] == "2026-10-12" and m["next"]["date"] == "2026-10-13" and m["next"]["kind"] == "tomorrow"
     tue = by_block(m["next"])
-    assert tue["pruefung"]["skill"] == "sprechen" and tue["pruefung"]["check"] == "secure"
-    assert tue["pruefung"]["detail"] == "Mikrofon / Headset"
+    assert "pruefung" not in tue and not any(it.get("check") == "secure" for it in m["next"]["items"])  # #27: no mic line
     assert tue["input"]["part"] == "22:20–44:40"   # #21: from where today's part ends
     # tomorrow's news: the links appear on the morning itself
     assert tue["lesen"]["kind"] == "news" and tue["lesen"]["links"] == [] and "am Morgen" in tue["lesen"]["detail"]
@@ -103,7 +102,7 @@ def test_preview_query_for_another_day_and_phase(b2, monkeypatch):
     at(monkeypatch, MONDAY)
     m = b2.get("/api/materials", params={"today": "2026-10-16", "phase": "2A"}).json()
     assert m["next"]["date"] == "2026-10-19"
-    assert by_block(m["today"])["pruefung"]["kind"] == "practice"   # Friday: practice task instead of a prompt
+    assert [it["kind"] for it in [by_block(m["today"])["lesen"], *by_block(m["today"])["lesen"]["then"]]] == ["text", "clip", "news"]
     assert b2.get("/api/materials", params={"phase": "9Z"}).status_code == 422
 
 
@@ -155,7 +154,7 @@ def test_assignments_on_heute_open_exactly_that(b2, monkeypatch):
     mid = add_clip("tatort-schweigen")
     t = b2.get("/api/today").json()
     assert t["assignments"]["input"]["start"]["to"] == f"/schauen/{mid}?von=0&bis=1340"
-    assert t["assignments"]["pruefung"]["start"]["to"] == "/aufgabe/s01"
+    assert "pruefung" not in t["assignments"]
     assert t["assignments"]["karten"]["start"]["to"] == "/karten"
     assert t["httpsUrl"] == config.HTTPS_URL
     # weekend: the preview day's assignments (Tatort not finished → it continues on Monday, #21)
@@ -202,10 +201,11 @@ def test_book_notice_a_week_ahead(b2, monkeypatch):
     v = next(x for x in n if x["id"] == "verbrechen")
     assert v["firstDay"] == "2026-10-19" and v["by"] == "2026-10-12"            # paper: a week ahead
     assert stock.notice(date(2026, 10, 19), "ebook") == date(2026, 10, 17)        # ebook: two days
-    item = materials._book(data["weeks"][1]["days"][0]["materials"][1], ctx, date(2026, 10, 19))
+    book_day = (date(2026, 10, 19), "", data, date(2026, 10, 12))
+    item = materials._book(data["weeks"][1]["days"][0]["materials"][1], ctx, date(2026, 10, 19), *book_day)
     assert item["status"] == "todo" and item["detail"] == "Kaufen bis 12.10."
     assert b2.post("/api/books/verbrechen/bought", json={"done": True}).json()["bought"]
-    assert materials._book(data["weeks"][1]["days"][0]["materials"][1], materials.Ctx(date(2026, 10, 11)), None)["status"] == "ready"
+    assert materials._book(data["weeks"][1]["days"][0]["materials"][1], materials.Ctx(date(2026, 10, 11)), None, *book_day)["status"] == "ready"
 
 
 def test_clip_tags_guessed_and_editable(b2):
@@ -266,16 +266,21 @@ def test_bald_faellig_schirach_first_no_kaenguru(b2, monkeypatch):
     assert mon["lesen"]["kind"] == "book" and mon["lesen"]["part"] == "S. 7–42: „Fähner“ und „Tanatas Teeschale“"
 
 
-def test_today_shows_another_day_and_every_exam_block_has_a_target(client):
-    """#20: /api/today?today=…&phase=… (drives the E2E); the Prüfungsteil always opens its task."""
+def test_today_shows_another_day_and_every_block_has_a_target(client):
+    """#20/#27: /api/today?today=…&phase=… (drives the E2E); every block opens its item, no Prüfungsteil."""
     from kaskade import db
     db.set_setting("planStart", "2026-10-12")
-    want = {"2026-10-12": "/aufgabe/s01", "2026-10-13": "/aufgabe/p01", "2026-10-14": "/aufgabe/s02",
-            "2026-10-15": "/aufgabe/p02", "2026-10-16": "/pruefung/lesen/l1"}
-    for iso, to in want.items():
+    for iso in ("2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16"):
         r = client.get(f"/api/today?today={iso}&phase=2B").json()
-        assert r["date"] == iso and r["assignments"]["pruefung"]["start"] == {"to": to}
+        assert r["date"] == iso and list(r["assignments"]) == ["karten", "input", "lesen"]
         assert r["assignments"]["karten"]["start"] == {"to": "/karten"}
+    # #24/#27: Friday's lesen block ends with the Schirach Lesetest — the publisher's Leseprobe, opened at S. 7
+    fr = client.get("/api/today?today=2026-10-16&phase=2B").json()["assignments"]["lesen"]
+    test = fr["then"][0]
+    assert fr["kind"] == "clip" and fr["title"].startswith("ARD Radio Tatort")
+    assert test["kind"] == "lesetest" and test["start"]["href"] == "https://www.bic-media.com/books/content/shortened/9783442770663.pdf#page=9"
+    assert test["title"] == "Lesetest: Schirach, Verbrechen — die ersten zwei Seiten von „Fähner“" and test["part"] == "S. 7–8"
+    assert test["minutes"] == 25 and "ohne Wörterbuch lesen, dann einschätzen" in test["detail"] and test["block"] == "lesen"
     assert client.get("/api/today?phase=3").status_code == 422
 
 

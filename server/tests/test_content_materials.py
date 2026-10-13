@@ -34,9 +34,28 @@ def test_no_vague_assignments(name):
 def test_one_exact_item_per_block(name):
     for week, d in days(name):
         blocks = [m["block"] for m in d["materials"]]
-        assert blocks.count("input") == 1 and blocks.count("lesen") == 1, f"W{week} {d['day']}"
-        # the exam block: the day's prompt, else exactly one practice task
-        assert blocks.count("pruefung") == (0 if d["exam"] else 1), f"W{week} {d['day']}"
+        # #27: the lesen block may hold a second (and third) exact item that fills it
+        assert blocks.count("input") == 1 and 1 <= blocks.count("lesen") <= 3, f"W{week} {d['day']}"
+        assert "pruefung" not in blocks, f"W{week} {d['day']}"
+
+
+def material_minutes(m):
+    if m["kind"] == "clip" and not m.get("minutes"):
+        return (materials.seconds(m["to"]) - materials.seconds(m.get("from", 0))) / 60
+    return m["minutes"]
+
+
+@pytest.mark.parametrize("name", PLANS)
+def test_lesen_items_fill_the_block(name):
+    """#27: the longer lesen block (2B 60 min, 2A 55 min) is filled with exact items, within ±5 min."""
+    block = next(b for b in load(name)["block"] if b["id"] == "lesen")["minutes"]
+    for week, d in days(name):
+        mats = [m for m in d["materials"] if m["block"] == "lesen"]
+        total = sum(material_minutes(m) for m in mats)
+        assert abs(total - block) <= 5, f"{name} W{week} {d['day']}: {total} of {block} min"
+        assert all(m.get("desc") for m in mats) and d["lesen"] == " Danach: ".join(m["desc"] for m in mats)
+        kinds = ["audio" if m["kind"] == "clip" else "text" for m in mats]
+        assert all(a != b for a, b in zip(kinds, kinds[1:])), f"{name} W{week} {d['day']}: {kinds}"  # the other kind after
 
 
 @pytest.mark.parametrize("name", PLANS)
@@ -56,6 +75,9 @@ def test_materials_point_at_real_things(name):
                 assert m["feed"] in materials.NEWS_FEEDS, where
             elif m["kind"] == "book":
                 assert m["book"] in BOOKS and m.get("part"), where
+            elif m["kind"] == "lesetest":  # #24: a book's first pages, from the publisher's Leseprobe
+                assert m["book"] in BOOKS and BOOKS[m["book"]]["leseprobe"]["url"].startswith("https://"), where
+                assert re.match(r"S\. \d+–\d+$", m["part"]) and m["block"] == "lesen", where
             elif m["kind"] == "practice":
                 module = "hoeren" if m["practice"].startswith("h") else "lesen"
                 assert practice.get(module, m["practice"]), where
@@ -100,6 +122,16 @@ def test_plan_prompts_are_tagged_ai():
         assert p["origin"] == "ai"
 
 
+def test_no_tagesschau_after_matts_20_percent():
+    """#22: tagesschau was far too hard (20 %) — every reading day after it uses nachrichtenleicht."""
+    for name in PLANS:
+        for week, d in days(name):
+            for m in d["materials"]:
+                if m["kind"] == "news" and not (name.endswith("2b.json") and week == 1 and d["day"] == "Di"):
+                    assert m["feed"] == "leicht" and m["minutes"] >= 5, f"{name} W{week} {d['day']}"
+                    assert "nachrichtenleicht.de" in m["desc"] and "tagesschau" not in d["lesen"]
+
+
 def test_every_book_is_read_in_a_plan():
     """A book in the catalog means a purchase card — only for books a plan actually uses."""
     used = {m["book"] for name in PLANS for _, d in days(name) for m in d["materials"] if m["kind"] == "book"}
@@ -108,7 +140,8 @@ def test_every_book_is_read_in_a_plan():
 
 def test_book_parts_are_whole_stories_with_pages():
     """Update 5: a day's part of Verbrechen is one or two whole stories with their page range."""
-    parts = [m["part"] for _, d in days("plan/phase-2b.json") for m in d["materials"] if m.get("book") == "schirach-verbrechen"]
+    parts = [m["part"] for _, d in days("plan/phase-2b.json") for m in d["materials"]
+             if m["kind"] == "book" and m["book"] == "schirach-verbrechen"]
     assert parts[0].startswith("S. 7–42") and parts[-1] == "S. 185–205: „Der Äthiopier“"
     for part in parts:
         a, b = map(int, re.match(r"S\. (\d+)–(\d+): „", part).groups())

@@ -3,18 +3,23 @@ import { computed, onMounted, ref } from 'vue'
 import { api } from '../../lib/api'
 import { dueFor, dueLabel } from '../../lib/materials'
 import { formatDate, formatDecimal, formatNumber } from '../../lib/format'
+import { byBlock, shortDate, TOO_HARD } from '../../lib/ratings'
 import WeeksChart from '../../components/kaskade/WeeksChart.vue'
 
 const f = ref(null)
+const r = ref(null) // #23/#24: ratings per block and how each book is read
 const error = ref(null)
 
 onMounted(async () => {
+  api.get('/ratings').then((x) => { r.value = x }).catch(() => { r.value = null })
   try {
     f.value = await api.get('/fahrplan')
   } catch (e) {
     error.value = e.message
   }
 })
+const groups = computed(() => (r.value ? byBlock(r.value.ratings) : []))
+const anyRating = computed(() => groups.value.some((g) => g.rows.length))
 
 const month = (iso) => (iso ? new Intl.DateTimeFormat('de-DE', { month: 'short', year: 'numeric' }).format(new Date(iso)) : '—')
 const currentPhase = computed(() => (f.value?.phase || '2A').charAt(0))
@@ -94,6 +99,35 @@ const GOALS = [
       <WeeksChart :weeks="f.weeks" />
     </section>
 
+    <section v-if="r" class="k-card" aria-labelledby="rate-h" data-testid="fp-ratings">
+      <h2 id="rate-h" class="k-h2">Wie viel verstanden?</h2>
+      <p class="k-small m-0 mt-1.5">Deine Einschätzung nach jedem Block. Unter {{ TOO_HARD }} % ist es zu schwer — bei Büchern passt Kaskade den Plan selbst an, Clips und Podcasts werden markiert.</p>
+      <p v-if="!anyRating" class="k-small m-0 mt-3" data-testid="fp-ratings-empty">Noch keine Einschätzung — nach jedem Schauen- und Lesen-Block fragt Kaskade: „Wie viel hast du verstanden?“</p>
+      <div v-else class="grid gap-5 mt-4" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))">
+        <div v-for="g in groups" :key="g.block" class="min-w-0" :data-testid="`fp-ratings-${g.block}`">
+          <h3 class="fp-rate-h">{{ g.title }}<span v-if="g.avg != null" class="k-small" style="font-weight: 600"> · Ø {{ g.avg }} % (letzte {{ Math.min(5, g.rows.length) }})</span></h3>
+          <p v-if="!g.rows.length" class="k-small m-0">Noch keine Einschätzung.</p>
+          <template v-else>
+            <div class="fp-trend" role="img" :aria-label="`Verlauf ${g.title}: ${g.rows.slice(0, 10).reverse().map((x) => x.pct + ' %').join(', ')}`">
+              <span v-for="x in g.rows.slice(0, 10).reverse()" :key="x.id" class="fp-trend-bar" :class="{ 'fp-trend-low': x.pct < TOO_HARD }" :style="{ height: x.pct * 0.4 + 'px' }" :title="`${shortDate(x.date)}: ${x.pct} %`"></span>
+            </div>
+            <ol class="list-none m-0 mt-2 p-0 flex flex-col gap-1">
+              <li v-for="x in g.rows.slice(0, 5)" :key="x.id" class="fp-rate-row k-small">
+                <span class="min-w-0">{{ shortDate(x.date) }} · {{ x.label }}</span>
+                <strong :style="{ color: 'var(--text)' }">{{ x.pct }} %{{ x.pct < TOO_HARD ? ' · zu schwer' : '' }}</strong>
+              </li>
+            </ol>
+          </template>
+        </div>
+      </div>
+      <template v-if="r.books.length">
+        <h3 class="fp-rate-h mt-5">Bücher im Plan</h3>
+        <ul class="list-none m-0 p-0 flex flex-col gap-1" data-testid="fp-books">
+          <li v-for="b in r.books" :key="b.book" class="k-small" style="color: var(--text)">{{ b.why }}</li>
+        </ul>
+      </template>
+    </section>
+
     <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(210px, 1fr))">
       <article v-for="p in PHASES" :key="p.n" class="k-card flex flex-col gap-2.5" :class="{ 'k-card-strong': p.n === currentPhase }" :data-testid="`phase-${p.n}`">
         <div class="flex items-center justify-between gap-2">
@@ -148,7 +182,7 @@ const GOALS = [
             <span class="self-center" style="font-weight: 700; color: var(--text)">B1.2</span>
           </li>
         </ol>
-        <p class="k-small m-0 mt-4 pt-3.5" style="border-top: 1px solid var(--surface-2); font-size: 13px">B1-Zertifikat geplant: der tägliche Prüfungsteil im Lernblock trainiert das Format, ab Woche 6 mit Probeprüfungen.</p>
+        <p class="k-small m-0 mt-4 pt-3.5" style="border-top: 1px solid var(--surface-2); font-size: 13px; color: var(--text)" data-testid="fp-exam">{{ f?.exam ?? 'B1-Prüfung: pausiert — kommt zurück, wenn du ein Prüfungsdatum wählst.' }}</p>
         <template v-if="f?.upcoming?.length || f?.notices?.length">
           <h3 class="k-h2 mt-6" style="font-size: 16px">Nächste Schritte</h3>
           <ol class="list-none m-0 mt-3 p-0 flex flex-col gap-2.5" data-testid="fp-upcoming">
@@ -175,6 +209,11 @@ const GOALS = [
 
 <style scoped>
 .fp-done { text-decoration: line-through; }
+.fp-rate-h { margin: 0 0 8px; font-size: 15px; font-weight: 800; color: var(--text); }
+.fp-trend { display: flex; align-items: flex-end; gap: 4px; height: 40px; border-bottom: 1px solid var(--border-strong); }
+.fp-trend-bar { width: 14px; border-radius: 3px 3px 0 0; background: var(--chart-active); }
+.fp-trend-low { background: var(--chart-passive); }
+.fp-rate-row { display: flex; justify-content: space-between; gap: 10px; }
 .fp-dark { background: var(--nav-bg); color: var(--nav-text); border-radius: var(--radius-lg); padding: 22px 24px; box-shadow: var(--shadow); }
 .fp-dark-label { margin: 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--nav-muted); }
 .fp-dark p { color: var(--nav-muted); }

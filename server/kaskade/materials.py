@@ -2,22 +2,28 @@
 
 A plan day lists one material per block (data/plan/*.json → day["materials"]); this module
 turns it into what Heute shows and what "Starten" opens: a library clip with a time range, a
-YouTube/Netflix link for Language Reactor, that day's tagesschau articles, a library text, a
-book part, an exam task. Status is "ready" or "todo" — "todo" only for real gaps.
+YouTube/Netflix link for Language Reactor, that day's nachrichtenleicht articles, a library text,
+a book part (read in the mode its latest rating set, #24), the Lesetest, an exam task. Status is
+"ready" or "todo" — "todo" only for real gaps.
 """
+import html
 import json
 import logging
 import os
+import re
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, time, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
-from . import config, db, plan, rolling, srs, stock, texts
+from . import config, db, plan, ratings, rolling, srs, stock, texts
 
 log = logging.getLogger(__name__)
 
 NEWS_FEEDS = {
+    # #22: Deutschlandfunk's news in Einfacher Sprache — it has no news RSS, its homepage lists the articles
+    "leicht": ("nachrichtenleicht.de", "https://www.nachrichtenleicht.de/"),
+    # tagesschau.de: only the day Matt already read (W1 Di, 20 % understood) still points here
     "top": ("tagesschau.de", "https://www.tagesschau.de/index~rss2.xml"),
     "inland": ("tagesschau.de · Inland", "https://www.tagesschau.de/inland/index~rss2.xml"),
     "wirtschaft": ("tagesschau.de · Wirtschaft", "https://www.tagesschau.de/wirtschaft/index~rss2.xml"),
@@ -40,7 +46,45 @@ def _minutes(a: float, b: float) -> int:
 
 # ── News: that day's articles, links only ────────────────────────────────────
 
-def pick_articles(feed_xml: bytes, count: int = 3) -> list[dict]:
+NUMBER = {3: "drei", 4: "vier", 5: "fünf", 6: "sechs", 7: "sieben"}
+LEICHT_TEXT = ("nachrichtenleicht.de (Deutschlandfunk, Nachrichten in Einfacher Sprache): die {n} neuesten Artikel. "
+               "{links} Lesen, ohne nachzuschlagen — eine Lücke ist kein Grund zu stoppen.")
+
+
+def _iso(value: str | None) -> str | None:
+    try:
+        return datetime.fromisoformat(value).isoformat() if value else None
+    except ValueError:
+        return None
+
+
+def pick_leicht(page: bytes, count: int | None = 5) -> list[dict]:
+    """The newest articles on nachrichtenleicht.de, from the teaser data in its homepage."""
+    s = page.decode("utf-8", "replace")
+    out, seen = [], set()
+    for raw in re.findall(r'class="js-client-queries" data-json="([^"]*)"', s):
+        try:
+            v = json.loads(html.unescape(raw)).get("value")
+        except ValueError:
+            continue
+        if not isinstance(v, dict) or v.get("__typename") != "Teaser" or v.get("contentType") != "article":
+            continue
+        url, title = (v.get("path") or "").strip(), (v.get("title") or "").strip()
+        if not url.startswith("https://www.nachrichtenleicht.de/") or not title or url in seen:
+            continue
+        seen.add(url)
+        out.append({"title": title, "url": url, "published": _iso(v.get("date") or v.get("firstPublicationDate"))})
+    if not out:  # no teaser data: the article links in page order (newest first)
+        for url, title in re.findall(r'<article[^>]*>\s*<a href="(https://www\.nachrichtenleicht\.de/[^"]+)" title="([^"]+)"', s):
+            if url not in seen:
+                seen.add(url)
+                out.append({"title": html.unescape(title), "url": url, "published": None})
+        return out[:count]
+    out.sort(key=lambda a: a["published"] or "", reverse=True)
+    return out[:count]
+
+
+def pick_articles(feed_xml: bytes, count: int | None = 3) -> list[dict]:
     """The newest real articles from a tagesschau RSS feed (no live blogs, videos, podcasts)."""
     channel = ET.fromstring(feed_xml).find("channel")
     out = []
@@ -70,17 +114,25 @@ def fetch_feed(url: str) -> bytes:
         return r.read()
 
 
+def parse_feed(feed: str, body: bytes) -> list[dict]:
+    """Every article of a feed, newest first."""
+    return pick_leicht(body, None) if feed == "leicht" else pick_articles(body, None)
+
+
 def news_for(day: date, feed: str, today: date, count: int = 3) -> list[dict] | None:
-    """The articles picked for `day` (fixed once picked). Picked on the day itself; None before."""
+    """The articles picked for `day` (fixed once picked). Picked on the day itself; None before.
+    The newest ones he hasn't had on an earlier day."""
     with db.tx() as conn:
         row = conn.execute("SELECT items FROM news_picks WHERE local_date = ? AND feed = ?",
                            (day.isoformat(), feed)).fetchone()
+        had = {a["url"] for r in conn.execute("SELECT items FROM news_picks WHERE feed = ? AND local_date < ?",
+                                              (feed, day.isoformat())) for a in json.loads(r["items"])}
     if row:
         return json.loads(row["items"])
     if day != today:
         return None
     try:
-        items = pick_articles(fetch_feed(NEWS_FEEDS[feed][1]), count)
+        items = [a for a in parse_feed(feed, fetch_feed(NEWS_FEEDS[feed][1])) if a["url"] not in had][:count]
     except Exception as e:  # offline: Heute says so, the Materialcheck reports it
         log.warning("news %s: %s", feed, e)
         return []
@@ -145,7 +197,7 @@ def _clip(m: dict, ctx: Ctx, day: date) -> dict:
     row = ctx.lib.get(m["clip"])
     end = seconds(m.get("to")) or (row and row["duration"]) or it.get("duration") or 0
     start = seconds(m.get("from")) or 0
-    out = _base(m["block"], "clip", title=it["title"], source=it.get("source"), audio=it.get("kind") in ("podcast", "audio"),
+    out = _base(m["block"], "clip", title=it["title"], source=it.get("source"), audio=it.get("kind") in ("podcast", "audio"), clip=m["clip"],
                 range=[start, end], part=f"{clock(start)}–{clock(end)}" if end else None,
                 minutes=_minutes(start, end) if end else None)
     if not row or not row["media_file"]:
@@ -200,7 +252,7 @@ def _external(m: dict, ctx: Ctx, kind: str) -> dict:
     part = f"{clock(start)}–{clock(end)}" if end else None
     if kind == "netflix" and m.get("episode"):
         part = f"{m['episode']}" + (f", {clock(start)}–{clock(end)}" if end else "")
-    out = _base(m["block"], kind, title=it.get("title", m["clip"]), source=it.get("source"), part=part,
+    out = _base(m["block"], kind, title=it.get("title", m["clip"]), source=it.get("source"), part=part, clip=m["clip"],
                 minutes=_minutes(start, end) if end else None, start={"href": href, "note": LR_NOTE},
                 detail=f"öffnet {'YouTube' if kind == 'youtube' else 'Netflix'} in einem neuen Tab — {LR_NOTE}")
     if ctx.links.get(href) is False:
@@ -210,15 +262,20 @@ def _external(m: dict, ctx: Ctx, kind: str) -> dict:
 
 def _news(m: dict, ctx: Ctx, day: date) -> dict:
     name = NEWS_FEEDS[m["feed"]][0]
-    count = m.get("count", 3)
-    out = _base(m["block"], "news", title=f"{name}: die {count} neuesten Artikel", source=name, minutes=m.get("minutes"))
+    # nachrichtenleicht: 5 articles, adjusted to how much he understood last time (#22/#23)
+    count = ratings.leicht_count(m.get("minutes") or 35) if m["feed"] == "leicht" else m.get("count", 3)
     items = news_for(day, m["feed"], ctx.today, count)
+    n = len(items) if items else count
+    out = _base(m["block"], "news", title=f"{name}: die {n} neuesten Artikel", source=name, minutes=m.get("minutes"),
+                feed=m["feed"], count=n)
+    if m["feed"] == "leicht":
+        out["text"] = LEICHT_TEXT.format(n=NUMBER.get(n, n), links=f"Heute stehen hier die {NUMBER.get(n, n)} Links.")
     if items:
         out.update(links=items, detail=f"ausgewählt für {day.day}.{day.month}.{day.year}")
     elif items is None:
-        out["detail"] = "Die drei Links stehen am Morgen hier (neueste Meldungen des Tages)."
+        out["detail"] = f"Die {NUMBER.get(n, n)} Links stehen am Morgen hier (neueste Meldungen des Tages)."
     else:
-        out.update(status="todo", detail="tagesschau.de antwortet gerade nicht — später neu laden")
+        out.update(status="todo", detail=f"{name} antwortet gerade nicht — später neu laden")
     return out
 
 
@@ -226,22 +283,61 @@ def _text(m: dict, ctx: Ctx) -> dict:
     t = texts.get(m["text"])
     words = len(t["text"].split()) if t else 0
     free = m["block"] == "lesen"  # the free-reading block: no help; the input block reads interactively
-    return _base(m["block"], "text", title=t["title"] if t else m["text"], origin=(t or {}).get("origin", "ai"),
+    return _base(m["block"], "text", title=t["title"] if t else m["text"], origin=(t or {}).get("origin", "ai"), textId=m["text"],
                  source="Kaskade-Bibliothek", part=f"{t['level']} · {words} Wörter" if t else None,
                  minutes=max(5, round(words / 110)) if t else None,
                  start={"to": f"/lesen/{m['text']}" + ("?modus=frei" if free else "")},
                  detail="frei lesen: ohne Wörterbuch, ohne Hilfen" if free else "interaktiv: Wörter antippen, Sätze minen")
 
 
-def _book(m: dict, ctx: Ctx, first_day: date | None) -> dict:
+def _book(m: dict, ctx: Ctx, first_day: date | None, day: date, text: str, data: dict, start: date) -> dict:
+    """A book part, read the way the book's latest rating says (#24) — or, at 20–40 %, nachrichtenleicht."""
     b = stock.book(m["book"]) or {"id": m["book"], "author": "", "title": m["book"], "format": "paper"}
+    mode = ratings.book_mode(b["id"], day, start, data)
+    if mode["mode"] == "spaeter":
+        out = _news({"block": m["block"], "kind": "news", "feed": "leicht", "minutes": m.get("minutes", 35)}, ctx, day)
+        out.update(mode=mode, text=f"Statt {mode['name']}: {out['text']}")
+        return out
     out = _base(m["block"], "book", title=f"{b['author']}: {b['title']}".strip(": "), part=m.get("part"),
-                minutes=m.get("minutes", 35), source=f"{b['author']} · {b['title']}".strip(" ·"), bookId=b["id"])
+                minutes=m.get("minutes", 35), source=f"{b['author']} · {b['title']}".strip(" ·"), bookId=b["id"],
+                text=ratings.book_text(text, mode["mode"]), mode=mode if mode["show"] else None)
     if b["id"] not in ctx.bought:
         buy_by = stock.notice(first_day, b.get("format", "paper")) if first_day else None
         out.update(status="todo", detail=f"Kaufen bis {buy_by.day}.{buy_by.month}." if buy_by else "noch nicht gekauft")
     else:
         out["detail"] = "gekauft ✓"
+    if mode["mode"] == "nachschlagen":
+        out["detail"] += " · bis zu 3 Wörter pro Seite nachschlagen"
+    return out
+
+
+def leseprobe(b: dict, part: str) -> str | None:
+    """The publisher's free Leseprobe, opened at the first page of `part` ("S. 7–8")."""
+    lp = b.get("leseprobe")
+    first = re.match(r"S\. (\d+)", part or "")
+    if not lp:
+        return None
+    return lp["url"] + (f"#page={int(first.group(1)) + lp.get('pdfOffset', 0)}" if first else "")
+
+
+def _lesetest(m: dict, ctx: Ctx) -> dict:
+    """#24: the first two pages of a book without a dictionary, then "Wie viel hast du verstanden?"."""
+    b = stock.book(m["book"]) or {"id": m["book"], "author": "", "title": m["book"]}
+    name = ratings.short_author(b)
+    story = "„Fähner“" if b["id"] == "schirach-verbrechen" else None
+    title = f"Lesetest: {name}, {b['title']} — die ersten zwei Seiten" + (f" von {story}" if story else "")
+    out = _base("pruefung", "lesetest", title=title, part=m["part"], minutes=m.get("minutes", 25), bookId=b["id"],
+                source=f"{b['author']} · {b['title']}".strip(" ·"),
+                text=f"{m['part']} ohne Wörterbuch lesen, nicht zurückblättern — dann hier einschätzen: "
+                     f"Wie viel hast du verstanden? Das Ergebnis bestimmt, wie du {name} in den nächsten Wochen liest.")
+    href = leseprobe(b, m["part"])
+    if href and ctx.links.get(href) is not False:
+        out.update(start={"href": href, "note": "Leseprobe des Verlags"},
+                   detail=f"Leseprobe des Verlags ({b.get('publisher', 'Verlag')}), öffnet bei {m['part'].split('–')[0]} · ohne Wörterbuch lesen, dann einschätzen")
+    elif b["id"] in ctx.bought:
+        out["detail"] = f"im Buch, {m['part']} · ohne Wörterbuch lesen, dann einschätzen"
+    else:
+        out.update(status="todo", detail="Leseprobe antwortet gerade nicht — und das Buch ist noch nicht als gekauft abgehakt")
     return out
 
 
@@ -293,43 +389,86 @@ def first_days(start: date, data: dict) -> dict[str, date]:
     return out
 
 
+def _item(m: dict, b: dict, ctx: Ctx, day: date, d: dict, data: dict, start: date, books: dict) -> dict:
+    """One exact item for one material of a block."""
+    if rolling.rolls(m) and b["id"] in rolling.FILM:
+        item = _rolled(m, ctx, day, data, start)
+    elif m["kind"] in BUILDERS:
+        item = BUILDERS[m["kind"]](m, ctx, day)
+    elif m["kind"] in ("youtube", "netflix"):
+        item = _external(m, ctx, m["kind"])
+    elif m["kind"] == "news":
+        item = _news(m, ctx, day)
+    elif m["kind"] == "text":
+        item = _text(m, ctx)
+    elif m["kind"] == "book":
+        item = _book(m, ctx, books.get(m["book"]), day, m.get("desc") or d.get(b["id"], ""), data, start)
+    elif m["kind"] == "lesetest":
+        item = _lesetest(m, ctx)
+    elif m["kind"] == "practice":
+        item = _practice(m, ctx)
+    else:
+        item = _base(b["id"], m["kind"], title=m.get("title", ""), origin=None)
+    if m.get("desc") and not item.get("text"):
+        item["text"] = m["desc"]
+    item["block"] = b["id"]
+    return item
+
+
+def _leicht(m: dict) -> bool:
+    return m["kind"] == "news" and m.get("feed") == "leicht"
+
+
+def block_items(mats: list[dict], b: dict, build) -> list[dict]:
+    """The block's items in order. In the lesen block nachrichtenleicht takes up what the other
+    items leave of the block (#27) — e.g. when a podcast's last part is only a few minutes."""
+    items: dict[int, dict] = {i: build(m) for i, m in enumerate(mats) if not (b["kind"] == "lesen" and _leicht(m))}
+    if b["kind"] == "lesen":
+        rest = b["minutes"] - sum(it.get("minutes") or mats[i].get("minutes") or 0 for i, it in items.items())
+        news = [i for i, m in enumerate(mats) if _leicht(m)]
+        planned = sum(mats[i].get("minutes", 0) for i in news)
+        for i in news:
+            items[i] = build({**mats[i], "minutes": max(mats[i].get("minutes", 0), round(mats[i].get("minutes", 0) * rest / planned) if planned else 0)})
+        if not news and rest > 5 and items:  # a short audio day: fill up with nachrichtenleicht
+            items[len(mats)] = build({"block": b["id"], "kind": "news", "feed": "leicht", "minutes": rest})
+    return [items[i] for i in sorted(items)]
+
+
 def day_items(info: dict, ctx: Ctx, data: dict, start: date) -> list[dict]:
-    """One exact item per block of the plan day in `info` (empty on days without a block)."""
+    """The exact items of each block of the plan day in `info` (empty on days without a block):
+    one item per block; a second (or third) one of the lesen block hangs on the first as "then"."""
     d = info.get("day")
     if not d:
         return []
     day = date.fromisoformat(info["date"])
     books = first_days(start, data)
-    by_block = {m["block"]: m for m in d.get("materials", [])}
     out = []
     for b in data["block"]:
         if b["kind"] == "pause":
             continue
-        m = by_block.get(b["id"])
+        mats = [m for m in d.get("materials", []) if m["block"] == b["id"]]
         if b["kind"] == "karten":
-            item = _cards(ctx, day)
-        elif b["kind"] == "pruefung":
-            item = _mock(info) if info.get("mockExam") else _exam(info["exam"], ctx) if info.get("exam") else \
-                _practice(m, ctx) if m else _base("pruefung", "none", title="Kein Prüfungsteil", origin=None)
-        elif not m:
-            item = _base(b["id"], "none", title="Noch nichts eingeplant", status="todo", origin=None)
-        elif rolling.rolls(m) and b["id"] in rolling.FILM:
-            item = _rolled(m, ctx, day, data, start)
-        elif m["kind"] in BUILDERS:
-            item = BUILDERS[m["kind"]](m, ctx, day)
-        elif m["kind"] in ("youtube", "netflix"):
-            item = _external(m, ctx, m["kind"])
-        elif m["kind"] == "news":
-            item = _news(m, ctx, day)
-        elif m["kind"] == "text":
-            item = _text(m, ctx)
-        elif m["kind"] == "book":
-            item = _book(m, ctx, books.get(m["book"]))
+            items = [_cards(ctx, day)]
+        elif b["kind"] == "pruefung":  # older plans only (#27: no exam block in the daily plan)
+            m = mats[0] if mats else None
+            items = [_mock(info) if info.get("mockExam") else _exam(info["exam"], ctx) if info.get("exam") else
+                     _lesetest(m, ctx) if m and m["kind"] == "lesetest" else
+                     _practice(m, ctx) if m else _base("pruefung", "none", title="Kein Prüfungsteil", origin=None)]
+        elif not mats:
+            items = [_base(b["id"], "none", title="Noch nichts eingeplant", status="todo", origin=None)]
         else:
-            item = _base(b["id"], m["kind"], title=m.get("title", ""), origin=None)
-        item["block"] = b["id"]
-        out.append(item)
+            items = block_items(mats, b, lambda m: _item(m, b, ctx, day, d, data, start, books))
+        for it in items:
+            it["block"] = b["id"]
+        first = items[0]
+        first["then"] = items[1:]
+        out.append(first)
     return out
+
+
+def flat(items: list[dict]) -> list[dict]:
+    """Every item of a day, the "then" ones included."""
+    return [x for it in items for x in [it, *it.get("then", [])]]
 
 
 def next_plan_day(start: date, today: date, data: dict) -> tuple[date, str]:
@@ -349,10 +488,15 @@ def notices(start: date, today: date, data: dict, ctx: Ctx) -> list[dict]:
     out = []
     for book_id, first in sorted(first_days(start, data).items(), key=lambda kv: kv[1]):
         b = stock.book(book_id)
-        if not b or book_id in ctx.bought or first < today:
+        if not b or book_id in ctx.bought or first < today and ratings.book_mode(book_id, today, start, data)["mode"] != "spaeter":
             continue
+        # #24: at 20–40 % the book waits for the next pass through the plan — and so does buying it
+        mode = ratings.book_mode(book_id, max(first, today + timedelta(days=1)), start, data)
+        if mode["mode"] == "spaeter":
+            first = date.fromisoformat(mode["back"])
         item = {"type": "book", "id": book_id, "by": stock.notice(first, b.get("format", "paper")).isoformat(),
-                "firstDay": first.isoformat(), "week": week(first), "title": f"{b['author']}: {b['title']}", "book": b}
+                "firstDay": first.isoformat(), "week": week(first), "title": f"{b['author']}: {b['title']}", "book": b,
+                "mode": mode if mode["mode"] == "spaeter" else None}
         if b.get("ebook"):
             item["byEbook"] = stock.notice(first, "ebook").isoformat()
         out.append(item)
@@ -394,6 +538,16 @@ def link_ok(url: str) -> bool:
         return False
 
 
+def feed_ok(feed: str) -> bool:
+    """The feed answers and still lists articles (nachrichtenleicht is read from its homepage)."""
+    if offline():
+        return True
+    try:
+        return bool(parse_feed(feed, fetch_feed(NEWS_FEEDS[feed][1])))
+    except Exception:
+        return False
+
+
 def check(today: date, start: date, data: dict, days: int = 7, links: bool = True) -> dict:
     """Every item of the next `days` plan days: in the library and playable, links answering."""
     ctx = Ctx(today)
@@ -403,7 +557,7 @@ def check(today: date, start: date, data: dict, days: int = 7, links: bool = Tru
     for i in range(days):
         day = today + timedelta(days=i)
         info = plan.plan_day(start, day, data)
-        for it in day_items(info, ctx, data, start):
+        for it in flat(day_items(info, ctx, data, start)):
             href = (it.get("start") or {}).get("href")
             if links and href and href not in urls:
                 urls[href] = link_ok(href)
@@ -411,12 +565,14 @@ def check(today: date, start: date, data: dict, days: int = 7, links: bool = Tru
                     it.update(status="todo", detail="Link antwortet nicht")
             if it["status"] == "todo" and it["kind"] != "book":
                 gaps.append({"date": day.isoformat(), "block": it["block"], "title": it["title"], "problem": it["detail"]})
-    for feed in {m["feed"] for w in data["weeks"] for d in w["days"] for m in d.get("materials", []) if m["kind"] == "news"}:
+    feeds = {m["feed"] for w in data["weeks"] for d in w["days"] for m in d.get("materials", []) if m["kind"] == "news"}
+    for feed in sorted(feeds | {"leicht"}):  # nachrichtenleicht also stands in for a book at 20–40 % (#24)
         url = NEWS_FEEDS[feed][1]
         if links and url not in urls:
-            urls[url] = link_ok(url)
+            urls[url] = feed_ok(feed)
             if not urls[url]:
-                gaps.append({"date": today.isoformat(), "block": "lesen", "title": NEWS_FEEDS[feed][0], "problem": "Feed antwortet nicht"})
+                gaps.append({"date": today.isoformat(), "block": "lesen", "title": NEWS_FEEDS[feed][0],
+                             "problem": "Feed antwortet nicht — oder keine Artikel darin gefunden"})
     return {"checkedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"), "days": days, "gaps": gaps, "links": urls}
 
 

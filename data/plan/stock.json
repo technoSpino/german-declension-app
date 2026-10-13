@@ -173,6 +173,146 @@
       "url": "https://www.easygerman.org/podcast"
     },
     {
+      "key": "egp-701",
+      "kind": "podcast",
+      "title": "Easy German Podcast 701: Aktivismus in Deutschland — Jakob Springfeld über Heimat, Demokratie und Engagement",
+      "tag": "podcast",
+      "source": "Easy German Podcast #701",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 701,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-699",
+      "kind": "podcast",
+      "title": "Easy German Podcast 699: Pipi-Kacka-Humor",
+      "tag": "podcast",
+      "source": "Easy German Podcast #699",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 699,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-697",
+      "kind": "podcast",
+      "title": "Easy German Podcast 697: Alles cringe",
+      "tag": "podcast",
+      "source": "Easy German Podcast #697",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 697,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-696",
+      "kind": "podcast",
+      "title": "Easy German Podcast 696: Das fünfte Rad am Wagen",
+      "tag": "podcast",
+      "source": "Easy German Podcast #696",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 696,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-692",
+      "kind": "podcast",
+      "title": "Easy German Podcast 692: Gottlos",
+      "tag": "podcast",
+      "source": "Easy German Podcast #692",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 692,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-691",
+      "kind": "podcast",
+      "title": "Easy German Podcast 691: Auf Fehler scheißen",
+      "tag": "podcast",
+      "source": "Easy German Podcast #691",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 691,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-689",
+      "kind": "podcast",
+      "title": "Easy German Podcast 689: Corinna Schmud",
+      "tag": "podcast",
+      "source": "Easy German Podcast #689",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 689,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-688",
+      "kind": "podcast",
+      "title": "Easy German Podcast 688: Anarchie im Kühlschrank",
+      "tag": "podcast",
+      "source": "Easy German Podcast #688",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 688,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-687",
+      "kind": "podcast",
+      "title": "Easy German Podcast 687: Kontakt mit dem Lack eines Autos",
+      "tag": "podcast",
+      "source": "Easy German Podcast #687",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 687,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-686",
+      "kind": "podcast",
+      "title": "Easy German Podcast 686: Den Schuh zieh ich mir nicht an!",
+      "tag": "podcast",
+      "source": "Easy German Podcast #686",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 686,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-685",
+      "kind": "podcast",
+      "title": "Easy German Podcast 685: Ich geh Crashout",
+      "tag": "podcast",
+      "source": "Easy German Podcast #685",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 685,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-683",
+      "kind": "podcast",
+      "title": "Easy German Podcast 683: Wenn dein Kind deine Deutschlehrerin ist",
+      "tag": "podcast",
+      "source": "Easy German Podcast #683",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 683,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-682",
+      "kind": "podcast",
+      "title": "Easy German Podcast 682: Ein Freund, den du noch nicht kennst",
+      "tag": "podcast",
+      "source": "Easy German Podcast #682",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 682,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
+      "key": "egp-681",
+      "kind": "podcast",
+      "title": "Easy German Podcast 681: Alle Schraubenzieher sollten Kreuzschlitzschraubenzieher sein",
+      "tag": "podcast",
+      "source": "Easy German Podcast #681",
+      "feed": "https://proxyfeed.svmaudio.com/feeds/easygerman/feed.xml",
+      "episode": 681,
+      "url": "https://www.easygerman.org/podcast"
+    },
+    {
       "key": "radio-tatort-uebertherapie",
       "kind": "audio",
       "title": "ARD Radio Tatort: Übertherapie – Toter Arzt im Berliner Drogenmilieu",
@@ -255,7 +395,14 @@
         "isbn": "978-3-641-26778-0",
         "price": "10,99 €"
       },
-      "pagesNote": "208 Seiten laut Verlag, Text S. 5–205; Seitenzahlen der Geschichten aus dem Inhaltsverzeichnis dieser Ausgabe (DNB-Scan https://d-nb.info/1203761619/04)"
+      "pagesNote": "208 Seiten laut Verlag, Text S. 5–205; Seitenzahlen der Geschichten aus dem Inhaltsverzeichnis dieser Ausgabe (DNB-Scan https://d-nb.info/1203761619/04)",
+      "leseprobe": {
+        "url": "https://www.bic-media.com/books/content/shortened/9783442770663.pdf",
+        "via": "penguin.de → Leseprobe (Blick ins Buch, btb)",
+        "pages": "S. 5–20",
+        "pdfOffset": 2,
+        "note": "Die Leseprobe des Verlags zeigt diese Ausgabe mit ihren Seitenzahlen: Vorwort S. 5–6, „Fähner“ ab S. 7 (geprüft 13.10.2026)."
+      }
     },
     {
       "id": "gut-gegen-nordwind",

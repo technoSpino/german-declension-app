@@ -8,7 +8,9 @@ import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
 import WordPanel from '../../components/kaskade/WordPanel.vue'
 import CaseLegend from '../../components/kaskade/CaseLegend.vue'
 import OriginBadge from '../../components/kaskade/OriginBadge.vue'
+import RateAsk from '../../components/kaskade/RateAsk.vue'
 import { TTS_NOTE } from '../../lib/origin'
+import { ratingLabel } from '../../lib/ratings'
 
 const route = useRoute()
 const t = ref(null)
@@ -71,6 +73,25 @@ async function finish() {
     done.value = true
   } catch (e) {
     error.value = e.message
+    return
+  }
+  // #23: today's text of a plan block → "Wie viel hast du verstanden?"
+  try {
+    rateFor.value = (await api.get('/ratings/today')).find((r) => r.textId === t.value.id) ?? null
+  } catch {
+    rateFor.value = null
+  }
+}
+const rateFor = ref(null)
+const rateBusy = ref(false)
+async function rate(pct) {
+  rateBusy.value = true
+  try {
+    rateFor.value = { ...rateFor.value, rating: await api.post('/ratings', { block: rateFor.value.block, item: rateFor.value.item, pct }) }
+  } catch (e) {
+    error.value = e.message
+  } finally {
+    rateBusy.value = false
   }
 }
 </script>
@@ -160,6 +181,8 @@ async function finish() {
             <p v-else class="m-0" style="font-weight: 700">{{ score }} von {{ t.questions.length }} richtig</p>
             <button v-if="!done" class="k-btn" data-testid="reader-done" @click="finish">Fertig gelesen</button>
             <p v-else class="k-chip k-chip-success m-0" style="width: fit-content">✓ gelesen</p>
+            <RateAsk v-if="rateFor && !rateFor.rating" :label="rateFor.label" :busy="rateBusy" @rate="rate" />
+            <p v-else-if="rateFor?.rating" class="k-hint m-0" data-testid="reader-rated">{{ ratingLabel(rateFor.rating) }}</p>
           </section>
         </aside>
       </div>

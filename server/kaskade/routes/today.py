@@ -6,8 +6,9 @@ from typing import Literal
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from .. import config, db, materials, plan, srs, stock, texts
+from .. import config, db, materials, plan, ratings, srs, stock, texts
 from .media import last_clip
+from .ratings import annotate, book_modes
 from .satzcheck import mineable_lines, run_result
 from .texts import read_ids
 
@@ -89,6 +90,9 @@ def today(today: dt.date | None = None, phase: str | None = None):
     total = sum(v["aktiv"] + v["passiv"] for v in by_day.values())
     start_hours = db.get_setting("startHours", 150)
     p = json.loads(placement["result"]) if placement else None
+    if info["day"] and d == _today():  # #23: "Wie viel hast du verstanden?" once a block is done or stopped
+        worked = {r["block"] for r in week_rows if r["local_date"] == d.isoformat()}
+        annotate(assignments, d, done, running["block"] if running else None, worked)
 
     return {
         **info,
@@ -114,11 +118,14 @@ def today(today: dt.date | None = None, phase: str | None = None):
         "mineable": sum(1 for line in mineable_lines() if not line["mined"]),
         "watch": last_clip(),
         "assignments": assignments,
+        "tooHard": ratings.too_hard(d, plan_start(d), data),
+        "bookModes": book_modes(d, plan_start(d), data),
         "httpsUrl": config.HTTPS_URL,
     }
 
 
 PHASES = {"1", "2A", "2B"}
+EXAM_PAUSED = "B1-Prüfung: pausiert — kommt zurück, wenn du ein Prüfungsdatum wählst."
 
 
 def _group(info: dict, kind: str, ctx, data: dict, start: date) -> dict:
@@ -214,6 +221,8 @@ def fahrplan():
                      for u in plan.upcoming(plan_start(d), data)],
         # books to buy and setup to do ahead of their first plan day (#16)
         "notices": notices,
+        # #27: no exam date yet — the exam tasks stay in the app, just not in the plan
+        "exam": EXAM_PAUSED,
         "today": d.isoformat(),
     }
 

@@ -141,6 +141,30 @@ CREATE TABLE IF NOT EXISTS plan_done (
   block TEXT NOT NULL,
   PRIMARY KEY (local_date, block)
 );
+CREATE TABLE IF NOT EXISTS ratings (
+  id INTEGER PRIMARY KEY,        -- #23 "Wie viel hast du verstanden?" after a block
+  created_at TEXT NOT NULL,
+  local_date TEXT NOT NULL,
+  block TEXT NOT NULL,           -- input | lesen | pruefung (Lesetest)
+  item TEXT NOT NULL,            -- clip:<key>:<from>-<to> | text:<id> | news:<feed>:<date> | book:<id>:<part> | lesetest:<book>
+  kind TEXT NOT NULL,            -- clip | audio | text | news | book | lesetest
+  label TEXT NOT NULL,           -- what it was, as Heute showed it
+  book TEXT,                     -- book id (book days and the Lesetest, #24)
+  pct INTEGER,                   -- 20 | 40 | 60 | 80 | 100; NULL = skipped
+  hard INTEGER,                  -- Schauen: lines marked "zu schwer" …
+  lines INTEGER,                 -- … of the lines heard
+  detail TEXT,                   -- JSON: clip id + range, article links, pages
+  UNIQUE (local_date, block, item)
+);
+CREATE TABLE IF NOT EXISTS hard_lines (
+  id INTEGER PRIMARY KEY,        -- #23 Schauen: Z = "zu schwer"
+  created_at TEXT NOT NULL,
+  local_date TEXT NOT NULL,
+  media_id INTEGER NOT NULL,
+  start REAL NOT NULL,
+  end REAL,
+  text TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS news_picks (
   local_date TEXT NOT NULL,      -- the plan day the articles are for
   feed TEXT NOT NULL,            -- tagesschau feed id (see materials.NEWS_FEEDS)

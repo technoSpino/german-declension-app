@@ -18,25 +18,20 @@ def test_default_start(today, start):
     assert plan.default_start(today) == start
 
 
-def test_first_monday_is_week_1_with_writing_task():
+def test_first_monday_is_week_1_without_an_exam_task():
+    """#27: no exam date yet — no Prüfungsteil in the daily plan."""
     d = plan.plan_day(MON, MON)
     assert d["week"] == 1 and d["weekday"] == "Mo" and not d["weekend"]
-    assert d["exam"]["id"] == "s01" and d["exam"]["skill"] == "schreiben"
+    assert d["exam"] is None and d["mockExam"] is None
 
 
-@pytest.mark.parametrize("offset, skill", [(0, "schreiben"), (1, "sprechen"), (2, "schreiben"), (3, "sprechen"), (4, None)])
-def test_exam_rhythm(offset, skill):
-    d = plan.plan_day(MON, MON + timedelta(days=offset))
-    assert (d["exam"]["skill"] if d["exam"] else None) == skill
-
-
-def test_all_16_prompts_once_in_four_weeks():
-    seen = []
-    for i in range(28):
-        d = plan.plan_day(MON, MON + timedelta(days=i))
-        if d["exam"]:
-            seen.append(d["exam"]["id"])
-    assert len(seen) == 16 and len(set(seen)) == 16
+def test_no_exam_on_any_plan_day_but_the_16_prompts_stay():
+    for phase in (None, "2B"):
+        for i in range(42):
+            d = plan.plan_day(MON, MON + timedelta(days=i), plan.plan(phase))
+            assert d["exam"] is None and d["mockExam"] is None, (phase, i)
+    prompts = plan.plan()["prompts"]
+    assert len(prompts) == 16 and len({p["id"] for p in prompts}) == 16  # still on the Prüfung page
 
 
 def test_weekend_and_before_start_have_no_day():
@@ -46,11 +41,12 @@ def test_weekend_and_before_start_have_no_day():
     assert before["beforeStart"] is True and before["day"] is None
 
 
-def test_week_6_is_mock_exam_and_week_5_repeats():
+def test_weeks_5_and_6_repeat_the_plan_without_a_mock_exam():
     w5 = plan.plan_day(MON, MON + timedelta(days=28))
-    assert w5["week"] == 5 and w5.get("repeat") and w5["day"]
+    assert w5["week"] == 5 and w5.get("repeat") and w5["day"] and w5["todos"] == []
     w6 = plan.plan_day(MON, MON + timedelta(days=35))
-    assert w6["week"] == 6 and w6["mockExam"]["title"] and w6["exam"] is None
+    assert w6["week"] == 6 and w6["mockExam"] is None and w6["exam"] is None
+    assert plan.upcoming(MON, plan.plan()) == []
 
 
 def test_session_seconds_caps_forgotten_timers():

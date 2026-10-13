@@ -94,7 +94,10 @@ async function addWord() {
         <p class="m-0 k-small" style="color: var(--text)">{{ chunk.explain }}</p>
       </div>
       <p class="k-small m-0 mt-1 k-read" style="font-size: 15px">„{{ sentence }}“</p>
-      <button class="k-btn k-btn-sm mt-1" data-testid="mine" :disabled="busy" @click="mine">{{ busy ? 'Wird gemint …' : 'Satz minen' }}</button>
+      <div class="flex flex-wrap items-center gap-2">
+        <button class="k-btn k-btn-sm mt-1" data-testid="mine" :disabled="busy" @click="mine">{{ busy ? 'Wird gemint …' : 'Satz minen' }}</button>
+        <slot name="actions" />
+      </div>
       <p v-if="mined" class="k-chip k-chip-success m-0" style="width: fit-content; height: auto" data-testid="mine-result">{{ mined }}</p>
       <button v-if="existing" class="k-btn k-btn-ghost k-btn-sm" data-testid="mine-add-word" :disabled="busy" @click="addWord">„{{ token.text }}“ zur Karte dazunehmen</button>
       <p v-if="error" class="k-error m-0">{{ error }}</p>

@@ -12,9 +12,14 @@ const blockLabel = (id) => {
   const b = props.blocks.find((x) => x.id === id)
   return b?.label ?? b?.title ?? id
 }
+// #27: a block's second item ("then") gets its own line, right after the first
 const groups = computed(() =>
   props.data
-    ? [props.data.today, props.data.next].map((g) => ({ ...g, items: g.items.map((it) => withSecureCheck(it, secure, props.data.httpsUrl)) }))
+    ? [props.data.today, props.data.next].map((g) => ({
+        ...g,
+        items: g.items.flatMap((it) => [it, ...(it.then ?? []).map((n, i) => ({ ...n, then: undefined, key: `${it.block}-${i + 1}`, after: true }))])
+          .map((it) => withSecureCheck({ key: it.block, ...it }, secure, props.data.httpsUrl))
+      }))
     : []
 )
 </script>
@@ -26,14 +31,15 @@ const groups = computed(() =>
       <h3 class="mt-day">{{ groupTitle(g) }}</h3>
       <p v-if="!g.planDay" class="k-small m-0">Kein Lernblock.</p>
       <ul v-else class="list-none m-0 p-0">
-        <li v-for="it in g.items" :key="it.block" class="mt-row" :data-testid="`mat-${g.kind}-${it.block}`" :data-status="it.status">
+        <li v-for="it in g.items" :key="it.key" class="mt-row" :data-testid="`mat-${g.kind}-${it.key}`" :data-status="it.status">
           <div class="min-w-0">
-            <p class="mt-block">{{ blockLabel(it.block) }}</p>
+            <p class="mt-block">{{ blockLabel(it.block) }}{{ it.after ? ' · danach' : '' }}</p>
             <p class="m-0" style="font-weight: 700">{{ itemLine(it) }}</p>
             <p class="k-small m-0 mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
               <OriginBadge :origin="it.origin" :source="it.source" />
               <span v-if="it.detail">{{ it.detail }}</span>
             </p>
+            <p v-if="it.mode?.why" class="k-small m-0 mt-0.5" style="color: var(--text); font-weight: 600">{{ it.mode.why }}</p>
           </div>
           <div class="flex flex-col items-end gap-1">
             <span :class="['k-chip', it.status === 'ready' ? 'k-chip-success' : 'mt-todo']">{{ STATUS_LABEL[it.status] }}</span>

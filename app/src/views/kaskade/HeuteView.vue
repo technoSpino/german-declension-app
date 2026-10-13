@@ -8,7 +8,9 @@ import ImmersionForm from '../../components/kaskade/ImmersionForm.vue'
 import MaterialsCard from '../../components/kaskade/MaterialsCard.vue'
 import DueSoon from '../../components/kaskade/DueSoon.vue'
 import OriginBadge from '../../components/kaskade/OriginBadge.vue'
+import RateAsk from '../../components/kaskade/RateAsk.vue'
 import { itemLine } from '../../lib/materials'
+import { ratingLabel, shareLine } from '../../lib/ratings'
 import { useNow } from '../../lib/useNow'
 import { useStatusStore } from '../../stores/statusStore'
 import { coverageLabel } from '../../lib/satzcheck'
@@ -102,6 +104,7 @@ function describe(b) {
     case 'pause': return 'Aufstehen, Wasser trinken, kurz ans Fenster und raus.'
     case 'lesen': return assignment(b)?.text ?? d.lesen
     case 'pruefung': {
+      if (assignment(b)?.text) return assignment(b).text // #24 the Lesetest
       const exam = planInfo.value?.exam
       if (planInfo.value?.mockExam) return planInfo.value.mockExam.note
       return exam ? `${exam.type}: „${exam.title}“` : 'Heute keine Prüfungsaufgabe — stattdessen Wochenrückblick.'
@@ -138,6 +141,32 @@ async function start(b) {
 async function stop() {
   await status.stopTimer()
   await load()
+}
+
+// #27: the second item of a block ("Danach …"): opens its source, the block timer keeps running
+async function openThen(b, n) {
+  if (n.start?.href) window.open(n.start.href, '_blank', 'noopener')
+  try {
+    if (!isRunning(b)) await status.startTimer(b.id)
+    if (n.start?.to) return router.push(n.start.to)
+    await load()
+  } catch (e) {
+    error.value = e.message
+  }
+}
+
+// #23: "Wie viel hast du verstanden?" — asked on the block once it's done or its timer stopped
+const rating = ref(null) // item being saved
+async function rate(b, pct, item = assignment(b)) {
+  rating.value = item.rateItem
+  try {
+    await api.post('/ratings', { block: b.id, item: item.rateItem, pct })
+    await load()
+  } catch (e) {
+    error.value = e.message
+  } finally {
+    rating.value = null
+  }
 }
 
 async function tickTodo(todo) {
@@ -228,6 +257,16 @@ const timelineLabel = computed(() => {
       </div>
     </section>
 
+    <section v-if="t?.tooHard?.length" class="k-card k-card-strong" aria-labelledby="hard-h" data-testid="too-hard">
+      <h2 id="hard-h" class="k-h2" style="font-size: 18px">Zu schwer</h2>
+      <ul class="list-none m-0 mt-2 p-0 flex flex-col gap-2.5">
+        <li v-for="r in t.tooHard" :key="r.id" :data-testid="`too-hard-${r.id}`">
+          <p class="m-0" style="font-weight: 700">Zu schwer: {{ r.label }} ({{ r.pct }} %)</p>
+          <p class="k-small m-0 mt-0.5">→ {{ r.action }}</p>
+        </li>
+      </ul>
+    </section>
+
     <div v-if="t" class="flex flex-wrap gap-6 items-start">
       <div class="flex flex-col gap-6 min-w-0" style="flex: 999 1 560px">
       <section class="k-card min-w-0" style="padding-bottom: 8px" aria-labelledby="plan-h">
@@ -235,7 +274,7 @@ const timelineLabel = computed(() => {
           <h2 id="plan-h" class="k-h2">Lernblock 09:00–11:30</h2>
           <p class="k-small m-0">
             <template v-if="isPreview">Vorschau: {{ planInfo.weekday }}, Woche {{ planInfo.week }} · {{ planInfo.theme }}</template>
-            <template v-else>Mo–Fr · {{ t.done.length }} von 4 erledigt · Phase {{ t.phase || '2A' }}</template>
+            <template v-else>Mo–Fr · {{ t.done.length }} von {{ t.block.filter((x) => x.kind !== 'pause').length }} erledigt · Phase {{ t.phase || '2A' }}</template>
           </p>
         </div>
 
@@ -272,11 +311,29 @@ const timelineLabel = computed(() => {
                 <span v-if="assignment(b).detail" :class="{ 'hb-todo-text': assignment(b).status === 'todo' }">{{ assignment(b).status === 'todo' ? '→ ' : '' }}{{ assignment(b).detail }}</span>
               </p>
               <p class="k-small m-0 mt-0.5">{{ describe(b) }}</p>
+              <p v-if="assignment(b)?.mode?.why" class="k-small m-0 mt-1 hb-mode" :data-testid="`mode-${b.id}`">{{ assignment(b).mode.why }}</p>
               <ol v-if="assignment(b)?.links?.length" class="m-0 mt-1 pl-5 k-small flex flex-col gap-0.5" style="list-style: decimal" :data-testid="`links-${b.id}`">
                 <li v-for="l in assignment(b).links" :key="l.url"><a :href="l.url" target="_blank" rel="noopener">{{ l.title }}</a></li>
               </ol>
               <router-link v-if="b.kind === 'karten' && t.mineable" to="/satz-check#minen" class="k-small" style="font-weight: 600" data-testid="heute-mineable">{{ t.mineable }} {{ t.mineable === 1 ? 'Satz' : 'Sätze' }} aus dem Satz-Check minen →</router-link>
               <p v-if="logged(b) && !isPreview" class="k-hint m-0 mt-0.5">{{ logged(b) }} min erfasst</p>
+              <RateAsk v-if="!isPreview && assignment(b)?.ask" :label="assignment(b).rateLabel" :share="shareLine(assignment(b).share)" :busy="rating === assignment(b).rateItem" @rate="(p) => rate(b, p)" />
+              <p v-else-if="!isPreview && assignment(b)?.rating" class="k-hint m-0 mt-0.5" :data-testid="`rated-${b.id}`">{{ ratingLabel(assignment(b).rating) }}</p>
+              <div v-for="(n, i) in assignment(b)?.then ?? []" :key="i" class="hb-then" :data-testid="`then-${b.id}-${i}`">
+                <p class="hb-then-title"><span class="hb-then-label">Danach</span>{{ itemLine(n) }}</p>
+                <p v-if="n.source || n.origin === 'ai' || n.detail" class="k-hint m-0 mt-0.5 flex flex-wrap items-center gap-x-2">
+                  <OriginBadge :origin="n.origin" :source="n.source" />
+                  <span v-if="n.detail" :class="{ 'hb-todo-text': n.status === 'todo' }">{{ n.status === 'todo' ? '→ ' : '' }}{{ n.detail }}</span>
+                </p>
+                <p v-if="n.text" class="k-small m-0 mt-0.5">{{ n.text }}</p>
+                <p v-if="n.mode?.why" class="k-small m-0 mt-1 hb-mode">{{ n.mode.why }}</p>
+                <ol v-if="n.links?.length" class="m-0 mt-1 pl-5 k-small flex flex-col gap-0.5" style="list-style: decimal" :data-testid="`links-${b.id}-${i}`">
+                  <li v-for="l in n.links" :key="l.url"><a :href="l.url" target="_blank" rel="noopener">{{ l.title }}</a></li>
+                </ol>
+                <button v-if="!isPreview && (n.start?.href || n.start?.to)" class="k-btn k-btn-ghost k-btn-sm mt-1.5" :data-testid="`open-${b.id}-${i}`" @click="openThen(b, n)">{{ n.start.href ? 'Öffnen ↗' : 'Öffnen →' }}</button>
+                <RateAsk v-if="!isPreview && n.ask" :label="n.rateLabel" :share="shareLine(n.share)" :busy="rating === n.rateItem" @rate="(p) => rate(b, p, n)" />
+                <p v-else-if="!isPreview && n.rating" class="k-hint m-0 mt-0.5" :data-testid="`rated-${b.id}-${i}`">{{ ratingLabel(n.rating) }}</p>
+              </div>
             </div>
             <div v-if="isPreview && b.kind !== 'pause'" class="hb-actions flex flex-col items-end gap-1.5">
               <span class="k-tip">
@@ -458,6 +515,10 @@ const timelineLabel = computed(() => {
 .hb-title { margin: 3px 0 0; font-size: 17px; font-weight: 700; }
 .hb-strike { text-decoration: line-through; color: var(--muted); }
 .hb-todo-text { color: var(--text); font-weight: 600; }
+.hb-mode { color: var(--text); font-weight: 600; }
+.hb-then { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); }
+.hb-then-title { margin: 0; font-size: 16px; font-weight: 700; color: var(--text); }
+.hb-then-label { margin-right: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .hb-chipbtn { border: 0; cursor: pointer; font: inherit; font-size: 13px; font-weight: 700; }
 .hb-after {
   display: grid;

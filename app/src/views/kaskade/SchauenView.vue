@@ -3,7 +3,9 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../../lib/api'
 import { clipStatus, clock, formatTime, inside, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine } from '../../lib/watch'
+import { hardShare, ratingLabel, shareLine } from '../../lib/ratings'
 import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
+import RateAsk from '../../components/kaskade/RateAsk.vue'
 import WordPanel from '../../components/kaskade/WordPanel.vue'
 
 // "Schauen & minen": watch a library clip with the current German subtitle line under
@@ -27,6 +29,11 @@ const rangeNote = ref('')
 const goal = ref(false) // "Ziel für heute erreicht" shown
 const tags = ref([])
 const held = ref(-1) // the line auto-pause stopped after: shown (and mined) until play resumes (#18)
+const marks = ref([]) // #23: start times of today's lines marked "zu schwer" in this clip
+const hardNote = ref('')
+const rateFor = ref(null) // today's plan block this clip belongs to: {block, label, rating}
+const rateBusy = ref(false)
+let startPos = 0 // where this visit started (lines heard are counted from here without a plan range)
 let pausedFor = null
 let lastT = 0 // playhead at the previous tick
 let touched = false // only save a position once the clip was actually played or moved
@@ -68,6 +75,10 @@ async function load() {
       return
     }
     media.value = await api.get(`/media/${route.params.id}`)
+    marks.value = []
+    rateFor.value = null
+    hardNote.value = ''
+    loadRating(media.value.id)
     // ?t=… jumps to a line (e.g. from the Satz-Check result), ?loop=1 repeats it,
     // ?von=…&bis=… is today's plan range: start there (or at his position if he is behind).
     const at = Number(route.query.t)
@@ -85,9 +96,48 @@ async function load() {
       t.value = Number.isFinite(at) && at > 0 ? at : resumeAt(media.value.position, media.value.duration)
     }
     loop.value = route.query.loop === '1'
+    startPos = t.value
   } catch (e) {
     error.value = e.message
   }
+}
+
+// #23: is this clip one of today's blocks (then "Wie viel hast du verstanden?" comes at the end)?
+async function loadRating(id) {
+  try {
+    const [hard, today] = await Promise.all([api.get(`/media/${id}/hard`), api.get('/ratings/today')])
+    if (media.value?.id !== id) return
+    marks.value = hard.marks.map((m) => m.start)
+    rateFor.value = today.find((r) => r.mediaId === id) ?? null
+  } catch {
+    rateFor.value = null // no question then — watching still works
+  }
+}
+// lines heard today: from the start of today's part (or of this visit) to the playhead
+const share = computed(() => hardShare(cues.value, range.value ? Math.min(range.value.from, startPos) : startPos, t.value, marks.value))
+const askRating = computed(() => goal.value && rateFor.value && !rateFor.value.rating)
+async function rateClip(pct) {
+  rateBusy.value = true
+  try {
+    const s = share.value
+    rateFor.value = { ...rateFor.value, rating: await api.post('/ratings', { block: rateFor.value.block, item: rateFor.value.item, pct, hard: s.marked, lines: s.lines }) }
+  } catch (e) {
+    error.value = e.message
+  } finally {
+    rateBusy.value = false
+  }
+}
+
+// Z = "zu schwer": count the line on screen (no card) and go on with the next one.
+function markHard() {
+  const i = index.value
+  const c = cues.value[i]
+  if (!c) return
+  if (!marks.value.some((m) => Math.abs(m - c.start) < 0.05)) marks.value = [...marks.value, c.start]
+  hardNote.value = `„${c.text.length > 40 ? c.text.slice(0, 40) + ' …' : c.text}“ als zu schwer markiert`
+  api.post(`/media/${media.value.id}/hard`, { start: c.start, end: c.end, text: c.text }).catch((e) => { error.value = e.message })
+  if (i < cues.value.length - 1) seekLine(i + 1)
+  else video.value?.play().catch(() => {})
 }
 onMounted(load)
 watch(() => route.params.id, load)
@@ -238,6 +288,8 @@ function onKey(e) {
     replay()
   } else if (k === 'l') {
     toggleLoop()
+  } else if (k === 'z') {
+    markHard()
   }
 }
 // Space on a focused button would also "click" it on keyup — swallow that.
@@ -319,6 +371,8 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
         <strong>Ziel für heute erreicht ✓</strong> (bis {{ clock(range.to) }}). Du kannst weiterschauen — oder auf Heute den Block mit „Fertig“ abschließen.
       </p>
       <p v-else-if="range" class="k-small m-0" data-testid="watch-range">{{ rangeNote }} Das Video hält am Ende des Teils einmal an.</p>
+      <RateAsk v-if="askRating" :label="rateFor.label" :share="shareLine(share)" :busy="rateBusy" @rate="rateClip" />
+      <p v-else-if="goal && rateFor?.rating" class="k-chip k-chip-success m-0" style="width: fit-content" data-testid="watch-rated">✓ {{ ratingLabel(rateFor.rating) }}</p>
 
       <div class="sw-grid">
         <div class="flex flex-col gap-3 min-w-0">
@@ -343,7 +397,11 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
             <template v-if="line">
               <AnalyzedText v-if="analysis" :analysis="analysis" :lens="false" :selected="token?.i ?? null" class="sw-text" @select="selectWord" />
               <p v-else class="k-read sw-text m-0">{{ line.text }}</p>
-              <p class="k-hint m-0 mt-2">{{ formatTime(line.start) }} · Zeile {{ index + 1 }} von {{ cues.length }}{{ speaking ? '' : ' · Wort antippen zum Nachschlagen' }}</p>
+              <div class="flex flex-wrap items-center justify-between gap-2 mt-2">
+                <p class="k-hint m-0">{{ formatTime(line.start) }} · Zeile {{ index + 1 }} von {{ cues.length }}{{ speaking ? '' : ' · Wort antippen zum Nachschlagen' }}</p>
+                <button class="k-btn k-btn-ghost k-btn-sm" aria-label="Zeile zu schwer, weiter (Z)" data-testid="watch-hard" @click="markHard">✗ Zu schwer</button>
+              </div>
+              <p v-if="hardNote" class="k-hint m-0 mt-1" role="status" data-testid="watch-hard-note">{{ hardNote }} · {{ marks.length }} heute</p>
             </template>
             <p v-else-if="!cues.length" class="k-small m-0">Nur Ton, ohne Untertitel: einfach zuhören, nicht pausieren, nichts nachschlagen.</p>
             <p v-else class="k-small m-0">Drück Play — die Untertitel erscheinen hier, Zeile für Zeile.</p>
@@ -361,7 +419,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
               <button v-for="r in [1, 0.85]" :key="r" :class="['k-btn k-btn-sm sw-rate', { 'k-btn-ghost': rate !== r }]" :aria-pressed="rate === r" @click="setRate(r)">{{ r === 1 ? '1×' : '0,85×' }}</button>
             </span>
           </div>
-          <p class="k-hint m-0">Tasten: Leertaste Play/Pause · ← → Zeile zurück/vor · R Zeile wiederholen · L Schleife · <span data-testid="watch-clock">{{ range ? `${clock(t)} / Ziel ${clock(range.to)}` : `${formatTime(t)} / ${formatTime(media.duration)}` }}</span></p>
+          <p class="k-hint m-0">Tasten: Leertaste Play/Pause · ← → Zeile zurück/vor · R Zeile wiederholen · L Schleife · Z zu schwer, weiter · <span data-testid="watch-clock">{{ range ? `${clock(t)} / Ziel ${clock(range.to)}` : `${formatTime(t)} / ${formatTime(media.duration)}` }}</span></p>
         </div>
 
         <div class="flex flex-col gap-4 min-w-0">
@@ -373,7 +431,11 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
             :extra="extra"
             :source="`Schauen · ${media.title}`"
             @mined="(r) => { if (!r.duplicate) mined++ }"
-          />
+          >
+            <template #actions>
+              <button class="k-btn k-btn-ghost k-btn-sm mt-1" data-testid="word-hard" @click="markHard">✗ Zu schwer (Z)</button>
+            </template>
+          </WordPanel>
           <section class="k-card k-small">
             <h2 class="k-h2" style="font-size: 17px">So geht's</h2>
             <ol class="m-0 mt-2 pl-5 flex flex-col gap-1.5" style="list-style: decimal">
@@ -381,6 +443,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
               <li>Nicht verstanden? R oder ↻ — so oft du willst. Langsamer mit 0,85×.</li>
               <li>Unbekanntes Wort antippen: Bedeutung, Artikel, Fall.</li>
               <li>Guter Satz? „Satz minen“ — die ganze Zeile wird zur Karte, mit dem Original-Ton.</li>
+              <li>Viel zu schwer? Z oder „Zu schwer“ — die Zeile wird nur gezählt (keine Karte), es geht mit der nächsten weiter.</li>
             </ol>
           </section>
         </div>

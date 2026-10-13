@@ -33,6 +33,7 @@ async function tick(n) {
           <p class="k-small m-0 mt-0.5">
             {{ dueFor(n) }}<template v-if="n.type === 'book'"> · Taschenbuch, ISBN {{ n.book.isbn }}, {{ n.book.price }}<template v-if="n.byEbook"> · E-Book reicht bis {{ dayLabel(n.byEbook) }} ({{ n.book.ebook.price }})</template></template>
           </p>
+          <p v-if="n.mode" class="k-small m-0 mt-0.5" style="color: var(--text)" :data-testid="`due-mode-${n.id}`">Verschoben: {{ n.mode.why }}</p>
           <p v-if="n.type === 'book'" class="k-small m-0 mt-0.5 flex flex-wrap gap-x-3">
             <a v-for="s in n.book.shops" :key="s.url" :href="s.url" target="_blank" rel="noopener">{{ s.name }} ↗</a>
           </p>

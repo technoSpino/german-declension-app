@@ -5,9 +5,11 @@ import { KIND_LABEL, verdictLabel } from '../../lib/practice'
 import OriginBadge from '../../components/kaskade/OriginBadge.vue'
 
 const data = ref(null)
+const prompts = ref([]) // the Schreiben/Sprechen tasks (#27: no longer in the daily plan, still here)
 const error = ref(null)
 
 onMounted(async () => {
+  api.get('/plan').then((p) => { prompts.value = p.prompts ?? [] }).catch(() => { prompts.value = [] })
   try {
     data.value = await api.get('/practice')
   } catch (e) {
@@ -29,6 +31,7 @@ const pct = (x) => (x == null ? '—' : `${Math.round(x * 100)} %`)
       <p class="k-eyebrow mb-1.5">B1-Zertifikat</p>
       <h1 class="k-h1">Prüfungstraining</h1>
       <p class="k-lead">Eigene Übungen im Stil der B1-Prüfung (Goethe, telc, ÖSD ähneln sich). Keine echten Prüfungsaufgaben. Bestanden ist ein Teil ab <strong>60 %</strong>. Mit „auf Zeit“ läuft die Uhr wie in der Prüfung.</p>
+      <p class="k-callout m-0 mt-3" data-testid="pruefung-paused"><strong>B1-Prüfung: pausiert</strong> — im Lernblock gibt es keinen Prüfungsteil, bis du ein Prüfungsdatum wählst. Alles hier bleibt zum freien Üben.</p>
     </div>
     <p v-if="error" class="k-error m-0" role="alert">{{ error }}</p>
 
@@ -46,7 +49,7 @@ const pct = (x) => (x == null ? '—' : `${Math.round(x * 100)} %`)
         <div class="k-card">
           <p class="k-eyebrow">Sprechen</p>
           <p class="m-0 mt-1.5" style="font-size: 32px; font-weight: 800">—</p>
-          <p class="k-small m-0">Im Lernblock am Di/Do, mit Aufnahme. Bewertung kommt später.</p>
+          <p class="k-small m-0">Aufgaben unten, mit Aufnahme. Bewertung kommt später.</p>
         </div>
       </section>
 
@@ -62,6 +65,18 @@ const pct = (x) => (x == null ? '—' : `${Math.round(x * 100)} %`)
           </li>
         </ul>
         <p v-if="!data[m.id].length" class="k-small m-0 mt-2">Noch keine Aufgaben.</p>
+      </section>
+
+      <section v-if="prompts.length" class="k-card" aria-labelledby="h-aufgaben" data-testid="pruefung-aufgaben">
+        <h2 id="h-aufgaben" class="k-h2">Schreiben und Sprechen · Aufgaben</h2>
+        <ul class="list-none m-0 mt-3 p-0">
+          <li v-for="p in prompts" :key="p.id" class="pr-row">
+            <span class="min-w-0">
+              <router-link :to="`/aufgabe/${p.id}`" style="font-weight: 700" :data-testid="`aufgabe-${p.id}`">{{ p.title }}</router-link>
+              <span class="k-hint flex flex-wrap items-center gap-x-2 gap-y-1">{{ p.skill === 'sprechen' ? 'Sprechen' : 'Schreiben' }} · {{ p.type }} <OriginBadge :origin="p.origin" fallback="ai" /></span>
+            </span>
+          </li>
+        </ul>
       </section>
     </template>
   </main>
