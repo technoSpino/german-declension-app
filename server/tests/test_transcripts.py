@@ -143,11 +143,17 @@ def line_texts(t, ard):
 
 
 def test_a_misheard_name_takes_the_ard_spelling():
-    """'Autos' is nothing like 'Otto' (similarity < 0.6), but Otto is a name of this clip (2×, not initial)."""
+    """'Autos' is spelt nothing like 'Otto' (< 0.6) but sounds close, and Otto is a name of this clip
+    (≥ 8×, not sentence-initial — also a dictionary word, so it takes that many); 'Geh' doesn't sound like it."""
     ard = [{"start": 1.0, "end": 3.0, "text": "Kennen Sie Pfarrer Otto?"},
-           {"start": 9.0, "end": 11.0, "text": "Ja, ich kenne Otto."}]
-    t = {"segments": [seg("Kennen Sie Pfarrer Autos?", 1.1), seg("Ja, ich kenne ihn, Autos.", 9.1)]}
-    assert line_texts(t, ard) == ["Kennen Sie Pfarrer Otto?", "Ja, ich kenne ihn, Autos."]
+           {"start": 9.0, "end": 11.0, "text": "Ja, ich kenne Otto."},
+           {"start": 15.0, "end": 17.0, "text": "Wo ist Otto? Hallo, Otto."},
+           {"start": 21.0, "end": 23.0, "text": "Komm, Otto."},
+           *({"start": 30.0 + 3 * i, "end": 31.0 + 3 * i, "text": "Danke, Otto."} for i in range(4))]
+    t = {"segments": [seg("Kennen Sie Pfarrer Autos?", 1.1), seg("Ja, ich kenne ihn, Autos.", 9.1),
+                      seg("Komm, geh.", 21.1)]}
+    assert [c["text"] for c in tr.spoken_cues(t, ard) if not c.get("src")] == [
+        "Kennen Sie Pfarrer Otto?", "Ja, ich kenne ihn, Autos.", "Komm, geh."]
     # second line: ARD has one word less there — an unequal block is left alone
 
 
@@ -160,10 +166,21 @@ def test_a_near_miss_word_is_respelled_keeping_punctuation_and_times():
 
 def test_below_the_threshold_nothing_is_respelled():
     ard = [{"start": 2.0, "end": 4.0, "text": "Da steht eine Katze."},
-           {"start": 6.0, "end": 8.0, "text": "Sie heißt Mila."}]
-    t = {"segments": [seg("Da steht ein Hund.", 2.1), seg("Sie heißt Mira.", 6.1)]}
-    # 'ein'→'eine' is close (0.86): respelled; 'Hund'/'Katze' not; 'Mira'/'Mila' close (0.75)
-    assert line_texts(t, ard) == ["Da steht eine Hund.", "Sie heißt Mila."]
+           {"start": 6.0, "end": 8.0, "text": "Das war der Letzter."}]
+    t = {"segments": [seg("Da steht ein Hund.", 2.1), seg("Das war der Bester.", 6.1)]}
+    # 'Hund'/'Katze' far apart; 'Bester'/'Letzter' spelt alike (0.77) but they don't sound alike
+    assert line_texts(t, ard)[0:2] == ["Da steht ein Hund.", "Das war der Bester."]
+
+
+def test_inflection_and_elision_stay_as_said():
+    """ARD tidies speech up: 'hab' → 'habe', 'deinem' → 'dein'. What Whisper heard was said."""
+    ard = [{"start": 1.0, "end": 3.0, "text": "Ich habe es dein Vater gesagt."}]
+    t = {"segments": [seg("Ich hab es deinem Vater gesagt.", 1.1)]}
+    assert line_texts(t, ard) == ["Ich hab es deinem Vater gesagt."]
+
+
+def test_kölner_phonetik():
+    assert [tr.koelner(w) for w in ("Müller", "Wikipedia", "Christoph", "Tace", "Tatsche")] == ["657", "3412", "47823", "28", "28"]
 
 
 def test_an_unequal_replace_block_is_left_alone():

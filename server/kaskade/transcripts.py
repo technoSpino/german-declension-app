@@ -30,8 +30,11 @@ JOIN_GAP = 2.0       # … but never across a longer silence (that made a 13-s l
 OVERLAP = 0.5        # a Whisper segment "overlaps" an ARD speech cue within this margin
 MIN_P = 0.65         # mean word probability below which a segment without ARD speech is dropped
 NEAR = 0.5           # ARD cue window for respelling and gap fill: [start − 0.5 s, end + 0.5 s]
-SIMILAR = 0.6        # respell a misheard word when it is this close to ARD's (lowercase similarity)
-BUILD = 2            # bump when the line builder changes: every track is rebuilt on the next import
+SIMILAR = 0.72       # respell a misheard word when it is this close to ARD's (lowercase similarity) …
+SOUND = 0.75         # … and sounds alike (Kölner Phonetik codes this similar)
+NAME_COUNT = 2       # a capitalised word the dictionary doesn't know, this often in the clip's ARD cues, is a name …
+NAME_OFTEN = 8       # … and so is one this often (Otto, Falke are also dictionary words). German capitalises every noun.
+BUILD = 3            # bump when the line builder changes: every track is rebuilt on the next import
 
 # What Whisper writes into silence or music (it learnt it from subtitled videos)
 HALLUCINATION = re.compile(
@@ -104,13 +107,87 @@ def _ard_tokens(text: str) -> list[tuple[str, bool]]:
     return out
 
 
+def koelner(word: str) -> str:
+    """Kölner Phonetik: German words that sound alike get the same digits (Tace/Tatsche → 28)."""
+    w = re.sub(r"[^a-z]", "", word.lower().translate(str.maketrans({"ä": "a", "ö": "o", "ü": "u", "ß": "s"})))
+    out = []
+    for i, ch in enumerate(w):
+        prev, nxt = (w[i - 1] if i else ""), (w[i + 1] if i + 1 < len(w) else "")
+        if ch in "aeijouy":
+            c = "0"
+        elif ch == "h":
+            c = ""
+        elif ch == "b":
+            c = "1"
+        elif ch == "p":
+            c = "3" if nxt == "h" else "1"
+        elif ch in "dt":
+            c = "8" if nxt and nxt in "csz" else "2"
+        elif ch in "fvw":
+            c = "3"
+        elif ch in "gkq":
+            c = "4"
+        elif ch == "c":
+            if i == 0:
+                c = "4" if nxt and nxt in "ahkloqrux" else "8"
+            else:
+                c = "4" if nxt and nxt in "ahkoqux" and prev not in ("s", "z") else "8"
+        elif ch == "x":
+            c = "8" if prev and prev in "ckq" else "48"
+        elif ch == "l":
+            c = "5"
+        elif ch in "mn":
+            c = "6"
+        elif ch == "r":
+            c = "7"
+        elif ch in "sz":
+            c = "8"
+        else:
+            c = ""
+        out.append(c)
+    runs = [d for i, d in enumerate("".join(out)) if i == 0 or d != "".join(out)[i - 1]]
+    code = "".join(runs)
+    return code[:1] + code[1:].replace("0", "")
+
+
+def sounds_alike(w: str, a: str) -> bool:
+    """Same first sound and Kölner codes ≥ 0.75 alike: Einzeltele/Einzeltäter yes, Bester/Letzter no."""
+    kw, ka = koelner(w), koelner(a)
+    return bool(kw and ka) and kw[0] == ka[0] and SequenceMatcher(None, kw, ka).ratio() >= SOUND
+
+
+def misheard(w: str, a: str, name: bool, noun: bool = False) -> bool:
+    """Is Whisper's `w` a mishearing of ARD's `a` (both lowercase, no punctuation)? Only if they sound
+    alike. A name of the clip then always takes ARD's spelling (Autos → Otto, Falk → Falke).
+    Inflection and elision ("hab"/"habe", "deinem"/"dein") are what was said: ARD tidies them up."""
+    if not sounds_alike(w, a):
+        return False
+    if name:
+        return True
+    if w in a or a in w or (min(len(w), len(a)) <= 4 and not noun) or (len(w) > 4 and w[:-2] == a[:-2]):
+        return False  # elision, short grammar words (ihn/ihm, denn/dann), endings (diesen/diesem): as said
+    return SequenceMatcher(None, w, a).ratio() >= SIMILAR
+
+
+def is_name(tok: str, count: int) -> bool:
+    """A name of the clip: capitalised (not all caps) and unknown to the dictionary — also without a plural
+    ending (Ermittlungen → Ermittlung) — or very frequent."""
+    from .analyze import known_lemma
+    if not tok[:1].isupper() or tok.isupper():
+        return False
+    if count >= NAME_OFTEN:
+        return True
+    return count >= NAME_COUNT and not any(known_lemma(x) for x in (tok, tok[:-1], tok[:-2]) if len(x) > 2)
+
+
 def respell(words: list[dict], ard: list[dict]) -> None:
     """Per ARD speech cue: align its words with Whisper's (midpoint in the cue ± 0.5 s) and, in a
-    replace block of equal length, take ARD's spelling when it is close (≥ 0.6) or a name of the clip
-    (capitalised, not sentence-initial, ≥ 2× in its ARD cues). Whisper's punctuation and times stay;
-    no word is ever added or removed."""
+    replace block of equal length, take ARD's spelling where Whisper misheard (see `misheard`): close
+    (≥ 0.72) and sounding alike (Kölner Phonetik), or a name of the clip (`is_name`) that sounds alike. Whisper's punctuation and times stay; no word is ever
+    added or removed."""
     speech = _speech(ard)
-    names = Counter(t for c in speech for t, _ in _ard_tokens(c["text"]) if t[:1].isupper())
+    counts = Counter(t for c in speech for t, initial in _ard_tokens(c["text"]) if not initial)
+    names: dict[str, bool] = {}
     mids = [(w["s"] + w["e"]) / 2 for w in words]
     for c in speech:
         lo = bisect.bisect_left(mids, c["start"] - NEAR)
@@ -126,8 +203,10 @@ def respell(words: list[dict], ard: list[dict]) -> None:
                 continue
             for k in range(i2 - i1):
                 (tok, initial), w = toks[j1 + k], words[idx[i1 + k]]
-                name = tok[:1].isupper() and not initial and names[tok] >= 2
-                if name or SequenceMatcher(None, wn[i1 + k], an[j1 + k]).ratio() >= SIMILAR:
+                if tok not in names:
+                    names[tok] = is_name(tok, counts[tok])
+                name = not initial and names[tok]
+                if misheard(wn[i1 + k], an[j1 + k], name, noun=tok[:1].isupper()):
                     pre, core, post = CORE.match(w["w"]).groups()
                     if core[:1].isupper() and tok[:1].islower():
                         tok = tok[:1].upper() + tok[1:]  # it starts Whisper's sentence
