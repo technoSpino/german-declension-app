@@ -16,9 +16,8 @@ for id in "$@"; do
   [ -n "$f" ] || { echo "no media $id"; continue; }
   stem=${f%.*}
   ssh $H "test -s ~/kaskade-data/transcripts/$stem.whisper.json" && { echo "skip $id $stem (exists)"; continue; }
-  ssh $H "sqlite3 ~/kaskade-data/kaskade.db 'select cues from media where id=$id'" > "$W/$stem.cues.json"
   ssh $H "nice -n 19 ffmpeg -v error -threads 1 -i ~/kaskade-data/media/$f -vn -ac 1 -ar 16000 -c:a libopus -b:a 48k -f ogg -" > "$W/$stem.ogg" \
     || { echo "audio failed $id"; continue; }
-  "$PY" transcribe.py "$W/$stem.ogg" "$W/$stem.cues.json" "$W/$stem.whisper.json" || { echo "asr failed $id"; continue; }
+  "$PY" transcribe.py "$W/$stem.ogg" "$W/$stem.whisper.json" || { echo "asr failed $id"; continue; }
   scp -q "$W/$stem.whisper.json" "$H:kaskade-data/transcripts/" && echo "done $id $stem"
 done
