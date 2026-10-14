@@ -479,6 +479,9 @@ test('Schauen & minen: play → auto-pause → tap a word → mine → card with
   await page.getByTestId('watch-play').click()
   const line = page.getByTestId('watch-line')
   await expect(line).toContainText('Guten Morgen, wie geht es dir?')
+  // #29: no transcript for this clip — ARD's subtitles, no toggle, no KI label
+  await expect(page.getByTestId('track-spoken')).toHaveCount(0)
+  await expect(page.getByTestId('watch-ki')).toHaveCount(0)
   // Auto-pause at the end of the first line.
   await expect.poll(() => page.getByTestId('watch-video').evaluate((v: HTMLVideoElement) => v.paused), { timeout: 8000 }).toBe(true)
 

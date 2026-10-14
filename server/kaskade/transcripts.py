@@ -263,7 +263,8 @@ def import_all(media_id: int | None = None, force: bool = False) -> dict:
 
 def missing(today: date, start: date, data: dict, days: int = 14) -> list[dict]:
     """Planned clips (with picture and subtitles) of the next `days` days without a spoken track — for
-    the operator (PROGRESS.md), never a to-do for Matt: the Mac transcribes them."""
+    the operator (PROGRESS.md), never a to-do for Matt. The file they need: Whisper large-v3 JSON
+    ("version": 2 format) in transcripts/; the next import or opening the clip picks it up."""
     from . import materials, plan
     ctx = materials.Ctx(today)
     out, seen = [], set()
@@ -274,8 +275,10 @@ def missing(today: date, start: date, data: dict, days: int = 14) -> list[dict]:
             if it["kind"] in ("clip", "satzcheck") and mid and not it.get("audio") and mid not in seen:
                 seen.add(mid)
                 if load(mid) is None:
+                    with db.tx() as conn:
+                        f = conn.execute("SELECT media_file FROM media WHERE id = ?", (mid,)).fetchone()["media_file"]
                     out.append({"date": day.isoformat(), "mediaId": mid, "title": it["title"],
-                                "hint": f"auf dem Mac tools/mac-transcribe/run.sh {mid}"})
+                                "hint": f"transcripts/{Path(f).stem}.whisper.json fehlt (Whisper large-v3, Format version 2)"})
     return out
 
 
