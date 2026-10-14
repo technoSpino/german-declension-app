@@ -266,9 +266,11 @@ def test_bald_faellig_schirach_first_no_kaenguru(b2, monkeypatch):
     assert mon["lesen"]["kind"] == "book" and mon["lesen"]["part"] == "S. 7–42: „Fähner“ und „Tanatas Teeschale“"
 
 
-def test_today_shows_another_day_and_every_block_has_a_target(client):
+def test_today_shows_another_day_and_every_block_has_a_target(client, monkeypatch):
     """#20/#27: /api/today?today=…&phase=… (drives the E2E); every block opens its item, no Prüfungsteil."""
     from kaskade import db
+    # #21: later days roll on from where he is now — seen, like the E2E, from Tue 13.10. 09:30 with nothing heard yet
+    at(monkeypatch, datetime(2026, 10, 13, 7, 30, tzinfo=timezone.utc))
     db.set_setting("planStart", "2026-10-12")
     for iso in ("2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16"):
         r = client.get(f"/api/today?today={iso}&phase=2B").json()

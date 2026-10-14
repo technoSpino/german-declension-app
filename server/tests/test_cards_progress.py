@@ -77,6 +77,22 @@ def test_reveal_ms_and_auto_are_stored_and_undo_still_works(isolated):
         assert conn.execute("SELECT reveal_ms, auto FROM review_log ORDER BY id DESC").fetchone()[:] == (None, None)
 
 
+def test_autoplay_flag_is_stored_and_changes_nothing_else(isolated):
+    """#28: with autoplay the time starts after the clip; the flag is logged to tune per mode later."""
+    seen = []
+    for autoplay in (True, False, None):
+        card = isolated.get("/api/cards/next").json()
+        seen.append(card["timing"])
+        body = {"rating": 3, "revealMs": 2000, "auto": True} | ({} if autoplay is None else {"autoplay": autoplay})
+        assert isolated.post(f"/api/cards/{card['card']['id']}/review", json=body).status_code == 200
+    with db.tx() as conn:
+        rows = [tuple(r) for r in conn.execute("SELECT autoplay, reveal_ms, auto FROM review_log ORDER BY id")]
+        assert srs.pace(conn) == 1.0  # thresholds and pace as before
+    assert rows == [(1, 2000, 1), (0, 2000, 1), (None, 2000, 1)]
+    assert all(t["pace"] == 1.0 for t in seen)
+    assert isolated.post(f"/api/cards/{card['card']['id']}/review", json={"rating": 3, "autoplay": "ja"}).status_code == 422
+
+
 # ── counts: cards, not presses, over the whole day ──
 
 def test_gut_on_a_new_card_keeps_it_open_until_it_graduates(isolated):

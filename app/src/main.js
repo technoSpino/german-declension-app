@@ -22,9 +22,13 @@ import '@fontsource/libre-franklin/700.css'
 import './style.css'
 import App from './App.vue'
 import { applyTheme, resolveTheme, storedTheme, systemTheme } from './lib/theme'
+import { unlockOnFirstGesture } from './lib/speech'
 
 // Apply the theme before the first paint (the server setting may refine it later).
 applyTheme(resolveTheme({ local: storedTheme(), server: null, system: systemTheme() }))
+
+// #28: Karten plays each card's audio by itself; Safari allows that once a click has unlocked the player.
+unlockOnFirstGesture()
 
 const app = createApp(App)
 const pinia = createPinia()

@@ -11,6 +11,7 @@ class ReviewIn(BaseModel):
     rating: int = Field(ge=1, le=4)
     revealMs: int | None = Field(default=None, ge=0)   # #25: time from showing the card to revealing it
     auto: bool | None = None                           # True: the rating came from that time ("Gewusst")
+    autoplay: bool | None = None                       # #28: the audio played by itself first (not in revealMs)
 
 
 class SettingsIn(BaseModel):
@@ -25,7 +26,7 @@ def next_card():
 @router.post("/{card_id}/review")
 def review(card_id: str, body: ReviewIn):
     try:
-        return srs.review(card_id, body.rating, reveal_ms=body.revealMs, auto=body.auto)
+        return srs.review(card_id, body.rating, reveal_ms=body.revealMs, auto=body.auto, autoplay=body.autoplay)
     except KeyError:
         raise HTTPException(404, "Karte nicht gefunden")
     except ValueError as e:

@@ -2,14 +2,15 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { api } from '../../lib/api'
 import { cardWords, markTargets } from '../../lib/cards'
-import { createRevealTimer, DOUBLE_TAP_MS, grade, GRADE_LABEL, progress, waitLine } from '../../lib/reveal'
+import { createRevealTimer, DOUBLE_TAP_MS, grade, GRADE_LABEL, progress, storeAutoplay, storedAutoplay, waitLine } from '../../lib/reveal'
 import { useNow } from '../../lib/useNow'
-import { speak } from '../../lib/speech'
+import { playbackOver, speak, stopSpeaking } from '../../lib/speech'
 import { audioNote, cardBadge } from '../../lib/origin'
 import AiMark from '../../components/kaskade/AiMark.vue'
 import MinedEditor from '../../components/kaskade/MinedEditor.vue'
 import MinedList from '../../components/kaskade/MinedList.vue'
 import OriginBadge from '../../components/kaskade/OriginBadge.vue'
+import RevealClock from '../../components/kaskade/RevealClock.vue'
 
 const data = ref(null)
 const stats = ref(null)
@@ -22,6 +23,13 @@ const timer = createRevealTimer()
 const revealMs = ref(null)
 let revealedAt = 0
 const now = useNow(1000)
+// #28: the timer is on the card; with autoplay it starts when the sentence's audio is over
+const autoplay = ref(storedAutoplay())
+const phase = ref(null) // audio (clip playing, not counted) | run | pause (window without focus) | done (revealed)
+const blocked = ref(false) // the browser refused to play without a click
+let shownAutoplay = false // the box when this card came up (logged with the review)
+let shown = 0 // counts cards shown: a clip of an earlier card that ends late starts nothing
+let lastPlay = null
 
 const card = computed(() => data.value?.card)
 const editing = ref(false) // the shown mined card in the editor (#19)
@@ -43,10 +51,7 @@ async function load() {
     revealed.value = false
     revealMs.value = null
     editing.value = false
-    if (data.value.card) {
-      timer.start()
-      if (document.hidden || !document.hasFocus()) timer.pause()
-    }
+    if (data.value.card) show()
   } catch (e) {
     error.value = e.message
   } finally {
@@ -59,18 +64,53 @@ watch(now, (n) => {
   if (at && !card.value && !loading && n.getTime() >= Date.parse(at)) load()
 })
 
+// A card comes up: play its sentence once (not counted), then the timer runs
+async function show() {
+  const id = ++shown
+  timer.reset()
+  blocked.value = false
+  shownAutoplay = autoplay.value
+  if (!autoplay.value) return startTimer()
+  phase.value = 'audio'
+  playAudio()
+  const how = await playbackOver(() => lastPlay) // A during the clip: its replay isn't counted either
+  if (id !== shown || phase.value !== 'audio') return // the next card is up, or he revealed during the clip
+  if (how === 'blocked') blocked.value = true
+  if (how === 'blocked' || how === 'error') shownAutoplay = false // nothing played: timed like without autoplay
+  startTimer()
+}
+function startTimer() {
+  timer.start()
+  phase.value = 'run'
+  if (document.hidden || !document.hasFocus()) pauseTimer()
+}
+function pauseTimer() {
+  if (phase.value !== 'run') return
+  timer.pause()
+  phase.value = 'pause'
+}
+function resumeTimer() {
+  if (phase.value !== 'pause' || document.hidden || !document.hasFocus()) return
+  timer.resume()
+  phase.value = 'run'
+}
 function reveal() {
   if (!card.value || revealed.value) return
-  revealMs.value = timer.stop()
+  revealMs.value = timer.stop() // during the clip: 0 → Leicht
+  phase.value = 'done'
   revealed.value = true
   revealedAt = performance.now()
 }
-function onVisibility() {
-  if (document.hidden) timer.pause()
-  else if (card.value && !revealed.value && document.hasFocus()) timer.resume()
-}
-const onBlur = () => timer.pause()
-const onFocus = () => { if (card.value && !revealed.value && !document.hidden) timer.resume() }
+const onVisibility = () => (document.hidden ? pauseTimer() : resumeTimer())
+const onBlur = () => pauseTimer()
+const onFocus = () => resumeTimer()
+
+watch(autoplay, (on) => {
+  storeAutoplay(on)
+  if (!on) stopSpeaking() // during the clip: the timer starts now
+})
+// A click with the mouse doesn't leave the focus on the box, so Leertaste reveals again
+const blurAfterClick = (e) => { if (e.detail > 0) e.target.blur() }
 
 async function loadStats() {
   try {
@@ -88,6 +128,8 @@ onMounted(async () => {
   window.addEventListener('focus', onFocus)
 })
 onBeforeUnmount(() => {
+  shown++
+  stopSpeaking()
   window.removeEventListener('keydown', onKey)
   document.removeEventListener('visibilitychange', onVisibility)
   window.removeEventListener('blur', onBlur)
@@ -110,7 +152,7 @@ async function act(fn, message) {
 }
 
 // "Gewusst": Leicht/Gut/Schwer from the time; "Nicht gewusst" = Nochmal; keys 1–4 override silently
-const rate = (r, auto = false) => revealed.value && act(() => api.post(`/cards/${card.value.id}/review`, { rating: r, revealMs: revealMs.value, auto }), null)
+const rate = (r, auto = false) => revealed.value && act(() => api.post(`/cards/${card.value.id}/review`, { rating: r, revealMs: revealMs.value, auto, autoplay: shownAutoplay }), null)
 const gewusst = () => rate(gewusstAs.value, true)
 const nichtGewusst = () => rate(1)
 const known = () => act(() => api.post(`/cards/${card.value.id}/known`), `„${card.value.lemma}“ — kenne ich schon. Kommt nicht wieder.`)
@@ -151,7 +193,10 @@ function onListChanged(change) {
 }
 
 function playAudio() {
-  if (card.value) speak(card.value.sentence, { url: `/api/cards/${card.value.id}/audio` })
+  if (!card.value) return null
+  blocked.value = false
+  lastPlay = speak(card.value.sentence, { url: `/api/cards/${card.value.id}/audio` })
+  return lastPlay
 }
 
 function onKey(e) {
@@ -191,15 +236,22 @@ function onKey(e) {
         <p v-if="error" class="k-error m-0" role="alert">{{ error }}</p>
 
         <article v-if="card" class="k-card kc-card" data-testid="karte">
-          <div class="flex items-center justify-between gap-3">
-            <span class="k-eyebrow">{{ card.isNew ? 'Neu' : 'Wiederholung' }} · {{ card.n ? `Kernwort ${card.n}` : `Gemined · ${card.source || 'Lesen'}` }}</span>
-            <button type="button" class="kc-audio" data-testid="karte-audio" aria-label="Satz vorlesen (Taste A)" @click="playAudio">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /></svg>
-              Audio <span class="kc-voice" data-testid="karte-voice">{{ audioNote(card) }}</span> <kbd class="k-kbd">A</kbd>
-            </button>
+          <div class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+            <span class="k-eyebrow kc-eyebrow">{{ card.isNew ? 'Neu' : 'Wiederholung' }} · {{ card.n ? `Kernwort ${card.n}` : `Gemined · ${card.source || 'Lesen'}` }}</span>
+            <div class="kc-tools">
+              <div class="flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
+                <RevealClock :timer="timer" :phase="phase" :final-ms="revealMs" :timing="data.timing" />
+                <button type="button" class="kc-audio" data-testid="karte-audio" aria-label="Satz vorlesen (Taste A)" @click="playAudio">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /></svg>
+                  Audio <span class="kc-voice" data-testid="karte-voice">{{ audioNote(card) }}</span> <kbd class="k-kbd">A</kbd>
+                </button>
+              </div>
+              <label class="k-small kc-auto"><input v-model="autoplay" type="checkbox" data-testid="karte-autoplay" @click="blurAfterClick" /> Audio automatisch abspielen</label>
+              <p v-if="blocked" class="k-hint m-0" data-testid="karte-blocked">Autoplay vom Browser blockiert — A drücken</p>
+            </div>
           </div>
           <p class="k-read kc-sentence" data-testid="karte-satz"><template v-for="(seg, i) in segments" :key="i"><mark v-if="seg.mark" class="k-mark">{{ seg.text }}</mark><template v-else>{{ seg.text }}</template></template></p>
-          <p v-if="!revealed" class="k-small m-0 mt-auto">Verstehst du den ganzen Satz? Einmal laut mitsprechen, dann aufdecken.</p>
+          <p v-if="!revealed" class="k-small m-0 mt-auto" data-testid="karte-front-hint">{{ autoplay ? 'Zuhören, einmal laut mitsprechen, dann aufdecken.' : 'Verstehst du den ganzen Satz? Einmal laut mitsprechen, dann aufdecken.' }}</p>
           <MinedEditor v-else-if="editing" :card="card" @saved="onSaved" @deleted="onDeleted" @cancel="editing = false" />
           <div v-else class="kc-back" data-testid="karte-back">
             <template v-for="(w, wi) in words" :key="w.target">
@@ -308,6 +360,9 @@ function onKey(e) {
 }
 .kc-audio:disabled { opacity: 0.5; cursor: default; }
 .kc-voice { font-size: 12px; font-weight: 600; color: var(--muted); }
+.kc-eyebrow { min-height: 44px; display: inline-flex; align-items: center; }
+.kc-tools { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; margin-left: auto; text-align: right; }
+.kc-auto { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
 .kc-back { border-top: 1px solid var(--surface-2); padding-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
 .kc-edit { grid-column: 1 / -1; }
 .kc-note { display: flex; gap: 12px; align-items: flex-start; background: var(--bg); border-radius: 12px; padding: 14px; }

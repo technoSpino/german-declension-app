@@ -47,6 +47,30 @@ function watchConsole(page: Page) {
   return errors
 }
 
+/** `seconds` of silence as a WAV (8 kHz, 8 bit, mono). */
+function silentWav(seconds: number): Buffer {
+  const rate = 8000
+  const n = Math.round(rate * seconds)
+  const b = Buffer.alloc(44 + n, 128)
+  b.write('RIFF', 0); b.writeUInt32LE(36 + n, 4); b.write('WAVE', 8)
+  b.write('fmt ', 12); b.writeUInt32LE(16, 16); b.writeUInt16LE(1, 20); b.writeUInt16LE(1, 22)
+  b.writeUInt32LE(rate, 24); b.writeUInt32LE(rate, 28); b.writeUInt16LE(1, 32); b.writeUInt16LE(8, 34)
+  b.write('data', 36); b.writeUInt32LE(n, 40)
+  return b
+}
+
+// #28: Karten plays each card's audio by itself. The E2E API has no Piper voice, so card audio is
+// stubbed with 1.5 s of silence (counted per card); the "browser fallback" test removes the stub.
+const CARD_AUDIO = silentWav(1.5)
+const audioHits = new Map<string, number>()
+test.beforeEach(async ({ page }) => {
+  await page.route('**/api/cards/*/audio', (route) => {
+    const id = decodeURIComponent(new URL(route.request().url()).pathname.split('/')[3])
+    audioHits.set(id, (audioHits.get(id) ?? 0) + 1)
+    return route.fulfill({ status: 200, contentType: 'audio/wav', body: CARD_AUDIO, headers: { 'Cache-Control': 'no-store' } })
+  })
+})
+
 test('Heute loads with the day plan, block timer and done toggle', async ({ page }) => {
   const errors = watchConsole(page)
   // Browser clock = the API's pinned clock (Tue 09:30 Berlin).
@@ -350,6 +374,7 @@ test('Fahrplan shows forecast, phases and checks', async ({ page }) => {
 
 test('Karten audio button plays (server audio or browser fallback) without errors', async ({ page }) => {
   const errors = watchConsole(page)
+  await page.unroute('**/api/cards/*/audio') // the real endpoint: 404 without Piper → browser voice
   await page.goto('/karten')
   await page.getByTestId('karte-audio').click()
   await page.keyboard.press('a')
@@ -974,6 +999,7 @@ test('#23 Heute: the lesen block ends → "Wie viel hast du verstanden?" → sto
 
 test('#25 Karten: the time to reveal sets the rating, the bar counts cards and waits for stepped ones', async ({ page, request }) => {
   const errors = watchConsole(page)
+  await page.addInitScript(() => localStorage.setItem('kaskade.karten.autoplay', '0')) // the time from showing the card (#28 below: from the end of its audio)
   await page.clock.install({ time: new Date('2026-10-13T07:30:00Z') })
   const card = async () => (await (await request.get('http://127.0.0.1:8001/api/cards/next')).json())
   const last = () => sql('SELECT rating || "," || reveal_ms || "," || auto FROM review_log ORDER BY id DESC LIMIT 1')
@@ -1025,5 +1051,134 @@ test('#25 Karten: the time to reveal sets the rating, the bar counts cards and w
   await expect(page.getByTestId('karten-fertig')).toContainText('Fertig für heute')
   await expect(page.getByTestId('karten-bar')).toHaveAttribute('data-pct', '100')
   await request.put('http://127.0.0.1:8001/api/cards/settings', { data: { newPerDay: 20 } })
+  expect(errors).toEqual([])
+})
+
+const SHOTS = process.env.KASKADE_SHOTS ?? join(DATA_DIR, 'shots')
+
+test('#28 Karten: the audio plays by itself, the timer on the card starts after it; the box turns autoplay off', async ({ page, request, browserName }) => {
+  test.skip(browserName === 'firefox', 'Firefox finds no audio output on this server (OnMediaSinkAudioError), so no clip ever ends')
+  const errors = watchConsole(page)
+  await page.addInitScript(() => localStorage.setItem('kaskade-theme', 'signal')) // the screens in Signal (#15), whatever the Stil test left
+  await page.clock.install({ time: new Date('2026-10-13T07:30:00Z') })
+  const next = async () => (await (await request.get('http://127.0.0.1:8001/api/cards/next')).json())
+  const last = () => sql('SELECT rating || "," || reveal_ms || "," || auto || "," || autoplay FROM review_log ORDER BY id DESC LIMIT 1')
+  const satz = page.getByTestId('karte-satz')
+  const clock = page.getByTestId('karte-clock')
+  const box = page.getByTestId('karte-autoplay')
+  // as Matt gets there: Heute → Karten (the click lets the browser play sound)
+  const open = async () => { await page.goto('/'); await page.getByRole('link', { name: 'Karten', exact: true }).first().click() }
+
+  // Screens in Signal: during the clip, timer running, revealed — at 1280 and 480 px (nothing rated)
+  let card = await next()
+  for (const width of [1280, 480]) {
+    await page.setViewportSize({ width, height: 900 })
+    await open()
+    await expect(satz).toHaveText(card.card.sentence)
+    await expect(clock).toHaveText('0:00 · Audio')
+    await page.getByTestId('karte').screenshot({ path: join(SHOTS, `karte-audio-${width}.png`) })
+    await expect(clock).not.toHaveText('0:00 · Audio', { timeout: 5000 })
+    await page.clock.runFor(1500)
+    await expect(clock).toHaveText(/^0:0[12] · (Leicht|Gut)$/)
+    await page.getByTestId('karte').screenshot({ path: join(SHOTS, `karte-vorne-${width}.png`) })
+    await page.keyboard.press('Space')
+    await expect(page.getByTestId('karte-back')).toBeVisible()
+    await page.screenshot({ path: join(SHOTS, `karte-hinten-${width}.png`), fullPage: true })
+  }
+  await page.setViewportSize({ width: 1280, height: 900 })
+
+  // Box on (default): the clip plays once, the timer starts at its end; revealing 2 s later → Leicht
+  audioHits.clear()
+  await open()
+  await expect(satz).toHaveText(card.card.sentence)
+  await expect(box).toBeChecked()
+  await expect(page.getByTestId('karte-front-hint')).toHaveText('Zuhören, einmal laut mitsprechen, dann aufdecken.')
+  await expect(clock).toHaveText('0:00 · Audio')
+  await expect(clock).toHaveText('0:00 · Leicht', { timeout: 5000 }) // 'ended' → the timer runs
+  expect(audioHits.get(card.card.id)).toBe(1)
+  const quick = Math.min(2000, card.timing.easyMs - 300) // the browser clock also ticks a little on its own
+  await page.clock.runFor(quick)
+  await page.keyboard.press('Space')
+  await expect(page.getByTestId('karte-gewusst-label')).toContainText('Gewusst · Leicht')
+  const frozen = await clock.textContent()
+  expect(frozen).toMatch(/^[12],\d s · Leicht$/)
+  await page.clock.runFor(3000)
+  await expect(clock).toHaveText(frozen!) // stops at reveal
+  await page.keyboard.press('Space')
+  await expect(satz).not.toHaveText(card.card.sentence)
+  const [r1, ms1, auto1, ap1] = last().split(',').map(Number)
+  expect([r1, auto1, ap1]).toEqual([4, 1, 1]); expect(ms1).toBeGreaterThanOrEqual(quick); expect(ms1).toBeLessThan(quick + 1000)
+
+  // The next card plays its own audio, once; without focus the timer says "pausiert"
+  const second = await next()
+  await expect(satz).toHaveText(second.card.sentence)
+  await expect(clock).not.toHaveText('0:00 · Audio', { timeout: 5000 })
+  expect(audioHits.get(second.card.id)).toBe(1)
+  await page.evaluate(() => window.dispatchEvent(new Event('blur')))
+  await expect(clock).toHaveText(/^0:0\d · pausiert$/)
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')))
+  await expect(clock).toHaveText(/^0:0\d · (Leicht|Gut|Schwer)$/)
+
+  // Leertaste on the focused box toggles it and doesn't reveal; the choice survives a reload
+  await box.focus()
+  await page.keyboard.press('Space')
+  await expect(box).not.toBeChecked()
+  await expect(page.getByTestId('karte-back')).toHaveCount(0)
+  await expect(page.getByTestId('karte-front-hint')).toHaveText('Verstehst du den ganzen Satz? Einmal laut mitsprechen, dann aufdecken.')
+  await page.reload()
+  await expect(satz).toHaveText(second.card.sentence)
+  await expect(box).not.toBeChecked()
+  // Box off: no audio, the timer starts on show
+  await expect(clock).toHaveText('0:00 · Leicht')
+  await page.clock.runFor(1200)
+  await expect(clock).toHaveText('0:01 · Leicht')
+  expect(audioHits.get(second.card.id)).toBe(1)
+  await page.getByTestId('karte-reveal').click()
+  await page.getByTestId('karte-gewusst').click()
+  await expect(satz).not.toHaveText(second.card.sentence)
+  const [, ms2, , ap2] = last().split(',').map(Number)
+  expect(ap2).toBe(0); expect(ms2).toBeGreaterThanOrEqual(1200)
+  const third = await next()
+  expect(audioHits.get(third.card.id) ?? 0).toBe(0)
+
+  // Box on again; undo brings the card back and plays its audio again
+  await box.click()
+  await expect(box).toBeChecked()
+  await page.keyboard.press('z')
+  await expect(satz).toHaveText(second.card.sentence)
+  await expect(clock).toHaveText('0:00 · Audio')
+  await expect.poll(() => audioHits.get(second.card.id)).toBe(2)
+  // unticking during the clip stops it and starts the timer
+  await box.click()
+  await expect(clock).toHaveText('0:00 · Leicht')
+  expect(errors).toEqual([])
+})
+
+test('#28 Karten: the browser refuses autoplay → one quiet line, the timer runs at once, A still plays', async ({ page }) => {
+  const errors = watchConsole(page)
+  // Safari, page opened without a click: play() is rejected until a key press (Playwright's goto counts as a gesture in Chromium)
+  await page.addInitScript(() => {
+    let gesture = false
+    window.addEventListener('keydown', () => { gesture = true }, true)
+    const play = HTMLMediaElement.prototype.play
+    HTMLMediaElement.prototype.play = function () {
+      return gesture ? play.call(this) : Promise.reject(new DOMException('no gesture', 'NotAllowedError'))
+    }
+  })
+  audioHits.clear()
+  await page.goto('/karten')
+  const clock = page.getByTestId('karte-clock')
+  await expect(page.getByTestId('karte-blocked')).toHaveText('Autoplay vom Browser blockiert — A drücken')
+  await expect(clock).toHaveText(/^0:0\d · (Leicht|Gut|Schwer)$/) // not stuck at "0:00 · Audio"
+  await page.waitForTimeout(1100)
+  await expect(clock).not.toHaveText('0:00 · Leicht')
+  await page.keyboard.press('a')
+  await expect(page.getByTestId('karte-blocked')).toHaveCount(0)
+  await expect.poll(() => [...audioHits.values()].reduce((a, b) => a + b, 0)).toBeGreaterThanOrEqual(1)
+  await expect(clock).not.toHaveText(/Audio|pausiert/) // replaying with A doesn't stop the timer
+  await page.getByTestId('karte-reveal').click()
+  await page.getByTestId('karte-nicht').click()
+  await expect(page.getByTestId('karte-reveal')).toBeVisible()
+  expect(sql('SELECT autoplay FROM review_log ORDER BY id DESC LIMIT 1')).toBe('0') // nothing played by itself: timed as without autoplay
   expect(errors).toEqual([])
 })

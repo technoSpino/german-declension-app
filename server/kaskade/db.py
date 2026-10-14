@@ -201,6 +201,8 @@ MIGRATIONS = [
     "ALTER TABLE review_log ADD COLUMN reveal_ms INTEGER",
     "ALTER TABLE review_log ADD COLUMN auto INTEGER",
     "ALTER TABLE review_log ADD COLUMN words INTEGER",
+    # #28: the card's audio played by itself before the timer started (1) or not (0)
+    "ALTER TABLE review_log ADD COLUMN autoplay INTEGER",
     # clip conversion to H.264/AAC MP4: NULL/ready | converting | original (conversion failed, original kept)
     "ALTER TABLE media ADD COLUMN status TEXT",
     # plan stock (#16): stable key from data/plan/stock.json, genre tag, duration for clips without cues

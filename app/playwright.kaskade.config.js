@@ -5,6 +5,37 @@ import { defineConfig, devices } from '@playwright/test'
 // preview server (127.0.0.1:5174), so tests never touch the real ~/kaskade-data.
 const DATA = '.e2e-data'
 
+// #28: the Karten audio tests also run in WebKit (Safari's engine: autoplay rules). Opt-in: Playwright
+// has no WebKit build for Ubuntu 26.04 — the 24.04 one runs with the libraries it misses unpacked
+// (no root) in KASKADE_WEBKIT_ROOT, drawing with Mesa's software renderer. Run with
+// PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64 PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 (PROGRESS.md, #28).
+const KARTEN = /#28|#25 Karten|Karten: reveal|Karten audio/
+const WK = process.env.KASKADE_WEBKIT_ROOT
+const webkit = WK
+  ? [{
+      name: 'webkit',
+      grep: KARTEN,
+      use: {
+        ...devices['Desktop Safari'],
+        permissions: [],
+        launchOptions: {
+          env: {
+            ...process.env,
+            LD_LIBRARY_PATH: `${WK}/usr/lib/x86_64-linux-gnu`,
+            GST_PLUGIN_PATH: `${WK}/usr/lib/x86_64-linux-gnu/gstreamer-1.0`,
+            __EGL_VENDOR_LIBRARY_DIRS: `${WK}/usr/share/glvnd/egl_vendor.d`,
+            EGL_PLATFORM: 'surfaceless',
+            LIBGL_ALWAYS_SOFTWARE: '1'
+          }
+        }
+      }
+    }]
+  : []
+// … and in Firefox (KASKADE_FIREFOX=1): it also holds back sound until the page had a click
+const firefox = process.env.KASKADE_FIREFOX
+  ? [{ name: 'firefox', grep: KARTEN, use: { ...devices['Desktop Firefox'], permissions: [], launchOptions: {} } }]
+  : []
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: false,
@@ -18,7 +49,7 @@ export default defineConfig({
     permissions: ['microphone'],
     launchOptions: { args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] }
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }, ...webkit, ...firefox],
   webServer: [
     {
       // Server clock pinned to Tuesday of plan week 1, 09:30 Berlin. No H.264 conversion:

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CAP_MS, createRevealTimer, grade, progress, waitLine } from '../../lib/reveal'
+import { CAP_MS, clockText, createRevealTimer, finalTime, grade, progress, runningTime, storeAutoplay, storedAutoplay, waitLine } from '../../lib/reveal'
 
 function clock() {
   let t = 0
@@ -76,5 +76,65 @@ describe('progress and the waiting line', () => {
     expect(waitLine({ cards: 3, at }, t)).toBe('Noch 3 Karten — kommen in 6 Min wieder')
     expect(waitLine({ cards: 1, at }, t + 5 * 60_000 + 15_000)).toBe('Noch 1 Karte — kommt in 45 s wieder')
     expect(waitLine(null, t)).toBeNull()
+  })
+})
+
+describe('the timer on the card (#28)', () => {
+  const timing = { easyMs: 1995, hardMs: 4560 }
+  it('0:07 while it runs, 7,3 s once revealed, 60 s+ at the cap', () => {
+    expect(runningTime(0)).toBe('0:00')
+    expect(runningTime(7300)).toBe('0:07')
+    expect(runningTime(59_999)).toBe('0:59')
+    expect(runningTime(60_000)).toBe('60 s+')
+    expect(finalTime(7300)).toBe('7,3 s')
+    expect(finalTime(7399)).toBe('7,3 s') // never more than it showed
+    expect(finalTime(0)).toBe('0,0 s')
+    expect(finalTime(59_999)).toBe('59,9 s')
+    expect(finalTime(60_000)).toBe('60 s+')
+  })
+  it('next to the time: what "Gewusst" means right now', () => {
+    expect(clockText(0, 'run', timing)).toBe('0:00 · Leicht')
+    expect(clockText(1995, 'run', timing)).toBe('0:01 · Leicht')
+    expect(clockText(1996, 'run', timing)).toBe('0:01 · Gut')
+    expect(clockText(4560, 'run', timing)).toBe('0:04 · Gut')
+    expect(clockText(4561, 'run', timing)).toBe('0:04 · Schwer')
+    expect(clockText(60_000, 'run', timing)).toBe('60 s+ · Schwer')
+    expect(clockText(7300, 'done', timing)).toBe('7,3 s · Schwer')
+    expect(clockText(3000, 'done', timing)).toBe('3,0 s · Gut')
+  })
+  it('"0:00 · Audio" during the clip, "pausiert" without focus', () => {
+    expect(clockText(4000, 'audio', timing)).toBe('0:00 · Audio')
+    expect(clockText(7300, 'pause', timing)).toBe('0:07 · pausiert')
+  })
+  it('reset: back to 0:00 and not running while the audio plays; revealing then is 0 ms', () => {
+    const now = clock()
+    const timer = createRevealTimer(now)
+    timer.start(); now.add(5000); timer.stop()
+    timer.reset()
+    now.add(4000) // the clip
+    expect([timer.ms, timer.running]).toEqual([0, false])
+    expect(timer.stop()).toBe(0)
+    timer.reset(); now.add(4000)
+    timer.start(); now.add(1500)
+    expect(timer.stop()).toBe(1500)
+  })
+})
+
+describe('"Audio automatisch abspielen" is remembered (#28)', () => {
+  const mem = (v = {}) => ({ getItem: (k) => v[k] ?? null, setItem: (k, x) => { v[k] = x }, v })
+  it('on by default, off once he unticks it', () => {
+    const s = mem()
+    expect(storedAutoplay(s)).toBe(true)
+    storeAutoplay(false, s)
+    expect(s.v).toEqual({ 'kaskade.karten.autoplay': '0' })
+    expect(storedAutoplay(s)).toBe(false)
+    storeAutoplay(true, s)
+    expect(storedAutoplay(s)).toBe(true)
+  })
+  it('blocked or missing storage: on, and no error', () => {
+    const broken = { getItem() { throw new Error('denied') }, setItem() { throw new Error('denied') } }
+    expect(storedAutoplay(broken)).toBe(true)
+    expect(() => storeAutoplay(false, broken)).not.toThrow()
+    expect(storedAutoplay(undefined)).toBe(true)
   })
 })

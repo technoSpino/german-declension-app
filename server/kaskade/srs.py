@@ -217,9 +217,10 @@ def _snapshot(row) -> str | None:
 
 
 def review(card_id: str, rating: int, at: datetime | None = None, sched: Scheduler = scheduler,
-           reveal_ms: int | None = None, auto: bool | None = None) -> dict:
+           reveal_ms: int | None = None, auto: bool | None = None, autoplay: bool | None = None) -> dict:
     """Rate a card. #25: `reveal_ms` (time to reveal, capped at 60 s) and `auto` (rating derived
-    from that time, not chosen) are logged — they tune his pace and the thresholds later."""
+    from that time, not chosen) are logged — they tune his pace and the thresholds later.
+    #28: `autoplay` — the card's audio played by itself first (the time starts after it)."""
     content = card_content(card_id)
     if content is None:
         raise KeyError(card_id)
@@ -241,11 +242,12 @@ def review(card_id: str, rating: int, at: datetime | None = None, sched: Schedul
             (card_id, status, json.dumps(card.to_dict()), card.due.isoformat(), introduced, lapses, at.isoformat()),
         )
         conn.execute(
-            "INSERT INTO review_log(card_id, rating, reviewed_at, local_date, prev, reveal_ms, auto, words)"
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO review_log(card_id, rating, reviewed_at, local_date, prev, reveal_ms, auto, words, autoplay)"
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (card_id, rating, at.isoformat(), local_date(at), _snapshot(row),
              min(reveal_ms, REVEAL_CAP_MS) if reveal_ms is not None else None,
-             None if auto is None else int(auto), words_in(content["sentence"]) if reveal_ms is not None else None),
+             None if auto is None else int(auto), words_in(content["sentence"]) if reveal_ms is not None else None,
+             None if autoplay is None else int(autoplay)),
         )
     return {"id": card_id, "status": status, "due": card.due.isoformat(), "interval": human_interval(card.due - at)}
 
