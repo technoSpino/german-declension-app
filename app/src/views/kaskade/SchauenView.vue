@@ -65,6 +65,8 @@ const cues = computed(() => (media.value ? speechCues(track.value.cues) : []))
 const index = computed(() => shownLine(cues.value, t.value, held.value))
 const line = computed(() => cues.value[index.value] ?? null)
 const speaking = computed(() => inside(cues.value, index.value, t.value))
+const standIn = computed(() => line.value?.src === 'ard') // #29: ARD's line where Whisper heard nothing
+const spokenLine = computed(() => spoken.value && !standIn.value)
 
 async function load() {
   touched = false
@@ -337,7 +339,7 @@ async function setTag(c, tag) {
   }
 }
 
-const extra = computed(() => (line.value ? { mediaId: media.value.id, start: line.value.start, end: line.value.end, ...(spoken.value ? { track: 'spoken' } : {}) } : null))
+const extra = computed(() => (line.value ? { mediaId: media.value.id, start: line.value.start, end: line.value.end, ...(spokenLine.value ? { track: 'spoken' } : {}) } : null))
 const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60))
 </script>
 
@@ -411,7 +413,8 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
 
           <div class="k-card sw-line" data-testid="watch-line">
             <div v-if="hasSpoken" class="sw-track">
-              <span v-if="spoken" class="k-origin k-origin-ai" title="Von einer KI (Whisper) aus dem Ton geschrieben — vollständiger als die ARD-Untertitel, einzelne Wörter können falsch sein" data-testid="watch-ki">KI-Transkript</span>
+              <span v-if="spoken && !standIn" class="k-origin k-origin-ai" title="Von einer KI (Whisper) aus dem Ton geschrieben — vollständiger als die ARD-Untertitel, einzelne Wörter können falsch sein" data-testid="watch-ki">KI-Transkript</span>
+              <span v-else-if="spoken" class="k-hint" data-testid="watch-standin">ARD-Untertitel — hier hat die KI nichts gehört</span>
               <span v-else class="k-hint">ARD-Untertitel · gekürzt</span>
               <div class="sw-seg" role="group" aria-label="Untertitel">
                 <button type="button" :class="['sw-seg-btn', { on: spoken }]" :aria-pressed="spoken" data-testid="track-spoken" @click="setTrack('spoken')">Gesprochen (KI)</button>

@@ -114,3 +114,23 @@ def test_lines_never_overlap():
     t = {"segments": [seg("Komm sofort her!", 1.0), seg("Ich komme ja schon.", 1.65)]}
     a, b = tr.spoken_cues(t, [])
     assert a["end"] == b["start"] == 1.65 and a["text"] == "Komm sofort her!"
+
+
+def test_a_short_fragment_never_joins_across_a_long_silence():
+    """Schweigen 13:22: 'War ein Unfall?' 7 s after a line ending in a comma stayed a line of its own."""
+    ws = words("Ruß in der Lunge, aber wie,", 0.0) + words("War ein Unfall?", 9.0, step=0.18)
+    assert texts(tr.build_lines(ws)) == ["Ruß in der Lunge, aber wie,", "War ein Unfall?"]
+
+
+def test_an_ard_line_where_whisper_heard_nothing_stands_in():
+    ard = [{"start": 1.0, "end": 2.5, "text": "Wo ist sie hin?"}, {"start": 5.0, "end": 6.5, "text": "Weiß ich nicht."}]
+    t = {"segments": [seg("Wo ist sie denn hin?", 1.1)]}
+    assert tr.spoken_cues(t, ard) == [
+        {"start": 1.1, "end": 2.55, "text": "Wo ist sie denn hin?"},
+        {"start": 5.0, "end": 6.5, "text": "Weiß ich nicht.", "src": "ard"}]
+
+
+def test_the_prompt_word_glossar_never_shows():
+    t = {"segments": [seg("Glossar, aber es wird Ihnen nichts nützen.", 3.0)]}
+    assert [c["text"] for c in tr.spoken_cues(t, [{"start": 3.0, "end": 5.0, "text": "Es wird nichts nützen."}])] == [
+        "aber es wird Ihnen nichts nützen."]

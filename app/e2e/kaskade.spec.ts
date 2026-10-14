@@ -1195,7 +1195,7 @@ function whisperFixture(): string {
     segments: [
       seg('Guten Morgen, wie geht es dir denn so?', 0.55, 0.13), // ends 1.56 — ARD's line runs to 2.0
       seg('Danke, mir geht es heute richtig gut.', 2.55, 0.19),
-      seg('Hast du später Zeit für einen Kaffee?', 4.55, 0.2),
+      // 4.5–6.0: Whisper heard nothing — ARD's line stands in
       seg('Leider nicht, ich muss noch arbeiten.', 6.55, 0.2),
       seg('Vielen Dank.', 8.6, 0.15, 0.5) // over no subtitle, unsure: a hallucination, dropped
     ]
@@ -1263,6 +1263,11 @@ test('#29 Schauen: the spoken line (KI-Transkript) by default, ARD on the toggle
   await page.keyboard.press('z')
   const lastMark = async () => (await (await request.get(`http://127.0.0.1:8001/api/media/${clip.id}/hard`)).json()).marks.at(-1)
   await expect.poll(lastMark).toMatchObject({ text: 'Danke, mir geht es heute richtig gut.', start: 2.55, track: 'spoken' })
+  // … and goes on to the next line: there Whisper heard nothing, so ARD's line stands in, labelled as such
+  await expect(line).toContainText('Hast du heute Zeit für einen Kaffee?')
+  await expect(page.getByTestId('watch-standin')).toHaveText('ARD-Untertitel — hier hat die KI nichts gehört')
+  await expect(page.getByTestId('watch-ki')).toHaveCount(0)
+  await video.evaluate((v: HTMLVideoElement) => v.pause())
   // the card says where its sentence comes from (older unseen mined cards out of the way, no daily limit)
   await page.goto('about:blank')
   for (const c of mined) {

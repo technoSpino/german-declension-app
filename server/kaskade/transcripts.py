@@ -21,7 +21,8 @@ from .satzcheck import is_non_speech
 PAUSE = 0.7          # a pause this long between words ends a line
 MAX_WORDS = 14       # a longer line is split …
 MAX_SECONDS = 6.0    # … as is one that lasts longer
-MIN_SECONDS = 0.6    # shorter lines join a neighbour, unless they are a whole sentence ("Ich?")
+MIN_SECONDS = 0.6    # shorter lines join a neighbour, unless they are a whole sentence ("Ich?") …
+JOIN_GAP = 2.0       # … but never across a longer silence (that made a 13-s line in Schweigen)
 OVERLAP = 0.5        # a Whisper segment "overlaps" an ARD speech cue within this margin
 MIN_P = 0.65         # mean word probability below which a segment without ARD speech is dropped
 
@@ -29,6 +30,7 @@ MIN_P = 0.65         # mean word probability below which a segment without ARD s
 HALLUCINATION = re.compile(
     r"^(?:vielen dank\W*|untertitel.*|copyright.*|.*danke fürs zuschauen.*|.*dank fürs zuschauen.*"
     r"|.*bis zum nächsten mal.*)$", re.I)
+GLOSSARY = re.compile(r"^Glossar\W*$", re.I)
 END = re.compile(r"[.?!…][\"“”'»«)]*$")
 NO_END = re.compile(r"^(?:\d+\.|[A-ZÄÖÜ]\.|Dr\.|Prof\.|Nr\.|St\.|Hr\.|Fr\.|bzw\.|ca\.|vgl\.|evtl\.|ggf\.|z\.B\.|u\.a\.)$")
 
@@ -63,6 +65,8 @@ def words_of(transcript: dict, ard: list[dict]) -> list[dict]:
             continue
         for w in seg.get("words") or []:
             text = (w.get("w") or "").strip()
+            if GLOSSARY.match(text):
+                continue  # the Mac's prompt ("Glossar: …") leaking into the text
             if text and w.get("e") is not None and w.get("s") is not None:
                 out.append({"w": text, "s": float(w["s"]), "e": max(float(w["e"]), float(w["s"]))})
     out.sort(key=lambda w: w["s"])
@@ -114,17 +118,23 @@ def build_lines(words: list[dict]) -> list[list[dict]]:
     def whole(i):  # a sentence on its own: it ends one, and the line before ended one too
         return ends_sentence(lines[i][-1]["w"]) and (i == 0 or ends_sentence(lines[i - 1][-1]["w"]))
 
+    def gap(a, b):
+        return lines[b][0]["s"] - lines[a][-1]["e"] if 0 <= a and b < len(lines) else float("inf")
+
     i = 0
     while i < len(lines):
-        if len(lines) > 1 and _dur(lines[i]) < MIN_SECONDS and not whole(i):
+        if _dur(lines[i]) < MIN_SECONDS and not whole(i):
             # the end of a sentence goes with the line before, a beginning with the line after
-            if i > 0 and (ends_sentence(lines[i][-1]["w"]) or i == len(lines) - 1):
+            sides = ["prev", "next"] if ends_sentence(lines[i][-1]["w"]) else ["next", "prev"]
+            side = next((s for s in sides if gap(*((i - 1, i) if s == "prev" else (i, i + 1))) <= JOIN_GAP), None)
+            if side == "prev":
                 lines[i - 1] += lines.pop(i)
                 i -= 1
-            else:
-                lines[i + 1] = lines[i] + lines[i + 1]
-                lines.pop(i)
-            continue
+                continue
+            if side == "next":
+                frag = lines.pop(i)
+                lines[i] = frag + lines[i]
+                continue
         i += 1
     return lines
 
@@ -139,6 +149,10 @@ def spoken_cues(transcript: dict, ard: list[dict]) -> list[dict]:
         if a["end"] > b["start"]:
             a["end"] = max(b["start"], round(a["start"] + 0.05, 2))
             b["start"] = max(b["start"], a["end"])
+    # where Whisper heard nothing, ARD's line stands in (marked: it is not the KI's)
+    spoken = list(out)
+    out += [{"start": c["start"], "end": c["end"], "text": c["text"], "src": "ard"} for c in _speech(ard)
+            if not any(s["start"] < c["end"] and s["end"] > c["start"] for s in spoken)]
     out += [{"start": c["start"], "end": c["end"], "text": c["text"]} for c in ard
             if c.get("text", "").strip() and is_non_speech(c["text"])]
     out.sort(key=lambda c: (c["start"], c["end"]))
