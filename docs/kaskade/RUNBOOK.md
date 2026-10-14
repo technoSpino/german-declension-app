@@ -106,3 +106,5 @@ before major upgrades.
 | Heute shows "→ zu tun" for a clip | it's missing from the library: `cd ~/kaskade/server && .venv/bin/python scripts/stock.py` (or `--only KEY`); a Mediathek item that is not released yet (e.g. a Tatort before its first broadcast) has `fetchOn` in `stock.json` |
 | Recording doesn't start | over http the browser blocks the microphone: open https://cos.tail1b5741.ts.net:8443 |
 | Writing not graded | no `ANTHROPIC_API_KEY` in `~/kaskade-data/.env` (optional) |
+| Karten: "Autoplay vom Browser blockiert — A drücken" | the browser wants a click first (Safari, Firefox after opening `/karten` directly): one key or click and the next cards play; or untick "Audio automatisch abspielen" |
+| Karten E2E in WebKit / Firefox | WebKit: `deploy/webkit-e2e-setup.sh` once (no root), then run as its header says (`--project webkit`). Firefox: `KASKADE_FIREFOX=1 … --project firefox`; the autoplay timing test is skipped there (no audio output on this box) |

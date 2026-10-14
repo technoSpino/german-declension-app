@@ -7,8 +7,8 @@ const DATA = '.e2e-data'
 
 // #28: the Karten audio tests also run in WebKit (Safari's engine: autoplay rules). Opt-in: Playwright
 // has no WebKit build for Ubuntu 26.04 — the 24.04 one runs with the libraries it misses unpacked
-// (no root) in KASKADE_WEBKIT_ROOT, drawing with Mesa's software renderer. Run with
-// PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64 PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 (PROGRESS.md, #28).
+// (no root) in KASKADE_WEBKIT_ROOT, drawing with Mesa's software renderer. Set up and run as in
+// deploy/webkit-e2e-setup.sh (PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64 PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1).
 const KARTEN = /#28|#25 Karten|Karten: reveal|Karten audio/
 const WK = process.env.KASKADE_WEBKIT_ROOT
 const webkit = WK
