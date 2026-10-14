@@ -249,7 +249,7 @@ def test_materialcheck_lists_real_gaps_only(b2, monkeypatch):
     # #29: the Tatort has no transcript yet — listed for the operator, not as a gap on Heute
     missing = written["transcripts"]["missing"]
     assert [(m["title"][:6], m["hint"]) for m in missing][:1] == [
-        ("Tatort", "transcripts/stock-tatort-schweigen.whisper.json fehlt (Whisper large-v3, Format version 2)")]
+        ("Tatort", "Transkript fehlt — der Mac mini holt es um 01:30 (transcripts/stock-tatort-schweigen.whisper.json)")]
     assert not any("Transkript" in (g["problem"] or "") for g in written["gaps"])
     assert "transcripts" not in b2.get("/api/materials").json()["check"]
     mid = missing[0]["mediaId"]
