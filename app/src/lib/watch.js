@@ -129,3 +129,39 @@ export function jobLabel(job) {
   const size = job.total ? `${mb(job.downloaded)} von ${mb(job.total)} MB` : `${mb(job.downloaded)} MB`
   return job.speed ? `${size} · ${mb(job.speed)} MB/s` : size
 }
+
+// #29: the "gesprochen" track (Whisper, what is actually said) or ARD's subtitles (condensed).
+const TRACK_KEY = 'kaskade.schauen.track'
+
+/** 'spoken' (default) or 'ard', remembered per device; missing or blocked storage → 'spoken'. */
+export function storedTrack(storage = globalThis.localStorage) {
+  try {
+    return storage?.getItem(TRACK_KEY) === 'ard' ? 'ard' : 'spoken'
+  } catch {
+    return 'spoken'
+  }
+}
+
+export function storeTrack(track, storage = globalThis.localStorage) {
+  try {
+    storage?.setItem(TRACK_KEY, track)
+  } catch {
+    // private mode: back to the default next time
+  }
+}
+
+/** The cues to show: the spoken track whenever the clip has one and he didn't pick ARD's. */
+export function pickTrack(media, pref) {
+  const spoken = pref !== 'ard' && media?.spokenCues?.length > 0
+  return { spoken, cues: (spoken ? media.spokenCues : media?.cues) ?? [] }
+}
+
+/**
+ * After switching tracks at `t`: the line auto-pause counts as done for — the last one that already
+ * ended (so play doesn't stop again at once), or the one before the line being spoken.
+ */
+export function pausedBefore(cues, t) {
+  const i = lineAt(cues, t)
+  if (i < 0) return -1
+  return t >= cues[i].end ? i : i - 1
+}

@@ -260,8 +260,9 @@ function onKey(e) {
                 <p class="m-0 k-read flex flex-wrap items-center gap-2" style="font-size: 18px; color: var(--text-2)">„{{ w.gloss }}“ <AiMark v-if="w.ai.includes('gloss')" field="gloss" /></p>
                 <template v-if="wi === 0">
                   <p v-if="card.en" class="m-0 mt-2" style="font-size: 15px; color: var(--muted)">{{ card.en }}</p>
-                  <span v-if="cardBadge(card)" class="mt-2" data-testid="karte-origin">
-                    <OriginBadge :origin="card.origin" :source="card.originSource" :fallback="card.n ? 'ai' : null" />
+                  <span v-if="cardBadge(card) || card.transcript" class="mt-2 flex flex-wrap items-center gap-2">
+                    <span v-if="cardBadge(card)" data-testid="karte-origin"><OriginBadge :origin="card.origin" :source="card.originSource" :fallback="card.n ? 'ai' : null" /></span>
+                    <span v-if="card.transcript" class="k-origin k-origin-ai" title="Der Satz kommt aus dem KI-Transkript (Whisper) — ein Wort kann falsch gehört sein" data-testid="karte-transcript">KI-Transkript</span>
                   </span>
                 </template>
               </div>

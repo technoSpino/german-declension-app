@@ -45,9 +45,10 @@ class MineIn(BaseModel):
     mediaId: int | None = None
     start: float | None = Field(default=None, ge=0)
     end: float | None = Field(default=None, ge=0)
+    track: Literal["spoken", "ard"] | None = None  # #29: a line of the Whisper track (word times)
 
 
-def _snippet(mid: int, media_id: int, start: float, end: float) -> str | None:
+def _snippet(mid: int, media_id: int, start: float, end: float, spoken: bool = False) -> str | None:
     """Cut the line's audio from the clip; returns the snippet file name or None."""
     with db.tx() as conn:
         row = conn.execute("SELECT media_file FROM media WHERE id = ?", (media_id,)).fetchone()
@@ -55,7 +56,8 @@ def _snippet(mid: int, media_id: int, start: float, end: float) -> str | None:
         return None
     source = config.MEDIA_DIR / row["media_file"]
     name = f"mine-{mid}.m4a"
-    return name if source.exists() and snippet.cut(source, start, end, config.SNIPPETS_DIR / name) else None
+    pad = (snippet.SPOKEN_PAD, snippet.SPOKEN_PAD) if spoken else (snippet.PAD_BEFORE, snippet.PAD_AFTER)
+    return name if source.exists() and snippet.cut(source, start, end, config.SNIPPETS_DIR / name, pad) else None
 
 
 @router.post("/mined")
@@ -66,6 +68,7 @@ def mine(body: MineIn):
     if clip and body.end <= body.start:
         raise HTTPException(422, "Ungültiger Zeitbereich.")
     sentence = body.sentence.strip()
+    spoken = clip and body.track == "spoken"
     with db.tx() as conn:
         dup = conn.execute("SELECT * FROM mined WHERE sentence = ? ORDER BY id", (sentence,)).fetchone()
     if dup:
@@ -75,13 +78,13 @@ def mine(body: MineIn):
     with db.tx() as conn:
         cur = conn.execute(
             "INSERT INTO mined(created_at, sentence, target, lemma, display, gloss, en, note, kasus, source,"
-            " media_id, clip_start, clip_end, ai_fields) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            " media_id, clip_start, clip_end, ai_fields, track) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (db.now_iso(), sentence, body.target, w["lemma"], w["display"], w["gloss"] or "—", body.en, w["note"],
              w["case"], body.source, body.mediaId if clip else None, body.start if clip else None,
-             body.end if clip else None, json.dumps(w["ai"]) if w["ai"] else None),
+             body.end if clip else None, json.dumps(w["ai"]) if w["ai"] else None, "spoken" if spoken else None),
         )
         mid = cur.lastrowid
-    audio = _snippet(mid, body.mediaId, body.start, body.end) if clip else None
+    audio = _snippet(mid, body.mediaId, body.start, body.end, spoken) if clip else None
     if audio:
         with db.tx() as conn:
             conn.execute("UPDATE mined SET audio = ? WHERE id = ?", (audio, mid))

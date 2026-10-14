@@ -583,7 +583,12 @@ def check(today: date, start: date, data: dict, days: int = 7, links: bool = Tru
 
 def write_check(today: date) -> dict:
     from .routes.today import plan_start
+    from . import transcripts
     data = plan.plan(db.get_setting("phase"))
-    result = check(today, plan_start(today), data)
+    start = plan_start(today)
+    imported = transcripts.import_all()  # #29: new transcripts from the Mac become "gesprochen" tracks
+    result = check(today, start, data)
+    # planned clips without a transcript: for PROGRESS.md (the Mac makes them), not a gap on Heute
+    result["transcripts"] = {**imported, "missing": transcripts.missing(today, start, data)}
     (config.DATA_DIR / CHECK_FILE).write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-    return {"gaps": result["gaps"], "checkedAt": result["checkedAt"]}
+    return {"gaps": result["gaps"], "checkedAt": result["checkedAt"], "transcripts": result["transcripts"]}

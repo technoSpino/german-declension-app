@@ -57,6 +57,8 @@ def mined_cards() -> list[dict]:
             "aiFields": json.loads(r["ai_fields"] or "[]"), "words": json.loads(r["words"] or "[]"),
             # "source" above is where it was mined (shown as "Gemined · …"); origin says whose German it is
             "origin": o["origin"], "originSource": o["source"],
+            # #29: the sentence is from the Whisper track — a word may be misheard
+            "transcript": r["track"] == "spoken",
         })
     return out
 

@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../../lib/api'
-import { clipStatus, clock, formatTime, inside, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine } from '../../lib/watch'
+import { clipStatus, clock, formatTime, inside, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
 import { hardShare, ratingLabel, shareLine } from '../../lib/ratings'
 import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
 import RateAsk from '../../components/kaskade/RateAsk.vue'
@@ -54,7 +54,12 @@ watch(autoPause, (v) => {
   try { localStorage.setItem('kaskade-autopause', v ? '1' : '0') } catch { /* private mode */ }
 })
 
-const cues = computed(() => (media.value ? speechCues(media.value.cues) : []))
+// #29: what is said (Whisper, "KI-Transkript") whenever the clip has it, else ARD's condensed subtitles
+const trackPref = ref(storedTrack())
+const track = computed(() => pickTrack(media.value, trackPref.value))
+const spoken = computed(() => track.value.spoken)
+const hasSpoken = computed(() => media.value?.spokenCues?.length > 0)
+const cues = computed(() => (media.value ? speechCues(track.value.cues) : []))
 // The line just heard stays until its end (and through an auto-pause); only in a gap the
 // next one appears slightly early — seeking lands 0.1 s before a line.
 const index = computed(() => shownLine(cues.value, t.value, held.value))
@@ -135,7 +140,7 @@ function markHard() {
   if (!c) return
   if (!marks.value.some((m) => Math.abs(m - c.start) < 0.05)) marks.value = [...marks.value, c.start]
   hardNote.value = `„${c.text.length > 40 ? c.text.slice(0, 40) + ' …' : c.text}“ als zu schwer markiert`
-  api.post(`/media/${media.value.id}/hard`, { start: c.start, end: c.end, text: c.text }).catch((e) => { error.value = e.message })
+  api.post(`/media/${media.value.id}/hard`, { start: c.start, end: c.end, text: c.text, track: spoken.value ? 'spoken' : 'ard' }).catch((e) => { error.value = e.message })
   if (i < cues.value.length - 1) seekLine(i + 1)
   else video.value?.play().catch(() => {})
 }
@@ -242,6 +247,17 @@ const prev = () => seekLine(stepLine(cues.value, index.value, -1))
 const next = () => seekLine(stepLine(cues.value, index.value, 1))
 const replay = () => index.value >= 0 && seekLine(index.value)
 
+// The other track, at the same time: the line there, no pause for what was already heard
+function setTrack(tr) {
+  if (trackPref.value === tr) return
+  trackPref.value = tr
+  storeTrack(tr)
+  const now = video.value?.currentTime ?? t.value
+  held.value = -1
+  pausedFor = pausedBefore(cues.value, now)
+  loopLine = index.value
+}
+
 function toggleLoop() {
   loop.value = !loop.value
   loopLine = index.value
@@ -321,7 +337,7 @@ async function setTag(c, tag) {
   }
 }
 
-const extra = computed(() => (line.value ? { mediaId: media.value.id, start: line.value.start, end: line.value.end } : null))
+const extra = computed(() => (line.value ? { mediaId: media.value.id, start: line.value.start, end: line.value.end, ...(spoken.value ? { track: 'spoken' } : {}) } : null))
 const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60))
 </script>
 
@@ -343,7 +359,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
           <li v-for="c in clips ?? []" :key="c.id" class="sw-clip">
             <div class="min-w-0">
               <p class="m-0" style="font-weight: 700">{{ c.title }}</p>
-              <p class="k-hint m-0">{{ formatTime(c.duration) }} · {{ c.isAudio ? 'nur Ton' : `${c.cueCount} Zeilen` }}<template v-if="c.source"> · {{ c.source }}</template><template v-if="c.position > 2"> · weiter ab {{ formatTime(c.position) }} (noch ≈ {{ minutesLeft(c) }} min)</template><template v-if="clipStatus(c)"> · {{ clipStatus(c) }}</template></p>
+              <p class="k-hint m-0">{{ formatTime(c.duration) }} · {{ c.isAudio ? 'nur Ton' : `${c.cueCount} Zeilen` }}<template v-if="c.source"> · {{ c.source }}</template><template v-if="c.hasSpoken"> · mit KI-Transkript</template><template v-if="c.position > 2"> · weiter ab {{ formatTime(c.position) }} (noch ≈ {{ minutesLeft(c) }} min)</template><template v-if="clipStatus(c)"> · {{ clipStatus(c) }}</template></p>
               <label class="k-small inline-flex items-center gap-2 mt-1">Genre
                 <select class="sw-tag" :value="c.tag ?? ''" :data-testid="`tag-${c.id}`" @change="setTag(c, $event.target.value)">
                   <option value="">—</option>
@@ -393,7 +409,16 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
             ></video>
           </div>
 
-          <div class="k-card sw-line" aria-live="polite" data-testid="watch-line">
+          <div class="k-card sw-line" data-testid="watch-line">
+            <div v-if="hasSpoken" class="sw-track">
+              <span v-if="spoken" class="k-origin k-origin-ai" title="Von einer KI (Whisper) aus dem Ton geschrieben — vollständiger als die ARD-Untertitel, einzelne Wörter können falsch sein" data-testid="watch-ki">KI-Transkript</span>
+              <span v-else class="k-hint">ARD-Untertitel · gekürzt</span>
+              <div class="sw-seg" role="group" aria-label="Untertitel">
+                <button type="button" :class="['sw-seg-btn', { on: spoken }]" :aria-pressed="spoken" data-testid="track-spoken" @click="setTrack('spoken')">Gesprochen (KI)</button>
+                <button type="button" :class="['sw-seg-btn', { on: !spoken }]" :aria-pressed="!spoken" data-testid="track-ard" @click="setTrack('ard')">ARD-Untertitel</button>
+              </div>
+            </div>
+            <div aria-live="polite">
             <template v-if="line">
               <AnalyzedText v-if="analysis" :analysis="analysis" :lens="false" :selected="token?.i ?? null" class="sw-text" @select="selectWord" />
               <p v-else class="k-read sw-text m-0">{{ line.text }}</p>
@@ -405,6 +430,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
             </template>
             <p v-else-if="!cues.length" class="k-small m-0">Nur Ton, ohne Untertitel: einfach zuhören, nicht pausieren, nichts nachschlagen.</p>
             <p v-else class="k-small m-0">Drück Play — die Untertitel erscheinen hier, Zeile für Zeile.</p>
+            </div>
           </div>
 
           <div class="sw-controls" role="group" aria-label="Wiedergabe">
@@ -471,6 +497,12 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
 .sw-tag { min-height: 32px; border: var(--border-width) solid var(--border-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); font: inherit; font-size: 14px; padding: 0 6px; }
 .sw-video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 62vh; object-fit: contain; background: var(--stage-bg); }
 .sw-line { min-height: 96px; }
+.sw-track { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.sw-seg { display: inline-flex; border: var(--border-width) solid var(--border-strong); border-radius: var(--radius-pill); overflow: hidden; }
+.sw-seg-btn { min-height: 32px; padding: 0 12px; border: 0; background: var(--surface); color: var(--text-2); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.sw-seg-btn + .sw-seg-btn { border-left: var(--border-width) solid var(--border-strong); }
+.sw-seg-btn.on { background: var(--primary); color: var(--primary-text); }
+.sw-seg-btn:hover:not(.on) { background: var(--surface-2); }
 .sw-text { font-size: clamp(20px, 2.6vw, 26px); line-height: 1.6; }
 .sw-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .sw-auto { margin-left: 4px; }

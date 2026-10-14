@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { clipStatus, clock, formatTime, jobLabel, inside, isNonSpeech, LEAD, lineAt, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine } from '../../lib/watch'
+import { clipStatus, clock, formatTime, jobLabel, inside, isNonSpeech, LEAD, lineAt, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
 
 const CUES = [
   { start: 1, end: 2.5, text: 'Wo waren Sie gestern Abend?' },
@@ -140,5 +140,54 @@ describe('plan ranges (#16)', () => {
     expect(rangeStart(1814, 3640, 2400)).toMatchObject({ at: 2400, note: 'Weiter ab 40:00 bis 60:40.' })
     expect(rangeStart(0, 1814, 1812)).toMatchObject({ reached: true })
     expect(rangeStart(2, 4, 0)).toMatchObject({ at: 2, reached: false }) // a short range: not "reached" before it starts
+  })
+})
+
+describe('the "gesprochen" track (#29)', () => {
+  // Invented lines. Spoken lines sit on the words: gaps of 0–0.1 s are common.
+  const SPOKEN = [
+    { start: 10.0, end: 11.42, text: 'Da frage ich mich, ob es nicht mal Ärger gab.' },
+    { start: 11.42, end: 12.1, text: 'Ich hab das nachgeprüft.' },
+    { start: 12.18, end: 13.0, text: 'Und?' },
+    { start: 13.0, end: 14.5, text: '♪ Leise Musik ♪' }
+  ]
+  const ARD = [{ start: 10.2, end: 12.4, text: 'Gab es mal Ärger?' }]
+  const media = { cues: ARD, spokenCues: SPOKEN }
+
+  it('is the default whenever the clip has it; ARD on request or without a transcript', () => {
+    expect(pickTrack(media, 'spoken')).toEqual({ spoken: true, cues: SPOKEN })
+    expect(pickTrack(media, 'ard')).toEqual({ spoken: false, cues: ARD })
+    expect(pickTrack({ cues: ARD, spokenCues: null }, 'spoken')).toEqual({ spoken: false, cues: ARD })
+    expect(pickTrack({ cues: ARD, spokenCues: [] }, 'spoken').spoken).toBe(false)
+    expect(speechCues(pickTrack(media, 'spoken').cues).map((c) => c.text)).not.toContain('♪ Leise Musik ♪')
+  })
+
+  it('#18 holds on the tighter lines: the text never switches before the pause', () => {
+    const lines = speechCues(SPOKEN)
+    expect(shownLine(lines, 11.41)).toBe(0)
+    expect(shouldPause(lines, 11.44, null, 11.40)).toBe(0) // overshot a frame into line 1: pause for line 0 …
+    expect(shownLine(lines, 11.44, 0)).toBe(0) // … and line 0 stays on screen
+    expect(shouldPause(lines, 12.12, 0, 12.08)).toBe(1) // 0.08 s gap
+    expect(shownLine(lines, 12.12, 1)).toBe(1)
+    expect(shownLine(lines, 12.04)).toBe(1) // still being spoken: stays
+    expect(shownLine(lines, 12.12)).toBe(2) // over, in the 0.08 s gap: 'Und?' may come (lead 0.15 s)
+  })
+
+  it('switching tracks mid-clip: no immediate pause, the line at the same time', () => {
+    expect(shownLine(speechCues(ARD), 11.5)).toBe(0)
+    expect(pausedBefore(speechCues(SPOKEN), 11.5)).toBe(0) // in line 1: line 0 counts as heard
+    expect(pausedBefore(speechCues(SPOKEN), 12.15)).toBe(1) // in the gap after line 1
+    expect(pausedBefore(ARD, 5)).toBe(-1) // before everything: nothing
+  })
+
+  it('the choice is remembered per device', () => {
+    const v = {}
+    const s = { getItem: (k) => v[k] ?? null, setItem: (k, x) => { v[k] = x } }
+    expect(storedTrack(s)).toBe('spoken')
+    storeTrack('ard', s)
+    expect([v['kaskade.schauen.track'], storedTrack(s)]).toEqual(['ard', 'ard'])
+    const broken = { getItem() { throw new Error('x') }, setItem() { throw new Error('x') } }
+    expect(storedTrack(broken)).toBe('spoken')
+    expect(() => storeTrack('ard', broken)).not.toThrow()
   })
 })

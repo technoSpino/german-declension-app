@@ -95,3 +95,54 @@ def test_mine_without_media_file_still_creates_the_card(client):
     r = client.post("/api/mined", json={"sentence": "Wo waren Sie gestern Abend?", "target": "Abend", "lemma": "Abend",
                                         "mediaId": m["id"], "start": 0.5, "end": 2.0}).json()
     assert r["audio"] is False and r["id"].startswith("mine:")
+
+
+# ── #29: the spoken (Whisper) track ──
+
+def test_snippet_of_a_spoken_line_pads_0_15_s():
+    assert snippet.window(10.0, 12.0, (snippet.SPOKEN_PAD, snippet.SPOKEN_PAD)) == (9.85, 12.15)
+
+
+@needs_ffmpeg
+def test_mine_a_spoken_line_keeps_its_text_times_and_says_ki_transkript(client, tmp_path, monkeypatch):
+    m = upload(client, make_clip(tmp_path))
+    cuts = []
+    real = snippet.cut
+    monkeypatch.setattr(snippet, "cut", lambda src, a, b, out, pad: cuts.append((a, b, pad)) or real(src, a, b, out, pad))
+    r = client.post("/api/mined", json={
+        "sentence": "Das glaube ich Ihnen aber wirklich nicht.", "target": "glaube", "lemma": "glauben", "gloss": "believe",
+        "source": "Schauen · Krimi", "mediaId": m["id"], "start": 4.62, "end": 6.31, "track": "spoken"}).json()
+    assert r["audio"] is True and cuts == [(4.62, 6.31, (0.15, 0.15))]
+    card = next(c for c in client.get("/api/mined").json() if c["id"] == r["id"])
+    assert (card["sentence"], card["clipStart"], card["clipEnd"], card["transcript"]) == (
+        "Das glaube ich Ihnen aber wirklich nicht.", 4.62, 6.31, True)
+    # an ARD line as before: subtitle padding, no transcript mark
+    r2 = client.post("/api/mined", json={
+        "sentence": "Wo waren Sie gestern Abend?", "target": "Abend", "lemma": "Abend", "gloss": "evening",
+        "source": "Schauen · Krimi", "mediaId": m["id"], "start": 0.5, "end": 2.0}).json()
+    assert cuts[-1][2] == (snippet.PAD_BEFORE, snippet.PAD_AFTER)
+    assert next(c for c in client.get("/api/mined").json() if c["id"] == r2["id"])["transcript"] is False
+
+
+def test_zu_schwer_on_the_spoken_track_counts_its_lines(client, monkeypatch):
+    """Heute's share counts the lines of the track he marked on (#23 + #29)."""
+    import json
+    from datetime import date
+
+    from kaskade import db, ratings
+    from kaskade.routes import ratings as rr
+    m = upload(client)
+    spoken = [{"start": 0.5, "end": 1.2, "text": "Wo waren Sie?"}, {"start": 1.3, "end": 2.0, "text": "Gestern Abend."},
+              {"start": 4.5, "end": 6.0, "text": "Das glaube ich Ihnen nicht."}]
+    with db.tx() as conn:
+        conn.execute("UPDATE media SET spoken_cues = ? WHERE id = ?", (json.dumps(spoken), m["id"]))
+    day = date(2026, 10, 13)
+    monkeypatch.setattr(rr, "_today", lambda: day)
+    it = {"kind": "clip", "mediaId": m["id"], "range": [0, 7], "position": 7}
+    assert rr.share_for(it, day) == {"marked": 0, "lines": 3, "pct": 0}  # the spoken track is the default
+    assert client.post(f"/api/media/{m['id']}/hard", json={"start": 1.3, "end": 2.0, "text": "Gestern Abend.", "track": "spoken"}).status_code == 200
+    assert ratings.hard_marks(day, m["id"])[0]["track"] == "spoken"
+    assert rr.share_for(it, day) == {"marked": 1, "lines": 3, "pct": 33}
+    client.post(f"/api/media/{m['id']}/hard", json={"start": 4.5, "end": 6.0, "text": "Das glaube ich Ihnen nicht."})
+    assert rr.share_for(it, day)["lines"] == 2  # last mark on ARD's lines: count those
+    assert client.post(f"/api/media/{m['id']}/hard", json={"start": 1, "text": "x", "track": "whisper"}).status_code == 422

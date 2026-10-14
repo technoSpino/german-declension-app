@@ -246,6 +246,19 @@ def test_materialcheck_lists_real_gaps_only(b2, monkeypatch):
     assert ("2026-10-12", "lesen") in gaps              # the podcast isn't (in this test library)
     written = materials.write_check(date(2026, 10, 11))
     assert (config.DATA_DIR / "materialcheck.json").exists() and "gaps" in written
+    # #29: the Tatort has no transcript yet — listed for the operator, not as a gap on Heute
+    missing = written["transcripts"]["missing"]
+    assert [(m["title"].startswith("Tatort"), m["hint"].startswith("auf dem Mac tools/mac-transcribe/run.sh ")) for m in missing][:1] == [(True, True)]
+    assert not any("Transkript" in (g["problem"] or "") for g in written["gaps"])
+    assert "transcripts" not in b2.get("/api/materials").json()["check"]
+    mid = missing[0]["mediaId"]
+    (config.DATA_DIR / "transcripts").mkdir(exist_ok=True)
+    (config.DATA_DIR / "transcripts" / "stock-tatort-schweigen.whisper.json").write_text(
+        json.dumps({"segments": [{"start": 1.0, "end": 2.0, "text": "Wo waren Sie?", "words": [
+            {"w": "Wo", "s": 1.0, "e": 1.2, "p": 0.9}, {"w": "waren", "s": 1.3, "e": 1.6, "p": 0.9},
+            {"w": "Sie?", "s": 1.7, "e": 2.0, "p": 0.9}]}]}), encoding="utf-8")
+    again = materials.write_check(date(2026, 10, 11))["transcripts"]
+    assert mid in again["changed"] and mid not in [m["mediaId"] for m in again["missing"]]
 
 
 def test_bald_faellig_schirach_first_no_kaenguru(b2, monkeypatch):

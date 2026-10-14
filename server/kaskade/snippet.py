@@ -7,16 +7,19 @@ PAD_AFTER = 0.35    # … and end a little early
 MAX_SECONDS = 15.0
 
 
-def window(start: float, end: float) -> tuple[float, float]:
+SPOKEN_PAD = 0.15   # #29: a line of the Whisper track has word times — only a little padding
+
+
+def window(start: float, end: float, pad: tuple[float, float] = (PAD_BEFORE, PAD_AFTER)) -> tuple[float, float]:
     """Padded [from, to] for a cue, never negative and at most MAX_SECONDS long."""
-    a = max(0.0, start - PAD_BEFORE)
-    b = max(a + 0.1, end + PAD_AFTER)
+    a = max(0.0, start - pad[0])
+    b = max(a + 0.1, end + pad[1])
     return round(a, 3), round(min(b, a + MAX_SECONDS), 3)
 
 
-def cut(source: Path, start: float, end: float, out: Path) -> bool:
+def cut(source: Path, start: float, end: float, out: Path, pad: tuple[float, float] = (PAD_BEFORE, PAD_AFTER)) -> bool:
     """Write the audio of [start, end] (padded) from `source` to `out` as AAC (.m4a). False on failure."""
-    a, b = window(start, end)
+    a, b = window(start, end, pad)
     out.parent.mkdir(parents=True, exist_ok=True)
     cmd = ["ffmpeg", "-nostdin", "-loglevel", "error", "-y", "-ss", f"{a:.3f}", "-to", f"{b:.3f}", "-i", str(source),
            "-vn", "-ac", "1", "-c:a", "aac", "-b:a", "64k", "-movflags", "+faststart", str(out)]

@@ -3,9 +3,11 @@ import datetime as dt
 from datetime import date, timedelta
 
 from fastapi import APIRouter, HTTPException
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
-from .. import db, materials, plan, ratings, rolling, satzcheck, srs
+from .. import db, materials, plan, ratings, rolling, satzcheck, srs, transcripts
 
 router = APIRouter(prefix="/api")
 
@@ -39,10 +41,14 @@ def share_for(it: dict, day: date) -> dict | None:
     """Schauen's measured share for a clip item: lines marked too hard of the lines heard today."""
     if it["kind"] not in ("clip", "satzcheck") or not it.get("mediaId") or it.get("audio"):
         return None
-    cues = [c for c in rolling.load_cues(it["mediaId"]) if not satzcheck.is_non_speech(c.get("text", ""))]
+    hard = ratings.hard_marks(day, it["mediaId"])
+    # #29: count the lines of the track he marked on (the spoken one is the default when it exists)
+    spoken = transcripts.load(it["mediaId"])
+    track = spoken if spoken and (hard[-1]["track"] == "spoken" if hard else True) else rolling.load_cues(it["mediaId"])
+    cues = [c for c in track if not satzcheck.is_non_speech(c.get("text", ""))]
     frm = (it.get("range") or [0])[0]
     to = max(it.get("position") or 0, frm)
-    marks = [m["start"] for m in ratings.hard_marks(day, it["mediaId"])]
+    marks = [m["start"] for m in hard]
     s = ratings.hard_share(cues, frm, to, marks)
     return s if s["lines"] else None
 
@@ -140,6 +146,7 @@ class HardIn(BaseModel):
     start: float = Field(ge=0)
     end: float | None = None
     text: str = Field(min_length=1, max_length=500)
+    track: Literal["spoken", "ard"] | None = None  # #29: the line was on this track
 
 
 @router.post("/media/{media_id}/hard")
@@ -149,7 +156,7 @@ def mark_hard(media_id: int, body: HardIn):
     with db.tx() as conn:
         if not conn.execute("SELECT 1 FROM media WHERE id = ?", (media_id,)).fetchone():
             raise HTTPException(404, "Clip nicht gefunden")
-    ratings.mark_hard(day, media_id, body.start, body.end, body.text.strip())
+    ratings.mark_hard(day, media_id, body.start, body.end, body.text.strip(), "spoken" if body.track == "spoken" else None)
     return {"marks": ratings.hard_marks(day, media_id)}
 
 

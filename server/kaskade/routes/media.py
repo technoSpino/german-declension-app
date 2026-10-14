@@ -38,9 +38,11 @@ def _row(r, with_cues=False, progress: dict | None = None) -> dict:
         "status": r["status"] or "ready",
         # plan stock (#16): catalog key, genre tag, where it comes from
         "key": r["key"], "tag": r["tag"] or None, "source": (stock.item(r["key"]) or {}).get("source") if r["key"] else None,
+        "hasSpoken": bool(r["spoken_cues"]),  # #29: a "gesprochen" track from a Whisper transcript
     }
     if with_cues:
         out["cues"] = cues
+        out["spokenCues"] = json.loads(r["spoken_cues"]) if r["spoken_cues"] else None
     return out
 
 

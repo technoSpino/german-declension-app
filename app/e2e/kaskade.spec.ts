@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdirSync, readFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const DATA_DIR = join(process.cwd(), '.e2e-data') // the E2E API's KASKADE_DATA_DIR
@@ -1059,7 +1059,7 @@ const SHOTS = process.env.KASKADE_SHOTS ?? join(DATA_DIR, 'shots')
 test('#28 Karten: the audio plays by itself, the timer on the card starts after it; the box turns autoplay off', async ({ page, request, browserName }) => {
   test.skip(browserName === 'firefox', 'Firefox finds no audio output on this server (OnMediaSinkAudioError), so no clip ever ends')
   const errors = watchConsole(page)
-  await page.addInitScript(() => localStorage.setItem('kaskade-theme', 'signal')) // the screens in Signal (#15), whatever the Stil test left
+  await page.addInitScript(() => { try { localStorage.setItem('kaskade-theme', 'signal') } catch { /* about:blank */ } }) // the screens in Signal (#15), whatever the Stil test left
   await page.clock.install({ time: new Date('2026-10-13T07:30:00Z') })
   const next = async () => (await (await request.get('http://127.0.0.1:8001/api/cards/next')).json())
   const last = () => sql('SELECT rating || "," || reveal_ms || "," || auto || "," || autoplay FROM review_log ORDER BY id DESC LIMIT 1')
@@ -1180,5 +1180,99 @@ test('#28 Karten: the browser refuses autoplay → one quiet line, the timer run
   await page.getByTestId('karte-nicht').click()
   await expect(page.getByTestId('karte-reveal')).toBeVisible()
   expect(sql('SELECT autoplay FROM review_log ORDER BY id DESC LIMIT 1')).toBe('0') // nothing played by itself: timed as without autoplay
+  expect(errors).toEqual([])
+})
+
+/** #29: an invented Whisper transcript for the test clip (fuller than its SRT), imported like the Mac's. */
+function whisperFixture(): string {
+  const seg = (text: string, at: number, step: number, p = 0.92) => {
+    const words = text.split(' ').map((w, i) => ({ w, s: +(at + i * step).toFixed(2), e: +(at + (i + 1) * step - 0.03).toFixed(2), p }))
+    return { start: words[0].s, end: words.at(-1)!.e, text, no_speech_prob: 0.01, avg_logprob: -0.2, words }
+  }
+  return JSON.stringify({
+    model: 'e2e',
+    language: 'de',
+    segments: [
+      seg('Guten Morgen, wie geht es dir denn so?', 0.55, 0.13), // ends 1.56 — ARD's line runs to 2.0
+      seg('Danke, mir geht es heute richtig gut.', 2.55, 0.19),
+      seg('Hast du später Zeit für einen Kaffee?', 4.55, 0.2),
+      seg('Leider nicht, ich muss noch arbeiten.', 6.55, 0.2),
+      seg('Vielen Dank.', 8.6, 0.15, 0.5) // over no subtitle, unsure: a hallucination, dropped
+    ]
+  })
+}
+
+test('#29 Schauen: the spoken line (KI-Transkript) by default, ARD on the toggle, mining takes the spoken line', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  await page.addInitScript(() => { try { localStorage.setItem('kaskade-theme', 'signal') } catch { /* about:blank */ } })
+  const up = await request.post('http://127.0.0.1:8001/api/media/upload', {
+    multipart: {
+      title: 'E2E-Transkript',
+      subtitles: { name: 'k.srt', mimeType: 'application/x-subrip', buffer: Buffer.from(SRT) },
+      media: { name: 'k.webm', mimeType: 'video/webm', buffer: readFileSync(testClip()) }
+    }
+  })
+  const clip = await up.json()
+  const file = sql('SELECT media_file FROM media WHERE id = ?', clip.id)
+  mkdirSync(join(DATA_DIR, 'transcripts'), { recursive: true })
+  writeFileSync(join(DATA_DIR, 'transcripts', file.replace(/\.[^.]+$/, '.whisper.json')), whisperFixture())
+  const imported = JSON.parse(execFileSync('../server/.venv/bin/python', ['-m', 'kaskade.transcripts'],
+    { cwd: '../server', env: { ...process.env, KASKADE_DATA_DIR: DATA_DIR } }).toString())
+  expect(imported.withTranscript).toContain(clip.id)
+
+  await page.goto(`/schauen/${clip.id}`)
+  const line = page.getByTestId('watch-line')
+  const video = page.getByTestId('watch-video')
+  await expect(page.getByTestId('watch-ki')).toHaveText('KI-Transkript')
+  await expect(page.getByTestId('track-spoken')).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByText('4 Zeilen')).toBeVisible() // "Vielen Dank." over silence is gone
+  await page.getByTestId('watch-play').click()
+  await expect(line).toContainText('Guten Morgen, wie geht es dir denn so?')
+  // auto-pause after the spoken line (ends 1.56 s), well before ARD's line would end (2.0 s)
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused), { timeout: 8000 }).toBe(true)
+  const pausedAt = await video.evaluate((v: HTMLVideoElement) => v.currentTime)
+  expect(pausedAt).toBeGreaterThanOrEqual(1.56); expect(pausedAt).toBeLessThan(1.9)
+  await expect(line).toContainText('Guten Morgen, wie geht es dir denn so?')
+  for (const width of [1280, 480]) {
+    await page.setViewportSize({ width, height: 900 })
+    await line.screenshot({ path: join(SHOTS, `schauen-zeile-${width}.png`) })
+  }
+  await page.setViewportSize({ width: 1280, height: 900 })
+
+  // the toggle: ARD's line at the same time, remembered across a reload
+  await page.getByTestId('track-ard').click()
+  await expect(line).toContainText('Guten Morgen, wie geht es dir?')
+  await expect(line).not.toContainText('denn so')
+  await expect(page.getByTestId('watch-ki')).toHaveCount(0)
+  await page.goto(`/schauen/${clip.id}?t=2.6`) // a new page load, at the second line
+  await expect(page.getByTestId('track-ard')).toHaveAttribute('aria-pressed', 'true')
+  await expect(line).toContainText('Danke, mir geht es gut.')
+  await page.getByTestId('track-spoken').click()
+
+  // mining a spoken line: its text and its word times
+  await expect(line).toContainText('Danke, mir geht es heute richtig gut.')
+  await video.evaluate((v: HTMLVideoElement) => v.pause())
+  await line.locator('.at-word', { hasText: /^richtig$/ }).click()
+  await expect(page.getByTestId('word-panel')).toContainText('Danke, mir geht es heute richtig gut.')
+  await page.getByTestId('mine').click()
+  await expect(page.getByTestId('word-panel')).toContainText('Gemined')
+  const mined = await (await request.get('http://127.0.0.1:8001/api/mined')).json()
+  const card = mined.find((c: { sentence: string }) => c.sentence === 'Danke, mir geht es heute richtig gut.')
+  expect([card.mediaId, card.clipStart, card.clipEnd, card.transcript]).toEqual([clip.id, 2.55, 3.85, true])
+  // Z on the spoken track stores that line
+  await page.keyboard.press('z')
+  const lastMark = async () => (await (await request.get(`http://127.0.0.1:8001/api/media/${clip.id}/hard`)).json()).marks.at(-1)
+  await expect.poll(lastMark).toMatchObject({ text: 'Danke, mir geht es heute richtig gut.', start: 2.55, track: 'spoken' })
+  // the card says where its sentence comes from (older unseen mined cards out of the way, no daily limit)
+  await page.goto('about:blank')
+  for (const c of mined) {
+    if (c.id !== card.id && !sql('SELECT 1 FROM cards WHERE id = ?', c.id)) await request.post(`http://127.0.0.1:8001/api/cards/${c.id}/known`)
+  }
+  await request.put('http://127.0.0.1:8001/api/cards/settings', { data: { newPerDay: 200 } })
+  await page.goto('/karten')
+  await expect(page.getByTestId('karte-satz')).toHaveText('Danke, mir geht es heute richtig gut.')
+  await page.keyboard.press('Space')
+  await expect(page.getByTestId('karte-transcript')).toHaveText('KI-Transkript')
+  await request.put('http://127.0.0.1:8001/api/cards/settings', { data: { newPerDay: 20 } })
   expect(errors).toEqual([])
 })

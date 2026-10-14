@@ -100,15 +100,16 @@ def leicht_count(minutes: int = 35) -> int:
 
 # ── Lines marked "zu schwer" in Schauen ──────────────────────────────────────
 
-def mark_hard(day: date, media_id: int, start: float, end: float | None, text: str) -> None:
+def mark_hard(day: date, media_id: int, start: float, end: float | None, text: str, track: str | None = None) -> None:
+    """`track`: "spoken" when the line was on the Whisper track (#29), else ARD's subtitles."""
     with db.tx() as conn:
-        conn.execute("INSERT INTO hard_lines(created_at, local_date, media_id, start, end, text) VALUES (?, ?, ?, ?, ?, ?)",
-                     (srs.now_utc().isoformat(), day.isoformat(), media_id, start, end, text))
+        conn.execute("INSERT INTO hard_lines(created_at, local_date, media_id, start, end, text, track) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                     (srs.now_utc().isoformat(), day.isoformat(), media_id, start, end, text, track))
 
 
 def hard_marks(day: date, media_id: int) -> list[dict]:
     with db.tx() as conn:
-        rows = conn.execute("SELECT start, end, text FROM hard_lines WHERE local_date = ? AND media_id = ? ORDER BY id",
+        rows = conn.execute("SELECT start, end, text, track FROM hard_lines WHERE local_date = ? AND media_id = ? ORDER BY id",
                             (day.isoformat(), media_id)).fetchall()
     return [dict(r) for r in rows]
 
