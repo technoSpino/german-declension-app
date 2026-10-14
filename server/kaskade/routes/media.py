@@ -11,7 +11,7 @@ from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, Reque
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from .. import config, db, mediathek, satzcheck, stock, transcode
+from .. import config, db, mediathek, satzcheck, stock, transcode, transcripts
 
 router = APIRouter(prefix="/api/media")
 
@@ -66,6 +66,7 @@ def _get(media_id: int):
 
 @router.get("")
 def list_media():
+    transcripts.import_all()  # #29: transcripts that arrived (or were replaced) since: cheap when nothing changed
     with db.tx() as conn:
         rows = conn.execute("SELECT * FROM media ORDER BY id DESC").fetchall()
     progress = _progress()
@@ -122,6 +123,7 @@ def tags():
 
 @router.get("/{media_id}")
 def get_media(media_id: int):
+    transcripts.import_all(media_id)  # #29: its transcript arrived or was replaced: rebuild the track first
     return _row(_get(media_id), with_cues=True)
 
 

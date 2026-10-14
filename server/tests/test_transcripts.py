@@ -134,3 +134,78 @@ def test_the_prompt_word_glossar_never_shows():
     t = {"segments": [seg("Glossar, aber es wird Ihnen nichts nützen.", 3.0)]}
     assert [c["text"] for c in tr.spoken_cues(t, [{"start": 3.0, "end": 5.0, "text": "Es wird nichts nützen."}])] == [
         "aber es wird Ihnen nichts nützen."]
+
+
+# ── v2: respelling from ARD, gap fill, re-import on change ──
+
+def line_texts(t, ard):
+    return [c["text"] for c in tr.spoken_cues(t, ard)]
+
+
+def test_a_misheard_name_takes_the_ard_spelling():
+    """'Autos' is nothing like 'Otto' (similarity < 0.6), but Otto is a name of this clip (2×, not initial)."""
+    ard = [{"start": 1.0, "end": 3.0, "text": "Kennen Sie Pfarrer Otto?"},
+           {"start": 9.0, "end": 11.0, "text": "Ja, ich kenne Otto."}]
+    t = {"segments": [seg("Kennen Sie Pfarrer Autos?", 1.1), seg("Ja, ich kenne ihn, Autos.", 9.1)]}
+    assert line_texts(t, ard) == ["Kennen Sie Pfarrer Otto?", "Ja, ich kenne ihn, Autos."]
+    # second line: ARD has one word less there — an unequal block is left alone
+
+
+def test_a_near_miss_word_is_respelled_keeping_punctuation_and_times():
+    ard = [{"start": 2.0, "end": 4.0, "text": "Jemand hat alles durchwühlt."}]
+    t = {"segments": [seg("Jemand hat alles durchwählt.", 2.1)]}
+    track = tr.spoken_cues(t, ard)
+    assert track == [{"start": 2.1, "end": 3.25, "text": "Jemand hat alles durchwühlt."}]
+
+
+def test_below_the_threshold_nothing_is_respelled():
+    ard = [{"start": 2.0, "end": 4.0, "text": "Da steht eine Katze."},
+           {"start": 6.0, "end": 8.0, "text": "Sie heißt Mila."}]
+    t = {"segments": [seg("Da steht ein Hund.", 2.1), seg("Sie heißt Mira.", 6.1)]}
+    # 'ein'→'eine' is close (0.86): respelled; 'Hund'/'Katze' not; 'Mira'/'Mila' close (0.75)
+    assert line_texts(t, ard) == ["Da steht eine Hund.", "Sie heißt Mila."]
+
+
+def test_an_unequal_replace_block_is_left_alone():
+    ard = [{"start": 1.0, "end": 3.5, "text": "Er nimmt das Auto mit."}]
+    t = {"segments": [seg("Er nimmt den alten Wagen mit.", 1.1)]}
+    assert line_texts(t, ard) == ["Er nimmt den alten Wagen mit."]
+
+
+def test_a_sentence_start_stays_capitalised():
+    ard = [{"start": 1.0, "end": 3.0, "text": "Und dann kamen sie."}]
+    t = {"segments": [seg("Dan kamen sie.", 1.1)]}  # 'Dan' ↔ 'und dann': unequal, untouched
+    assert line_texts(t, ard) == ["Dan kamen sie."]
+    ard = [{"start": 1.0, "end": 3.0, "text": "Alles durchwühlt."}]
+    t = {"segments": [seg("Alles. Durchwählt.", 1.1)]}
+    assert line_texts(t, ard) == ["Alles.", "Durchwühlt."]
+
+
+def test_gap_fill_only_where_no_whisper_word_is_near():
+    ard = [{"start": 1.0, "end": 2.0, "text": "Komm her."},
+           {"start": 2.3, "end": 3.2, "text": "Sofort!"},  # Whisper's "her." ends at 2.55: near, no fill
+           {"start": 8.0, "end": 9.5, "text": "Generalvikar Billing wird kooperieren."}]
+    t = {"segments": [seg("Komm her.", 1.95)]}
+    track = tr.spoken_cues(t, ard)
+    assert [(c["text"], c.get("src")) for c in track] == [
+        ("Komm her.", None), ("Generalvikar Billing wird kooperieren.", "ard")]
+
+
+def test_reimport_when_the_file_changes(client):
+    import os
+    cues = [{"start": 1.0, "end": 3.0, "text": "Wo ist der Schlüssel?"}]
+    with db.tx() as conn:
+        mid = conn.execute("INSERT INTO media(created_at, kind, title, media_file, cues) VALUES (?, ?, ?, ?, ?)",
+                           (db.now_iso(), "upload", "Probe", "upload-9.mp4", json.dumps(cues))).lastrowid
+    tr.transcripts_dir().mkdir(parents=True, exist_ok=True)
+    f = tr.path_for("upload-9.mp4")
+    f.write_text(json.dumps({"segments": [seg("Wo ist der Schlüssel denn?", 1.1)]}), encoding="utf-8")
+    os.utime(f, ns=(1_000_000_000, 1_000_000_000))
+    assert tr.import_all()["changed"] == [mid]
+    assert tr.import_all()["changed"] == []  # same file: not even read again
+    f.write_text(json.dumps({"version": 2, "segments": [seg("Wo ist nur der Schlüssel?", 1.1)]}), encoding="utf-8")
+    os.utime(f, ns=(2_000_000_000, 2_000_000_000))
+    # opening the clip picks the new file up
+    assert client.get(f"/api/media/{mid}").json()["spokenCues"][0]["text"] == "Wo ist nur der Schlüssel?"
+    assert tr.import_all()["changed"] == []
+    assert tr.import_all(force=True)["changed"] == []  # rebuilt, same result

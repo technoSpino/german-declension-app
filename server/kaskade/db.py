@@ -208,6 +208,8 @@ MIGRATIONS = [
     "ALTER TABLE media ADD COLUMN spoken_cues TEXT",
     "ALTER TABLE hard_lines ADD COLUMN track TEXT",
     "ALTER TABLE mined ADD COLUMN track TEXT",
+    # #29: what media.spoken_cues was built from ("<mtime_ns>:<size>:<builder>"): a replaced file is re-imported
+    "ALTER TABLE media ADD COLUMN spoken_stamp TEXT",
     # clip conversion to H.264/AAC MP4: NULL/ready | converting | original (conversion failed, original kept)
     "ALTER TABLE media ADD COLUMN status TEXT",
     # plan stock (#16): stable key from data/plan/stock.json, genre tag, duration for clips without cues
