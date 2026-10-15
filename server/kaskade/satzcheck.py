@@ -47,12 +47,13 @@ def parse_subtitles(text: str) -> list[dict]:
 
 
 NON_SPEECH_RE = re.compile(r"^\s*(?:\*[^*]*\*|\[[^\]]*\]|\([^)]*\))\s*$")
+MUSIK_RE = re.compile(r"^musik\.?$", re.I)  # #30: Whisper's word for a theme tune, not a line of dialogue
 
 
 def is_non_speech(text: str) -> bool:
-    """Sound/music cues, not speech: lines fully wrapped in *…*, […] or (…), or starting with ♪."""
+    """Sound/music cues, not speech: lines fully wrapped in *…*, […] or (…), starting with ♪, or only "Musik"."""
     t = text.strip()
-    return not t or t.startswith(("♪", "♫", "#")) or bool(NON_SPEECH_RE.match(t))
+    return not t or t.startswith(("♪", "♫", "#")) or bool(NON_SPEECH_RE.match(t)) or bool(MUSIK_RE.match(t))
 
 
 def window(cues: list[dict], start: float, length: float = 180) -> list[dict]:

@@ -1,19 +1,22 @@
 """Media library for Satz-Check: uploads and YouTube downloads in ~/kaskade-data/media."""
 import json
+import logging
 import os
 import re
 import secrets
 import shutil
 import time
 from pathlib import Path
+from typing import Literal
 
 from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from .. import config, db, mediathek, satzcheck, stock, transcode, transcripts
+from .. import config, db, mediathek, satzcheck, srs, stock, transcode, transcripts
 
 router = APIRouter(prefix="/api/media")
+log = logging.getLogger(__name__)
 
 MEDIA_EXT = {".mp4", ".webm", ".mkv", ".m4v", ".mov", ".mp3", ".m4a", ".ogg", ".oga", ".wav", ".opus", ".aac"}
 SUB_EXT = {".srt", ".vtt"}
@@ -88,17 +91,27 @@ def last():
 
 class ProgressIn(BaseModel):
     position: float = Field(ge=0)
+    # #30: the playhead went back > 60 s without him choosing a line — sent with the next save
+    reason: Literal["jump"] | None = None
+    from_: float | None = Field(default=None, alias="from", ge=0)
 
 
 @router.put("/{media_id}/progress")
 def save_progress(media_id: int, body: ProgressIn):
     _get(media_id)
+    new = round(body.position, 2)
     with db.tx() as conn:
+        old = conn.execute("SELECT position FROM media_progress WHERE media_id = ?", (media_id,)).fetchone()
         conn.execute(
             "INSERT INTO media_progress(media_id, position, updated_at) VALUES (?, ?, ?)"
             " ON CONFLICT(media_id) DO UPDATE SET position = excluded.position, updated_at = excluded.updated_at",
-            (media_id, round(body.position, 2), db.now_iso()))
-    return {"id": media_id, "position": round(body.position, 2)}
+            (media_id, new, db.now_iso()))
+    old = old["position"] if old else None
+    if body.reason == "jump":
+        log.warning("position media %s: jumped back from %s to %s (saved before: %s)", media_id, body.from_, new, old)
+    else:
+        log.info("position media %s: %s → %s", media_id, old, new)
+    return {"id": media_id, "position": new}
 
 
 class TagIn(BaseModel):
@@ -121,10 +134,21 @@ def tags():
     return [{"id": k, "label": v} for k, v in stock.TAGS.items()]
 
 
+def range_reached(key: str | None) -> float | None:
+    """#30: how far he got in this clip's last plan range before today (watch_ranges.reached), if known."""
+    if not key:
+        return None
+    with db.tx() as conn:
+        r = conn.execute("SELECT reached FROM watch_ranges WHERE clip = ? AND local_date < ? ORDER BY local_date DESC LIMIT 1",
+                         (key, srs.local_date(srs.now_utc()))).fetchone()
+    return r["reached"] if r else None
+
+
 @router.get("/{media_id}")
 def get_media(media_id: int):
     transcripts.import_all(media_id)  # #29: its transcript arrived or was replaced: rebuild the track first
-    return _row(_get(media_id), with_cues=True)
+    r = _get(media_id)
+    return _row(r, with_cues=True) | {"rangeReached": range_reached(r["key"])}
 
 
 @router.get("/{media_id}/file")

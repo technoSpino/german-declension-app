@@ -96,9 +96,9 @@ def test_verdict_gates(coverage, ctype, words, phase, key):
 def test_non_speech_cues_are_recognised():
     from kaskade.satzcheck import is_non_speech
     for cue in ["* Musik: ruhige Klaviermusik *", "* Stimmen und Lachen *", "[Klopfen]", "(dumpf)", "(schreit)",
-                "♪ Oh, oh, oh ♪", "♪ La la", "  [Telefon klingelt]  "]:
+                "♪ Oh, oh, oh ♪", "♪ La la", "  [Telefon klingelt]  ", "Musik", "Musik.", " musik "]:
         assert is_non_speech(cue), cue
-    for cue in ["Na?", "(leise) Komm her.", "Ich sag's dir *jetzt*.", "Was [ist] das?"]:
+    for cue in ["Na?", "(leise) Komm her.", "Ich sag's dir *jetzt*.", "Was [ist] das?", "Musik!", "Musik ist laut."]:
         assert not is_non_speech(cue), cue
 
 

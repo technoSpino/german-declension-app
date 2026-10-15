@@ -1,11 +1,21 @@
 """Kaskade API. Run: uvicorn kaskade.main:app --host 127.0.0.1 --port 8000"""
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from uvicorn.logging import DefaultFormatter
 
 from . import config, db, stock
 from .routes import cards, feed, media, placement, practice, ratings, reader, satzcheck, texts, today, vocab
+
+# Our own log lines (#30: every saved clip position) in the journal, formatted like uvicorn's
+_log = logging.getLogger("kaskade")
+if not _log.handlers:
+    _handler = logging.StreamHandler()
+    _handler.setFormatter(DefaultFormatter("%(levelprefix)s %(message)s"))
+    _log.addHandler(_handler)
+    _log.setLevel(logging.INFO)
 
 
 @asynccontextmanager

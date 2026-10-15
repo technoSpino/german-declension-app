@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../../lib/api'
-import { clipStatus, clock, formatTime, inside, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
+import { clipStatus, clock, formatTime, inside, jumpedBack, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
 import { hardShare, ratingLabel, shareLine } from '../../lib/ratings'
 import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
 import RateAsk from '../../components/kaskade/RateAsk.vue'
@@ -40,6 +40,11 @@ let touched = false // only save a position once the clip was actually played or
 let loopLine = -1 // the line being looped (fixed when the loop starts or a line is chosen)
 let raf = 0
 let lastSaved = 0
+// #30: where the clip should start (plan range, saved position, ?t=) until the element is really there.
+// Before its metadata it can't seek and reports 0 — that 0 must never become his position.
+let pendingStart = null
+let startTries = 0
+let jumpFrom = null // the playhead went back > 60 s by itself: from where (sent with the next save)
 const analyses = new Map()
 
 function readPref(key, fallback) {
@@ -93,7 +98,7 @@ async function load() {
     const bis = Number(route.query.bis)
     goal.value = false
     if (Number.isFinite(von) && Number.isFinite(bis) && bis > von) {
-      const r = rangeStart(von, bis, media.value.position)
+      const r = rangeStart(von, bis, media.value.position, media.value.rangeReached)
       range.value = { from: von, to: bis }
       rangeNote.value = r.note
       goal.value = r.reached
@@ -104,6 +109,12 @@ async function load() {
     }
     loop.value = route.query.loop === '1'
     startPos = t.value
+    pendingStart = t.value > 0 ? t.value : null
+    startTries = 0
+    jumpFrom = null
+    lastT = t.value
+    loopLine = -1
+    pausedFor = pausedBefore(cues.value, t.value) // a line that ended before the start: no pause for it on the first play
   } catch (e) {
     error.value = e.message
   }
@@ -149,8 +160,44 @@ function markHard() {
 onMounted(load)
 watch(() => route.params.id, load)
 
+// The element can seek once it has its metadata: to the start — or, after a reload, back to where he was.
 function onLoaded() {
-  if (video.value && t.value) video.value.currentTime = t.value
+  const v = video.value
+  const at = pendingStart ?? t.value
+  if (!v || !(at > 0) || Math.abs(v.currentTime - at) < 1) return
+  pendingStart = at
+  startTries = 0
+  v.currentTime = at
+}
+
+/** #30: the element isn't where the clip should be yet (no metadata, or the start not reached): t keeps the start. */
+function notThereYet(v) {
+  if (v.readyState < 1) return true
+  if (pendingStart === null) return false
+  if (Math.abs(v.currentTime - pendingStart) < 1) {
+    pendingStart = null
+    return false
+  }
+  if (v.seeking) return true
+  if (startTries++ < 3) {
+    v.currentTime = pendingStart // the browser dropped the first seek: once more
+    return true
+  }
+  pendingStart = null // it won't go there: from now on the jump check reports where it is
+  return false
+}
+// where he is: the pending start, else the playhead
+const here = (v) => pendingStart ?? (v.readyState < 1 ? t.value : v.currentTime)
+
+// t follows the playhead; a jump back he didn't choose (> 60 s) goes with the next save (#30)
+function follow(now) {
+  if (jumpFrom === null && jumpedBack(t.value, now)) jumpFrom = t.value
+  t.value = now
+}
+// A seek finished — ours, or one the browser made by itself (then it's a jump: shown and logged).
+function onSeeked() {
+  const v = video.value
+  if (v && !notThereYet(v) && jumpedBack(t.value, v.currentTime)) follow(v.currentTime)
 }
 
 // Analyse the line once it is on screen (cached per text).
@@ -177,7 +224,11 @@ watch(line, async (l) => {
 function tick() {
   const v = video.value
   if (!v) return
-  t.value = v.currentTime
+  if (notThereYet(v)) {
+    raf = requestAnimationFrame(tick)
+    return
+  }
+  follow(v.currentTime)
   const cur = cues.value[loopLine]
   if (loop.value && !v.paused && cur && v.currentTime >= cur.end + 0.15) {
     v.currentTime = Math.max(0, cur.start - 0.1) // loop: back to the start of the line
@@ -202,7 +253,7 @@ function onPlay() {
   touched = true
   if (loopLine < 0 || !loop.value) loopLine = index.value
   held.value = -1
-  lastT = video.value?.currentTime ?? 0
+  lastT = video.value ? here(video.value) : 0
   playing.value = true
   cancelAnimationFrame(raf)
   raf = requestAnimationFrame(tick)
@@ -210,7 +261,8 @@ function onPlay() {
 function onPause() {
   playing.value = false
   cancelAnimationFrame(raf)
-  if (video.value) t.value = video.value.currentTime
+  const v = video.value
+  if (v && !notThereYet(v)) follow(v.currentTime)
   saveProgress()
 }
 
@@ -239,10 +291,32 @@ function seekLine(i, play = true) {
   loopLine = i
   held.value = -1
   pausedFor = i - 1 // the lead-in belongs to the previous line: don't pause for it
-  v.currentTime = seekTarget(cues.value, i)
-  lastT = v.currentTime
+  goTo(v, seekTarget(cues.value, i))
   t.value = c.start
   if (play) v.play().catch(() => {})
+}
+// A seek he chose. Without metadata yet the element can't: then it's the pending start.
+function goTo(v, at) {
+  startTries = 0
+  if (v.readyState < 1) pendingStart = at
+  else {
+    pendingStart = null
+    v.currentTime = at
+  }
+  lastT = at
+  t.value = at
+}
+
+// #30: the playhead is far before today's part (whatever put it there): one click back to its start
+const behindRange = computed(() => range.value && !goal.value && t.value < range.value.from - 30)
+function backToRange() {
+  const v = video.value
+  if (!v || !range.value) return
+  touched = true
+  held.value = -1
+  loopLine = -1
+  pausedFor = pausedBefore(cues.value, range.value.from)
+  goTo(v, range.value.from)
 }
 // ← / → / R / L act on the line on screen
 const prev = () => seekLine(stepLine(cues.value, index.value, -1))
@@ -254,7 +328,7 @@ function setTrack(tr) {
   if (trackPref.value === tr) return
   trackPref.value = tr
   storeTrack(tr)
-  const now = video.value?.currentTime ?? t.value
+  const now = video.value ? here(video.value) : t.value
   held.value = -1
   pausedFor = pausedBefore(cues.value, now)
   loopLine = index.value
@@ -273,11 +347,15 @@ function setRate(r) {
 function saveProgress() {
   lastSaved = Date.now()
   if (!touched || !media.value || !video.value) return
-  const position = video.value.currentTime
+  const body = { position: here(video.value) }
+  if (jumpFrom !== null) {
+    Object.assign(body, { reason: 'jump', from: jumpFrom }) // logged as a warning on the server
+    jumpFrom = null
+  }
   fetch(`/api/media/${media.value.id}/progress`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ position }),
+    body: JSON.stringify(body),
     keepalive: true
   }).catch(() => {})
 }
@@ -388,7 +466,10 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
       <p v-if="range && goal" class="k-callout m-0" role="status" data-testid="watch-goal">
         <strong>Ziel für heute erreicht ✓</strong> (bis {{ clock(range.to) }}). Du kannst weiterschauen — oder auf Heute den Block mit „Fertig“ abschließen.
       </p>
-      <p v-else-if="range" class="k-small m-0" data-testid="watch-range">{{ rangeNote }} Das Video hält am Ende des Teils einmal an.</p>
+      <div v-else-if="range" class="flex flex-wrap items-center gap-x-3 gap-y-2">
+        <p class="k-small m-0" data-testid="watch-range">{{ rangeNote }} Das Video hält am Ende des Teils einmal an.</p>
+        <button v-if="behindRange" class="k-btn k-btn-sm" data-testid="watch-back" @click="backToRange">↩ Zurück zu {{ clock(range.from) }} (Teil von heute)</button>
+      </div>
       <RateAsk v-if="askRating" :label="rateFor.label" :share="shareLine(share)" :busy="rateBusy" @rate="rateClip" />
       <p v-else-if="goal && rateFor?.rating" class="k-chip k-chip-success m-0" style="width: fit-content" data-testid="watch-rated">✓ {{ ratingLabel(rateFor.rating) }}</p>
 
@@ -404,6 +485,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
               playsinline
               data-testid="watch-video"
               @loadedmetadata="onLoaded"
+              @seeked="onSeeked"
               @error="onVideoError"
               @play="onPlay"
               @pause="onPause"

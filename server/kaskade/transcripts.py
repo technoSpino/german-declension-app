@@ -34,7 +34,7 @@ SIMILAR = 0.72       # respell a misheard word when it is this close to ARD's (l
 SOUND = 0.75         # … and sounds alike (Kölner Phonetik codes this similar)
 NAME_COUNT = 2       # a capitalised word the dictionary doesn't know, this often in the clip's ARD cues, is a name …
 NAME_OFTEN = 8       # … and so is one this often (Otto, Falke are also dictionary words). German capitalises every noun.
-BUILD = 3            # bump when the line builder changes: every track is rebuilt on the next import
+BUILD = 4            # bump when the line builder changes: every track is rebuilt on the next import
 
 # What Whisper writes into silence or music (it learnt it from subtitled videos)
 HALLUCINATION = re.compile(

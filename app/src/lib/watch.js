@@ -1,11 +1,12 @@
 // Pure helpers for "Schauen & minen": subtitle navigation, testable without a browser.
 
 const WRAPPED = /^\s*(?:\*[^*]*\*|\[[^\]]*\]|\([^)]*\))\s*$/
+const MUSIK = /^musik\.?$/i // #30: Whisper's word for a theme tune, not a line of dialogue
 
-/** Sound/music cues, not speech: fully wrapped in *…*, […] or (…), or starting with ♪ (same rule as the server). */
+/** Sound/music cues, not speech: fully wrapped in *…*, […] or (…), starting with ♪, or only "Musik" (same rule as the server). */
 export function isNonSpeech(text) {
   const t = (text ?? '').trim()
-  return !t || /^[♪♫#]/.test(t) || WRAPPED.test(t)
+  return !t || /^[♪♫#]/.test(t) || WRAPPED.test(t) || MUSIK.test(t)
 }
 
 /** Only the cues that are speech. */
@@ -100,14 +101,25 @@ export function clock(sec) {
 /**
  * Where a plan range starts (Heute "Starten" → /schauen/ID?von=…&bis=…) and what to tell Matt:
  * behind → from his position; inside the range → resume; already past the end → "Ziel erreicht".
+ * `prevReached` = how far the clip's previous plan range got (#30): if that was already at `from`, a
+ * saved position before it went backwards afterwards (a jump) and must not pull him back.
  */
-export function rangeStart(from, to, position) {
+export function rangeStart(from, to, position, prevReached = null) {
   const pos = position || 0
   if (to && pos > from && pos >= to - 5) return { at: pos, reached: true, note: `Ziel für heute (bis ${clock(to)}) schon erreicht — du kannst weiterschauen.` }
-  if (pos > 2 && pos < from - 5) return { at: pos, reached: false, note: `Ab deiner Position (${clock(pos)}) bis ${clock(to)}.` }
+  if (pos > 2 && pos < from - 5) {
+    if (prevReached != null && prevReached >= from) return { at: from, reached: false, note: `Heute: ${clock(from)}–${clock(to)} (zuletzt gespeichert: ${clock(Math.floor(pos))}).` }
+    return { at: pos, reached: false, note: `Ab deiner Position (${clock(pos)}) bis ${clock(to)}.` }
+  }
   if (pos > from + 5) return { at: pos, reached: false, note: `Weiter ab ${clock(pos)} bis ${clock(to)}.` }
   return { at: from, reached: false, note: `Heute: ${clock(from)}–${clock(to)}.` }
 }
+
+/** #30: how far back the playhead may move by itself before it counts as a jump (← and chosen lines don't count). */
+export const JUMP = 60
+
+/** Whether the playhead went from `known` to `now` by a jump back (> 60 s). */
+export const jumpedBack = (known, now) => known - now > JUMP
 
 /** Note for a clip whose file is being converted to H.264/AAC MP4, or whose conversion failed. */
 export function clipStatus(clip) {

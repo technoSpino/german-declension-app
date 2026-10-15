@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { clipStatus, clock, formatTime, jobLabel, inside, isNonSpeech, LEAD, lineAt, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
+import { clipStatus, clock, formatTime, jobLabel, inside, isNonSpeech, JUMP, jumpedBack, LEAD, lineAt, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
 
 const CUES = [
   { start: 1, end: 2.5, text: 'Wo waren Sie gestern Abend?' },
@@ -16,6 +16,11 @@ describe('non-speech cues', () => {
     expect(isNonSpeech('(leise) Komm her.')).toBe(false)
     expect(isNonSpeech('Na?')).toBe(false)
     expect(speechCues([...CUES, { start: 9, end: 10, text: '(schreit)' }])).toHaveLength(3)
+  })
+
+  it('#30: a spoken line that is only "Musik" is Whisper hearing the theme tune, not speech', () => {
+    for (const t of ['Musik', 'Musik.', ' musik ']) expect(isNonSpeech(t)).toBe(true)
+    for (const t of ['Musik!', 'Musik ist laut.']) expect(isNonSpeech(t)).toBe(false)
   })
 })
 
@@ -140,6 +145,27 @@ describe('plan ranges (#16)', () => {
     expect(rangeStart(1814, 3640, 2400)).toMatchObject({ at: 2400, note: 'Weiter ab 40:00 bis 60:40.' })
     expect(rangeStart(0, 1814, 1812)).toMatchObject({ reached: true })
     expect(rangeStart(2, 4, 0)).toMatchObject({ at: 2, reached: false }) // a short range: not "reached" before it starts
+  })
+
+  it('#30: a position that went backwards after the previous range was reached does not pull him back', () => {
+    // Thursday: yesterday's part was reached at 62:26, then a jump saved 0:06
+    expect(rangeStart(3746, 5361, 6.85, 3746)).toEqual({ at: 3746, reached: false, note: 'Heute: 62:26–89:21 (zuletzt gespeichert: 0:06).' })
+    expect(rangeStart(3746, 5361, 6.85, 3750.2)).toMatchObject({ at: 3746 })
+    // really behind: he stopped before yesterday's end → from his position, as before
+    expect(rangeStart(3746, 5361, 3100, 3100)).toMatchObject({ at: 3100, note: 'Ab deiner Position (51:40) bis 89:21.' })
+    expect(rangeStart(3746, 5361, 3100, null)).toMatchObject({ at: 3100 })
+    expect(rangeStart(3746, 5361, 3100)).toMatchObject({ at: 3100 })
+    // inside or past the range: unchanged
+    expect(rangeStart(3746, 5361, 3800, 3746)).toMatchObject({ at: 3800, note: 'Weiter ab 63:20 bis 89:21.' })
+    expect(rangeStart(3746, 5361, 0, 3746)).toMatchObject({ at: 3746, note: 'Heute: 62:26–89:21.' })
+  })
+
+  it('#30: a jump is the playhead going back more than 60 s by itself', () => {
+    expect(JUMP).toBe(60)
+    expect(jumpedBack(3746, 0)).toBe(true)
+    expect(jumpedBack(3746, 3685.5)).toBe(true)
+    expect(jumpedBack(3746, 3690)).toBe(false) // ← a line back, R, the loop
+    expect(jumpedBack(3746, 3800)).toBe(false) // forward
   })
 })
 

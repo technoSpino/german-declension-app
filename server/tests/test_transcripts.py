@@ -73,6 +73,17 @@ def test_sure_speech_without_an_ard_line_stays():
     assert [c["text"] for c in tr.spoken_cues(t, [])] == ["Ich hab das nachgeprüft."]
 
 
+def test_musik_over_the_opening_credits_is_no_line(client):
+    """#30: Whisper writes "Musik" over a theme tune — a sound cue, not dialogue (no auto-pause at 0:00)."""
+    from kaskade.satzcheck import is_non_speech
+    ard = [{"start": 0.0, "end": 3.0, "text": "Untertitel: Testfunk 2026"}, {"start": 6.0, "end": 10.0, "text": "♪ Titelmusik ♪"},
+           {"start": 69.0, "end": 70.5, "text": "Hallo, ist da jemand?"}]
+    t = {"segments": [seg("Musik", 0.0, step=1.44, gap=0.0), seg("Hallo, ist da jemand?", 68.1)]}
+    track = tr.spoken_cues(t, ard)
+    assert [c["text"] for c in track] == ["Musik", "♪ Titelmusik ♪", "Hallo, ist da jemand?"]  # the credit line isn't filled in
+    assert [c["text"] for c in track if not is_non_speech(c["text"])] == ["Hallo, ist da jemand?"]
+
+
 def test_sound_cues_stay_interleaved_by_time():
     ard = [{"start": 0.5, "end": 2.0, "text": "Kommst du mit?"}, {"start": 2.5, "end": 4.0, "text": "* Glockenläuten *"},
            {"start": 4.5, "end": 6.0, "text": "Gleich."}]

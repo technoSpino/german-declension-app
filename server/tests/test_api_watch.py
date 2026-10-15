@@ -1,10 +1,12 @@
 """Schauen & minen: resume positions, last clip, mining a subtitle line with an audio snippet."""
+import logging
 import shutil
 import subprocess
+from datetime import date, timedelta
 
 import pytest
 
-from kaskade import config, snippet
+from kaskade import config, db, snippet, srs
 
 SRT = b"""1
 00:00:00,500 --> 00:00:02,000
@@ -53,6 +55,34 @@ def test_progress_and_last_clip(client):
     assert client.get(f"/api/media/{first['id']}").json()["position"] == 3.2
     assert client.put("/api/media/999/progress", json={"position": 1}).status_code == 404
     assert client.put(f"/api/media/{first['id']}/progress", json={"position": -1}).status_code == 422
+
+
+def test_every_saved_position_is_logged_and_a_jump_back_is_a_warning(client, caplog):
+    """#30: old → new at INFO; a jump back he didn't choose comes with reason + from and is a WARNING."""
+    m = upload(client, title="Lang")
+    with caplog.at_level(logging.INFO, logger="kaskade"):
+        client.put(f"/api/media/{m['id']}/progress", json={"position": 3746})
+        client.put(f"/api/media/{m['id']}/progress", json={"position": 6.854, "reason": "jump", "from": 3746})
+    logged = [(r.levelname, r.getMessage()) for r in caplog.records if r.name == "kaskade.routes.media"]
+    assert logged == [("INFO", f"position media {m['id']}: None → 3746.0"),
+                      ("WARNING", f"position media {m['id']}: jumped back from 3746.0 to 6.85 (saved before: 3746.0)")]
+    assert client.get(f"/api/media/{m['id']}").json()["position"] == 6.85
+    assert client.put(f"/api/media/{m['id']}/progress", json={"position": 1, "reason": "oops"}).status_code == 422
+
+
+def test_the_clip_says_how_far_its_last_plan_range_got(client):
+    """#30: Starten must not trust a position that went backwards after yesterday's part was reached."""
+    m = upload(client, title="Lang")
+    other = upload(client, title="Ohne Plan")
+    today = date.fromisoformat(srs.local_date(srs.now_utc()))
+    with db.tx() as conn:
+        conn.execute("UPDATE media SET key = 'e2e-lang' WHERE id = ?", (m["id"],))
+        for day, start, end, reached in [(today - timedelta(days=2), 430, 2046, 2046.01), (today - timedelta(days=1), 2046, 3746, 3746.0),
+                                          (today, 3746, 5361, None)]:
+            conn.execute("INSERT INTO watch_ranges(local_date, block, clip, start, end, clean, reached) VALUES (?, 'input', 'e2e-lang', ?, ?, 1, ?)",
+                         (day.isoformat(), start, end, reached))
+    assert client.get(f"/api/media/{m['id']}").json()["rangeReached"] == 3746.0  # yesterday's, not today's (open)
+    assert client.get(f"/api/media/{other['id']}").json()["rangeReached"] is None
 
 
 @needs_ffmpeg

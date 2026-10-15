@@ -1284,3 +1284,184 @@ test('#29 Schauen: the spoken line (KI-Transkript) by default, ARD on the toggle
   await request.put('http://127.0.0.1:8001/api/cards/settings', { data: { newPerDay: 20 } })
   expect(errors).toEqual([])
 })
+
+// ── #30: Schauen jumped back to 0:00 ──
+
+/** An invented 89-min clip (grey, silent): one 60-s piece, joined 90 times — quick to make. */
+function longClip(): string {
+  mkdirSync(TMP, { recursive: true })
+  const out = join(TMP, 'lang.webm')
+  if (!existsSync(out)) {
+    const piece = join(TMP, 'lang-60s.webm')
+    execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-f', 'lavfi', '-i', 'color=c=gray:s=64x36:r=2:d=60',
+      '-f', 'lavfi', '-i', 'anullsrc=r=22050:cl=mono', '-t', '60', '-c:v', 'libvpx', '-b:v', '20k', '-g', '20',
+      '-c:a', 'libvorbis', '-q:a', '0', piece])
+    writeFileSync(join(TMP, 'lang.txt'), Array(90).fill(`file '${piece}'`).join('\n'))
+    execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', join(TMP, 'lang.txt'), '-t', '5361', '-c', 'copy', out])
+  }
+  return out
+}
+
+/** Shaped like Tatort: Schweigen (invented lines): a credit line at 0:00, a minute without speech, lines around 62:26. */
+const LONG_CUES: [number, number, string][] = [
+  [0, 3.04, 'Untertitel: Testfunk 2026'], [5.92, 10.52, '♪ Titelmusik ♪'], [69.24, 70.92, 'Hallo? Ist da wer?'],
+  [3739.96, 3741.44, 'Wo ist mein Schlüssel?'], [3748.28, 3749.8, 'Kommst du mit ins Kino?'], [3750.0, 3753.0, 'Ich habe leider keine Zeit.'],
+  [3757.2, 3759.4, 'Morgen kaufe ich eine Lampe.'], [3761.0, 3763.0, 'Wir fahren morgen nach Hamburg.'], [5359, 5360, 'Ende.']
+]
+function srtOf(cues: [number, number, string][]): string {
+  const ts = (x: number) => {
+    const ms = Math.round(x * 1000)
+    const p = (n: number, w = 2) => String(n).padStart(w, '0')
+    return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)},${p(ms % 1000, 3)}`
+  }
+  return cues.map(([a, b, text], i) => `${i + 1}\n${ts(a)} --> ${ts(b)}\n${text}\n`).join('\n')
+}
+/** Its Whisper transcript (invented): "Musik" over the credits at 0:00, as on Thursday, and fuller lines. */
+function longWhisper(): string {
+  const seg = (text: string, at: number, step: number) => {
+    const words = text.split(' ').map((w, i) => ({ w, s: +(at + i * step).toFixed(2), e: +(at + (i + 1) * step - 0.03).toFixed(2), p: 0.92 }))
+    return { start: words[0].s, end: words.at(-1)!.e, text, no_speech_prob: 0.01, avg_logprob: -0.2, words }
+  }
+  return JSON.stringify({ model: 'e2e', language: 'de', version: 2, segments: [
+    seg('Musik', 0, 1.47), seg('Hallo? Ist da wer?', 68.9, 0.4), seg('Wo ist mein Schlüssel?', 3739.66, 0.26),
+    seg('Kommst du heute mit ins Kino?', 3747.86, 0.3), // ends 3749.63
+    seg('Ich habe heute leider gar keine Zeit dafür.', 3750.34, 0.2), // ends 3751.94
+    seg('Morgen kaufe ich mir eine neue Lampe.', 3756.94, 0.25), // ends 3758.66
+    seg('Wir fahren morgen früh nach Hamburg.', 3760.9, 0.3)
+  ] })
+}
+async function longTatort(request, title: string) {
+  const up = await request.post('http://127.0.0.1:8001/api/media/upload', {
+    multipart: {
+      title,
+      subtitles: { name: 'lang.srt', mimeType: 'application/x-subrip', buffer: Buffer.from(srtOf(LONG_CUES)) },
+      media: { name: 'lang.webm', mimeType: 'video/webm', buffer: readFileSync(longClip()) }
+    }
+  })
+  expect(up.ok()).toBeTruthy()
+  const clip = await up.json()
+  const file = sql('SELECT media_file FROM media WHERE id = ?', clip.id)
+  mkdirSync(join(DATA_DIR, 'transcripts'), { recursive: true })
+  writeFileSync(join(DATA_DIR, 'transcripts', file.replace(/\.[^.]+$/, '.whisper.json')), longWhisper())
+  execFileSync('../server/.venv/bin/python', ['-m', 'kaskade.transcripts'], { cwd: '../server', env: { ...process.env, KASKADE_DATA_DIR: DATA_DIR } })
+  return clip
+}
+/** Every position the page saves for `id`, and each save's body. */
+function savedPositions(page: Page, id: number) {
+  const saves: { position: number, reason?: string, from?: number }[] = []
+  page.on('request', (r) => { if (r.method() === 'PUT' && r.url().endsWith(`/media/${id}/progress`)) saves.push(JSON.parse(r.postData() ?? '{}')) })
+  return saves
+}
+
+test('#30 Schauen: play before the video has loaded still starts at today\'s part, and no control lands near 0:00', async ({ page, request }) => {
+  test.setTimeout(120_000)
+  const errors = watchConsole(page)
+  const clip = await longTatort(request, 'E2E-Langfilm')
+  await request.put(`http://127.0.0.1:8001/api/media/${clip.id}/progress`, { data: { position: 3746 } }) // yesterday's end
+  const saves = savedPositions(page, clip.id)
+  // a slow line: the video's first bytes come 2.5 s late (Thursday: the 6.6-MB header of the real MP4)
+  await page.route('**/api/media/*/file', async (route) => { await new Promise((r) => setTimeout(r, 2500)); await route.continue() })
+  await page.goto(`/schauen/${clip.id}?von=3746&bis=5361`)
+  const video = page.getByTestId('watch-video')
+  const line = page.getByTestId('watch-line')
+  const at = () => video.evaluate((v: HTMLVideoElement) => v.currentTime)
+  const pausedPast = (t: number) => expect.poll(() => video.evaluate((v: HTMLVideoElement, t) => v.paused && v.currentTime >= t, t), { timeout: 20_000 }).toBe(true)
+  await expect(page.getByTestId('watch-range')).toContainText('Heute: 62:26–89:21.')
+  await expect(line).toContainText('Wo ist mein Schlüssel?')
+  expect(await video.evaluate((v: HTMLVideoElement) => v.readyState)).toBe(0) // nothing of the video there yet …
+  await page.getByTestId('watch-play').click() // … and he presses play (this sent Thursday's first visit to 0:00)
+
+  // 62:26, and the first play goes on to the end of the next line — no stop at once for the line before
+  await pausedPast(3749.6)
+  expect(await at()).toBeLessThan(3750.3)
+  await expect(line).toContainText('Kommst du heute mit ins Kino?')
+  await page.unroute('**/api/media/*/file')
+
+  // every control, from 62:26: nothing may land near 0:00
+  await page.keyboard.press('r') // the line again
+  await expect.poll(at).toBeLessThan(3749)
+  await pausedPast(3749.6)
+  await page.keyboard.press('ArrowLeft')
+  await expect(line).toContainText('Wo ist mein Schlüssel?')
+  await pausedPast(3740.6)
+  await page.getByTestId('watch-next').click()
+  await expect(line).toContainText('Kommst du heute mit ins Kino?')
+  await pausedPast(3749.6)
+  await page.keyboard.press('z') // too hard: on to the next line
+  await expect(line).toContainText('Ich habe heute leider gar keine Zeit dafür.')
+  await pausedPast(3751.9)
+  await page.getByTestId('track-ard').click()
+  await expect(line).toContainText('Ich habe leider keine Zeit.')
+  await page.getByTestId('track-spoken').click()
+  await expect(line).toContainText('Ich habe heute leider gar keine Zeit dafür.')
+  await page.getByRole('button', { name: '0,85×' }).click()
+  expect(await video.evaluate((v: HTMLVideoElement) => v.playbackRate)).toBe(0.85)
+  await page.keyboard.press('Space')
+  await expect(line).toContainText('Morgen kaufe ich mir eine neue Lampe.', { timeout: 15_000 }) // 0,85×
+  await pausedPast(3758.6)
+  await line.locator('.at-word', { hasText: /^Lampe$/ }).click()
+  await page.getByTestId('mine').click()
+  await expect(page.getByTestId('word-panel')).toContainText(/Gemined|Satz schon gemint/) // another browser's run may have mined it
+  await video.click() // the video itself: play …
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(false)
+  await video.click() // … and pause
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true)
+  const other = await page.context().newPage() // a tab switch
+  await other.goto('about:blank')
+  await other.bringToFront()
+  await other.waitForTimeout(1000)
+  await page.bringToFront()
+  await other.close()
+  await page.getByTestId('watch-play').click()
+  await expect.poll(at).toBeGreaterThan(3759)
+  await page.getByTestId('watch-play').click()
+
+  expect(await at()).toBeGreaterThan(3700)
+  await expect.poll(() => saves.length).toBeGreaterThan(3)
+  expect(Math.min(...saves.map((s) => s.position))).toBeGreaterThan(3740) // never 0, never 0:06
+  expect(saves.some((s) => s.reason)).toBe(false) // no jump
+  expect((await (await request.get(`http://127.0.0.1:8001/api/media/${clip.id}`)).json()).position).toBeGreaterThan(3740)
+  expect(errors).toEqual([])
+})
+
+test('#30 Starten after a jump: the saved 0:06 doesn\'t pull him back, and "Zurück zu 62:26" fixes a jump on the page', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  await page.addInitScript(() => { try { localStorage.setItem('kaskade-theme', 'signal') } catch { /* about:blank */ } })
+  const clip = await longTatort(request, 'E2E-Langfilm mit Plan')
+  // yesterday's part (block "e2e30", so the real plan blocks stay as they are) ended at 62:26 — then a jump saved 0:06
+  sql("UPDATE media SET key = 'e2e-lang' WHERE id = ?", clip.id)
+  sql("INSERT INTO watch_ranges(local_date, block, clip, start, end, clean, reached) VALUES ('2026-10-12', 'e2e30', 'e2e-lang', 2046, 3746, 1, 3746.0)")
+  await request.put(`http://127.0.0.1:8001/api/media/${clip.id}/progress`, { data: { position: 6.85 } })
+  const saves = savedPositions(page, clip.id)
+  try {
+    await page.goto(`/schauen/${clip.id}?von=3746&bis=5361`)
+    const video = page.getByTestId('watch-video')
+    const at = () => video.evaluate((v: HTMLVideoElement) => v.currentTime)
+    await expect(page.getByTestId('watch-range')).toHaveText('Heute: 62:26–89:21 (zuletzt gespeichert: 0:06). Das Video hält am Ende des Teils einmal an.')
+    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => !v.seeking && Math.abs(v.currentTime - 3746) < 0.1)).toBe(true)
+    await expect(page.getByTestId('watch-back')).toHaveCount(0)
+
+    // something (not him) moves the playhead to 0:05: the page shows it, offers the way back, and the next save says so
+    await video.evaluate((v: HTMLVideoElement) => { v.currentTime = 5 })
+    const back = page.getByTestId('watch-back')
+    await expect(back).toHaveText('↩ Zurück zu 62:26 (Teil von heute)')
+    await expect(page.getByTestId('watch-clock')).toContainText('0:05 / Ziel 89:21')
+    for (const width of [1280, 480]) {
+      await page.setViewportSize({ width, height: 900 })
+      await back.locator('..').screenshot({ path: join(SHOTS, `schauen-zurueck-${width}.png`) })
+    }
+    await page.setViewportSize({ width: 1280, height: 900 })
+    await page.getByTestId('watch-play').click()
+    await page.getByTestId('watch-play').click()
+    await expect.poll(() => saves.find((s) => s.reason)).toMatchObject({ reason: 'jump', from: 3746 })
+    expect(saves.find((s) => s.reason)!.position).toBeLessThan(10)
+    await back.click()
+    await expect.poll(at).toBeCloseTo(3746, 1)
+    await expect(back).toHaveCount(0)
+    await expect(page.getByTestId('watch-clock')).toContainText('62:26 / Ziel 89:21')
+    expect(errors).toEqual([])
+  } finally {
+    sql("DELETE FROM watch_ranges WHERE block = 'e2e30'")
+    sql('UPDATE media SET key = NULL WHERE id = ?', clip.id)
+  }
+})
