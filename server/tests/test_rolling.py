@@ -1,9 +1,11 @@
 """#21: clip ranges roll from Matt's real position; later days and clips shift; nothing is skipped."""
+import json
 from datetime import date, timedelta
+from types import SimpleNamespace
 
 import pytest
 
-from kaskade import plan, rolling
+from kaskade import db, plan, rolling
 
 MON = date(2026, 10, 12)
 TATORT_END = 5361  # 89:21, the plan's last Tatort cut (before the credits)
@@ -92,7 +94,6 @@ def test_a_short_clip_never_started_is_not_finished():
 
 
 def test_film_budget_default_then_his_pace(client):
-    from kaskade import db
     assert rolling.film_budget("input", 65) == 25 * 60
     with db.tx() as conn:
         for i, (start, reached, secs) in enumerate([(0, 1200, 3600), (1200, 2400, 3600), (2400, 3700, 3900)]):
@@ -102,3 +103,91 @@ def test_film_budget_default_then_his_pace(client):
             conn.execute("INSERT INTO activity(local_date, block, started_at, ended_at, seconds) VALUES (?, 'input', ?, ?, ?)",
                          (d, d, d, secs))
     assert rolling.film_budget("input", 65) == pytest.approx(1200 / 3600 * 65 * 60)   # median pace × 65 min
+
+
+# ── #31: audio heard on the phone ──
+
+TUE, WED, THU, FRI = (MON + timedelta(days=d) for d in (1, 2, 3, 4))
+ENDS = {"egp-698": 1914, "egp-684": 1648, "egp-700": 2029, "radio-tatort-uebertherapie": 3300, "tatort-schweigen": TATORT_END}
+
+
+def ctx(today, positions=None, live=False):
+    """His library (no files needed) and player positions by key."""
+    lib = {k: {"id": i, "duration": d} for i, (k, d) in enumerate(ENDS.items(), 1)}
+    return SimpleNamespace(today=today, real_today=today, live=live, lib=lib,
+                           positions={lib[k]["id"]: p for k, p in (positions or {}).items()})
+
+
+def block(name, today, **kw):
+    return rolling.plan_block(name, plan.plan("2B"), MON, ctx(today, **kw))
+
+
+def sql(query, *args):
+    with db.tx() as conn:
+        conn.execute(query, args)
+
+
+def put_range(day, blk, clip, start, end):
+    sql("INSERT INTO watch_ranges(local_date, block, clip, start, end, clean) VALUES (?, ?, ?, ?, ?, 1)", day.isoformat(), blk, clip, start, end)
+
+
+def rate(day, blk, clip, start, end, pct):
+    sql("INSERT INTO ratings(created_at, local_date, block, item, kind, label, pct, detail) VALUES (?, ?, ?, ?, 'audio', '', ?, ?)",
+        day.isoformat(), day.isoformat(), blk, f"clip:{clip}:{start}-{end}", pct, json.dumps({"from": start, "to": end}))
+
+
+def tick(day, blk):
+    sql("INSERT INTO plan_done(local_date, block) VALUES (?, ?)", day.isoformat(), blk)
+
+
+MONDAY_HEARD = {"egp-698": 1914}  # Monday's episode, played in Kaskade
+
+
+def test_audio_rated_after_hearing_it_on_the_phone_moves_on(client):
+    """Tuesday's EGP 684, heard on the phone: no player position. Rated (any %) → Wednesday is EGP 700."""
+    put_range(TUE, "lesen", "egp-684", 0, 1648)
+    assert block("lesen", WED, positions=MONDAY_HEARD)[WED]["clip"] == "egp-684"  # Thursday's bug: it rolls on
+    rate(TUE, "lesen", "egp-684", 0, 1648, 20)  # understood little: still heard (#23 changes nothing here)
+    out = block("lesen", WED, positions=MONDAY_HEARD)
+    assert (out[WED]["clip"], out[WED]["from"]) == ("egp-700", 0)
+    assert out[THU]["clip"] == "radio-tatort-uebertherapie"  # and everything after it moves up again
+
+
+def test_audio_whose_block_he_ticked_off_moves_on(client):
+    put_range(TUE, "lesen", "egp-684", 0, 1648)
+    tick(TUE, "lesen")
+    assert block("lesen", WED, positions=MONDAY_HEARD)[WED]["clip"] == "egp-700"
+
+
+def test_a_skipped_rating_alone_is_not_heard_but_with_the_block_ticked_off_it_is(client):
+    """Tuesday 13.10 had no fixed lesen range yet: the rating's own range tells which audio it was."""
+    rate(TUE, "lesen", "egp-684", 0, 1648, None)
+    assert block("lesen", WED, positions=MONDAY_HEARD)[WED]["clip"] == "egp-684"
+    tick(TUE, "lesen")
+    assert block("lesen", WED, positions=MONDAY_HEARD)[WED]["clip"] == "egp-700"
+
+
+def test_a_saved_position_beyond_the_heard_range_still_wins(client):
+    done = {"egp-698": 1914, "egp-684": 1648, "egp-700": 2029}
+    put_range(THU, "lesen", "radio-tatort-uebertherapie", 0, 1620)
+    rate(THU, "lesen", "radio-tatort-uebertherapie", 0, 1620, 80)
+    assert block("lesen", FRI, positions=done)[FRI]["from"] == 1620                      # phone only: from the range's end
+    assert block("lesen", FRI, positions={**done, "radio-tatort-uebertherapie": 1800})[FRI]["from"] == 1800  # later in Kaskade
+
+
+def test_the_input_block_stays_with_his_position(client):
+    """Schauen saves where he is: a ticked-off Tatort day he stopped early still continues from there."""
+    put_range(TUE, "input", "tatort-schweigen", 430, 2046)
+    tick(TUE, "input")
+    rate(TUE, "input", "tatort-schweigen", 430, 2046, 80)
+    assert block("input", WED, positions={"tatort-schweigen": 1500})[WED]["from"] == 1500
+    assert rolling.heard("input", WED) == {}
+
+
+def test_fixing_the_next_range_notes_the_heard_end_as_reached(client):
+    put_range(TUE, "lesen", "egp-684", 0, 1648)
+    rate(TUE, "lesen", "egp-684", 0, 1648, 80)
+    rolling.plan_block("lesen", plan.plan("2B"), MON, ctx(WED, positions=MONDAY_HEARD, live=True))
+    with db.tx() as conn:
+        rows = {r["local_date"]: (r["clip"], r["reached"]) for r in conn.execute("SELECT * FROM watch_ranges WHERE block = 'lesen'")}
+    assert rows == {TUE.isoformat(): ("egp-684", 1648), WED.isoformat(): ("egp-700", None)}

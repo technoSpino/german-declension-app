@@ -335,3 +335,19 @@ def test_previews_never_fix_a_range(b2, monkeypatch):
     b2.get("/api/today")
     with db.tx() as conn:
         assert {r[0] for r in conn.execute("SELECT block FROM watch_ranges")} == {"input", "lesen"}
+
+
+def test_audio_heard_on_the_phone_and_rated_moves_on_the_next_day(b2, monkeypatch):
+    """#31: Tuesday's EGP 684 heard on the phone (Kaskade has no position) and rated → Wednesday is EGP 700."""
+    at(monkeypatch, datetime(2026, 10, 13, 7, 0, tzinfo=timezone.utc))  # Tue 09:00
+    ids = {k: add_clip(k, s) for k, s in [("egp-698", 1914.0), ("egp-684", 1648.0), ("egp-700", 2029.0)]}
+    b2.put(f"/api/media/{ids['egp-698']}/progress", json={"position": 1914})  # Monday's, played in Kaskade
+    lesen = b2.get("/api/today").json()["assignments"]["lesen"]
+    audio = next(x for x in [lesen, *lesen["then"]] if x["kind"] == "clip")  # after Tuesday's tagesschau
+    assert (audio["clip"], audio["rateItem"]) == ("egp-684", "clip:egp-684:0-1648")
+    assert b2.post("/api/ratings", json={"block": "lesen", "item": "clip:egp-684:0-1648", "pct": 80}).status_code == 200
+    at(monkeypatch, datetime(2026, 10, 14, 4, 30, tzinfo=timezone.utc))  # Wed 06:30, the Materialcheck
+    wed = by_block(b2.get("/api/materials").json()["today"])["lesen"]
+    assert (wed["clip"], wed["part"]) == ("egp-700", "0:00–33:49") and wed["text"].startswith("Easy German Podcast 700")
+    with db.tx() as conn:
+        assert conn.execute("SELECT reached FROM watch_ranges WHERE local_date = '2026-10-13' AND block = 'lesen'").fetchone()[0] == 1648

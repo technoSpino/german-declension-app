@@ -8,6 +8,9 @@ lines. The rest of a clip is split evenly over the days it needs. A clip that ne
 than planned pushes the next ones back, one finished early lets them move up: nothing is
 skipped. Today's range is fixed the first time it's computed (the 06:30 Materialcheck, or the
 first visit to Heute), so it doesn't slide while he watches.
+
+Audio he hears on the phone leaves no player position (#31): an audio range he rated or whose
+block he ticked off counts as heard up to its end; a saved position further on still wins.
 """
 import json
 import re
@@ -17,6 +20,7 @@ from datetime import date, timedelta
 from . import db, stock
 
 ROLLING_KINDS = {"mediathek", "podcast", "audio"}
+AUDIO_KINDS = {"podcast", "audio"}  # #31: also heard outside Kaskade (on the phone): no player position
 FILM = {"input": 25 * 60, "lesen": 28 * 60}                       # default seconds of film per block
 FILM_RANGE = {"input": (15 * 60, 40 * 60), "lesen": (20 * 60, 35 * 60)}
 MIN_SAMPLES = 3                                                    # measured days before his pace counts
@@ -189,6 +193,28 @@ def film_budget(block: str, minutes: int) -> float:
     return min(hi, max(lo, statistics.median(samples[-5:]) * minutes * 60))
 
 
+def heard(block: str, upto: date) -> dict[str, float]:
+    """#31: audio key → the furthest end of a range of this block he rated (any %, #23) or whose block he
+    ticked off, up to `upto`. Audio heard on the phone leaves no player position, but it was heard."""
+    with db.tx() as conn:
+        done = {r[0] for r in conn.execute("SELECT local_date FROM plan_done WHERE block = ? AND local_date <= ?",
+                                           (block, upto.isoformat()))}
+        ranges = conn.execute("SELECT local_date, clip, end FROM watch_ranges WHERE block = ? AND local_date <= ?",
+                              (block, upto.isoformat())).fetchall()
+        rated = conn.execute("SELECT local_date, item, pct, detail FROM ratings WHERE block = ? AND local_date <= ?"
+                             " AND item LIKE 'clip:%'", (block, upto.isoformat())).fetchall()
+    out: dict[str, float] = {}
+    for r in ranges:
+        if r["local_date"] in done and r["end"]:
+            out[r["clip"]] = max(out.get(r["clip"], 0), r["end"])
+    for r in rated:  # also a day whose range wasn't fixed (before #21 reached the block)
+        _, key, rng = r["item"].split(":", 2)
+        to = (json.loads(r["detail"]) if r["detail"] else {}).get("to") or float(rng.split("-")[-1] or 0)
+        if to and (r["pct"] is not None or r["local_date"] in done):
+            out[key] = max(out.get(key, 0), to)
+    return {k: v for k, v in out.items() if (stock.item(k) or {}).get("kind") in AUDIO_KINDS}
+
+
 def load_cues(media_id: int) -> list[dict]:
     with db.tx() as conn:
         r = conn.execute("SELECT cues FROM media WHERE id = ?", (media_id,)).fetchone()
@@ -202,16 +228,18 @@ def plan_block(block: str, data: dict, start: date, ctx) -> dict[date, dict]:
     for s in block_slots:
         if rolls(s["m"]):
             planned.setdefault(s["m"]["clip"], []).append(s)
+    # Roll from the real today even when a later day is previewed (the days between count too)
+    day = min(ctx.today, ctx.real_today)
+    on_phone = heard(block, day)
     clips, pos = {}, {}
     for key, ps in planned.items():
         row = ctx.lib.get(key)
         cues = load_cues(row["id"]) if row else []
         duration = (row and row["duration"]) or (cues[-1]["end"] if cues else None) or (stock.item(key) or {}).get("duration")
         clips[key] = {"end": clip_end(ps, duration), "cues": cues, "planned": ps}
-        pos[key] = (ctx.positions.get(row["id"]) or 0) if row else 0
+        # his player position — or, for audio, how far a range he rated or ticked off went (#31), whichever is further
+        pos[key] = max((ctx.positions.get(row["id"]) or 0) if row else 0, on_phone.get(key, 0))
     minutes = next((b["minutes"] for b in data["block"] if b["id"] == block), 60)
-    # Roll from the real today even when a later day is previewed (the days between count too)
-    day = min(ctx.today, ctx.real_today)
     fixed = frozen(day, block)
     with db.tx() as conn:
         done = conn.execute("SELECT 1 FROM plan_done WHERE local_date = ? AND block = ?", (day.isoformat(), block)).fetchone()
