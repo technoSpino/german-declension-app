@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { clipStatus, clock, formatTime, jobLabel, inside, isNonSpeech, JUMP, jumpedBack, LEAD, lineAt, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
+import { clipStatus, clock, endsSentence, formatTime, jobLabel, inside, isNonSpeech, JUMP, jumpedBack, LEAD, lineAt, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, sentenceAround, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
 
 const CUES = [
   { start: 1, end: 2.5, text: 'Wo waren Sie gestern Abend?' },
@@ -215,5 +215,39 @@ describe('the "gesprochen" track (#29)', () => {
     const broken = { getItem() { throw new Error('x') }, setItem() { throw new Error('x') } }
     expect(storedTrack(broken)).toBe('spoken')
     expect(() => storeTrack('ard', broken)).not.toThrow()
+  })
+})
+
+describe('#34: a line inside its sentence', () => {
+  const SPLIT = [
+    { start: 1, end: 2, text: 'Wo warst du?' },
+    { start: 2.2, end: 3.5, text: 'Mir fällt bei diesem Wetter' },
+    { start: 3.5, end: 5, text: 'wirklich nichts mehr ein.' },
+    { start: 5.5, end: 6.5, text: 'Gut.' }
+  ]
+
+  it('joins the lines of one sentence and says where the line is in it', () => {
+    const w = sentenceAround(SPLIT, 2)
+    expect(w).toEqual({ text: 'Mir fällt bei diesem Wetter wirklich nichts mehr ein.', focus: [28, 53], from: 1, to: 2, start: 2.2, end: 5 })
+    expect(w.text.slice(...w.focus)).toBe('wirklich nichts mehr ein.')
+    expect(sentenceAround(SPLIT, 1).focus).toEqual([0, 27])
+    expect(sentenceAround(SPLIT, 0)).toMatchObject({ text: 'Wo warst du?', from: 0, to: 0 })
+    expect(sentenceAround(SPLIT, 3)).toMatchObject({ text: 'Gut.', start: 5.5, end: 6.5 })
+    expect(sentenceAround(SPLIT, 9)).toBe(null)
+  })
+
+  it("ARD's trailing dots continue the sentence; a new speaker, a long pause and 3 lines each way stop it", () => {
+    expect(endsSentence('Ich bin in den Keller gegangen und...')).toBe(false)
+    expect(endsSentence('Er kommt gleich.')).toBe(true)
+    expect(endsSentence('„Komm her!“')).toBe(true)
+    expect(endsSentence('Ich weiß nicht')).toBe(false)
+    const dots = [{ start: 0, end: 1, text: 'Ich bin in den Keller gegangen und...' }, { start: 1, end: 2, text: '...dort stand eine Kiste.' }]
+    expect(sentenceAround(dots, 1).text).toBe('Ich bin in den Keller gegangen und... ...dort stand eine Kiste.')
+    const speaker = [{ start: 0, end: 1, text: 'Und dann' }, { start: 1, end: 2, text: '- Was dann?' }]
+    expect(sentenceAround(speaker, 1).from).toBe(1)
+    const pause = [{ start: 0, end: 1, text: 'Und dann' }, { start: 3.5, end: 4, text: 'kam er.' }]
+    expect(sentenceAround(pause, 1).from).toBe(1)
+    const many = Array.from({ length: 9 }, (_, i) => ({ start: i, end: i + 1, text: `Wort${i}` }))
+    expect(sentenceAround(many, 4)).toMatchObject({ from: 1, to: 7 })
   })
 })

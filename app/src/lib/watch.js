@@ -177,3 +177,38 @@ export function pausedBefore(cues, t) {
   if (i < 0) return -1
   return t >= cues[i].end ? i : i - 1
 }
+
+// #34: a line is analysed (and mined) inside its whole sentence — the verb and its prefix can be on
+// different lines (fällt … | … ein), and a cut line changes the parse.
+const SENTENCE_END = /[.?!][")»«“”'’]*$/
+const NEW_SPEAKER = /^[-–]\s/
+export const SENTENCE_CUES = 3 // at most this many neighbouring lines each way
+export const SENTENCE_GAP = 2 // s: never across a longer silence
+
+/** Does a subtitle line end a sentence? A trailing "..." / "…" is ARD's "continued on the next line". */
+export const endsSentence = (text) => SENTENCE_END.test(text.trim()) && !/(\.\.\.|…)[")»«“”'’]*$/.test(text.trim())
+
+/**
+ * The sentence around line `i`: neighbouring lines up to a sentence end, at most SENTENCE_CUES each way,
+ * not across a pause > SENTENCE_GAP or a new speaker ("- …"). Returns the joined text, the line's
+ * character range in it (`focus`) and the time range from the first to the last line.
+ */
+export function sentenceAround(cues, i, max = SENTENCE_CUES) {
+  const c = cues[i]
+  if (!c) return null
+  const joins = (a, b) => !endsSentence(a.text) && !NEW_SPEAKER.test(b.text.trim()) && b.start - a.end <= SENTENCE_GAP
+  let from = i
+  let to = i
+  while (from > 0 && i - from < max && joins(cues[from - 1], cues[from])) from--
+  while (to < cues.length - 1 && to - i < max && joins(cues[to], cues[to + 1])) to++
+  const parts = cues.slice(from, to + 1).map((x) => x.text.trim())
+  const at = parts.slice(0, i - from).reduce((n, p) => n + p.length + 1, 0)
+  return {
+    text: parts.join(' '),
+    focus: [at, at + parts[i - from].length],
+    from,
+    to,
+    start: cues[from].start,
+    end: cues[to].end
+  }
+}

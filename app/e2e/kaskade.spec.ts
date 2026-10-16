@@ -1321,6 +1321,70 @@ test('#29 Schauen: the spoken line (KI-Transkript) by default, ARD on the toggle
   expect(errors).toEqual([])
 })
 
+// ── #34: separable verbs; a line inside its sentence ──
+
+test('#34 Schauen: fällt … ein is einfallen on both words, a sentence over two lines is parsed and mined whole', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  const SPLIT = srtOf([[0.5, 2.0, 'Mir fällt heute nichts ein.'], [2.5, 4.0, 'Dabei fängt der Film'], [4.0, 5.5, 'gleich an.']])
+  const up = await request.post('http://127.0.0.1:8001/api/media/upload', {
+    multipart: {
+      title: 'E2E-Trennbar',
+      subtitles: { name: 's.srt', mimeType: 'application/x-subrip', buffer: Buffer.from(SPLIT) },
+      media: { name: 's.webm', mimeType: 'video/webm', buffer: readFileSync(testClip()) }
+    }
+  })
+  const clip = await up.json()
+  await page.goto(`/schauen/${clip.id}`)
+  const line = page.getByTestId('watch-line')
+  const panel = page.getByTestId('word-panel')
+  const video = page.getByTestId('watch-video')
+  await page.getByTestId('watch-play').click()
+  await expect(line).toContainText('Mir fällt heute nichts ein.')
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused), { timeout: 8000 }).toBe(true)
+
+  // tap fällt: the panel shows einfallen, and both halves are marked
+  await line.locator('.at-word', { hasText: /^fällt$/ }).click()
+  await expect(panel).toContainText('einfallen · fiel ein · ist eingefallen')
+  await expect(page.getByTestId('word-split')).toHaveText('Trennbares Verb: fällt … ein')
+  await expect(line.locator('.at-selected')).toHaveText(['fällt', 'ein'])
+  // the prefix alone gives the same word
+  await line.locator('.at-word', { hasText: /^ein$/ }).click()
+  await expect(panel).toContainText('einfallen · fiel ein · ist eingefallen')
+  await expect(line.locator('.at-selected')).toHaveText(['fällt', 'ein'])
+  for (const width of [1280, 480]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.locator('.sw-grid').screenshot({ path: join(SHOTS, `schauen-trennbar-${width}.png`) })
+  }
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.getByTestId('mine').click()
+  await expect(panel).toContainText('Gemined')
+  let mined = await (await request.get('http://127.0.0.1:8001/api/mined')).json()
+  const one = mined.find((c: { sentence: string }) => c.sentence === 'Mir fällt heute nichts ein.')
+  expect([one.lemma, one.display, one.target]).toEqual(['einfallen', 'einfallen · fiel ein · ist eingefallen', 'fällt'])
+
+  // the next line starts a sentence that ends on the line after: verb here, prefix there
+  await page.keyboard.press('ArrowRight')
+  await expect(line).toContainText('Dabei fängt der Film')
+  await video.evaluate((v: HTMLVideoElement) => v.pause())
+  await expect(line).not.toContainText('gleich an')
+  await line.locator('.at-word', { hasText: /^fängt$/ }).click()
+  await expect(panel).toContainText('anfangen · fing an · hat angefangen')
+  await expect(panel).toContainText('„Dabei fängt der Film gleich an.“')
+  await page.getByTestId('mine').click()
+  await expect(panel).toContainText('Gemined')
+  mined = await (await request.get('http://127.0.0.1:8001/api/mined')).json()
+  const two = mined.find((c: { sentence: string }) => c.sentence === 'Dabei fängt der Film gleich an.')
+  expect([two.lemma, two.target, two.mediaId, two.clipStart, two.clipEnd]).toEqual(['anfangen', 'fängt', clip.id, 2.5, 5.5])
+  // … and on the second line the prefix knows its verb
+  await page.keyboard.press('ArrowRight')
+  await expect(line).toContainText('gleich an.')
+  await video.evaluate((v: HTMLVideoElement) => v.pause())
+  await line.locator('.at-word', { hasText: /^an$/ }).click()
+  await expect(panel).toContainText('anfangen · fing an · hat angefangen')
+  await expect(page.getByTestId('word-split')).toHaveText('Trennbares Verb: fängt … an')
+  expect(errors).toEqual([])
+})
+
 // ── #30: Schauen jumped back to 0:00 ──
 
 /** An invented 89-min clip (grey, silent): one 60-s piece, joined 90 times — quick to make. */

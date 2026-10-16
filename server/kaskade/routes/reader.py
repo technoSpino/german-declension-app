@@ -11,14 +11,18 @@ router = APIRouter(prefix="/api")
 
 class AnalyzeIn(BaseModel):
     text: str = Field(max_length=20000)
+    # #34: a subtitle line (character range) parsed inside its whole sentence; only its tokens come back
+    focus: tuple[int, int] | None = None
 
 
 @router.post("/analyze")
 def analyze_text(body: AnalyzeIn):
     if not body.text.strip():
         raise HTTPException(422, "Kein Text")
+    if body.focus and not 0 <= body.focus[0] < body.focus[1] <= len(body.text):
+        raise HTTPException(422, "Ungültiger Ausschnitt")
     try:
-        return analyze.analyze(body.text)
+        return analyze.analyze(body.text, body.focus)
     except OSError:
         raise HTTPException(503, "Sprachanalyse nicht verfügbar (spaCy-Modell fehlt)")
 

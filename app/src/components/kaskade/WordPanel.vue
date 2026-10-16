@@ -30,11 +30,13 @@ const gloss = computed(() => authorGloss.value?.gloss ?? props.token?.entry?.glo
 const display = computed(() => props.token?.entry?.display ?? props.token?.lemma)
 const sentence = computed(() => props.sentence ?? (props.token ? sentenceOf(props.analysis, props.token.i) : ''))
 const STATE = { neu: 'neu', lernend: 'am Lernen', bekannt: 'bekannt' }
+// #34: the word marked on the card — for a separable verb its verb form, whichever half was tapped
+const target = computed(() => props.token?.entry?.target ?? props.token?.text)
 
 // Case only where the parser is sure (the analysis leaves out the rest): no badge beats a wrong one.
 const body = () => ({
   sentence: sentence.value,
-  target: props.token.text,
+  target: target.value,
   lemma: props.token.entry?.lemma ?? props.token.lemma, // the dictionary's headword beats spaCy's guess
   display: display.value,
   gloss: gloss.value ?? '',
@@ -69,8 +71,8 @@ async function addWord() {
   busy.value = true
   try {
     const card = await api.post(`/mined/${existing.value.split(':')[1]}/words`, body())
-    const w = card.words.find((x) => x.target === props.token.text)
-    mined.value = `„${props.token.text}“ steht jetzt mit auf der Karte.${aiNote(w?.ai)}`
+    const w = card.words.find((x) => x.target === target.value)
+    mined.value = `„${target.value}“ steht jetzt mit auf der Karte.${aiNote(w?.ai)}`
     existing.value = null
   } catch (e) {
     error.value = e.message
@@ -86,6 +88,7 @@ async function addWord() {
     <p v-if="!token" class="k-small m-0">Tippe ein Wort an: Bedeutung, Artikel und Plural, und bei Kasus-Linse, warum dieser Fall.</p>
     <template v-else>
       <p class="m-0 k-read" style="font-size: 24px; font-weight: 600">{{ display }}</p>
+      <p v-if="token.entry?.split" class="k-hint m-0" data-testid="word-split">Trennbares Verb: {{ token.entry.split }}</p>
       <p v-if="gloss" class="m-0" style="font-size: 17px">„{{ gloss }}“</p>
       <p v-else class="k-small m-0">Keine Übersetzung gefunden.</p>
       <p v-if="token.state" class="k-hint m-0">Status: {{ STATE[token.state] }}<template v-if="token.entry?.cardId"> · im Kernwortschatz</template></p>
@@ -99,7 +102,7 @@ async function addWord() {
         <slot name="actions" />
       </div>
       <p v-if="mined" class="k-chip k-chip-success m-0" style="width: fit-content; height: auto" data-testid="mine-result">{{ mined }}</p>
-      <button v-if="existing" class="k-btn k-btn-ghost k-btn-sm" data-testid="mine-add-word" :disabled="busy" @click="addWord">„{{ token.text }}“ zur Karte dazunehmen</button>
+      <button v-if="existing" class="k-btn k-btn-ghost k-btn-sm" data-testid="mine-add-word" :disabled="busy" @click="addWord">„{{ target }}“ zur Karte dazunehmen</button>
       <p v-if="error" class="k-error m-0">{{ error }}</p>
     </template>
   </section>

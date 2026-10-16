@@ -154,11 +154,48 @@ def sure_case(ch) -> tuple[str, dict] | None:
     return None
 
 
-def analyze(text: str) -> dict:
+def card_entry(card: dict) -> dict:
+    return {"gloss": card["gloss"], "display": card["display"], "cardId": card["id"], "lemma": card["lemma"]}
+
+
+def separable(doc) -> dict[int, dict]:
+    """#34: a split-off prefix and its verb (fällt … ein) → the particle verb (einfallen) for both tokens.
+
+    Only a real particle (tag PTKVZ, dep svp, head a verb) — on a cut line "… lag ein" spaCy makes the
+    article `ein` an svp too. Joined only when the particle verb is a core card or a dictionary verb:
+    the parser's false pairs ("trainierst … wieder", "Blut dran") are no headwords and stay as they were.
+    Returns token i → {entry (with the verb form `target` and `split` "fällt … ein"), card, lemma, pair}.
+    """
+    d = dictionary()
+    by_lemma = deck_by_lemma()
+    out = {}
+    for t in doc:
+        verb = t.head
+        if t.tag_ != "PTKVZ" or t.dep_ != "svp" or verb is t or verb.pos_ not in ("VERB", "AUX"):
+            continue
+        for base in dict.fromkeys(b for b in (verb.lemma_, d["forms"].get(verb.text), d["forms"].get(verb.text.lower())) if b):
+            lemma = t.text.lower() + base.lower()
+            card = by_lemma.get(lemma)
+            verbs = [e for e in d["entries"].get(lemma, []) if e["pos"] == "VERB"]
+            if card or verbs:
+                entry = card_entry(card) if card else {"gloss": "; ".join(verbs[0]["gl"][:2]), "display": lemma,
+                                                       "cardId": None, "lemma": lemma}
+                entry["target"] = verb.text  # Satz minen on either word marks the verb in the card
+                entry["split"] = f"{verb.text} … {t.text}"
+                for a, b in ((t, verb), (verb, t)):
+                    out[a.i] = {"entry": entry, "card": card, "lemma": lemma, "pair": b.i}
+                break
+    return out
+
+
+def analyze(text: str, focus: tuple[int, int] | None = None) -> dict:
+    """The analysis of `text`. With `focus` (character range), only the tokens there are returned —
+    parsed with the whole text around them (#34: a subtitle line inside its sentence)."""
     doc = nlp()(text)
     states = card_states()
     by_lemma = deck_by_lemma()
     estimate = core_known_estimate()
+    joined = separable(doc)
 
     chunks = []
     for ch in doc.noun_chunks:
@@ -178,6 +215,16 @@ def analyze(text: str) -> dict:
 
     tokens = []
     for t in doc:
+        if focus and not focus[0] <= t.idx < focus[1]:
+            continue
+        if t.i in joined:
+            j = joined[t.i]
+            tokens.append({
+                "i": t.i, "text": t.text, "ws": t.whitespace_, "lemma": j["lemma"], "pos": t.pos_,
+                "state": word_state(j["card"], states, estimate), "chunk": chunk_of.get(t.i), "entry": j["entry"],
+                "sent": t.sent.start, "pair": j["pair"],
+            })
+            continue
         lemma = t.lemma_ if t.pos_ != "NOUN" else t.lemma_[:1].upper() + t.lemma_[1:]
         card = by_lemma.get(_norm(lemma)) if t.is_alpha else None
         if card and _is_noun(card["lemma"]) != (t.pos_ == "NOUN"):
@@ -187,8 +234,7 @@ def analyze(text: str) -> dict:
             state = word_state(card, states, estimate)
         entry = None
         if t.is_alpha and t.pos_ not in ("PUNCT", "PROPN", "NUM"):
-            entry = ({"gloss": card["gloss"], "display": card["display"], "cardId": card["id"], "lemma": card["lemma"]}
-                     if card else None)
+            entry = card_entry(card) if card else None
             if not entry:
                 d = lookup(lemma, t.text, t.pos_)
                 if d:

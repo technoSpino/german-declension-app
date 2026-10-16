@@ -23,7 +23,8 @@ function classes(t) {
   if (props.states && t.state === 'neu') out.push('at-neu')
   if (props.states && t.state === 'lernend') out.push('at-lernend')
   if (props.lens && t.chunk != null) out.push(`at-case at-case-${props.analysis.chunks[t.chunk].case}`)
-  if (props.selected === t.i) out.push('at-selected')
+  // #34: a separable verb is one word — tapping fällt or ein marks both (pair = the other half)
+  if (props.selected != null && (props.selected === t.i || t.pair === props.selected)) out.push('at-selected')
   return out
 }
 const isWord = (t) => /\p{L}/u.test(t.text)

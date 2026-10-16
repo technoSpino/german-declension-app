@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../../lib/api'
-import { clipStatus, clock, formatTime, inside, jumpedBack, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
+import { clipStatus, clock, formatTime, inside, jumpedBack, pausedBefore, pickTrack, rangeStart, resumeAt, seekTarget, sentenceAround, shouldPause, shownLine, speechCues, stepLine, storeTrack, storedTrack } from '../../lib/watch'
 import { hardShare, ratingLabel, shareLine } from '../../lib/ratings'
 import AnalyzedText from '../../components/kaskade/AnalyzedText.vue'
 import RateAsk from '../../components/kaskade/RateAsk.vue'
@@ -71,6 +71,8 @@ const index = computed(() => shownLine(cues.value, t.value, held.value))
 const line = computed(() => cues.value[index.value] ?? null)
 const speaking = computed(() => inside(cues.value, index.value, t.value))
 const standIn = computed(() => line.value?.src === 'ard') // #29: ARD's line where Whisper heard nothing
+// #34: the line's sentence (over neighbouring lines): parsed as a whole, mined as a whole
+const around = computed(() => (line.value ? sentenceAround(cues.value, index.value) : null))
 const spokenLine = computed(() => spoken.value && !standIn.value)
 
 async function load() {
@@ -200,22 +202,24 @@ function onSeeked() {
   if (v && !notThereYet(v) && jumpedBack(t.value, v.currentTime)) follow(v.currentTime)
 }
 
-// Analyse the line once it is on screen (cached per text).
-watch(line, async (l) => {
+// Analyse the line once it is on screen, inside its sentence: only its own words come back (cached).
+const analysisKey = (w) => `${w.focus.join(':')}|${w.text}`
+watch(around, async (w) => {
   token.value = null
-  if (!l) {
+  if (!w) {
     analysis.value = null
     return
   }
-  if (analyses.has(l.text)) {
-    analysis.value = analyses.get(l.text)
+  const key = analysisKey(w)
+  if (analyses.has(key)) {
+    analysis.value = analyses.get(key)
     return
   }
   analysis.value = null
   try {
-    const a = await api.post('/analyze', { text: l.text })
-    analyses.set(l.text, a)
-    if (line.value?.text === l.text) analysis.value = a
+    const a = await api.post('/analyze', { text: w.text, focus: w.focus })
+    analyses.set(key, a)
+    if (around.value && analysisKey(around.value) === key) analysis.value = a
   } catch {
     analysis.value = null // spaCy unavailable: plain text below
   }
@@ -417,7 +421,8 @@ async function setTag(c, tag) {
   }
 }
 
-const extra = computed(() => (line.value ? { mediaId: media.value.id, start: line.value.start, end: line.value.end, ...(spokenLine.value ? { track: 'spoken' } : {}) } : null))
+// Satz minen: the whole sentence, its audio from the first to the last line
+const extra = computed(() => (around.value ? { mediaId: media.value.id, start: around.value.start, end: around.value.end, ...(spokenLine.value ? { track: 'spoken' } : {}) } : null))
 const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60))
 </script>
 
@@ -538,7 +543,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
             v-if="analysis"
             :analysis="analysis"
             :token="token"
-            :sentence="line?.text ?? null"
+            :sentence="around?.text ?? null"
             :extra="extra"
             :source="`Schauen · ${media.title}`"
             @mined="(r) => { if (!r.duplicate) mined++ }"
@@ -553,7 +558,7 @@ const minutesLeft = (c) => Math.max(0, Math.round((c.duration - c.position) / 60
               <li>Abspielen. Nach jeder Zeile hält das Video an.</li>
               <li>Nicht verstanden? R oder ↻ — so oft du willst. Langsamer mit 0,85×.</li>
               <li>Unbekanntes Wort antippen: Bedeutung, Artikel, Fall.</li>
-              <li>Guter Satz? „Satz minen“ — die ganze Zeile wird zur Karte, mit dem Original-Ton.</li>
+              <li>Guter Satz? „Satz minen“ — der ganze Satz wird zur Karte, mit dem Original-Ton (auch wenn er über zwei Zeilen geht).</li>
               <li>Viel zu schwer? Z oder „Zu schwer“ — die Zeile wird nur gezählt (keine Karte), es geht mit der nächsten weiter.</li>
             </ol>
           </section>

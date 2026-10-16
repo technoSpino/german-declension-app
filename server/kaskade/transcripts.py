@@ -34,7 +34,9 @@ SIMILAR = 0.72       # respell a misheard word when it is this close to ARD's (l
 SOUND = 0.75         # … and sounds alike (Kölner Phonetik codes this similar)
 NAME_COUNT = 2       # a capitalised word the dictionary doesn't know, this often in the clip's ARD cues, is a name …
 NAME_OFTEN = 8       # … and so is one this often (Otto, Falke are also dictionary words). German capitalises every noun.
-BUILD = 4            # bump when the line builder changes: every track is rebuilt on the next import
+MAX_CHARS = 84       # #34: a line may run over 14 words / 6 s rather than break inside a phrase — up to 2 rows of 42
+PAUSE_BREAK = 0.25   # a pause this long between words is a natural place for a break
+BUILD = 5            # bump when the line builder changes: every track is rebuilt on the next import
 
 # What Whisper writes into silence or music (it learnt it from subtitled videos)
 HALLUCINATION = re.compile(
@@ -67,18 +69,27 @@ def keep_segment(seg: dict, speech: list[dict]) -> bool:
     return not (p < MIN_P or HALLUCINATION.match(seg.get("text", "").strip()))
 
 
+def lowercase_segment(seg: dict) -> bool:
+    """#34: Whisper sometimes writes a fast stretch all lowercase and without punctuation — German has no such
+    text. (A short clause like "und die dann gegangen sind," is lowercase too, but punctuated: left alone.)"""
+    text = seg.get("text") or " ".join(w.get("w") or "" for w in seg.get("words") or [])
+    return len(TOKEN.findall(text)) >= 3 and not any(ch.isupper() or ch in ".,?!;:" for ch in text)
+
+
 def words_of(transcript: dict, ard: list[dict]) -> list[dict]:
+    """Whisper's words by time: {w, s, e, seg (segment number), lc (from an all-lowercase segment)}."""
     speech = _speech(ard)
     out = []
-    for seg in transcript.get("segments", []):
+    for n, seg in enumerate(transcript.get("segments", [])):
         if not keep_segment(seg, speech):
             continue
+        lc = lowercase_segment(seg)
         for w in seg.get("words") or []:
             text = (w.get("w") or "").strip()
             if GLOSSARY.match(text):
                 continue  # the Mac's prompt ("Glossar: …") leaking into the text
             if text and w.get("e") is not None and w.get("s") is not None:
-                out.append({"w": text, "s": float(w["s"]), "e": max(float(w["e"]), float(w["s"]))})
+                out.append({"w": text, "s": float(w["s"]), "e": max(float(w["e"]), float(w["s"])), "seg": n, "lc": lc})
     out.sort(key=lambda w: w["s"])
     return out
 
@@ -199,6 +210,12 @@ def respell(words: list[dict], ard: list[dict]) -> None:
         wn = [norm(words[i]["w"]) for i in idx]
         an = [t.lower() for t, _ in toks]
         for op, i1, i2, j1, j2 in SequenceMatcher(None, wn, an, autojunk=False).get_opcodes():
+            if op == "equal":
+                for k in range(i2 - i1):  # #34: a lowercase stretch takes ARD's capitals (nouns, names)
+                    (tok, initial), w = toks[j1 + k], words[idx[i1 + k]]
+                    if w.get("lc") and tok[:1].isupper() and not initial:
+                        w["w"] = _capitalise(w["w"])
+                continue
             if op != "replace" or i2 - i1 != j2 - j1:
                 continue
             for k in range(i2 - i1):
@@ -213,6 +230,47 @@ def respell(words: list[dict], ard: list[dict]) -> None:
                     w["w"] = pre + tok + post
 
 
+def _capitalise(word: str) -> str:
+    pre, core, post = CORE.match(word).groups()
+    return pre + core[:1].upper() + core[1:] + post
+
+
+def recase(words: list[dict]) -> None:
+    """#34: nouns in an all-lowercase stretch get their capital back (rechnung → Rechnung), from the
+    dictionary: the capitalised word is a noun there, and the lowercase one is no word of its own — or the
+    parser reads it as a noun, or it follows an article (unserer ehe → Ehe; ehe/ich/hast stay). A stretch
+    after a sentence end starts with a capital. ARD's own capitals came first (`respell`)."""
+    from spacy.tokens import Doc
+
+    from .analyze import dictionary, nlp
+    d = dictionary()
+
+    def noun(w):
+        return any(e["pos"] == "NOUN" for e in d["entries"].get(w, []))
+
+    runs: dict[int, list[int]] = {}
+    for i, w in enumerate(words):
+        if w.get("lc"):
+            runs.setdefault(w["seg"], []).append(i)
+    for idx in runs.values():
+        cores = [CORE.match(words[i]["w"]).group(2) for i in idx]
+        keep = [k for k, c in enumerate(cores) if c]
+        if not keep:
+            continue
+        doc = nlp()(Doc(nlp().vocab, words=[cores[k] for k in keep]))
+        for n, k in enumerate(keep):
+            w, core = words[idx[k]], cores[k]
+            if not core.islower():
+                continue
+            cap = core[:1].upper() + core[1:]
+            known_lower = core in d["entries"] or core in d["forms"]
+            if noun(cap) and (not known_lower or doc[n].pos_ == "NOUN" or (n and doc[n - 1].pos_ == "DET")):
+                w["w"] = _capitalise(w["w"])
+        first = idx[0]
+        if first and ends_sentence(words[first - 1]["w"]):
+            words[first]["w"] = _capitalise(words[first]["w"])
+
+
 def ends_sentence(word: str) -> bool:
     return bool(END.search(word)) and not NO_END.match(word)
 
@@ -222,38 +280,156 @@ def _dur(ws: list[dict]) -> float:
 
 
 def _too_long(ws: list[dict]) -> bool:
-    return len(ws) > MAX_WORDS or _dur(ws) > MAX_SECONDS
+    return len(ws) > MAX_WORDS or _dur(ws) > MAX_SECONDS or len(join_words(ws)) > MAX_CHARS
+
+
+# ── #34: where a line may break ──
+# A line never ends on an article, a preposition or a prefix-like word (… stand ein | Karton) unless a
+# conjunction follows, and never splits a noun or prepositional phrase (spaCy: an arc inside the phrase
+# would cross the break). The verb ↔ prefix bracket may span two lines.
+ARTICLES = {"der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer", "eines",
+            "kein", "keine", "keinen", "keinem", "keiner", "keines", "mein", "meine", "meinen", "meinem", "meiner",
+            "dein", "deine", "deinen", "deinem", "deiner", "sein", "seine", "seinen", "seinem", "seiner",
+            "ihr", "ihre", "ihren", "ihrem", "ihrer", "unser", "unsere", "unseren", "unserem", "unserer",
+            "euer", "eure", "euren", "eurem", "eurer", "dieser", "diese", "diesen", "diesem", "dieses",
+            "jeder", "jede", "jeden", "jedem", "jedes", "welche", "welcher", "welchen", "welchem", "welches"}
+PREPOSITIONS = {"an", "auf", "aus", "bei", "mit", "nach", "von", "vor", "zu", "in", "im", "am", "zum", "zur", "vom",
+                "beim", "ins", "ans", "aufs", "für", "fürs", "über", "unter", "um", "durch", "gegen", "ohne", "seit",
+                "bis", "hinter", "neben", "zwischen", "wegen", "trotz", "während", "statt", "außer", "gegenüber", "ab"}
+PREFIXES = {"zurück", "weg", "los", "her", "hin", "fest", "weiter", "heraus", "hinaus", "herum", "vorbei", "zusammen",
+            "fort", "raus", "rein", "rüber", "runter", "hoch", "dran", "drauf", "mit", "ein", "an", "auf", "aus", "vor",
+            "zu", "nach", "ab", "um", "durch"}
+OPENERS = ARTICLES | PREPOSITIONS | PREFIXES
+CONJUNCTIONS = {"und", "aber", "oder", "dass", "weil", "wenn", "als", "denn", "sondern", "ob", "obwohl", "damit",
+                "bevor", "nachdem", "sodass", "falls", "sobald", "solange"}
+PHRASE_DEPS = {"nk", "ag", "pg", "pnc", "nmc", "adc", "uc", "mnr"}  # TIGER arcs inside a noun / prepositional phrase
+
+
+def _core(word: str) -> str:
+    return CORE.match(word).group(2)
+
+
+def _bare(word: str) -> bool:
+    """No punctuation after the word."""
+    return not CORE.match(word).group(3)
+
+
+def opener_breaks(ws: list[dict]) -> set[int]:
+    """Breaks k (between ws[k-1] and ws[k]) that would end a line on an article, preposition or prefix."""
+    return {k for k in range(1, len(ws))
+            if _bare(ws[k - 1]["w"]) and _core(ws[k - 1]["w"]).lower() in OPENERS
+            and _core(ws[k]["w"]).lower() not in CONJUNCTIONS}
+
+
+def phrase_breaks(ws: list[dict]) -> set[int]:
+    """Breaks k that would split a noun or prepositional phrase (by the parse of the whole line)."""
+    bad = set()
+    from .analyze import nlp
+    text, starts, at = "", [], 0
+    for w in ws:
+        starts.append(at)
+        text += w["w"] + " "
+        at = len(text)
+    doc = nlp()(text)
+    word = [bisect.bisect_right(starts, t.idx) - 1 for t in doc]
+    for t in doc:
+        if t.dep_ in PHRASE_DEPS and t.head is not t:
+            a, b = sorted((word[t.i], word[t.head.i]))
+            bad.update(range(a + 1, b + 1))
+    return bad
+
+
+def break_rank(ws: list[dict], k: int) -> int:
+    """0 sentence end · 1 comma, colon, dash · 2 before a conjunction · 3 a pause · 4 anywhere else."""
+    before = ws[k - 1]["w"]
+    if ends_sentence(before):
+        return 0
+    if before.endswith((",", ";", ":", "–", "-")):
+        return 1
+    if _core(ws[k]["w"]).lower() in CONJUNCTIONS:
+        return 2
+    if ws[k]["s"] - ws[k - 1]["e"] >= PAUSE_BREAK:
+        return 3
+    return 4
 
 
 def _split_long(ws: list[dict]) -> list[list[dict]]:
-    """At the last comma, else at the longest pause — never leaving a piece under MIN_SECONDS."""
+    """A line over 14 words / 6 s / 84 characters breaks at punctuation, before a conjunction or at a pause
+    — the most even such place, never inside a phrase and never leaving a piece under MIN_SECONDS. No such
+    place: the line stays whole up to MAX_CHARS; beyond that it breaks between two phrases, and if the
+    parse sees one long phrase, at least not after an article, preposition or prefix."""
     if not _too_long(ws) or len(ws) < 2:
         return [ws]
     ok = [k for k in range(1, len(ws)) if _dur(ws[:k]) >= MIN_SECONDS and _dur(ws[k:]) >= MIN_SECONDS]
-    commas = [k for k in ok if ws[k - 1]["w"].endswith((",", ";", ":", "–", "-"))]
-    if commas:
-        k = commas[-1]
-    elif ok:
-        k = max(ok, key=lambda k: (ws[k]["s"] - ws[k - 1]["e"], k))
-    else:
+    if not ok:
         return [ws]
+    openers, phrases = opener_breaks(ws), phrase_breaks(ws)
+    good = [k for k in ok if k not in openers and k not in phrases]
+    n = len(ws)
+
+    def cost(k):
+        return break_rank(ws, k) + 2 * abs(2 * k - n) / n
+
+    natural = [k for k in good if break_rank(ws, k) <= 3]
+    if natural:
+        k = min(natural, key=cost)
+    elif len(join_words(ws)) <= MAX_CHARS:
+        return [ws]
+    else:
+        k = min(good or [k for k in ok if k not in openers] or ok, key=cost)
     return _split_long(ws[:k]) + _split_long(ws[k:])
 
 
+FORMAL = {"Sie", "Ihnen", "Ihr", "Ihre", "Ihren", "Ihrem", "Ihrer", "Ihres"}
+STARTERS = {"ich", "du", "er", "es", "wir", "man"}  # pronouns that are also nouns in the dictionary (das Ich)
+
+
+def new_sentence(prev: dict, w: dict) -> bool:
+    """#34: a capitalised sentence start in a new Whisper segment after a line that didn't end one —
+    a new speaker ("… für das Auto von meinem Konto für" | "Ich nehme zwei Brötchen."). A sentence start
+    is a pronoun or a word that is no noun (not Sie); after an article, preposition or prefix only a pronoun
+    ("Lust zum | Tanzen" stays). After an all-lowercase stretch (no capitals of its own) any capital."""
+    if w.get("seg") == prev.get("seg") or ends_sentence(prev["w"]):
+        return False
+    core = _core(w["w"])
+    if not core[:1].isupper() or core.isupper() or core in FORMAL:
+        return False
+    from .analyze import dictionary
+    d = dictionary()
+    low = core.lower()
+    if _bare(prev["w"]) and _core(prev["w"]).lower() in OPENERS:
+        return low in STARTERS
+    starter = low in STARTERS or ((low in d["entries"] or low in d["forms"])
+                                  and not any(e["pos"] == "NOUN" for e in d["entries"].get(core, [])))
+    return starter or (bool(prev.get("lc")) and not w.get("lc"))
+
+
 def build_lines(words: list[dict]) -> list[list[dict]]:
-    """Words → lines: after . ? !, at a pause ≥ 0.7 s; long lines split; short fragments joined."""
-    lines, cur = [], []
+    """Words → lines: after . ? !, at a pause ≥ 0.7 s, at a new speaker's sentence; long lines split
+    (`_split_long`); short fragments joined — but never onto another speaker's sentence."""
+    lines, hard = [], []  # hard: the line starts another speaker's sentence
+    cur, cur_hard = [], False
     for w in words:
-        if cur and w["s"] - cur[-1]["e"] >= PAUSE:
-            lines.append(cur)
-            cur = []
+        if cur:
+            starts = new_sentence(cur[-1], w)
+            if starts or w["s"] - cur[-1]["e"] >= PAUSE:
+                lines.append(cur)
+                hard.append(cur_hard)
+                cur, cur_hard = [], starts
         cur.append(w)
         if ends_sentence(w["w"]):
             lines.append(cur)
-            cur = []
+            hard.append(cur_hard)
+            cur, cur_hard = [], False
     if cur:
         lines.append(cur)
-    lines = [piece for ln in lines for piece in _split_long(ln)]
+        hard.append(cur_hard)
+    pieces, flags = [], []
+    for ln, h in zip(lines, hard):
+        for n, piece in enumerate(_split_long(ln)):
+            pieces.append(piece)
+            flags.append(h and n == 0)
+    lines, hard = pieces, flags
 
     def whole(i):  # a sentence on its own: it ends one, and the line before ended one too
         return ends_sentence(lines[i][-1]["w"]) and (i == 0 or ends_sentence(lines[i - 1][-1]["w"]))
@@ -261,22 +437,40 @@ def build_lines(words: list[dict]) -> list[list[dict]]:
     def gap(a, b):
         return lines[b][0]["s"] - lines[a][-1]["e"] if 0 <= a and b < len(lines) else float("inf")
 
+    def joinable(side, i):
+        if side == "prev":
+            return not hard[i] and gap(i - 1, i) <= JOIN_GAP
+        return i + 1 < len(lines) and not hard[i + 1] and gap(i, i + 1) <= JOIN_GAP
+
     i = 0
     while i < len(lines):
         if _dur(lines[i]) < MIN_SECONDS and not whole(i):
             # the end of a sentence goes with the line before, a beginning with the line after
             sides = ["prev", "next"] if ends_sentence(lines[i][-1]["w"]) else ["next", "prev"]
-            side = next((s for s in sides if gap(*((i - 1, i) if s == "prev" else (i, i + 1))) <= JOIN_GAP), None)
+            side = next((s for s in sides if joinable(s, i)), None)
             if side == "prev":
                 lines[i - 1] += lines.pop(i)
+                hard.pop(i)
                 i -= 1
                 continue
             if side == "next":
                 frag = lines.pop(i)
+                hard[i] = hard.pop(i)
                 lines[i] = frag + lines[i]
                 continue
         i += 1
     return lines
+
+
+ATTACHED = re.compile(r"^[-.,]\w")  # Whisper's ",50" after "2", ".500" after "3", "-Quiz" after "ARD"
+
+
+def join_words(ws: list[dict]) -> str:
+    out = ""
+    for w in ws:
+        sep = "" if not out or (ATTACHED.match(w["w"]) and out[-1].isalnum()) else " "
+        out += sep + w["w"]
+    return out
 
 
 def spoken_cues(transcript: dict, ard: list[dict]) -> list[dict]:
@@ -284,7 +478,8 @@ def spoken_cues(transcript: dict, ard: list[dict]) -> list[dict]:
     and ARD's sound cues (♪ …, * Glockenläuten *), by time."""
     words = words_of(transcript, ard)
     respell(words, ard)
-    out = [{"start": round(ln[0]["s"], 2), "end": round(ln[-1]["e"], 2), "text": " ".join(w["w"] for w in ln)}
+    recase(words)
+    out = [{"start": round(ln[0]["s"], 2), "end": round(ln[-1]["e"], 2), "text": join_words(ln)}
            for ln in build_lines(words)]
     # gap fill: an ARD speech cue with no Whisper word in it (± 0.5 s) goes in as it is, marked
     mids = [(w["s"] + w["e"]) / 2 for w in words]

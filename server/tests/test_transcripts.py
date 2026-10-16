@@ -41,10 +41,92 @@ def test_a_long_line_splits_at_its_last_comma():
     assert lines == ["Wenn du morgen kommst, bring bitte das Buch mit,", "sonst muss ich es dir am Freitag mit der Post schicken."]
 
 
-def test_a_long_line_without_comma_splits_at_its_longest_pause():
+def test_a_long_line_without_comma_splits_at_a_pause():
+    ws = words("Wir fahren heute früh mit dem alten Zug", 0.0, step=0.4) + words("nach Hamburg zu meiner Tante Gisela ans Meer.", 3.5, step=0.4)
+    # 16 words, the gap at 3.15 → 3.5 is 0.35 s (no 0.7-s pause): a natural place, between two phrases
+    assert texts(tr.build_lines(ws)) == ["Wir fahren heute früh mit dem alten Zug", "nach Hamburg zu meiner Tante Gisela ans Meer."]
+
+
+def test_a_conjunction_beats_a_short_pause():
+    """#34: a long line breaks before und/aber/dass … rather than at a 0.25-s pause."""
     ws = words("Wir fahren heute mit dem alten Zug", 0.0, step=0.4) + words("nach Hamburg und dann weiter an die Ostsee zu meiner Tante.", 3.0, step=0.4)
-    # 21 words, the gap at 2.8 → 3.0 is 0.25 s (no 0.7-s pause): the longest one
-    assert texts(tr.build_lines(ws)) == ["Wir fahren heute mit dem alten Zug", "nach Hamburg und dann weiter an die Ostsee zu meiner Tante."]
+    assert texts(tr.build_lines(ws)) == ["Wir fahren heute mit dem alten Zug nach Hamburg", "und dann weiter an die Ostsee zu meiner Tante."]
+
+
+def test_a_long_line_never_breaks_inside_a_phrase():
+    """#34, the shape of SOKO 3:31: 16 words without a pause used to lose its last 0.6 s ("… stand ein" |
+    "Karton mit Akten."). Now: before the conjunction, the article stays with its noun."""
+    ws = words("Ich bin leise in den Keller gegangen und auf dem Regal stand ein Karton mit Akten.", 0.0, step=0.28, gap=0.0)
+    assert texts(tr.build_lines(ws)) == ["Ich bin leise in den Keller gegangen", "und auf dem Regal stand ein Karton mit Akten."]
+
+
+def test_no_natural_break_keeps_the_line_whole_up_to_two_rows():
+    ws = words("Der alte Herr aus dem Dorf hinter dem Wald kaufte am Morgen drei frische Brote.", 0.0, step=0.3, gap=0.0)
+    assert len(ws) == 15 and len(tr.join_words(ws)) <= tr.MAX_CHARS
+    assert texts(tr.build_lines(ws)) == ["Der alte Herr aus dem Dorf hinter dem Wald kaufte am Morgen drei frische Brote."]
+
+
+def test_over_two_rows_it_breaks_between_phrases_never_after_an_opener():
+    ws = words("Die Kommission der Gemeinde empfiehlt eine gründliche Untersuchung der Wasserleitungen im Ortsteil Unterberg vor dem Winter.", 0.0, step=0.3, gap=0.0)
+    assert len(tr.join_words(ws)) > tr.MAX_CHARS
+    assert texts(tr.build_lines(ws)) == ["Die Kommission der Gemeinde empfiehlt", "eine gründliche Untersuchung der Wasserleitungen",
+                                         "im Ortsteil Unterberg vor dem Winter."]
+
+
+def mid_phrase(track):
+    """Matt's count: no punctuation at the end, ends on an opener, the next line within 0.5 s."""
+    return [(a["text"], b["text"]) for a, b in zip(track, track[1:])
+            if a["text"].split()[-1].lower() in tr.OPENERS and b["start"] - a["end"] <= 0.5]
+
+
+def test_the_spoken_track_has_no_mid_phrase_breaks():
+    t = {"segments": [seg("Ich bin leise in den Keller gegangen und auf dem Regal stand ein Karton mit Akten.", 1.0, step=0.28, gap=0.0),
+                      seg("Dann habe ich dort drüben im Schatten einen Mann mit einer roten Mütze gesehen.", 6.0, step=0.28, gap=0.0)]}
+    track = tr.spoken_cues(t, [])
+    assert len(track) >= 3 and mid_phrase(track) == []
+
+
+def test_whisper_word_pieces_join_without_a_space():
+    ws = [{"w": w, "s": 0.0, "e": 0.1} for w in ("Das", "kostet", "2", ",50", "Euro", "in", "der", "ARD", "-Quiz", "-App", "–", "ehrlich.")]
+    assert tr.join_words(ws) == "Das kostet 2,50 Euro in der ARD-Quiz-App – ehrlich."
+
+
+# ── #34: an all-lowercase stretch (Whisper's fast speech) ──
+
+MINI_DICT = {"entries": {"Rechnung": [{"pos": "NOUN"}], "Auto": [{"pos": "NOUN"}], "Konto": [{"pos": "NOUN"}],
+                         "Ehe": [{"pos": "NOUN"}], "ehe": [{"pos": "SCONJ"}], "Ich": [{"pos": "NOUN"}],
+                         "ich": [{"pos": "PRON"}], "zahlen": [{"pos": "VERB"}]},
+             "forms": {"zahlt": "zahlen"}}
+
+
+def test_a_lowercase_stretch_gets_its_nouns_back_and_never_runs_into_the_next_speaker(monkeypatch):
+    from kaskade import analyze
+    monkeypatch.setattr(analyze, "dictionary", lambda: MINI_DICT)
+    t = {"segments": [seg("seit unserer ehe zahlt er die rechnung für das auto von meinem konto für", 1.0, step=0.25, gap=0.0),
+                      seg("Ich nehme zwei Brötchen.", 4.75, step=0.2, gap=0.0)]}
+    lines = [c["text"] for c in tr.spoken_cues(t, [])]
+    assert lines == ["seit unserer Ehe zahlt er die Rechnung für das Auto von meinem Konto für", "Ich nehme zwei Brötchen."]
+    # ARD's capitals come first: a name the dictionary doesn't know
+    ard = [{"start": 1.0, "end": 4.0, "text": "Seit unserer Ehe zahlt Gerlinde die Rechnung."}]
+    t = {"segments": [seg("seit unserer ehe zahlt gerlinde die rechnung", 1.0, step=0.3)]}
+    assert [c["text"] for c in tr.spoken_cues(t, ard)] == ["seit unserer Ehe zahlt Gerlinde die Rechnung"]
+
+
+def test_a_new_sentence_in_a_new_segment_starts_a_line_but_sie_and_a_phrase_do_not():
+    ws = [*({**w, "seg": 0} for w in words("Hast du heute keine Zeit", 0.0)),
+          *({**w, "seg": 1} for w in words("Wir können morgen gehen.", 1.5))]
+    assert texts(tr.build_lines(ws)) == ["Hast du heute keine Zeit", "Wir können morgen gehen."]
+    ws = [*({**w, "seg": 0} for w in words("Ich weiß nicht, ob", 0.0)), *({**w, "seg": 1} for w in words("Sie das verstehen.", 1.2))]
+    assert texts(tr.build_lines(ws)) == ["Ich weiß nicht, ob Sie das verstehen."]
+
+
+def test_after_a_lowercase_stretch_a_noun_stays_with_its_article(monkeypatch):
+    from kaskade import analyze
+    monkeypatch.setattr(analyze, "dictionary", lambda: MINI_DICT)
+    t = {"segments": [seg("und das ist dann wirklich wichtig für die", 1.0, step=0.25, gap=0.0),
+                      seg("Kinder im Haus.", 3.0, step=0.25, gap=0.0)]}
+    assert [c["text"] for c in tr.spoken_cues(t, [])] == ["und das ist dann wirklich wichtig für die Kinder im Haus."]
+    assert not tr.lowercase_segment({"text": "und die dann gegangen sind,"})  # punctuated: Whisper's normal text
 
 
 def test_no_line_shorter_than_0_6_s_unless_a_whole_sentence():

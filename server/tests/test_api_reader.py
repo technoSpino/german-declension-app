@@ -43,3 +43,20 @@ def test_analyze_endpoints(client):
     assert client.post("/api/analyze", json={"text": "  "}).status_code == 422
     assert client.get("/api/texts/t01/analysis").json()["tokens"]
     assert client.get("/api/texts/t99/analysis").status_code == 404
+
+
+def test_analyze_a_line_inside_its_sentence_and_mine_the_particle_verb(client):
+    """#34 (Schauen): line 2 of a sentence over two subtitle lines, the prefix tapped → a card for einfallen."""
+    pytest.importorskip("spacy")
+    text = "Mir fällt bei diesem Wetter wirklich nichts mehr ein."
+    r = client.post("/api/analyze", json={"text": text, "focus": [28, len(text)]}).json()
+    assert r["tokens"][0]["text"] == "wirklich"
+    ein = next(t for t in r["tokens"] if t["text"] == "ein")
+    assert ein["entry"]["lemma"] == "einfallen" and ein["entry"]["target"] == "fällt"
+    for bad in ([5, 5], [-1, 4], [0, len(text) + 1]):
+        assert client.post("/api/analyze", json={"text": text, "focus": bad}).status_code == 422
+    card = client.post("/api/mined", json={"sentence": text, "target": ein["entry"]["target"], "lemma": ein["entry"]["lemma"],
+                                           "display": ein["entry"]["display"], "gloss": ein["entry"]["gloss"]}).json()
+    mined = client.get("/api/mined").json()[0]
+    assert card["id"] == mined["id"] and mined["lemma"] == "einfallen" and mined["target"] == "fällt"
+    assert mined["display"] == "einfallen · fiel ein · ist eingefallen"
