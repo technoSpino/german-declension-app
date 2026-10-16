@@ -523,14 +523,14 @@
     {
       "week": 4,
       "theme": "Freizeit, Reisen und Nachrichten",
-      "goal": "Diese Woche reist du mit „Wunderschön!“ durch die Eifel, fährst mit „Feuer & Flamme“ zu einem Einsatz, liest „Gut gegen Nordwind“ und machst am Freitag den nächsten Satz-Check mit dem neuen Tatort.",
+      "goal": "Diese Woche reist du mit „Wunderschön!“ durch die Eifel, fährst mit „Feuer & Flamme“ zu einem Einsatz, liest die ersten Kapitel von „QualityLand“ und machst am Freitag den nächsten Satz-Check mit dem neuen Tatort.",
       "days": [
         {
           "day": "Mo",
           "focus": "Freizeit und Ausflüge.",
           "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
           "input": "Wunderschön!: „Durch die wilde Nordeifel“ (ARD Mediathek · WDR), 0:00–22:06, in deiner Bibliothek. Ausdrücke für unterwegs minen.",
-          "lesen": "Daniel Glattauer: Gut gegen Nordwind (Taschenbuch, Hanser), vom Anfang bis Seite 35 — bis zum Ende der angefangenen E-Mail. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut. Danach: Easy German Podcast 691 „Auf Fehler scheißen“, 0:00–25:00, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "lesen": "Marc-Uwe Kling: QualityLand (Kindle-E-Book, Dunkle Edition), vom Anfang („Versionshinweis“) bis zum Ende von „QualityLand Reiseführer: Ohrwürmer“ — die Kapitel stehen im Kindle im Inhaltsverzeichnis. Die erfundenen Produktnamen (TheShop, QualityPartner …) sind Namen: nicht nachschlagen. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut. Danach: Easy German Podcast 691 „Auf Fehler scheißen“, 0:00–25:00, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
           "materials": [
             {
               "block": "input",
@@ -542,10 +542,14 @@
             {
               "block": "lesen",
               "kind": "book",
-              "book": "gut-gegen-nordwind",
-              "part": "Anfang bis Seite 35, bis zur nächsten E-Mail",
+              "book": "kling-qualityland",
+              "part": "Vom Anfang bis „QualityLand Reiseführer: Ohrwürmer“",
+              "chapters": [
+                "Versionshinweis",
+                "QualityLand Reiseführer: Ohrwürmer"
+              ],
               "minutes": 35,
-              "desc": "Daniel Glattauer: Gut gegen Nordwind (Taschenbuch, Hanser), vom Anfang bis Seite 35 — bis zum Ende der angefangenen E-Mail. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut."
+              "desc": "Marc-Uwe Kling: QualityLand (Kindle-E-Book, Dunkle Edition), vom Anfang („Versionshinweis“) bis zum Ende von „QualityLand Reiseführer: Ohrwürmer“ — die Kapitel stehen im Kindle im Inhaltsverzeichnis. Die erfundenen Produktnamen (TheShop, QualityPartner …) sind Namen: nicht nachschlagen. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut."
             },
             {
               "block": "lesen",
@@ -590,7 +594,7 @@
           "focus": "Wie reden Menschen spontan? Einsatz bei der Feuerwehr.",
           "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
           "input": "Feuer & Flamme, Folge 1 „Extreme Hitze bei Wohnungsbrand“ (ARD Mediathek · WDR), 0:00–21:13, in deiner Bibliothek. Spontane Sätze und Füllwörter minen: „Na ja, also …“",
-          "lesen": "Daniel Glattauer: Gut gegen Nordwind (Taschenbuch, Hanser), Seite 35 bis 70. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut. Danach: Easy German Podcast 688 „Anarchie im Kühlschrank“, 0:00–25:00, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "lesen": "Marc-Uwe Kling: QualityLand (Kindle-E-Book, Dunkle Edition), von „Ado & Eva“ („Peter Arbeitsloser hat einmal …“) bis zum Ende von „PartnerCare“ — im Kindle: Inhaltsverzeichnis → „Ado & Eva“. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut. Danach: Easy German Podcast 688 „Anarchie im Kühlschrank“, 0:00–25:00, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
           "materials": [
             {
               "block": "input",
@@ -602,10 +606,14 @@
             {
               "block": "lesen",
               "kind": "book",
-              "book": "gut-gegen-nordwind",
-              "part": "Seite 35 bis 70",
+              "book": "kling-qualityland",
+              "part": "„Ado & Eva“ („Peter Arbeitsloser hat einmal …“) bis „PartnerCare“",
+              "chapters": [
+                "Ado & Eva",
+                "PartnerCare"
+              ],
               "minutes": 35,
-              "desc": "Daniel Glattauer: Gut gegen Nordwind (Taschenbuch, Hanser), Seite 35 bis 70. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut."
+              "desc": "Marc-Uwe Kling: QualityLand (Kindle-E-Book, Dunkle Edition), von „Ado & Eva“ („Peter Arbeitsloser hat einmal …“) bis zum Ende von „PartnerCare“ — im Kindle: Inhaltsverzeichnis → „Ado & Eva“. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut."
             },
             {
               "block": "lesen",
@@ -621,7 +629,7 @@
           "focus": "Frei sprechen: kurze Sätze unter Druck.",
           "karten": "Fällige Karten und geminte Sätze, danach neue Kernwörter mit K sortieren. Höchstens 15 Minuten.",
           "input": "Feuer & Flamme, Folge 1, 21:13–44:17 (Ende). Kurze Kommandos und Rückfragen minen.",
-          "lesen": "Daniel Glattauer: Gut gegen Nordwind (Taschenbuch, Hanser), Seite 70 bis 105. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut. Danach: Easy German Podcast 687 „Kontakt mit dem Lack eines Autos“, 0:00–25:00, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "lesen": "Marc-Uwe Kling: QualityLand (Kindle-E-Book, Dunkle Edition), von „Jetzt spricht der Vater des Killerroboters“ bis zum Ende von „Kalliope 7.3“ — im Kindle: Inhaltsverzeichnis → „Jetzt spricht der Vater des Killerroboters“. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut. Danach: Easy German Podcast 687 „Kontakt mit dem Lack eines Autos“, 0:00–25:00, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
           "materials": [
             {
               "block": "input",
@@ -632,10 +640,14 @@
             {
               "block": "lesen",
               "kind": "book",
-              "book": "gut-gegen-nordwind",
-              "part": "Seite 70 bis 105",
+              "book": "kling-qualityland",
+              "part": "„Jetzt spricht der Vater des Killerroboters“ bis „Kalliope 7.3“",
+              "chapters": [
+                "Jetzt spricht der Vater des Killerroboters",
+                "Kalliope 7.3"
+              ],
               "minutes": 35,
-              "desc": "Daniel Glattauer: Gut gegen Nordwind (Taschenbuch, Hanser), Seite 70 bis 105. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut."
+              "desc": "Marc-Uwe Kling: QualityLand (Kindle-E-Book, Dunkle Edition), von „Jetzt spricht der Vater des Killerroboters“ bis zum Ende von „Kalliope 7.3“ — im Kindle: Inhaltsverzeichnis → „Jetzt spricht der Vater des Killerroboters“. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut."
             },
             {
               "block": "lesen",
@@ -651,7 +663,7 @@
           "focus": "Monatsrückblick und nächster Satz-Check.",
           "karten": "Keine neuen Kernwörter: nur Wiederholungen und die geminten Sätze.",
           "input": "Satz-Check mit „Tatort: Unter Freunden“ (ARD Mediathek · NDR): drei Minuten ab 0:00 ehrlich bewerten, danach im Schauen weiter bis 30:00.",
-          "lesen": "Daniel Glattauer: Gut gegen Nordwind (Taschenbuch, Hanser), Seite 105 bis 140. Den Schluss gern am Wochenende, ohne Pflicht. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut. Danach: Easy German Podcast 686 „Den Schuh zieh ich mir nicht an!“, 0:00–25:00, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
+          "lesen": "Marc-Uwe Kling: QualityLand (Kindle-E-Book, Dunkle Edition), von „QualityLand Reiseführer: Maschinenstürmer“ bis zum Ende von „Vorstellungsgespräch“ — im Kindle: Inhaltsverzeichnis → „QualityLand Reiseführer: Maschinenstürmer“. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut. Danach: Easy German Podcast 686 „Den Schuh zieh ich mir nicht an!“, 0:00–25:00, in deiner Bibliothek. Einfach laufen lassen: nicht pausieren, nichts nachschlagen.",
           "materials": [
             {
               "block": "input",
@@ -663,10 +675,14 @@
             {
               "block": "lesen",
               "kind": "book",
-              "book": "gut-gegen-nordwind",
-              "part": "Seite 105 bis 140",
+              "book": "kling-qualityland",
+              "part": "„QualityLand Reiseführer: Maschinenstürmer“ bis „Vorstellungsgespräch“",
+              "chapters": [
+                "QualityLand Reiseführer: Maschinenstürmer",
+                "Vorstellungsgespräch"
+              ],
               "minutes": 35,
-              "desc": "Daniel Glattauer: Gut gegen Nordwind (Taschenbuch, Hanser), Seite 105 bis 140. Den Schluss gern am Wochenende, ohne Pflicht. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut."
+              "desc": "Marc-Uwe Kling: QualityLand (Kindle-E-Book, Dunkle Edition), von „QualityLand Reiseführer: Maschinenstürmer“ bis zum Ende von „Vorstellungsgespräch“ — im Kindle: Inhaltsverzeichnis → „QualityLand Reiseführer: Maschinenstürmer“. Frei lesen: kein Wörterbuch, nicht zurückblättern — wenn du die Szene grob verstehst, ist alles gut."
             },
             {
               "block": "lesen",

@@ -16,7 +16,7 @@ import xml.etree.ElementTree as ET
 from datetime import date, datetime, time, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
-from . import config, db, plan, ratings, rolling, srs, stock, texts
+from . import config, db, plan, ratings, rolling, srs, stock, texts, themes
 
 log = logging.getLogger(__name__)
 
@@ -502,7 +502,7 @@ def notices(start: date, today: date, data: dict, ctx: Ctx) -> list[dict]:
         item = {"type": "book", "id": book_id, "by": stock.notice(first, b.get("format", "paper")).isoformat(),
                 "firstDay": first.isoformat(), "week": week(first), "title": f"{b['author']}: {b['title']}", "book": b,
                 "mode": mode if mode["mode"] == "spaeter" else None}
-        if b.get("ebook"):
+        if b.get("ebook") and b.get("format", "paper") == "paper":  # a paper book whose ebook would do too
             item["byEbook"] = stock.notice(first, "ebook").isoformat()
         out.append(item)
     kinds_used: dict[str, date] = {}
@@ -590,5 +590,7 @@ def write_check(today: date) -> dict:
     result = check(today, start, data)
     # planned clips without a transcript: for PROGRESS.md (the Mac makes them), not a gap on Heute
     result["transcripts"] = {**imported, "missing": transcripts.missing(today, start, data)}
+    result["themes"] = themes.scan()  # #33: also for the operator — a crime clip that needs a look before it's planned
     (config.DATA_DIR / CHECK_FILE).write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-    return {"gaps": result["gaps"], "checkedAt": result["checkedAt"], "transcripts": result["transcripts"]}
+    return {"gaps": result["gaps"], "checkedAt": result["checkedAt"], "transcripts": result["transcripts"],
+            "themes": result["themes"]}

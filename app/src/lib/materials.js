@@ -54,6 +54,15 @@ export function dueFor(n) {
   return `ab ${d}.${m}. im Plan, Woche ${n.week}`
 }
 
+/**
+ * Which edition to buy (#32): "Taschenbuch · ISBN 978-3-442-77066-3 · 12,00 €",
+ * an ebook with its label and ASIN: "Kindle-E-Book (Dunkle Edition) · ASIN B071436DMF · 9,99 €".
+ */
+export function bookLine(b, sep = ' · ') {
+  const what = b.format === 'ebook' ? [b.formatLabel ?? 'E-Book', b.asin ? `ASIN ${b.asin}` : `ISBN ${b.isbn}`] : ['Taschenbuch', `ISBN ${b.isbn}`]
+  return [...what, b.price].join(sep)
+}
+
 /** One line of what an item is: "Tatort: Schweigen · 0:00–30:14 · 30 min" */
 export function itemLine(item) {
   return [item.title, item.part, item.minutes ? `${item.minutes} min` : null].filter(Boolean).join(' · ')

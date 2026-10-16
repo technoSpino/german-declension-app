@@ -1,14 +1,14 @@
 """Wiederhören feed: a private podcast (RSS) with the audio of this week's input.
 
 Episodes: every library text read in the last 14 days, plus "Kernsätze der Woche"
-(each sentence reviewed in Karten this ISO week, spoken twice). Audio is Piper MP3,
+(each sentence reviewed in Karten this ISO week, spoken twice — #33: none about child abuse). Audio is Piper MP3,
 cached in ~/kaskade-data/tts/audio. The feed is reachable only on the tailnet.
 """
 from datetime import datetime, timedelta
 from email.utils import format_datetime
 from xml.sax.saxutils import escape
 
-from . import db, srs, texts
+from . import db, srs, texts, themes
 
 MP3_BYTES_PER_SEC = 64_000 / 8
 
@@ -19,7 +19,8 @@ def week_key(at: datetime) -> str:
 
 
 def week_sentences(at: datetime) -> list[str]:
-    """Distinct sentences of cards reviewed in the ISO week of `at`."""
+    """Distinct sentences of cards reviewed in the ISO week of `at`, without lines that hit #33's search
+    (the cards themselves stay as they are)."""
     local = at.astimezone(srs.TZ)
     monday = (local - timedelta(days=local.weekday())).date().isoformat()
     with db.tx() as conn:
@@ -29,7 +30,7 @@ def week_sentences(at: datetime) -> list[str]:
     out = []
     for cid in ids:
         c = srs.card_content(cid)
-        if c and c["sentence"] not in out:
+        if c and c["sentence"] not in out and not themes.ABUSE.search(c["sentence"]):
             out.append(c["sentence"])
     return out[:80]
 

@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { api } from '../../lib/api'
-import { dayLabel, dueFor, dueLabel, withinDays } from '../../lib/materials'
+import { bookLine, dayLabel, dueFor, dueLabel, withinDays } from '../../lib/materials'
 
 // "Bald fällig" (#16 Update 6): purchases and other to-dos with a date, due date first.
 // Shown from 14 days before the due date (overdue stays); the Fahrplan lists all of them.
@@ -31,7 +31,7 @@ async function tick(n) {
           <p :class="['ds-date', { 'ds-overdue': n.due.overdue }]">{{ n.due.text }}</p>
           <p class="m-0" style="font-weight: 700">{{ n.type === 'book' ? `${n.title} kaufen` : n.title }}</p>
           <p class="k-small m-0 mt-0.5">
-            {{ dueFor(n) }}<template v-if="n.type === 'book'"> · Taschenbuch, ISBN {{ n.book.isbn }}, {{ n.book.price }}<template v-if="n.byEbook"> · E-Book reicht bis {{ dayLabel(n.byEbook) }} ({{ n.book.ebook.price }})</template></template>
+            {{ dueFor(n) }}<template v-if="n.type === 'book'"> · {{ bookLine(n.book, ', ') }}<template v-if="n.byEbook"> · E-Book reicht bis {{ dayLabel(n.byEbook) }} ({{ n.book.ebook.price }})</template></template>
           </p>
           <p v-if="n.mode" class="k-small m-0 mt-0.5" style="color: var(--text)" :data-testid="`due-mode-${n.id}`">Verschoben: {{ n.mode.why }}</p>
           <p v-if="n.type === 'book'" class="k-small m-0 mt-0.5 flex flex-wrap gap-x-3">

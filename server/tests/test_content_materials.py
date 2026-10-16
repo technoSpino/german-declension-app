@@ -4,7 +4,7 @@ import re
 
 import pytest
 
-from kaskade import config, materials, practice, texts
+from kaskade import config, materials, practice, texts, themes
 
 PLANS = ["plan/weeks-1-4.json", "plan/phase-2b.json"]
 STOCK = json.loads((config.CONTENT_DIR / "plan/stock.json").read_text(encoding="utf-8"))
@@ -146,3 +146,64 @@ def test_book_parts_are_whole_stories_with_pages():
     for part in parts:
         a, b = map(int, re.match(r"S\. (\d+)–(\d+): „", part).groups())
         assert 0 < b - a < 41, part  # at most ~40 pages in a 35-minute block
+
+
+GENRES = {"scifi", "fantasy", "history", "nonfiction", "krimi"}  # #32: no romance
+
+
+def test_every_book_has_an_allowed_genre():
+    for b in BOOKS.values():
+        assert b["genre"] in GENRES, b["id"]
+    assert "gut-gegen-nordwind" not in BOOKS and not any("nordwind" in i.get("id", "") for i in STOCK.get("later", []))
+
+
+def test_qualityland_is_read_by_chapter_from_the_start():
+    """#32: whole chapters of the e-book's table of contents, in order, no gaps, ≈ 35 min at 110 words/min."""
+    b = BOOKS["kling-qualityland"]
+    assert b["format"] == "ebook" and b["asin"] and len(b["shops"]) == 1 and "amazon.de" in b["shops"][0]["url"]
+    titles = [c["title"] for c in b["chapters"]]
+    mats = [m for w in load("plan/phase-2b.json")["weeks"] for d in w["days"] for m in d["materials"]
+            if m["kind"] == "book" and m["book"] == b["id"]]
+    assert len(mats) == 4
+    nxt = 0
+    for m in mats:
+        first, last = (titles.index(t) for t in m["chapters"])
+        assert first == nxt and last >= first, m["chapters"]
+        nxt = last + 1
+        minutes = sum(c["audioMin"] for c in b["chapters"][first:last + 1]) * 137 / 110
+        assert 30 <= minutes <= 45, (m["chapters"], round(minutes))
+        assert f"„{titles[last]}“" in m["part"] and f"„{titles[last]}“" in m["desc"] and "Seite" not in m["part"]
+        assert first == 0 or f"„{titles[first]}“" in m["part"]
+
+
+THEME_CHECK = re.compile(r"^20\d\d-\d\d-\d\d: \S")
+
+
+def test_every_item_has_a_theme_check():
+    """#33: synopsis (and subtitles, once there) checked for child abuse; the result is in stock.json."""
+    for it in STOCK["items"]:
+        assert THEME_CHECK.match(it.get("themeCheck", "")), it["key"]
+        if it["tag"] == "krimi":
+            assert "Synopsis" in it["themeCheck"], it["key"]
+    for b in BOOKS.values():
+        assert THEME_CHECK.match(b.get("themeCheck", "")) or b["genre"] != "krimi", b["id"]
+
+
+def test_nothing_about_child_abuse_is_planned_after_week_1():
+    """#33: Tatort: Schweigen (week 1, seen) is the only item whose check found it; nothing later uses one."""
+    flagged = {k for k, it in KEYS.items() if it["tag"] == "krimi" and themes.CLEAN not in it["themeCheck"]}
+    assert flagged == {"tatort-schweigen"}
+    for b in BOOKS.values():
+        assert b["genre"] != "krimi" or themes.CLEAN in b["themeCheck"], b["id"]
+    for name in PLANS:
+        for week, d in days(name):
+            for m in d["materials"]:
+                assert m.get("clip") not in flagged or (name.endswith("2b.json") and week == 1), f"{name} W{week} {d['day']}"
+
+
+def test_library_texts_and_day_texts_are_clean():
+    for t in texts.library():
+        assert not themes.ABUSE.search(t["title"] + " " + t["text"]), t["id"]
+    for name in PLANS:
+        for week, d in days(name):
+            assert not themes.ABUSE.search(json.dumps(d, ensure_ascii=False)), f"{name} W{week} {d['day']}"

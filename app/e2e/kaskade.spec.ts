@@ -877,6 +877,42 @@ test('Material on Friday: the next plan day is Monday', async ({ page }) => {
   await expect(page.getByTestId('due-schirach-verbrechen')).toHaveCount(0)
 })
 
+test('#32 Bald fällig: QualityLand as a Kindle ebook, due Sa 31.10., one shop link, no paper option', async ({ page, request }) => {
+  const errors = watchConsole(page)
+  await page.addInitScript(() => { try { localStorage.setItem('kaskade-theme', 'signal') } catch { /* about:blank */ } })
+  // Fahrplan → Nächste Schritte lists it with the edition (Matt's 2B plan)
+  const restore = asMatt()
+  try {
+    await page.goto('/fahrplan')
+    await expect(page.getByTestId('fp-notice-kling-qualityland')).toContainText('Kindle-E-Book (Dunkle Edition) · ASIN B071436DMF · 9,99 € · ab 2.11. im Plan, Woche 4')
+    await expect(page.getByTestId('fp-upcoming')).not.toContainText('Nordwind')
+  } finally {
+    restore()
+  }
+  await materialsAt(page, '2026-10-30')
+  await page.goto('/')
+  const due = page.getByTestId('due-kling-qualityland')
+  await expect(due).toContainText('Fällig Sa 31.10. · morgen')
+  await expect(due).toContainText('Marc-Uwe Kling: QualityLand kaufen')
+  await expect(due).toContainText('ab 2.11. im Plan, Woche 4 · Kindle-E-Book (Dunkle Edition), ASIN B071436DMF, 9,99 €')
+  await expect(due).not.toContainText('Taschenbuch')
+  await expect(due).not.toContainText('E-Book reicht')
+  await expect(due.getByRole('link')).toHaveCount(1)
+  await expect(due.getByRole('link', { name: 'Amazon.de (Kindle) ↗' })).toHaveAttribute('href', 'https://www.amazon.de/dp/B071436DMF')
+  // Friday → the next plan day is Monday 2.11.: the first chapters, by name
+  const lesen = page.getByTestId('mat-next-lesen')
+  await expect(lesen).toContainText('Marc-Uwe Kling: QualityLand')
+  await expect(lesen).toContainText('Vom Anfang bis „QualityLand Reiseführer: Ohrwürmer“')
+  for (const width of [1280, 480]) {
+    await page.setViewportSize({ width, height: 900 })
+    await due.screenshot({ path: join(SHOTS, `bald-faellig-qualityland-${width}.png`) })
+  }
+  await page.getByTestId('due-done-kling-qualityland').click()
+  await expect(due).toHaveCount(0)
+  await request.post('http://127.0.0.1:8001/api/books/kling-qualityland/bought', { data: { done: false } })
+  expect(errors).toEqual([])
+})
+
 test('Schauen with a plan range: starts there and says "Ziel für heute erreicht" at the end', async ({ page, request }) => {
   const errors = watchConsole(page)
   const clip = await tatortClip(request)

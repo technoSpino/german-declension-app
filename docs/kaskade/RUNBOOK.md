@@ -36,7 +36,7 @@ Tailscale IP 100.64.43.3.
 |---|---|---|
 | `kaskade.db` | all progress: cards/FSRS, tests, placement, timers, immersion, settings | yes |
 | `media/` | clips: your uploads (`upload-*`, backed up) and plan stock fetched by Kaskade (`stock-*`, `mt-*`: Mediathek/podcast, **not** backed up — `scripts/stock.py` fetches them again) | uploads only |
-| `materialcheck.json` | result of the daily Materialcheck (gaps in the next 7 days, link status) | no (regenerated) |
+| `materialcheck.json` | result of the daily Materialcheck (gaps in the next 7 days, link status, missing transcripts, `themes`: library clips with child-abuse hits, #33) | no (regenerated) |
 | `recordings/` | Sprechen recordings | yes |
 | `snippets/` | audio of lines mined in Schauen & minen | yes |
 | `tts/` | Piper voice + generated audio | no (regenerate) |
@@ -111,3 +111,4 @@ before major upgrades.
 | Karten and Schauen (#30) E2E in WebKit / Firefox | WebKit: `deploy/webkit-e2e-setup.sh` once (no root), then run as its header says (`--project webkit`). Firefox: `KASKADE_FIREFOX=1 … --project firefox`; the autoplay timing test is skipped there (no audio output on this box) |
 | Schauen started a clip at 0:00 / a position went backwards | every saved position is in the API log: `journalctl --user -u kaskade-api | grep 'position media'` (old → new). A jump back of > 60 s that wasn't ← or a chosen line is a `WARNING … jumped back from X to Y`. Matt has "↩ Zurück zu …" on the page, and Starten ignores a saved position before today's part once the day before reached it (#30) |
 | The same podcast/radio play comes back the next day | audio heard outside Kaskade (phone) counts once he rates it on Heute (any %) or ticks the block off (#31). Neither happened → it rolls on, as a clip he hasn't seen would. Check `ratings` / `plan_done` for that day and block |
+| Picking a new crime item or book (#32, #33) | books: no romance — `genre` in stock.json is scifi, fantasy, history, nonfiction or krimi. Crime: read the broadcaster's/publisher's synopsis; nothing where child sexual abuse is the case or a main thread. Once its subtitles or transcript are in, the 06:30 Materialcheck searches them (`kaskade/themes.py`, `ABUSE`) and lists hits under `themes` in `materialcheck.json`; `review` set → decide before it is planned (journal: `grep themeCheck`). Write the result into the item as `"themeCheck": "<date>: Synopsis + UT geprüft, kein Kindesmissbrauch"` (`UT folgt` while it isn't imported). |
