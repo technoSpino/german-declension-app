@@ -188,7 +188,7 @@ def test_import_builds_the_track_once_and_follows_the_file(client):
     tr.transcripts_dir().mkdir(parents=True, exist_ok=True)
     f = config.DATA_DIR / "transcripts" / "upload-7.whisper.json"
     f.write_text(json.dumps({"model": "test", "segments": [seg("Wo ist denn der Schlüssel?", 1.1)]}), encoding="utf-8")
-    assert tr.import_all() == {"withTranscript": [mid], "changed": [mid], "errors": []}
+    assert tr.import_all() == {"withTranscript": [mid], "changed": [mid], "errors": [], "kept": []}
     assert tr.import_all()["changed"] == []  # idempotent
     assert tr.load(mid)[0]["text"] == "Wo ist denn der Schlüssel?"
     m = client.get(f"/api/media/{mid}").json()
@@ -319,3 +319,70 @@ def test_reimport_when_the_file_changes(client):
     assert client.get(f"/api/media/{mid}").json()["spokenCues"][0]["text"] == "Wo ist nur der Schlüssel?"
     assert tr.import_all()["changed"] == []
     assert tr.import_all(force=True)["changed"] == []  # rebuilt, same result
+
+
+# ── #35: what he is in the middle of keeps its lines ──
+
+def test_a_started_clip_keeps_its_track_until_he_is_through(client):
+    import os
+    cues = [{"start": 1.0, "end": 3.0, "text": "Wo ist der Schlüssel?"}, {"start": 96.0, "end": 100.0, "text": "Ende."}]
+    with db.tx() as conn:
+        mid = conn.execute("INSERT INTO media(created_at, kind, title, media_file, cues) VALUES (?, ?, ?, ?, ?)",
+                           (db.now_iso(), "upload", "Probe", "upload-11.mp4", json.dumps(cues))).lastrowid
+    tr.transcripts_dir().mkdir(parents=True, exist_ok=True)
+    f = tr.path_for("upload-11.mp4")
+    f.write_text(json.dumps({"segments": [seg("Wo ist der Schlüssel denn?", 1.1)]}), encoding="utf-8")
+    os.utime(f, ns=(1_000_000_000, 1_000_000_000))
+    assert tr.import_all()["changed"] == [mid]
+    before = tr.load(mid)
+
+    def watched(position):
+        client.put(f"/api/media/{mid}/progress", json={"position": position})
+
+    # half watched: a new builder or a new file changes nothing, also with --force
+    watched(40.0)
+    assert tr.in_progress(mid)
+    f.write_text(json.dumps({"segments": [seg("Wo ist nur der Schlüssel?", 1.1)]}), encoding="utf-8")
+    os.utime(f, ns=(2_000_000_000, 2_000_000_000))
+    assert tr.import_all() == {"withTranscript": [mid], "changed": [], "errors": [], "kept": [mid]}
+    assert tr.import_all(force=True)["kept"] == [mid]
+    assert client.get(f"/api/media/{mid}").json()["spokenCues"] == before  # opening it doesn't either
+    assert tr.import_all(mid)["kept"] == [mid]
+    # the operator names it: rebuilt
+    assert tr.import_all(mid, force=True)["changed"] == [mid]
+    assert tr.load(mid)[0]["text"] == "Wo ist nur der Schlüssel?"
+
+
+def test_a_finished_clip_and_an_unstarted_one_get_the_new_lines(client):
+    import os
+    cues = [{"start": 1.0, "end": 3.0, "text": "Wo ist der Schlüssel?"}, {"start": 96.0, "end": 100.0, "text": "Ende."}]
+    ids = []
+    for n in (12, 13):
+        with db.tx() as conn:
+            ids.append(conn.execute("INSERT INTO media(created_at, kind, title, media_file, cues) VALUES (?, ?, ?, ?, ?)",
+                                    (db.now_iso(), "upload", "Probe", f"upload-{n}.mp4", json.dumps(cues))).lastrowid)
+        tr.transcripts_dir().mkdir(parents=True, exist_ok=True)
+        tr.path_for(f"upload-{n}.mp4").write_text(json.dumps({"segments": [seg("Wo ist der Schlüssel denn?", 1.1)]}), encoding="utf-8")
+    assert sorted(tr.import_all()["changed"]) == ids
+    client.put(f"/api/media/{ids[0]}/progress", json={"position": 92.0})  # within 10 s of the end: finished
+    client.put(f"/api/media/{ids[1]}/progress", json={"position": 1.0})   # only opened: not started
+    assert not tr.in_progress(ids[0]) and not tr.in_progress(ids[1])
+    for n in (12, 13):
+        f = tr.path_for(f"upload-{n}.mp4")
+        f.write_text(json.dumps({"segments": [seg("Wo ist nur der Schlüssel?", 1.1)]}), encoding="utf-8")
+        os.utime(f, ns=(3_000_000_000, 3_000_000_000))
+    assert sorted(tr.import_all()["changed"]) == ids
+
+
+def test_the_end_of_a_planned_clip_is_where_the_plan_stops(client):
+    """Tatort: Schweigen's plan ends at 89:21 (before the credits): his 89:19 is finished."""
+    cues = [{"start": 1.0, "end": 3.0, "text": "Wo ist der Schlüssel?"}, {"start": 5500.0, "end": 5502.0, "text": "Abspann."}]
+    with db.tx() as conn:
+        mid = conn.execute("INSERT INTO media(created_at, kind, title, media_file, cues, key) VALUES (?, ?, ?, ?, ?, ?)",
+                           (db.now_iso(), "mediathek", "Schweigen", "x.mp4", json.dumps(cues), "tatort-schweigen")).lastrowid
+    db.set_setting("phase", "2B")
+    assert tr.clip_end(mid) == 5361
+    client.put(f"/api/media/{mid}/progress", json={"position": 5359.6})
+    assert not tr.in_progress(mid)
+    client.put(f"/api/media/{mid}/progress", json={"position": 1314.0})
+    assert tr.in_progress(mid)

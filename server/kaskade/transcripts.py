@@ -504,15 +504,53 @@ def stamp(p: Path) -> str:
     return f"{st.st_mtime_ns}:{st.st_size}:{BUILD}"
 
 
+STARTED = 2.0  # s: a saved position past this = he has started the clip (Schauen says "Weiterschauen")
+
+
+def clip_end(media_id: int) -> float | None:
+    """Where the clip ends for him: the plan's last "to" (before the credits), else its length or last cue."""
+    from . import plan, rolling, stock
+    with db.tx() as conn:
+        r = conn.execute("SELECT key, duration, cues FROM media WHERE id = ?", (media_id,)).fetchone()
+    if not r:
+        return None
+    cues = json.loads(r["cues"] or "[]")
+    length = r["duration"] or (cues[-1]["end"] if cues else None) or (stock.item(r["key"]) or {}).get("duration")
+    if not r["key"]:
+        return length
+    data = plan.plan(db.get_setting("phase"))
+    planned = [s for b in plan.block_ids() for s in rolling.slots(date(2026, 1, 5), data, b)
+               if rolling.rolls(s["m"]) and s["m"]["clip"] == r["key"]]
+    return rolling.clip_end(planned, length) if planned else length
+
+
+def in_progress(media_id: int) -> bool:
+    """#35: started but not finished — then its lines stay exactly as they are until he is through.
+    Finished = his position within 10 s of the end (#21's rule), the end being the plan's last "to"."""
+    with db.tx() as conn:
+        r = conn.execute("SELECT position FROM media_progress WHERE media_id = ?", (media_id,)).fetchone()
+    if not r or r["position"] <= STARTED:
+        return False
+    end = clip_end(media_id)
+    if end is None:
+        return True  # length unknown: rather keep it
+    from .rolling import DONE_SLACK
+    return r["position"] < end - min(DONE_SLACK, end / 10)
+
+
 def import_all(media_id: int | None = None, force: bool = False) -> dict:
     """(Re)build media.spoken_cues where a transcript file is new or changed (mtime/size) or the builder
     is newer; a clip whose file is gone loses its track. A file still being copied (bad JSON) keeps the
-    last good track and is tried again next time."""
-    changed, have, errors = [], [], []
+    last good track and is tried again next time.
+
+    #35: a clip he has started and not finished keeps its track as it is (`kept`) — also with `force`,
+    unless the operator names it (`media_id` and `force`). Once he is through, the next import rebuilds it."""
+    changed, have, errors, kept = [], [], [], []
     with db.tx() as conn:
         q = "SELECT id, media_file, cues, spoken_cues, spoken_stamp FROM media WHERE media_file IS NOT NULL"
         rows = conn.execute(q + (" AND id = ?" if media_id is not None else ""),
                             (media_id,) if media_id is not None else ()).fetchall()
+    named = force and media_id is not None
     for r in rows:
         p = path_for(r["media_file"])
         new = mark = None
@@ -521,6 +559,12 @@ def import_all(media_id: int | None = None, force: bool = False) -> dict:
             mark = stamp(p)
             if mark == r["spoken_stamp"] and not force:
                 continue
+        elif r["spoken_stamp"] is None:
+            continue  # no file and no track: nothing to do
+        if not named and in_progress(r["id"]):
+            kept.append(r["id"])
+            continue
+        if p.exists():
             try:
                 new = json.dumps(spoken_cues(json.loads(p.read_text(encoding="utf-8")), json.loads(r["cues"])),
                                  ensure_ascii=False)
@@ -532,7 +576,7 @@ def import_all(media_id: int | None = None, force: bool = False) -> dict:
                 conn.execute("UPDATE media SET spoken_cues = ?, spoken_stamp = ? WHERE id = ?", (new, mark, r["id"]))
             if new != r["spoken_cues"]:
                 changed.append(r["id"])
-    return {"withTranscript": have, "changed": changed, "errors": errors}
+    return {"withTranscript": have, "changed": changed, "errors": errors, "kept": kept}
 
 
 def missing(today: date, start: date, data: dict, days: int = 14) -> list[dict]:
@@ -564,5 +608,9 @@ def load(media_id: int) -> list[dict] | None:
 
 
 if __name__ == "__main__":
+    # --force rebuilds every track (not the ones he is in the middle of); --force <id> also that one (#35)
     db.init()
-    print(json.dumps(import_all(force="--force" in sys.argv), indent=2))
+    ids = [int(a) for a in sys.argv[1:] if a.isdigit()]
+    force = "--force" in sys.argv
+    out = [import_all(i, force=force) for i in ids] if ids else [import_all(force=force)]
+    print(json.dumps(out[0] if len(out) == 1 else out, indent=2))
